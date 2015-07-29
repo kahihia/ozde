@@ -7,5 +7,5 @@ urlpatterns = patterns('',
 	url(r'^$', 'hotels.views.home', name='home'),
 
     url(r'^admin/', include(admin.site.urls)),
-	url(r'', include('social_auth.urls')),	
+	url(r'', include('social_auth.urls')),		
 )

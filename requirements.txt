@@ -1,2 +1,4 @@
 Django==1.6.5
 django-social-auth
+django-compressor
+django-templated-email
