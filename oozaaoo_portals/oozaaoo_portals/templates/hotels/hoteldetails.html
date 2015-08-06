@@ -1,0 +1,1026 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}           
+
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a>
+                </li>
+                <li><a href="#">United States</a>
+                </li>
+                <li><a href="#">New York (NY)</a>
+                </li>
+                <li><a href="#">New York City</a>
+                </li>
+                <li><a href="#">New York City Hotels</a>
+                </li>
+                <li class="active">InterContinental New York Barclay</li>
+            </ul>
+            <div class="booking-item-details">
+                <header class="booking-item-header">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h2 class="lh1em">{{hotels.hn}}</h2>
+                            <p class="lh1em text-small"><i class="fa fa-map-marker"></i>{{hotels.address}}</p>
+                            <ul class="list list-inline text-small">
+                                <li><a href="#"><i class="fa fa-envelope"></i> Hotel E-mail</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-home"></i> Hotel Website</a>
+                                </li>
+                                <li><i class="fa fa-phone"></i> +1 (163) 493-1463</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="booking-item-header-price"><small>price from</small>  <span class="text-lg">&#8377;{{hotels.prc}}</span>/night</p>
+                        </div>
+                    </div>
+                </header>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="tabbable booking-details-tabbable">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-camera"></i>Photos</a>
+                                </li>
+                                <li><a href="#google-map-tab" data-toggle="tab"><i class="fa fa-map-marker"></i>On the Map</a>
+                                </li>
+                            </ul>
+                            
+
+                            <div class="idp_shoe_gallery">
+                                     <div id="product_angle">
+                                     
+                                     <img src="{{hotels.gallery.2.2}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
+                                       <!-- {% for image in hotels.gallery %}
+                                            <img src="{{image.2}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />                                   
+                                        {%endfor%} -->
+                                       </div><!-- product_angle -->
+                                     <div class="idp_views_tab">
+                                         <h3>Royal Blue Velvet</h3>
+                                         <div class="view_gallery view_glry_act" id="black" style="display:block;">
+                                         {% for image in hotels.gallery %}
+                                             <span><img src="{{image.0}}" alt="" /></span>
+                                             <div><img src="{{image.2}}" alt="" /></div>
+                                         {%endfor%}   
+                                             
+                                         </div><!-- view_gallery -->
+                                         <div class="clear_both"></div>
+                                     </div><!-- idp_views_tab -->
+                                     <div class="clear_both"></div>
+                                </div><!-- idp_shoe_gallery -->
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="booking-item-meta">
+                            <h2 class="lh1em mt40">Exeptional!</h2>
+                            <h3>97% <small >of guests recommend</small></h3>
+                            <div class="booking-item-rating">
+                                <ul class="icon-list icon-group booking-item-rating-stars">
+                                    <li><i class="fa fa-star"></i>
+                                    </li>
+                                    <li><i class="fa fa-star"></i>
+                                    </li>
+                                    <li><i class="fa fa-star"></i>
+                                    </li>
+                                    <li><i class="fa fa-star"></i>
+                                    </li>
+                                    <li><i class="fa fa-star"></i>
+                                    </li>
+                                </ul><span class="booking-item-rating-number"><b >4.7</b> of 5 <small class="text-smaller">guest rating</small></span>
+                                <p><a class="text-default" href="#">based on 1535 reviews</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 class="lh1em"> BOOKING DETAILS </h4>
+                                <form name="probook" id="probook" action="{% url "hotels.views.gethoteldetails" %}" method="post">
+
+                                <ul class="list booking-item-raiting-list">
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">CheckIn</div>
+                                        <div class="booking-item-raiting-list-number">1223</div>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">CheckOut</div>ss
+                                        <div class="booking-item-raiting-list-number">61</div>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Rooms</div>
+                                        <div class="booking-item-raiting-list-number">4</div>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Adults</div>
+                                        
+                                        <div class="booking-item-raiting-list-number">1</div>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Children</div>                                        
+                                        <div class="booking-item-raiting-list-number">9</div>
+                                    </li>
+                                </ul>
+                                {% csrf_token %}
+
+                                {% for hotelroominfo in hotelroominfos %}
+                                <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
+                                <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
+                                {% endfor %}                               
+                                <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
+                                <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
+                                <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
+                                <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
+                                <a href="{% url "hotels.views.setprovisionalbooking" %}">Book Now</a>
+                                <input type="submit" name="booknow" value="Book Now" class="btn btn-primary" />
+                                </form>
+
+                            </div>
+                            <!-- <div class="col-md-4">
+                                <h4 class="lh1em">Summary</h4>
+                                <ul class="list booking-item-raiting-summary-list">
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Sleep</div>
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Location</div>
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o text-gray"></i>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Service</div>
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Clearness</div>
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Rooms</div>
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                            <li><i class="fa fa-smile-o"></i>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        </div>
+                        <!-- <a href="#" class="btn btn-primary">Write a Review</a> -->
+                        
+                    </div>
+                </div>
+                <div class="gap"></div>
+                <h3>About Hotel</h3>
+                {{hotels.des}}
+                <div class="gap"></div>
+
+                <div class="row">
+                    <!--div class="col-md-9">
+                        <div class="booking-item-dates-change">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-daterange" data-date-format="MM d, D">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                        <label>Check in</label>
+                                                        <input class="form-control" name="start" type="text" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                        <label>Check out</label>
+                                                        <input class="form-control" name="end" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group form-group-select-plus">
+                                            <label>Adults</label>
+                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
+                                                <label class="btn btn-primary active">
+                                                    <input type="radio" name="options" />1</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />2</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />3</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />3+</label>
+                                            </div>
+                                            <select class="form-control hidden">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option selected="selected">4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                                <option>13</option>
+                                                <option>14</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group form-group-select-plus">
+                                            <label>Children</label>
+                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
+                                                <label class="btn btn-primary active">
+                                                    <input type="radio" name="options" />0</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />1</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />2</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />2+</label>
+                                            </div>
+                                            <select class="form-control hidden">
+                                                <option>0</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option selected="selected">3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                                <option>13</option>
+                                                <option>14</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group form-group-select-plus">
+                                            <label>Rooms</label>
+                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
+                                                <label class="btn btn-primary active">
+                                                    <input type="radio" name="options" />1</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />2</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />3</label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" />3+</label>
+                                            </div>
+                                            <select class="form-control hidden">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option selected="selected">4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                                <option>13</option>
+                                                <option>14</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="gap gap-small"></div>
+                        <ul class="booking-list">
+                            <li>
+                                <a class="booking-item">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY RIO INTERNACIONAL rooftop pool" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="booking-item-title">Superior Penthouse</h5>
+                                            <p class="text-small">Platea fringilla cursus aliquam euismod integer viverra dis facilisi in augue vehicula sed</p>
+                                            <ul class="booking-item-features booking-item-features-sign clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x 1</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Children Occupancy"><i class="im im-children"></i><span class="booking-item-feature-sign">x 1</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Beds"><i class="im im-bed"></i><span class="booking-item-feature-sign">x 1</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="im im-width"></i><span class="booking-item-feature-sign">320</span>
+                                                </li>
+                                            </ul>
+                                            <ul class="booking-item-features booking-item-features-small clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Air Conditioning"><i class="im im-air"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Flat Screen TV"><i class="im im-tv"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Mini Bar"><i class="im im-bar"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Bathtub"><i class="im im-bathtub"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Kitchen"><i class="im im-kitchen"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Patio"><i class="im im-patio"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Washing Machine"><i class="im im-washing-machine"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Pool"><i class="im im-pool"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3"><span class="booking-item-price">$428</span><span>/night</span><span class="btn btn-primary">Book</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="booking-item">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="The pool" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="booking-item-title">Family Suite</h5>
+                                            <p class="text-small">Metus eu eros ipsum mattis vehicula nisl egestas nec ultrices varius semper laoreet</p>
+                                            <ul class="booking-item-features booking-item-features-sign clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x 2</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Beds"><i class="im im-bed"></i><span class="booking-item-feature-sign">x 1</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="im im-width"></i><span class="booking-item-feature-sign">580</span>
+                                                </li>
+                                            </ul>
+                                            <ul class="booking-item-features booking-item-features-small clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Mini Bar"><i class="im im-bar"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Bathtub"><i class="im im-bathtub"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Kitchen"><i class="im im-kitchen"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Patio"><i class="im im-patio"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Soundproof"><i class="im im-soundproof"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="SPA tub"><i class="im im-spa"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Terrace"><i class="im im-terrace"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Washing Machine"><i class="im im-washing-machine"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3"><span class="booking-item-price">$211</span><span>/night</span><span class="btn btn-primary">Book</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="booking-item">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO lobby" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="booking-item-title">Standard Double room</h5>
+                                            <p class="text-small">Molestie purus euismod fames odio volutpat eleifend turpis nec cras quam litora dignissim</p>
+                                            <ul class="booking-item-features booking-item-features-sign clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x 2</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Children Occupancy"><i class="im im-children"></i><span class="booking-item-feature-sign">x 2</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Beds"><i class="im im-bed"></i><span class="booking-item-feature-sign">x 1</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="im im-width"></i><span class="booking-item-feature-sign">730</span>
+                                                </li>
+                                            </ul>
+                                            <ul class="booking-item-features booking-item-features-small clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Air Conditioning"><i class="im im-air"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Mini Bar"><i class="im im-bar"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Bathtub"><i class="im im-bathtub"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Kitchen"><i class="im im-kitchen"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Patio"><i class="im im-patio"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Terrace"><i class="im im-terrace"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Washing Machine"><i class="im im-washing-machine"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Pool"><i class="im im-pool"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3"><span class="booking-item-price">$493</span><span>/night</span><span class="btn btn-primary">Book</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="booking-item">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel 2" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="booking-item-title">Double Room with Town View</h5>
+                                            <p class="text-small">Curae lacus platea sociis mauris hendrerit sed fringilla dignissim cum mi amet orci</p>
+                                            <ul class="booking-item-features booking-item-features-sign clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x 2</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Children Occupancy"><i class="im im-children"></i><span class="booking-item-feature-sign">x 2</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Beds"><i class="im im-bed"></i><span class="booking-item-feature-sign">x 2</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="im im-width"></i><span class="booking-item-feature-sign">310</span>
+                                                </li>
+                                            </ul>
+                                            <ul class="booking-item-features booking-item-features-small clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Flat Screen TV"><i class="im im-tv"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Kitchen"><i class="im im-kitchen"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Patio"><i class="im im-patio"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Soundproof"><i class="im im-soundproof"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="SPA tub"><i class="im im-spa"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Washing Machine"><i class="im im-washing-machine"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3"><span class="booking-item-price">$451</span><span>/night</span><span class="btn btn-primary">Book</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="booking-item">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel 1" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="booking-item-title">Junior Suite</h5>
+                                            <p class="text-small">Tellus auctor sem sociosqu cras cursus vitae erat aliquam adipiscing iaculis suscipit curabitur</p>
+                                            <ul class="booking-item-features booking-item-features-sign clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x 3</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Children Occupancy"><i class="im im-children"></i><span class="booking-item-feature-sign">x 2</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Beds"><i class="im im-bed"></i><span class="booking-item-feature-sign">x 1</span>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="im im-width"></i><span class="booking-item-feature-sign">470</span>
+                                                </li>
+                                            </ul>
+                                            <ul class="booking-item-features booking-item-features-small clearfix">
+                                                <li rel="tooltip" data-placement="top" title="Air Conditioning"><i class="im im-air"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Flat Screen TV"><i class="im im-tv"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Mini Bar"><i class="im im-bar"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Bathtub"><i class="im im-bathtub"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Kitchen"><i class="im im-kitchen"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Patio"><i class="im im-patio"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Soundproof"><i class="im im-soundproof"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Terrace"><i class="im im-terrace"></i>
+                                                </li>
+                                                <li rel="tooltip" data-placement="top" title="Pool"><i class="im im-pool"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3"><span class="booking-item-price">$318</span><span>/night</span><span class="btn btn-primary">Book</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>About the Hotel</h4>
+                        <p class="mb30">{{hotels.des}}</p>
+                        <h4>Hotel Facilities</h4>
+                        <ul class="booking-item-features booking-item-features-expand mb30 clearfix">
+                            <li><i class="im im-wi-fi"></i><span class="booking-item-feature-title">Wi-Fi Internet</span>
+                            </li>
+                            <li><i class="im im-parking"></i><span class="booking-item-feature-title">Parking</span>
+                            </li>
+                            <li><i class="im im-plane"></i><span class="booking-item-feature-title">Airport Transport</span>
+                            </li>
+                            <li><i class="im im-bus"></i><span class="booking-item-feature-title">Shuttle Bus Service</span>
+                            </li>
+                            <li><i class="im im-fitness"></i><span class="booking-item-feature-title">Fitness Center</span>
+                            </li>
+                            <li><i class="im im-pool"></i><span class="booking-item-feature-title">Pool</span>
+                            </li>
+                            <li><i class="im im-spa"></i><span class="booking-item-feature-title">SPA</span>
+                            </li>
+                            <li><i class="im im-restaurant"></i><span class="booking-item-feature-title">Restaurant</span>
+                            </li>
+                            <li><i class="im im-wheel-chair"></i><span class="booking-item-feature-title">Wheelchair Access</span>
+                            </li>
+                            <li><i class="im im-business-person"></i><span class="booking-item-feature-title">Business Center</span>
+                            </li>
+                            <li><i class="im im-children"></i><span class="booking-item-feature-title">Children Activites</span>
+                            </li>
+                            <li><i class="im im-casino"></i><span class="booking-item-feature-title">Casino & Gambling</span>
+                            </li>
+                            <li><i class="im im-bar"></i><span class="booking-item-feature-title">Bar/Lounge</span>
+                            </li>
+                        </ul>
+                    </div!-->
+                </div>
+                <h3 class="mb20">Hotel Reviews</h3>
+                <div class="row row-wrap">
+                    <div class="col-md-8">
+                        <ul class="booking-item-reviews list">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="booking-item-review-person">
+                                            <a class="booking-item-review-person-avatar round" href="#">
+                                                <img src="img/70x70.png" alt="Image Alternative text" title="Afro" />
+                                            </a>
+                                            <p class="booking-item-review-person-name"><a href="#">John Doe</a>
+                                            </p>
+                                            <p class="booking-item-review-person-loc">Palm Beach, FL</p><small><a href="#">143 Reviews</a></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="booking-item-review-content">
+                                            <h5>"Ridiculus volutpat varius"</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                            </ul>
+                                            <p>{{review.reviewContent}}<span class="booking-item-review-more"> </span>
+                                            </p>
+                                            <div class="booking-item-review-more-content">
+                                                <p>Fringilla dictum montes eget senectus cras dictum dictum sollicitudin maecenas</p>
+                                                <p>Aliquam quisque orci auctor auctor natoque ultrices elit quisque porta tortor sollicitudin bibendum proin facilisi duis magna risus fringilla donec velit justo pretium curabitur velit quis platea tristique libero iaculis velit scelerisque ullamcorper id proin placerat faucibus hac purus tristique consectetur interdum donec fames euismod consequat sodales egestas faucibus</p>
+                                                <p class="text-small mt20">Stayed March 2014, traveled as a couple</p>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <ul class="list booking-item-raiting-summary-list">
+                                                            <li>
+                                                                <div class="booking-item-raiting-list-title">Sleep</div>
+                                                                <ul class="icon-group booking-item-rating-stars">
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o text-gray"></i>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <div class="booking-item-raiting-list-title">Location</div>
+                                                                <ul class="icon-group booking-item-rating-stars">
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <div class="booking-item-raiting-list-title">Service</div>
+                                                                <ul class="icon-group booking-item-rating-stars">
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <ul class="list booking-item-raiting-summary-list">
+                                                            <li>
+                                                                <div class="booking-item-raiting-list-title">Clearness</div>
+                                                                <ul class="icon-group booking-item-rating-stars">
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o text-gray"></i>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <div class="booking-item-raiting-list-title">Rooms</div>
+                                                                <ul class="icon-group booking-item-rating-stars">
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                    <li><i class="fa fa-smile-o"></i>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="booking-item-review-expand"><span class="booking-item-review-expand-more">More <i class="fa fa-angle-down"></i></span><span class="booking-item-review-expand-less">Less <i class="fa fa-angle-up"></i></span>
+                                            </div>
+                                            <p class="booking-item-review-rate">Was this review helpful?
+                                                <a class="fa fa-thumbs-o-up box-icon-inline round" href="#"></a><b class="text-color"> 7</b>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                        <div class="row wrap">
+                            <div class="col-md-5">
+                                <p><small>1108 reviews on this hotel. &nbsp;&nbsp;Showing 1 to 7</small>
+                                </p>
+                            </div>
+                            <div class="col-md-7">
+                                <ul class="pagination">
+                                    <li class="active"><a href="#">1</a>
+                                    </li>
+                                    <li><a href="#">2</a>
+                                    </li>
+                                    <li><a href="#">3</a>
+                                    </li>
+                                    <li><a href="#">4</a>
+                                    </li>
+                                    <li><a href="#">5</a>
+                                    </li>
+                                    <li><a href="#">6</a>
+                                    </li>
+                                    <li><a href="#">7</a>
+                                    </li>
+                                    <li class="dots">...</li>
+                                    <li><a href="#">43</a>
+                                    </li>
+                                    <li class="next"><a href="#">Next Page</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="gap gap-small"></div>
+                        <div class="box bg-gray">
+                            <h3>Write a Review</h3>
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Review Title</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Review Text</label>
+                                            <textarea class="form-control" rows="6"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="list booking-item-raiting-summary-list stats-list-select">
+                                            <li>
+                                                <div class="booking-item-raiting-list-title">Sleep</div>
+                                                <ul class="icon-group booking-item-rating-stars">
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <div class="booking-item-raiting-list-title">Location</div>
+                                                <ul class="icon-group booking-item-rating-stars">
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <div class="booking-item-raiting-list-title">Service</div>
+                                                <ul class="icon-group booking-item-rating-stars">
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <div class="booking-item-raiting-list-title">Clearness</div>
+                                                <ul class="icon-group booking-item-rating-stars">
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <div class="booking-item-raiting-list-title">Rooms</div>
+                                                <ul class="icon-group booking-item-rating-stars">
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                    <li><i class="fa fa-smile-o"></i>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <input class="btn btn-primary" type="submit" value="Leave a Review" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Hotels Near InterContinental New York Barclay</h4>
+                        <ul class="booking-list">
+                            <li>
+                                <div class="booking-item booking-item-small">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <h5 class="booking-item-title">Waldorf Astoria New York</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$345</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="booking-item booking-item-small">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY LIBERDADE" />
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <h5 class="booking-item-title">Holiday Inn Express Kennedy Airport</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star-half-empty"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$223</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="booking-item booking-item-small">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel THE CLIFF BAY spa suite" />
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <h5 class="booking-item-title">Wellington Hotel</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star-o"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$395</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="booking-item booking-item-small">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel 2" />
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <h5 class="booking-item-title">New York Hilton Midtown</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star-half-empty"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$166</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="booking-item booking-item-small">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="The pool" />
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <h5 class="booking-item-title">Grand Hyatt New York</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star-o"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$423</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="booking-item booking-item-small">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY RIO INTERNACIONAL rooftop pool" />
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <h5 class="booking-item-title">Warwick New York Hotel</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star"></i>
+                                                </li>
+                                                <li><i class="fa fa-star-half-empty"></i>
+                                                </li>
+                                                <li><i class="fa fa-star-o"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$218</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="gap gap-small"></div>
+        </div>
+
+{% endblock %}        

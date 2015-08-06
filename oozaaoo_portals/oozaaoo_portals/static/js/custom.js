@@ -1,5 +1,29 @@
 "use strict";
 
+
+$(function() {    
+    $( "#filterkeywordtxt" ).autocomplete({
+    source: function (request, response) {
+        $.getJSON("/getcity?term=" + request.term, function (data) {             
+            response($.map(data, function (value, key) {                            
+                return {
+                    label: value.label,
+                    value: value.value,
+                    extra: value.cityid
+                };
+            }));
+        });
+    },
+    select : function(event, ui) {
+            // $('#filterkeywordtxt').val(ui.item.label);
+            $('#filterkeyword').val(ui.item.extra);                
+    },
+    minLength: 2,
+    delay: 100
+    });
+});
+
+
 $('ul.slimmenu').slimmenu({
     resizeWidth: '992',
     collapserTitle: 'Main Menu',
@@ -48,34 +72,35 @@ $('.form-group').each(function() {
     });
 });
 
-$('.typeahead').typeahead({
-    hint: true,
-    highlight: true,
-    minLength: 3,
-    limit: 8
-}, {
-    source: function(q, cb) {
-        return $.ajax({
-            dataType: 'json',
-            type: 'get',
-            url: 'http://gd.geobytes.com/AutoCompleteCity?callback=?&q=' + q,
-            chache: false,
-            success: function(data) {
-                var result = [];
-                $.each(data, function(index, val) {
-                    result.push({
-                        value: val
-                    });
-                });
-                cb(result);
-            }
-        });
-    }
-});
+// $('.typeahead').typeahead({
+//     hint: true,
+//     highlight: true,
+//     minLength: 3,
+//     limit: 8,
+// }, {
+//     source: function(q, cb) {
+//         return $.ajax({
+//             dataType: 'json',
+//             type: 'get',
+//             url: '/getcity/',
+//             chache: false,
+//             success: function(data) {
+//                 var result = [];                 
+//                 $.each(data, function(index, val) {
+//                     result.push({
+//                         value: cityname
+//                     });
+//                 });
+//                 cb(result);
+//             }
+//         });
+//     }
+// });
 
 
 $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
-    todayHighlight: true
+    todayHighlight: true,
+    format: 'yyyy/mm/dd'
 });
 
 
@@ -162,6 +187,86 @@ $('div.bg-parallax').each(function() {
 $(document).ready(
     function() {
 
+
+    $(".cl_glry_hver_act> span").click(function(){
+        $(this).siblings('div:visible').hide();
+        $(this).next().fadeIn('fast');
+        return false
+        }, function(){
+    });
+
+    $(".cl_glry_hver_act> span").hover(function(){
+        $(this).addClass('color_tab_mouseover');
+
+        return false
+        }, function(){
+        $(this).removeClass('color_tab_mouseover');
+    });
+
+    $(".cl_glry_hver_act> span").click(function(){
+        $('.view_glry_act> div').hide();
+        $(this).addClass('color_tab_hover');
+        $(this).siblings().removeClass('color_tab_hover');
+        
+    });
+    
+    
+    $(".view_glry_act> span").hover(function(){ 
+        $('.cl_glry_hver_act> div').hide(); 
+        $(this).addClass('view_glallery_opacity');
+        $(this).siblings().removeClass('view_glallery_opacity');
+    });
+    
+    $(".view_glry_act> span").hover(function(){
+        $(this).siblings('div:visible').hide();
+    
+        $(this).next().fadeIn('fast');
+        return false
+        }, function(){
+    });
+    
+    $(".cl_glry_hver_act span").click(function () {
+    //     $("li.cl_info_bg_act").effect("highlight", {color: 'grey'}, 3000);
+    $("li.cl_info_bg_act").stop().css("background-color", "#ccc")
+.animate({ backgroundColor: "#fff"}, 1000);
+    });        
+   
+  
+        // jQuery.support.cors = true;
+         var username = 'apitesting@goibibo.com';
+         var password = 'test123';   
+
+        function make_base_auth(user, password) {
+            var tok = user + ':' + password;
+            var hash = btoa(tok);
+            alert('her');
+            return "Basic " + hash;
+        }        
+
+         // $.ajax({
+         //     type: "GET",
+         //     url: "/getcity/",
+         //     dataType: 'json',
+         //     contentType: "application/json",            
+         //     beforeSend: function (xhr){ 
+         //         xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+         //         // xhr.setRequestHeader('Authorization', make_base_auth(username, password)); 
+         //     },
+         //    success: function(json) {
+         //         console.log(json);
+         //     },
+         //    error: function(e) {
+         //        console.log(e.message);
+         //     },           
+         //    complete: function(response) {                   
+         //         console.log( "JSON Data: " + JSON.stringify(response.data));
+         //    }
+            
+         // });        
+     
+
+
+
     $('html').niceScroll({
         cursorcolor: "#000",
         cursorborder: "0px solid #fff",
@@ -214,11 +319,45 @@ $(document).ready(
    if (footerTop < docHeight) {
     $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
    }
-    }
 
+  
+   $(document).on('change', '.child_age_act', function() {     
+          if($(this).val() == 0 ) {
+               $(this).parent().siblings(".child-1-act").hide();
+               $(this).parent().parent().siblings(".child-2-act").hide();
+         }
 
-);
+         if($(this).val() == 1 ) {
+               $(this).parent().parent().siblings(".child-1-act").show();
+               $(this).parent().parent().siblings(".child-2-act").hide();
+         }
+         if($(this).val() == 2 ) {
+               $(this).parent().parent().siblings(".child-1-act").show();
+               $(this).parent().parent().siblings(".child-2-act").show();
+         }
+    });
 
+    // var count = 0;
+    // $(document).on('click', '.add_room_act', function() {
+    //     // count++; 
+    //     // $(".clone_add_room_act").clone().appendTo(".add_room_holder"); 
+    //     // $(".clone_add_room_act").filter('[class]').each(function() { // For each new item with an ID
+    //     //     this.class = this.class + '_' + count; // Append the counter to the ID
+    //     // }); 
+
+    //     // $(".clone_add_room_act").clone().attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) ).appendTo('.add_room_holder')
+    //     var html_1 = $(".clone_add_room_act").attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) )
+    //     $(".add_room_holder").append(html_1)
+    // });
+
+    // $(document).on('click', '.remove_room_act', function() {        
+    //     $(this).closest(".clone_add_room_act").remove();
+    //     e.preventDefault();   
+    // });
+   
+
+}); 
+// end of document ready
 
 $('.nav-drop').dropit();
 
@@ -294,44 +433,44 @@ $('.booking-item-container').children('.booking-item').click(function(event) {
 });
 
 
-$('.form-group-cc-number input').payment('formatCardNumber');
-$('.form-group-cc-date input').payment('formatCardExpiry');
-$('.form-group-cc-cvc input').payment('formatCardCVC');
+// $('.form-group-cc-number input').payment('formatCardNumber');
+// $('.form-group-cc-date input').payment('formatCardExpiry');
+// $('.form-group-cc-cvc input').payment('formatCardCVC');
 
 
 
 
-if ($('#map-canvas').length) {
-    var map,
-        service;
+// if ($('#map-canvas').length) {
+//     var map,
+//         service;
 
-    jQuery(function($) {
-        $(document).ready(function() {
-            var latlng = new google.maps.LatLng(40.7564971, -73.9743277);
-            var myOptions = {
-                zoom: 16,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                scrollwheel: false
-            };
+//     jQuery(function($) {
+//         $(document).ready(function() {
+//             var latlng = new google.maps.LatLng(40.7564971, -73.9743277);
+//             var myOptions = {
+//                 zoom: 16,
+//                 center: latlng,
+//                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+//                 scrollwheel: false
+//             };
 
-            map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-
-
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map
-            });
-            marker.setMap(map);
+//             map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
 
-            $('a[href="#google-map-tab"]').on('shown.bs.tab', function(e) {
-                google.maps.event.trigger(map, 'resize');
-                map.setCenter(latlng);
-            });
-        });
-    });
-}
+//             var marker = new google.maps.Marker({
+//                 position: latlng,
+//                 map: map
+//             });
+//             marker.setMap(map);
+
+
+//             $('a[href="#google-map-tab"]').on('shown.bs.tab', function(e) {
+//                 google.maps.event.trigger(map, 'resize');
+//                 map.setCenter(latlng);
+//             });
+//         });
+//     });
+// }
 
 
 $('.card-select > li').click(function() {
@@ -390,39 +529,39 @@ $('.form-group-select-plus').each(function() {
     });
 });
 // Responsive videos
-$(document).ready(function() {
-    $("body").fitVids();
-});
+// $(document).ready(function() {
+//     $("body").fitVids();
+// });
 
-$(function($) {
-    $("#twitter").tweet({
-        username: "remtsoy", //!paste here your twitter username!
-        count: 3
-    });
-});
+// $(function($) {
+//     $("#twitter").tweet({
+//         username: "remtsoy", //!paste here your twitter username!
+//         count: 3
+//     });
+// });
 
-$(function($) {
-    $("#twitter-ticker").tweet({
-        username: "remtsoy", //!paste here your twitter username!
-        page: 1,
-        count: 20
-    });
-});
+// $(function($) {
+//     $("#twitter-ticker").tweet({
+//         username: "remtsoy", //!paste here your twitter username!
+//         page: 1,
+//         count: 20
+//     });
+// });
 
-$(document).ready(function() {
-    var ul = $('#twitter-ticker').find(".tweet-list");
-    var ticker = function() {
-        setTimeout(function() {
-            ul.find('li:first').animate({
-                marginTop: '-4.7em'
-            }, 850, function() {
-                $(this).detach().appendTo(ul).removeAttr('style');
-            });
-            ticker();
-        }, 5000);
-    };
-    ticker();
-});
+// $(document).ready(function() {
+//     var ul = $('#twitter-ticker').find(".tweet-list");
+//     var ticker = function() {
+//         setTimeout(function() {
+//             ul.find('li:first').animate({
+//                 marginTop: '-4.7em'
+//             }, 850, function() {
+//                 $(this).detach().appendTo(ul).removeAttr('style');
+//             });
+//             ticker();
+//         }, 5000);
+//     };
+//     ticker();
+// });
 $(function() {
     $('#ri-grid').gridrotator({
         rows: 4,
@@ -507,3 +646,95 @@ function tagline_vertical_slide() {
 function abortTimer() { // to be called when you want to stop the timer
     clearInterval(tid);
 }
+
+ // var regex = /^(.*)(\d)+$/i;
+ //    var cloneIndex = $(".clonedInput").length;
+
+ //    function clone(){
+ //        alert(cloneIndex)
+ //        $(this).parents(".clonedInput").clone()
+ //            .appendTo(".add_room_holder")
+ //            .attr("id", "clonedInput" +  cloneIndex)
+ //            .find("*")
+ //            .each(function() {
+ //                var id = this.id || "";
+
+ //                var match = id.match(regex) || [];
+ //                if (match.length == 3) {
+ //                    this.id = match[1] + (cloneIndex);
+
+ //                }
+ //            })
+ //            .on('click', '.add_room_act', clone)
+ //            .on('click', '.remove_room_act', remove);
+ //        cloneIndex++;
+ //    }
+ //    function remove(){
+ //        $(this).parents(".clonedInput").remove();
+ //    }
+ //    $(".add_room_act").on("click", clone);
+
+ //    $(".remove_room_act").on("click", remove);
+    
+ var max_fields      = 4;
+    var i = 1;
+    var add_room = $('.add_room_holder');
+    $('.add_room_act').click(function (e) {
+        e.preventDefault();
+        if(i < max_fields){
+            i++;
+    $(add_room).append("<div class='clonedInput' id='clonedInput0'><div class='col-md-3'><div class='form-group form-group-lg form-group-select-plus'><label>Rooms</label>"
+        +"<input class='form-control hidden_input room_"+i+"' name='room"+i+"' type='text' value="+i+" readonly='readonly' />"
+        +"</div></div><div class='col-md-2'><div class='form-group form-group-lg form-group-select-plus'>"
+        +"<label>Adults</label><select class='form-control adults_"+i+"' name='adults"+i+"'>"
+        +"<option selected='selected' value='0' >0</option><option value='1' >1</option><option value='2' >2</option><option value='3' >3</option><option value='4' >4</option>"
+        +"</select></div></div><div class='col-md-2'><div class='form-group form-group-lg form-group-select-plus'>"
+        +"<label>Children</label><select class='form-control child_age_act childs_"+i+"' name='childs"+i+"'><option selected='selected' value='0' >0</option>"
+        +"<option value='1' >1</option><option value='2' >2</option></select></div></div>"
+        +"<div class='col-md-2 child-1-act dn' id='test1'><div class='form-group form-group-lg form-group-select-plus'>"
+        +"<label>Child-1 age</label><select class='form-control child1_"+i+"' name='childage1_"+i+"'>"
+        +"<option selected='selected' value='0' >0</option>"
+        +"<option value='1' >1</option>"
+        +"<option value='2' >2</option>"
+        +"<option value='3' >3</option>"
+        +"<option value='4' >4</option>"
+        +"<option value='5' >5</option>"
+        +"<option value='6' >6</option>"
+        +"<option value='7' >7</option>"
+        +"<option value='8' >8</option>"
+        +"<option value='9' >9</option>"
+        +"<option value='10' >10</option>"
+        +"<option value='11' >11</option>"
+        +"<option value='12' >12</option>"
+        +"</select>"
+        +"</div>"
+        +"</div>"
+        +"<div class='col-md-2 child-2-act dn'>"
+        +"<div class='form-group form-group-lg form-group-select-plus'>"
+        +"<label>Child-2 age</label>"     
+        +"<select class='form-control child2_"+i+"' name='childage2_"+i+"'>"
+        +"<option selected='selected' value='0' >0</option>"
+        +"<option value='1' >1</option>"
+        +"<option value='2' >2</option>"
+        +"<option value='3' >3</option>"
+        +"<option value='4' >4</option>"
+        +"<option value='5' >5</option>"
+        +"<option value='6' >6</option>"
+        +"<option value='7' >7</option>"
+        +"<option value='8' >8</option>"
+        +"<option value='9' >9</option>"
+        +"<option value='10' >10</option>"
+        +"<option value='11' >11</option>"
+        +"<option value='12' >12</option>"
+        +"</select>"
+        +"</div>"
+        +"</div>"
+        +"<div class='col-md-1'>"
+        +"<span class='remove remove_field'>Remove</span>"
+        +"</div>");
+}
+    });
+$(add_room).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parents('.clonedInput').remove(); i--;
+    });
+   
