@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+ <form action="{% url "bus.views.seat_map" %}" method="post" name="seat_map" class="busseat">
+	<div class="col-md-12">
+		<div class="col-md-6">
+		<div class="col-md-12">
+				<span class="circle-bg">1</span>
+				<code>select seat</code>
+			</div>
+			<div class="col-md-12">
+				<span class="seat-layout">
+					<a class="row">1</a>
+					<a class="row">2</a>
+					<a class="row">3</a>
+				</span>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-12">
+				<span class="circle-bg">2</span>
+				<code>select boardingpoint</code>
+			</div>
+			<div class="col-md-12">
+				<select>
+					<option value="0">select Boardingpoint</option>
+					<option value=""></option>
+				</select>
+				<a id="confirm" class="button orange" href="/tantativebooking/">Confirm Booking</a>
+				<span class="seatno">Seat No:3</span>
+			</div>
+
+		</div>
+	</div>
+</form>
+{% endblock %}  

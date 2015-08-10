@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+ <form action="{% url "bus.views.cancelpolicy" %}" method="post" name="cancelpolicy" class="cancelpolicy">
+ <table align="center" class="table table-bordered">
+<tbody><tr>
+<th>Time Before Departure</th>
+<th>Cancellation Charges in percentage(%)</th>
+</tr>
+
+{% for values in policy.1 %}
+			{% for mvalues in values.list %}
+	<tr>
+		<td>Between {{mvalues.from}} to {{mvalues.to}} hours before bus departs cancellation charge</td>
+		<td>{{mvalues.dc}}</td>
+	
+	</tr>
+	<!-- <tr>
+		<td>Between {{mvalues.from}} Aug 05 - 03:55 PM on Aug 05</td>
+		<td>Rs. 150</td>
+	</tr>
+	<tr>
+		<td>Between 07:55 PM on Aug 04 - 07:55 AM on Aug 05</td>
+		<td>Rs. 125</td>
+	</tr>
+	<tr>
+
+		<td>Till 07:55 PM on {{values.timestamp}} </td>
+		<td>Rs. 50</td>
+	</tr> -->
+	{% endfor %}
+{% endfor %} 
+	<tr>
+		<td style="font-size:11px;color:red;" colspan="2">
+		Note :Cancellation policy mentioned on website OR on ticket is of bus operator and is not decided by Goibibo. Goibibo does not levy any cancellation charges. Service charge will be refunded, if collected.
+		</td>
+	</tr>
+	
+</tbody>
+</table>
+</form>
+ {% endblock %}  

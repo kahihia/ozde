@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+
+
+ <form action="{% url "bus.views.confirmbooking" %}" method="post" name="bookconform" class="bookconform">
+    {% csrf_token %}
+ 
+
+
+        <div class="gap"></div>
+
+
+        <div class="container">
+            <div class="row row-wrap">
+                <div class="col-md-4">
+                    <img class="pp-img" src="img/paypal.png" alt="Image Alternative text" title="Image Title" />
+                    <p>Important: You will be redirected to PayPal's website to securely complete your payment.</p><a class="btn btn-primary">Checkout via Paypal</a>   
+                </div>
+
+                <div class="col-md-4">
+                    <h4>Pay via Credit/Debit Card</h4>
+                    <form class="cc-form">
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-number">
+                                <label>Card Number</label>
+                                <input class="form-control" placeholder="xxxx xxxx xxxx xxxx" type="text" /><span class="cc-card-icon"></span>
+                            </div>
+                            <div class="form-group form-group-cc-cvc">
+                                <label>CVC</label>
+                                <input class="form-control" placeholder="xxxx" type="text" />
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-name">
+                                <label>Cardholder Name</label>
+                                <input class="form-control" type="text" />
+                            </div>
+                            <div class="form-group form-group-cc-date">
+                                <label>Valid Thru</label>
+                                <input class="form-control" placeholder="mm/yy" type="text" />
+                            </div>
+                        </div>
+                        <div class="checkbox checkbox-small">
+                            <label>
+                                <input class="i-check" type="checkbox" checked/>Add to My Cards</label>
+                        </div>
+                        <input class="btn btn-primary" type="submit" value="Proceed Payment" />
+                    </form>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="booking-item-payment">
+                        <!-- <header class="clearfix">
+                            <a class="booking-item-payment-img" href="#">
+                                <img src="img/Maserati-GranTurismo-Sport-facelift.png" alt="Image Alternative text" title="Image Title" />
+                            </a>
+                            <h5 class="booking-item-payment-title"><a href="#">Maserati GranTurismo</a></h5>
+                        </header> -->
+                        <ul class="booking-item-payment-details">
+                            <li>
+                                <h5>Total amount</h5>
+                                
+                                
+                            </li>
+                           
+                        </ul>
+                        <p class="booking-item-payment-total">Total trip: <span></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+
+
+
+        <footer id="main-footer">
+            <div class="container">
+                <div class="row row-wrap">
+                    <div class="col-md-3">
+                        <a class="logo" href="index.html">
+                            <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
+                        </a>
+                        <p class="mb20">Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more!</p>
+                        <ul class="list list-horizontal list-space">
+                            <li>
+                                <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h4>Newsletter</h4>
+                        <form>
+                            <label>Enter your E-mail Address</label>
+                            <input type="text" class="form-control">
+                            <p class="mt5"><small>*We Never Send Spam</small>
+                            </p>
+                            <input type="submit" class="btn btn-primary" value="Subscribe">
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <ul class="list list-footer">
+                            <li><a href="#">About US</a>
+                            </li>
+                            <li><a href="#">Press Centre</a>
+                            </li>
+                            <li><a href="#">Best Price Guarantee</a>
+                            </li>
+                            <li><a href="#">Travel News</a>
+                            </li>
+                            <li><a href="#">Jobs</a>
+                            </li>
+                            <li><a href="#">Privacy Policy</a>
+                            </li>
+                            <li><a href="#">Terms of Use</a>
+                            </li>
+                            <li><a href="#">Feedback</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Have Questions?</h4>
+                        <h4 class="text-color">+1-202-555-0173</h4>
+                        <h4><a href="#" class="text-color">support@traveler.com</a></h4>
+                        <p>24/7 Dedicated Customer Support</p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+        </div>
+        </form>
+         {% endblock %} 
