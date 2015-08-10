@@ -75,8 +75,8 @@ class goibiboAPI(object):
 		prbook = {'fwdp':{ }, 'customer_details':{"firstname" : "abc", "lastname" : "xyz", "email" : "xyz@abc.com", "mobile": "1234567891", "country_phone_code" : "+91", "title" : "Mr"}}
 		print "provisionalbooking ======>", query           
 		print "prbook ======>", prbook
-
 		return (requests.post(query, data=prbook, auth=(self.username, self.password)).json())
+		
 	def BookingStatus(self, gobookingid):
 		query = self.BASE + "get_booking_status?gobookingid="+gobookingid
 		return (requests.get(query, auth=(self.username, self.password)).json())

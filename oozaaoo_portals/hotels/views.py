@@ -6,7 +6,7 @@ import json
 from django.utils import simplejson
 from json import dumps, loads
 import simplejson as json
-
+from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
@@ -33,6 +33,10 @@ from urllib import unquote_plus
 from django.utils import simplejson as json
 from django.http import HttpResponse
 from django.utils import simplejson
+
+class mydict(dict):
+        def __str__(self):
+            return json.dumps(self)
 
 
 def registration(request):
@@ -68,18 +72,21 @@ def registration(request):
 from django.contrib.auth import authenticate, login, logout
 
 def login_user(request):
-    logout(request)
-    username = password = ''
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
+	"""
+	Login User
+	"""
+	logout(request)
+	username = password = ''
+	if request.POST:
+	    username = request.POST['username']
+	    password = request.POST['password']
 
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/main/')
-    return render_to_response('login.html', context_instance=RequestContext(request))
+	    user = authenticate(username=username, password=password)
+	    if user is not None:
+	        if user.is_active:
+	            login(request, user)
+	            return HttpResponseRedirect('/main/')
+	return render_to_response('login.html', context_instance=RequestContext(request))
 
 def home(request):
 	"""
@@ -113,6 +120,9 @@ def getcitylist(request):
 	# return render_to_response("hotels/home.html", context_instance=RequestContext(request))
 
 def loadcitylist(request):
+	"""
+	To load the City Name and Id in Database 
+	"""
 	from collections import OrderedDict
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')		
 	getcityresponse = GO.getHotelsByCity()
@@ -138,21 +148,17 @@ def loadcitylist(request):
 	for k, v in sorted_dict.iteritems():
 		results.append(v)
 
-	print 'results', results
 	return HttpResponse(simplejson.dumps(results), mimetype='application/json')
 	
 
 # /** To get the Search Results based on CityId, ChecIn, Checkout, Adults, Roooms, Children **/
-def gethotellist(request):	
+def gethotellist(request):
+	"""
+	Get the hotel list based on checkin and checkout values.
+	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	# if request.COOKIES.get('filterkeyword')=='':
-	# 	print 'true'
-	# else:
-	#  	print 'false'
+
 	cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
-	# cityid = request.COOKIES.get('filterkeyword')
-	# #cityid=request.COOKIES.get('filterkeyword')
-	# print 'cityid',cityid
 	checkin = request.POST.get('start',request.COOKIES.get('checkin'))
 	checkinvalue = checkin.replace('/','')
 	checkout = request.POST.get('end',request.COOKIES.get('checkout'))
@@ -187,8 +193,7 @@ def gethotellist(request):
 	elif rooms2=='2':
 		rooms=2
 		getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms2,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2)
-	else:
-		print '=================1'
+	else:		
 		rooms=1
 		getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
 
@@ -208,27 +213,33 @@ def gethotellist(request):
 			if k in hotelFields:
 				_hotel[k] = v
 		hotels.append(_hotel)
-
-	# response  = {'city':city, 'hotels':hotels}
-	# return HttpResponse(simplejson.dumps(hotels), mimetype='application/json')
-	if rooms4=='4':
-		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
+	
+  	if rooms4=='4':
+		joindata = uncde(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
+		guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)+int(adults3)+int(nochildrens3)+int(adults4)+int(nochildrens4)
 	elif rooms3=='3':
 		joindata= unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)
+		guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)+int(adults3)+int(nochildrens3)
 	elif rooms2=='2':
 		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms2)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)
+		guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)
 	else:
 		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
+		guest=int(adults1)+int(nochildrens1)
+
 	response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata}, context_instance=RequestContext(request))
-  	
-  	response.set_cookie( 'joindata', joindata )
+	response.set_cookie( 'joindata', joindata )
   	response.set_cookie( 'checkin', checkin )
   	response.set_cookie( 'checkout', checkout )
   	response.set_cookie('filterkeyword',unicode(cityid))
-
+  	response.set_cookie('rooms',rooms)
+  	response.set_cookie('guest',unicode(guest))
 	return response
 
-def gethoteldetails(request):		
+def gethoteldetails(request):
+	"""
+	Get the hotel Details based on list IBP(v3, v6) and FWDP.
+	"""		
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')			
 	joindata = request.COOKIES.get('joindata')
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))	
@@ -274,50 +285,87 @@ def gethoteldetails(request):
 	# 	reviews.append(_rhotel)
 
 	#return HttpResponse(simplejson.dumps(gethoteldetailresponse), mimetype='application/json')
-	response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
+	response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
 	response.set_cookie('hc',hc)
 	response.set_cookie('ibp',ibp)
 	response.set_cookie('fwdp',fwdp)
+	response.set_cookie('rtc',hotelroominfo['rtc'])
+	response.set_cookie('rpc',hotelroominfo['rpc'])
+	response.set_cookie('hn',_hotel['hn'])
+	response.set_cookie('prc',_hotel['prc'])
 	return response
 
+def userdetails(request):
+	"""
+	UserDetails for PayU Methods with Amount.
+	"""	
+	rtc = request.POST.get('rtc',request.COOKIES.get('rtc'))
+	rpc = request.POST.get('rpc',request.COOKIES.get('rpc'))
+	response= render_to_response("hotels/hotel-booking.html", context_instance=RequestContext(request))
+	response.set_cookie('rtc',rtc)
+	response.set_cookie('rpc',rpc)
+	return response
+
+@csrf_exempt
 def setprovisionalbooking(request):
 	from django.utils import simplejson
-	 # GO = goibiboAPI('apitesting@goibibo.com', 'test123')			
-	# joindata = request.POST['joindata']
-	# hc = request.POST['hc']	
-	# ibp = request.POST['ibp']
-	# fwdp = request.POST['fwdp']
-	# rtc = request.POST['rtc']
-	# rpc = request.POST['rpc']	
-	# gethoteldetailresponse = GO.provisionalbooking(joindata, hc, ibp, fwdp, rtc, rpc)	
 	import urllib
 	import requests
 	url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/"
-	querystring = {"query":"hotels-7247861711286471145-20150807-20150811-1-1_0_0","hc":"3769018583127607778","ibp":"v3","rtc":"45000011170","rpc":"990000014478"}
-	payload = {'fwdp':'{}', 'customer_details':'{ "firstname":"sastha","lastname":"Mano", "email":"sastha@ymail.com", "mobile":"9876543201","country_phone_code":"+91", "title":"Mr"}'}
-	# payload = "fwdp=%7B%7D&customer_details=%7B%20%22firstname%22%20%3A%22sastha%22%2C%20%22lastname%22%20%3A%20%22Mano%22%2C%20%22email%22%20%3A%20%22sastha%40ymail.com%22%2C%20%22mobile%22%20%3A%20%229876543201%22%2C%20%22country_phone_code%22%20%3A%20%22%2B91%22%2C%20%22title%22%3A%20%22Mr%22%20%7D"
+	joindata={}
+	joindata['query']= "hotels-"+request.COOKIES.get('joindata')
+	joindata['hc']=request.COOKIES.get('hc')
+	joindata['ibp']=request.COOKIES.get('ibp')
+	joindata['rtc']=request.COOKIES.get('rtc')
+	joindata['rpc']=request.COOKIES.get('rpc')
+	customer = [['firstname', request.COOKIES.get('fname')], 
+               ['lastname', request.COOKIES.get('lname')], 
+               ['email',request.COOKIES.get('email')], 
+               ['mobile', request.COOKIES.get('pnumber')],
+               ['country_phone_code', '+91'],
+               ['title',request.COOKIES.get('initial')],
+               ]
+	customer_details=mydict(customer)
+	payload={'fwdp':'{}','customer_details':'%s'%customer_details}
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}
-	response = requests.request("POST", url, data=payload,headers=headers, params=querystring, auth=('apitesting@goibibo.com','test123'))
+	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
 	print "res", response.json()	
-	return HttpResponse(response)
-	#return render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))	
+	#print response
+	#return HttpResponse(response)
+	
+	return render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+
 
 def confirmbooking(request):
 	from django.utils import simplejson
 	import urllib
 	import requests
 	from hashlib import md5, sha512
-	createhash = 'test123' + 'GOHTLDV2ee67a1438838485' + '|'+ str(22748) + '|' + 'hotels-7247861711286471145-20150807-20150811-1-1_0_0'.lower()+ '|' + 'sastha'.lower() + '|' + 'sastha@ymail.com' + '|' + 'temp'  + '|'  + 'true' + '|' +"travelibibo"
+	guest = request.POST.get('guest')
+	firstname = request.POST.get('firstname')
+	amount = request.POST.get('amount')
+	gobookingid = request.POST.get('gobookingid')
+	udf1 = request.POST.get('udf1')
+	productinfo = request.POST.get('productinfo')
+	email = request.POST.get('email')
+	createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
 	createhash = sha512(createhash).hexdigest()
+	print createhash
+	print gobookingid
 	url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
-	payload = {'secretkey':'e626d3fd2b76978ee0f9760e9c6de47a56f928c6edc0910f65eafcb398dc512156298210d6caaa1cd5767745a5547e34fc8bf0890b7300a494c19ec230e8e1f3', 'gobookingid':'GOHTLDV2ee67a1438838485'}
+	payload = {'secretkey':createhash, 'gobookingid':gobookingid}
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}
 	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
-	return HttpResponse(response)
+	print "res", response.json()
+	return render_to_response("hotels/hotel-book-successfull.html",{'response':response.json()}, context_instance=RequestContext(request))
+
+def bookingstatus(request):
+	return render_to_response("hotels/bookingstatus.html",context_instance=RequestContext(request))
+
 
 def getbookingstatus(request):
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')

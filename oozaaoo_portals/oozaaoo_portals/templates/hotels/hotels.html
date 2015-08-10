@@ -296,9 +296,9 @@
                         </ul>
                     </div>
                     <ul class="booking-list">
-                        {%for hotel in hotels %}
-                        ibp{{hotel.ibp}}
+                        {%for hotel in hotels %}                                                 
                         <li>
+                        {% if hotel.ibp %}
                         <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails" %}" method="POST" id="hoteldetails">
                             {% csrf_token %}
                             <a class="booking-item" href="#">
@@ -341,10 +341,11 @@
                             <input type="hidden" name="ibp" id="ibp" value="{{hotel.ibp}}" />
                             <input type="hidden" name="fwdp" id="fwdp" value="{{hotel.fwdp}}" />
                         </form>                               
+                        {% endif %}
                         </li>
                         {%endfor%}
                     </ul>
-                    <div class="row">
+                    <!--div class="row">
                         <div class="col-md-6">
                             <p><small>521 hotels found in New York. &nbsp;&nbsp;Showing 1 – 15</small>
                             </p>
@@ -374,7 +375,7 @@
                             <p>Not what you're looking for? <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>
                             </p>
                         </div>
-                    </div>
+                    </div!-->
                 </div>
             </div>
             <div class="gap"></div>

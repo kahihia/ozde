@@ -95,44 +95,42 @@
                         </div>
                         <div class="row">
                             <div class="col-md-8">
-                                <h4 class="lh1em"> BOOKING DETAILS </h4>
-                                <form name="probook" id="probook" action="{% url "hotels.views.gethoteldetails" %}" method="post">
+                                <h4 class="lh1em"> BOOKING DETAILS </h4>                             
+
+                                <form name="probook" id="probook" action="{% url "hotels.views.userdetails" %}" method="post">
 
                                 <ul class="list booking-item-raiting-list">
                                     <li>
                                         <div class="booking-item-raiting-list-title">CheckIn</div>
-                                        <div class="booking-item-raiting-list-number">1223</div>
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.checkin}}</div>
                                     </li>
                                     <li>
-                                        <div class="booking-item-raiting-list-title">CheckOut</div>ss
-                                        <div class="booking-item-raiting-list-number">61</div>
+                                        <div class="booking-item-raiting-list-title">CheckOut</div>
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.checkout}}</div>
                                     </li>
                                     <li>
                                         <div class="booking-item-raiting-list-title">Rooms</div>
-                                        <div class="booking-item-raiting-list-number">4</div>
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.rooms}}</div>
                                     </li>
                                     <li>
-                                        <div class="booking-item-raiting-list-title">Adults</div>
+                                        <div class="booking-item-raiting-list-title">Guest</div>
                                         
-                                        <div class="booking-item-raiting-list-number">1</div>
-                                    </li>
-                                    <li>
-                                        <div class="booking-item-raiting-list-title">Children</div>                                        
-                                        <div class="booking-item-raiting-list-number">9</div>
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.guest}}</div>
                                     </li>
                                 </ul>
                                 {% csrf_token %}
 
-                                {% for hotelroominfo in hotelroominfos %}
+                                <!-- {% for hotelroominfo in hotelroominfos %}
+                                {{hotelroominfo}}
                                 <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
                                 <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
-                                {% endfor %}                               
+                                {% endfor %}         -->                       
                                 <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
                                 <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
                                 <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
                                 <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
-                                <a href="{% url "hotels.views.setprovisionalbooking" %}">Book Now</a>
-                                <input type="submit" name="booknow" value="Book Now" class="btn btn-primary" />
+                                <a href="{% url "hotels.views.userdetails" %}">Book Now</a>
+                                <!--input type="submit" name="booknow" value="Book Now" class="btn btn-primary" /-->
                                 </form>
 
                             </div>

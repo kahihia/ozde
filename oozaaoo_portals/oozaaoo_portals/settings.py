@@ -39,6 +39,8 @@ INSTALLED_APPS = (
 	'social_auth',
 	#custom application
 	'hotels',
+    'bus',
+    'payu',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -159,3 +161,12 @@ EMAIL_HOST_PASSWORD = 'testmail123'
 EMAIL_PORT = 587
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+PAYU_INFO = {'merchant_key': "gtKFFx",
+             'merchant_salt': "eCwWELxi",
+             # for production environment use 'https://secure.payu.in/_payment'
+             'payment_url': 'https://test.payu.in/_payment',
+             'surl':'http://example.com/pay-success/',
+             'furl':'http://example.com/failure/',
+             'curl':'http://example.com/cancel/',
+            }
