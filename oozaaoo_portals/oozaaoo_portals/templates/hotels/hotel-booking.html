@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <h3>Customer Payment Details </h3>
-                    {{ request.COOKIES.checkin}}{{ request.COOKIES.checkout}}{{ request.COOKIES.rooms}}
+                    
                     <form method="post" action="{% url "payu.views.buy_order" %}">{% csrf_token %}
                         <div class="row">
                             <div class="col-md-4">
@@ -23,31 +23,35 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input class="form-control" type="text" name="fname">
+                                    <input id="fname" class="form-control fname" type="text" name="fname">
+                                    <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Lastname</label>
-                                    <input class="form-control" type="text" name="lname" />
+                                    <input id="lname" class="form-control lname" type="text" name="lname" />
+                                    <span class="errormgs" style="display:none; color:red;">please enter the last name</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Phone Number</label>
-                                    <input class="form-control" type="text" name="pnumber" />
+                                    <input id="mobileno"class="form-control mobileno" type="text" name="pnumber" />
+                                    <span class="errormgs" style="display:none; color:red;">please enter the mobile number</span>
                                 </div>
                             </div>
                                   <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input class="form-control" type="text" name="email" />
+                                    <input id="email" class="form-control email" type="text" name="email" />
+                                    <span class="errormgs" style="display:none; color:red;">please enter the email</span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col_md-12">
-                                <input type="submit" value="Pay Now">
+                                <input type="submit" value="Pay Now" id="paynow">
                             </div>
                         </div>
                     </form>
@@ -56,7 +60,7 @@
 
                 <div class="col-md-4">
                     <div class="booking-item-payment">
-                        <header class="clearfix">
+                        <!-- <header class="clearfix">
                             <a class="booking-item-payment-img" href="#">
                                 <img src="img/800x600.png" alt="Image Alternative text" title="hotel 1" />
                             </a>
@@ -73,9 +77,35 @@
                                 <li><i class="fa fa-star"></i>
                                 </li>
                             </ul>
-                        </header>
+                        </header> -->
                         <ul class="booking-item-payment-details">
                             <li>
+                            <p class="booking-item-payment-item-title">{{ request.COOKIES.hn}}    {{ request.COOKIES.hr}} of 5  <i class="fa fa-star icon-group booking-item-rating-stars"></i></p>
+                            
+
+                                            {% if request.COOKIES.hr == 1 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif request.COOKIES.hr == 2 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif request.COOKIES.hr == 3 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif request.COOKIES.hr == 4 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif request.COOKIES.hr == 5 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% endif %}
+                                            <p> {{ request.COOKIES.l}} </p>
+                            <p>{{ request.COOKIES.c}}</p>
                                 <h5>Booking for 7 nights</h5>
                                 <div class="booking-item-payment-date">
                                     <p class="booking-item-payment-date-day">{{ request.COOKIES.checkin}}</p>
@@ -87,8 +117,8 @@
                                 </div>
                             </li>
                             <li>
-                                <h5>Room</h5>
-                                <p class="booking-item-payment-item-title">{{ request.COOKIES.hn}}</p>
+                                <h5>Room {{ request.COOKIES.rooms}}</h5>
+                                
                                 <ul class="booking-item-payment-price">
                                     <!--li>
                                         <p class="booking-item-payment-price-title">7 Nights</p>
@@ -103,7 +133,7 @@
                                 </ul>
                             </li>
                         </ul>
-                        <p class="booking-item-payment-total">Total trip: <span>&#8377; {{ request.COOKIES.prc}}</span>
+                        <p class="booking-item-payment-total">Total trip: <span>&#8377; {{ request.COOKIES.prc|floatformat}}</span>
                         </p>
                     </div>
                 </div>

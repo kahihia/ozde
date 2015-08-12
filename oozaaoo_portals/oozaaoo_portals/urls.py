@@ -6,7 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	url(r'^register', 'hotels.views.registration', name='registration'),
     url(r'^admin/', include(admin.site.urls)),
-	url(r'', include('social_auth.urls')),
+	# url(r'', include('social_auth.urls')),
 	url(r'^$', 'hotels.views.home', name='home'),
     url(r'^getcity/', 'hotels.views.getcitylist', name='getcitylist'),
     url(r'^gethotellist/', 'hotels.views.gethotellist', name='gethotellist'),

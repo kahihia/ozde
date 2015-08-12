@@ -3,17 +3,21 @@
 {% block content %}
 
         <div class="container">
+      
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a>
                 </li>
-                <li><a href="#">United States</a>
+                <li><a href="#">{{hotels.0.c}}</a>
                 </li>
-                <li><a href="#">New York (NY)</a>
+                <!-- <li><a href="#">{{hotel.0.l}}</a>
+                </li> -->
+                <!--  <li><a href="#">New York City</a>
                 </li>
-                <li><a href="#">New York City</a>
+                <li><a href="#">New York City Hotels</a>
                 </li>
-                <li class="active">New York City Hotels</li>
+                <li class="active">InterContinental New York Barclay</li>  -->
             </ul>
+           
             <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="search-dialog">
                 <h3>Search for Hotel</h3>
                 <form>
@@ -102,7 +106,9 @@
                     <button class="btn btn-primary btn-lg" type="submit">Search for Hotels</button>
                 </form>
             </div>
-            <h3 class="booking-title">521 hotels in New York on Mar 22 - Apr 17 for 1 adult <small><a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
+             
+            <h3 class="booking-title">521 hotels in {{hotels.0.c}} <small><a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
+       
             <div class="row">
                 <div class="col-md-3">
                     <aside class="booking-filters text-white">
@@ -296,7 +302,7 @@
                         </ul>
                     </div>
                     <ul class="booking-list">
-                        {%for hotel in hotels %}                                                 
+                          {%for hotel in hotels %}                                               
                         <li>
                         {% if hotel.ibp %}
                         <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails" %}" method="POST" id="hoteldetails">
@@ -314,22 +320,54 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="booking-item-rating">
-                                            <ul class="icon-group booking-item-rating-stars">
+                                           <!--  <ul class="icon-group booking-item-rating-stars">
                                                 <li><i class="fa fa-star"></i> </li>
                                                 <li><i class="fa fa-star"></i> </li>
                                                 <li><i class="fa fa-star"></i> </li>
                                                 <li><i class="fa fa-star"></i> </li>
                                                 <li><i class="fa fa-star-half-empty"></i>
                                                 </li>
-                                            </ul><span class="booking-item-rating-number"><b >{{hr}}</b> of 5</span>
+                                            </ul> -->
+                                            <span class="booking-item-rating-number"><b >
+                                            {% if hotel.hr == 1 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 2 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 3 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 4 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 5 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% endif %}</b> of 5</span>
                                             <small>(406 reviews)</small>
+
                                         </div>
                                         <h5 class="booking-item-title">{{hotel.hn}}</h5>
-                                        <p class="booking-item-address"><i class="fa fa-map-marker"></i> {{c}}</p><small class="booking-item-last-booked">Latest booking: 1 hour ago</small>
+                                        <p class="booking-item-address"><i class="fa fa-map-marker"></i> {{hotel.l}}</p>
+                                        
+                                        <small class="booking-item-last-booked">
+                                        {{hotel.fm.1}}
+                                        {% if hotel.fm.1 == "Free Internet" %}
+                                            <i class="fa fa-wifi"></i>
+                                        {% endif %}
+                                       
+                                        </small>
+                                        
                                     </div>
                                     <div class="col-md-3">
                                         <span class="booking-item-price-from">from</span>
-                                        <span class="booking-item-price">&#8377;{{hotel.prc}}</span>
+                                        <span class="booking-item-price">&#8377;{{hotel.prc|floatformat}}</span>
                                         <span>/night</span>
                                         <!--span class="btn btn-primary moredetails">Book Now</span-->
                                         <input type="submit" name="moredetails" value="MoreDetails" class="btn btn-primary "/>
@@ -343,6 +381,9 @@
                         </form>                               
                         {% endif %}
                         </li>
+
+                                
+                                        
                         {%endfor%}
                     </ul>
                     <!--div class="row">

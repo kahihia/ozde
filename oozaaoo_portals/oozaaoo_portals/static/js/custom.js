@@ -737,4 +737,76 @@ function abortTimer() { // to be called when you want to stop the timer
 $(add_room).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parents('.clonedInput').remove(); i--;
     });
-   
+
+
+// hotels //
+$('#searchBtn').click(function(){
+        if($('.typeahead').val() == '') {
+            // alert("enter the destination");
+            $('.error_mgs').show();
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    });
+$('#paynow').click(function(){
+    if($('.fname').val() == ''){
+            // alert("please enter the first name");
+            $('.errormgs').show();
+        if($('.lname').val() == ''){
+            // alert("please enter the last name");
+             $('.errormgs').show();
+         if($('.mobileno').val() == ''){
+            // alert("please enter the mobile number");
+             $('.errormgs').show();
+             if($('.email').val() == ''){
+            // alert("please enter the email");
+             $('.errormgs').show();
+            return false;
+                }
+            }
+         }
+    }
+    else{
+       return true; 
+    }
+});
+
+$('.map').click(function(){
+    $('.google_map').toggle();
+});
+
+// bus//
+$('#searchbus').click(function(){
+        if($('.source').val() == '') {
+            // alert("enter the destination");
+            $('.error').show();
+            if($('.destination').val() == '') {
+               $('.error').show(); 
+            return false;
+        }
+    }
+        else{
+            return true;
+        }
+
+    });
+
+var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+ 
+var checkin = $('#dpd1').datepicker({
+onRender: function(date) {
+return date.valueOf() < now.valueOf() ? 'disabled' : '';
+}
+}).on('changeDate', function(ev) {
+if (ev.date.valueOf() > checkout.date.valueOf()) {
+var newDate = new Date(ev.date)
+newDate.setDate(newDate.getDate() + 1);
+checkout.setValue(newDate);
+}
+checkin.hide();
+$('#dpd2')[0].focus();
+}).data('datepicker');

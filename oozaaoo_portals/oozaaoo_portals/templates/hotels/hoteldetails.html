@@ -6,21 +6,43 @@
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a>
                 </li>
-                <li><a href="#">United States</a>
+                <li><a href="#">{{hotels.c}}</a>
                 </li>
-                <li><a href="#">New York (NY)</a>
+                <li><a href="#">{{hotels.l}}</a>
                 </li>
-                <li><a href="#">New York City</a>
+                <!-- <li><a href="#">New York City</a>
                 </li>
                 <li><a href="#">New York City Hotels</a>
                 </li>
-                <li class="active">InterContinental New York Barclay</li>
+                <li class="active">InterContinental New York Barclay</li> -->
             </ul>
             <div class="booking-item-details">
                 <header class="booking-item-header">
                     <div class="row">
                         <div class="col-md-9">
                             <h2 class="lh1em">{{hotels.hn}}</h2>
+                              <span class="booking-item-rating-number"><b >
+                                            {% if hotels.hr == 1 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotels.hr == 2 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotels.hr == 3 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotels.hr == 4 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotels.hr == 5 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% endif %}</b>
                             <p class="lh1em text-small"><i class="fa fa-map-marker"></i>{{hotels.address}}</p>
                             <ul class="list list-inline text-small">
                                 <li><a href="#"><i class="fa fa-envelope"></i> Hotel E-mail</a>
@@ -31,7 +53,7 @@
                             </ul>
                         </div>
                         <div class="col-md-3">
-                            <p class="booking-item-header-price"><small>price from</small>  <span class="text-lg">&#8377;{{hotels.prc}}</span>/night</p>
+                            <p class="booking-item-header-price"><small>price from</small>  <span class="text-lg">&#8377;{{hotels.prc|floatformat}}</span>/night</p>
                         </div>
                     </div>
                 </header>
@@ -41,7 +63,7 @@
                             <ul class="nav nav-tabs" id="myTab">
                                 <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-camera"></i>Photos</a>
                                 </li>
-                                <li><a href="#google-map-tab" data-toggle="tab"><i class="fa fa-map-marker"></i>On the Map</a>
+                                <li class="map"><a href="#google-map-tab" data-toggle="tab"><i class="fa fa-map-marker"></i>On the Map</a>
                                 </li>
                             </ul>
                             
@@ -54,6 +76,12 @@
                                             <img src="{{image.2}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />                                   
                                         {%endfor%} -->
                                        </div><!-- product_angle -->
+                                       <div class="google_map">
+                                            <div id="googleMap" style="width:480px;height:380px; "></div>
+
+                                      </div>
+
+                                    
                                      <div class="idp_views_tab">
                                          <h3>Royal Blue Velvet</h3>
                                          <div class="view_gallery view_glry_act" id="black" style="display:block;">
@@ -77,7 +105,7 @@
                             <h2 class="lh1em mt40">Exeptional!</h2>
                             <h3>97% <small >of guests recommend</small></h3>
                             <div class="booking-item-rating">
-                                <ul class="icon-list icon-group booking-item-rating-stars">
+                                <!-- <ul class="icon-list icon-group booking-item-rating-stars">
                                     <li><i class="fa fa-star"></i>
                                     </li>
                                     <li><i class="fa fa-star"></i>
@@ -88,7 +116,10 @@
                                     </li>
                                     <li><i class="fa fa-star"></i>
                                     </li>
-                                </ul><span class="booking-item-rating-number"><b >4.7</b> of 5 <small class="text-smaller">guest rating</small></span>
+                                </ul> -->
+                                <span class="booking-item-rating-number"><b >
+                                {{hotels.gr}}
+                                </b> of 5 <small class="text-smaller">guest rating</small></span>
                                 <p><a class="text-default" href="#">based on 1535 reviews</a>
                                 </p>
                             </div>
@@ -624,16 +655,25 @@
                                                 <li><i class="fa fa-star"></i>
                                                 </li>
                                             </ul>
-                                            <p>{{review.reviewContent}}<span class="booking-item-review-more"> </span>
-                                            </p>
+                                            
                                             <div class="booking-item-review-more-content">
                                                 <p>Fringilla dictum montes eget senectus cras dictum dictum sollicitudin maecenas</p>
                                                 <p>Aliquam quisque orci auctor auctor natoque ultrices elit quisque porta tortor sollicitudin bibendum proin facilisi duis magna risus fringilla donec velit justo pretium curabitur velit quis platea tristique libero iaculis velit scelerisque ullamcorper id proin placerat faucibus hac purus tristique consectetur interdum donec fames euismod consequat sodales egestas faucibus</p>
                                                 <p class="text-small mt20">Stayed March 2014, traveled as a couple</p>
+                                                <p>{{reviews.0.hotelName}}<span class="booking-item-review-more"> </span>
+                                            </p>
+                                            {% for review in reviews %}
+                                            
+                                            <p> First name :{{review.firstName}}</p>
+                                            <p> Last name :{{review.lastName}}</p>
+                                            <p>Feedback :{{review.reviewContent}}</p>
+                                            <p> User Rating :{{review.totalRating}}</p>
+                                            {% endfor %}
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <ul class="list booking-item-raiting-summary-list">
                                                             <li>
+
                                                                 <div class="booking-item-raiting-list-title">Sleep</div>
                                                                 <ul class="icon-group booking-item-rating-stars">
                                                                     <li><i class="fa fa-smile-o"></i>

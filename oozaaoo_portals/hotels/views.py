@@ -204,7 +204,9 @@ def gethotellist(request):
 		if k in cityFields:
 			city[k] = v
 
-	hotelFields = ['prc', 'hn', 'hr', 'hc', 'fwdp', 'c', 't', 'ibp']
+	hotelFields = ['prc', 'hn', 'hr', 'hc', 'fwdp', 'c', 't', 'ibp','l','fm']
+	hotel_city=hotelFields[5]
+	print hotel_city
 	hotels = []
 	for hotel in getcityresponse['data']['city_hotel_info']:
 		_hotel = {}
@@ -214,6 +216,7 @@ def gethotellist(request):
 				_hotel[k] = v
 		hotels.append(_hotel)
 	
+		
   	if rooms4=='4':
 		joindata = uncde(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 		guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)+int(adults3)+int(nochildrens3)+int(adults4)+int(nochildrens4)
@@ -226,7 +229,7 @@ def gethotellist(request):
 	else:
 		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
 		guest=int(adults1)+int(nochildrens1)
-
+	
 	response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata}, context_instance=RequestContext(request))
 	response.set_cookie( 'joindata', joindata )
   	response.set_cookie( 'checkin', checkin )
@@ -250,7 +253,7 @@ def gethoteldetails(request):
 	gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
 
 	# # /** Hotel  Details */
-	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des']
+	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo']
 	_hotel = {}
 	for k, v in gethoteldetailresponse['data'].iteritems():		
 		# _hotel = {'hn':hotel['hn']}		
@@ -277,6 +280,7 @@ def gethoteldetails(request):
 					review[f] = None
 		reviews.append(review)
 
+
 	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
 
 	# reviews = []
@@ -293,6 +297,9 @@ def gethoteldetails(request):
 	response.set_cookie('rpc',hotelroominfo['rpc'])
 	response.set_cookie('hn',_hotel['hn'])
 	response.set_cookie('prc',_hotel['prc'])
+	response.set_cookie('c',_hotel['c'])
+	response.set_cookie('l',_hotel['l'])
+	response.set_cookie('hr',_hotel['hr'])
 	return response
 
 def userdetails(request):
@@ -318,6 +325,10 @@ def setprovisionalbooking(request):
 	joindata['ibp']=request.COOKIES.get('ibp')
 	joindata['rtc']=request.COOKIES.get('rtc')
 	joindata['rpc']=request.COOKIES.get('rpc')
+	joindata['c']=request.COOKIES.get('c')
+	joindata['l']=request.COOKIES.get('l')
+	joindata['hr']=request.COOKIES.get('hr')
+
 	customer = [['firstname', request.COOKIES.get('fname')], 
                ['lastname', request.COOKIES.get('lname')], 
                ['email',request.COOKIES.get('email')], 
