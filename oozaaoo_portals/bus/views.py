@@ -52,6 +52,7 @@ def search_bus(request):
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
+	print'trip',trip
 	getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
 	reviews = []
 	for bussearchlist in getbusresponse['data']['onwardflights']:	
@@ -143,7 +144,6 @@ def seat_map(request):
 	Seat Map Info 
 	"""
 	skey=request.POST.get('skey',request.COOKIES.get('skey')) 
-	print skey
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	getbusseat=GO.Busseat(skey)
 	results=[]
@@ -249,6 +249,7 @@ def confirmbook(request):
 	secret = sha512(md5str).hexdigest()
 	clientkey='test123'
 	bookingid=request.COOKIES.get('bookid')
+	print secret
 	getbookconform=GO.BookConform(secret,bookingid,clientkey)
 	#return render_to_response('bus/bus-confirmbook.html',{'status':status},context_instance=RequestContext(request))
 	return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
