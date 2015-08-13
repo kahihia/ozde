@@ -249,6 +249,7 @@ def confirmbook(request):
 	secret = sha512(md5str).hexdigest()
 	clientkey='test123'
 	bookingid=request.COOKIES.get('bookid')
+	print secret
 	getbookconform=GO.BookConform(secret,bookingid,clientkey)
 	#return render_to_response('bus/bus-confirmbook.html',{'status':status},context_instance=RequestContext(request))
 	return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')

@@ -289,7 +289,7 @@
                         
                         {% for values in reviews %}
                         <li>
-                            <!-- <form action="{%url "bus.views.bus_booking" %}" method="post">{% csrf_token %} -->
+                            <form action="{%url "bus.views.seat_map" %}" method="post">{% csrf_token %}
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="booking-item-car-img">
@@ -310,12 +310,13 @@
                                    
                                 </div>
                                 <input type="hidden" name='skey'value="{{values.businfos.skey}}" >
-                                 <input type="button" value="Seats" class="slide">
+                                <input type="submit" value="Seats" class="slide">
+                                 <!-- <input type="button" value="Seats" class="slide">
                                      <div class="seat_map">
                                        
-                                     </div>
-                                 <!-- </form>
-                         --></li> 
+                                     </div> -->
+                                 </form>
+                        </li> 
                         {% endfor %}
                     <!--/form-->                           
                     </ul>

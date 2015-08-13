@@ -26,13 +26,16 @@ $('.slide').click(function(){
    
     });
 });
-    $('.amount').click(function(){
-        var total = 0;
-            $(':checkbox:checked#seat').each(function () {
-                total += +this.value;
-            });
-            alert(total);
+$('input[name="seat"]').change(function() {
+   var total_span = 0;
+    $('input[name="seat"]').each(function() {
+        if ($(this).is(':checked')) {
+            total_span += parseInt($(this).prop('value'));
+        }
     });
+    
+    $(".amount").html(total_span);
+});
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
     source: function (request, response) {

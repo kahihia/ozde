@@ -1,6 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+ <form action="{% url "bus.views.bus_booking" %}" method="post" name="seat_map" class="busseat">{% csrf_token %}
+	<div class="col-md-12">
+		<div class="col-md-6">
+			<div class="col-md-3">
+					<span class="circle-bg">1</span>
+					<code>select seat</code>
+			</div>
+			<div class="col-md-3">
+				<select name="seat">
+					{% for b in results.0 %}
+						{% if b.seat_status == 'availableSeat'%}
+					<option value="{{b.SeatFare}},{{ b.SeatName }}">{{ b.SeatName }}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-md-3">
+					<span class="circle-bg">2</span>
+					<code>Booked seat</code>
+			</div>
+			<div class="col-md-3">
+				<select>
+					{% for b in results.0 %}
+						{% if not b.seat_status == 'availableSeat'%}
+					<option disabled>{{ b.SeatName }}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-12">
+				<span class="circle-bg">2</span>
+				<code>select boardingpoint</code>
+			</div>
+			<div class="col-md-12">
+				<select name="bpoint">
+					{% for b in results.1 %}
+					<option value="{{b.BPName}}">{{ b.BPLocation }}</option>
+					{% endfor %}
+				</select>
+				<input type="submit" value="Confirm booking">
+			</div>
 
+		</div>
+	</div>
+</form>
+{% endblock %}  
 
-{% load static from staticfiles %}
+<!-- {% load static from staticfiles %}
 <script src="{% static "js/custom.js" %}"></script>
  <form action="{% url "bus.views.bus_booking" %}" method="post" name="seat_map" class="busseat">{% csrf_token %}
 	<div class="col-md-12">
@@ -11,12 +61,12 @@
 			<div class="col-md-9">
 					{% for b in results.0%}
 						{% if b.seat_status == 'availableSeat'%}
-					<input type="checkbox"  name="seat[]" value="{{ b.SeatFare }}" id="seat">{{ b.SeatName }}
-					<input type="hidden"  name="seatfare" value="{{b.SeatName}}">
+					<input type="checkbox"  name="seat" value="{{ b.SeatFare }}" id="seat">{{ b.SeatName }}
+					
 						{% endif %}
 					{% endfor %}
-			</div>
-			<!-- <option value="{{b.SeatFare}},{{ b.SeatName }}">{{ b.SeatName }}</option> -->
+			</div> -->
+			<!-- <option value="{{b.SeatFare}},{{ b.SeatName }}">{{ b.SeatName }}</option><input type="hidden"  name="seatfare" value="{{b.SeatName}}"> -->
 			<!-- <div class="col-md-3">
 					<span class="circle-bg">2</span>
 					<code>Booked seat</code>
@@ -31,7 +81,7 @@
 				</select>
 			</div> -->
 
-	</div><br/><br/><br/><br/>
+	<!-- </div><br/><br/><br/><br/>
 	<div class="col-md-12">
 			<div class="col-md-3">
 				<span class="circle-bg">2</span>
@@ -47,12 +97,12 @@
 	</div><br/><br/><br/><br/>
 	<div class="col-md-12">
 			<div class="col-md-3">
-				<span class="circle-bg">2</span>
-				<span class="amount">Amount</span>
+				<span class="circle-bg">3</span>
+				<h2 class="amount"></h2>
 			</div>
 			<div class="col-md-9">
 				<h1></h1>
 				<input type="submit" value="Confirm booking">
 			</div>
 	</div><br/><br/><br/><br/>
-</form> 
+</form>  -->
