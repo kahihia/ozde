@@ -24,18 +24,7 @@
     <link rel="stylesheet" href="{% static "css/mystyles.css" %}">
     <script src="{% static "js/modernizr.css" %}"></script>
     <script src="http://maps.googleapis.com/maps/api/js"></script>
-    <script>
-            function initialize() {
-                var mapProp = {
-                 center:new google.maps.LatLng(11.9421943409,79.8288596119),
-                 zoom:5,
-                 mapTypeId:google.maps.MapTypeId.ROADMAP
-                };
-            var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-            
-    </script>
+
 
 
 </head>
@@ -60,9 +49,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
-                            <a class="logo" href="index.html">
+                            <!-- <a class="logo" href="index.html">
                                 <img src="{{ STATIC_URL }}img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
-                            </a>
+                            </a> -->
+                            
                         </div>
                         <div class="col-md-3 col-md-offset-2">
                             <form class="main-header-search">
@@ -225,9 +215,9 @@
             <div class="container">
                 <div class="row row-wrap">
                     <div class="col-md-3">
-                        <a class="logo" href="index.html">
+                       <!--  <a class="logo" href="index.html">
                             <img src="{{ STATIC_URL }}img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
-                        </a>
+                        </a> -->
                         <p class="mb20">Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more!</p>
                         <ul class="list list-horizontal list-space">
                             <li>
