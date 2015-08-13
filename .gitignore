@@ -9,8 +9,7 @@
 *.pyc
 .pydevproject
 .project
-manage.py
-settings.py
+
  
 # Packages #
 ############
