@@ -14,7 +14,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.core.context_processors import csrf 
-from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response, render, redirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
@@ -36,15 +35,23 @@ from django.http import HttpResponse
 import collections
 
 
+class mydict(dict):
+        def __str__(self):
+            return json.dumps(self)
+
+
 def search_bus(request):
 	"""
 	Search Bus based on Source and Destination
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	source='chennai'
-	destination='banglore'
-	dateofdeparture=20150812
-	dateofarrival=''
+	source= request.POST.get('source',request.COOKIES.get('source'))
+	destination=request.POST.get('destination',request.COOKIES.get('destination'))
+	departure=request.POST.get('start',request.COOKIES.get('start'))
+	dateofdeparture = departure.replace('/','')
+	arrival=request.POST.get('end',request.COOKIES.get('end'))
+	dateofarrival = departure.replace('/','')
+	trip=request.POST.get('trip',request.COOKIES.get('trip'))
 	getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
 	reviews = []
 	for bussearchlist in getbusresponse['data']['onwardflights']:	
@@ -66,7 +73,6 @@ def search_bus(request):
 
 		if bussearchlist.get('BPPrims'):
 			for morevalues in bussearchlist['BPPrims']['list']:
-				print'==============>', len(morevalues)
 				_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
 
 			if bussearchlist.get('DPPrims'):
@@ -82,35 +88,74 @@ def search_bus(request):
 		else:
 			reviews.append(_rbuslist)
 			# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
+	reviews_return = []
+	for bussearchlist in getbusresponse['data']['returnflights']:	
+		_rbuslist	= {}
+		_rbuslist['businfos'] = {
+			'origin':bussearchlist['origin'],
+			'destination':bussearchlist['destination'],
+			'BusType':bussearchlist['BusType'],
+			'DepartureTime':bussearchlist['DepartureTime'],
+			'duration':bussearchlist['duration'],
+			'skey':bussearchlist['skey'],
+			'fare':bussearchlist['fare']['totalfare'],
+			'TravelsName':bussearchlist['TravelsName'],
+			'ArrivalTime':bussearchlist['ArrivalTime'],
+			'depdate':bussearchlist['depdate'],
+			'arrdate':bussearchlist['arrdate'],
+			'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+		}
 
-	joindata_bus = unicode(dateofdeparture)
-	travel_name = unicode(bussearchlist['TravelsName'])
-	fare = unicode(bussearchlist['fare']['totalfare'])
+		if bussearchlist.get('BPPrims'):
+			for morevalues in bussearchlist['BPPrims']['list']:
+				_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+
+			if bussearchlist.get('DPPrims'):
+				for morevalues in bussearchlist['DPPrims']['list']:
+					_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+			
+
+			if bussearchlist.get('RouteSeatTypeDetail'):
+				for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+					_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+			
+			reviews_return.append(_rbuslist)
+		else:
+			reviews_return.append(_rbuslist)	
 	source = unicode(source)
 	destination = unicode(destination)
 	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
-	# return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')	
-	response = render_to_response('bus/bus-searchlist.html', {'reviews':reviews}, context_instance=RequestContext(request))
-	response.set_cookie( 'joindata_bus', joindata_bus)
-	response.set_cookie( 'travel_name', travel_name)
-	response.set_cookie( 'fare', fare)
+	#return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
+	if trip=='oneway':	
+		response = render_to_response('bus/bus-searchlist.html', {'reviews':reviews}, context_instance=RequestContext(request))
+	else:
+		response = render_to_response('bus/bus-searchlist-round.html', {'reviews':reviews,'reviews_return':reviews_return}, context_instance=RequestContext(request))
+
 	response.set_cookie( 'source', source)
+	response.set_cookie( 'trip', trip)
 	response.set_cookie( 'destination', destination)
+	response.set_cookie( 'start', departure)
 	return response
-	
+
+@csrf_exempt	
 def seat_map(request):
 	"""
 	Seat Map Info 
 	"""
+	skey=request.POST.get('skey',request.COOKIES.get('skey')) 
+	print skey
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	skey='xJ51Ly0ti91R1ZOEFuDFKv4V6dUJm5pKNqDh0J5O9mobyjc9Eww-7nLdgbubveJxLR_t0-N8Lg=='
 	getbusseat=GO.Busseat(skey)
 	results=[]
-	for k in getbusseat['data']['onwardSeats']:
-		results.append(k)
-	# return HttpResponse(simplejson.dumps(results), mimetype='application/json')
-	return render_to_response('bus/bus-seatmapinfo.html', {'results':results}, context_instance=RequestContext(request)) 
-
+	for k,v in getbusseat.iteritems():
+		results.append(v['onwardSeats'])
+		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
+			results.append(i)
+	#return HttpResponse(simplejson.dumps(results), mimetype='application/json')
+	#return simplejson.dumps(results)
+	response= render_to_response('bus/bus-seatmapinfo.html', {'results':results}, context_instance=RequestContext(request)) 
+	response.set_cookie('skey',skey)
+	return response
 
 def cancelpolicy(request):
 	"""
@@ -127,44 +172,97 @@ def cancelpolicy(request):
 	# return HttpResponse(simplejson.dumps(policy), mimetype='application/json')
 	return render_to_response('bus/bus-cancelpolicy.html', {'policy':policy}, context_instance=RequestContext(request)) 
 
+@login_required(login_url='/register/')
+def bus_booking(request):
+	bpoint=request.POST.get('bpoint',request.COOKIES.get('bpoint'))
+	bpoint_id,bpoint_name= bpoint.split("-")
+	seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
+	fare , seat_name=seatdetails.split(",")
+	response= render_to_response('bus/bus_booking.html', context_instance=RequestContext(request)) 
+	response.set_cookie('bpoint',bpoint)
+	response.set_cookie('seatdetails',seatdetails)
+	response.set_cookie('bpoint_id',bpoint_id)
+	response.set_cookie('bpoint_name',bpoint_name)
+	response.set_cookie('seat_fare',fare)
+	response.set_cookie('seat_name',seat_name)
+	return response
+
+
 def tentativebooking(request):
 	import requests
 	import urllib
 	from django.utils import simplejson
+	skey=request.POST.get('skey',request.COOKIES.get('skey'))
+	bpoint_id=request.COOKIES.get('bpoint_id')
+	bpoint_name=request.COOKIES.get('bpoint_name')
+	seat_fare=request.COOKIES.get('seat_fare')
+	seat_name=request.COOKIES.get('seat_name')
+	title=request.POST.get('title',request.COOKIES.get('title'))
+	fname=request.POST.get('fname',request.COOKIES.get('fname'))
+	lname=request.POST.get('lname',request.COOKIES.get('lname'))
+	age=request.POST.get('age',request.COOKIES.get('age'))
+	email=request.POST.get('email',request.COOKIES.get('email'))
+	mobile=request.POST.get('mobile',request.COOKIES.get('mobile'))
 	url = "http://pp.goibibobusiness.com/api/bus/hold/"
-	joindata_bus= request.COOKIES.get('joindata_bus')	
-	payload={'holddata':'{"onw":{"skey":"zJ5yLDs6ptU20KB7EtLDKv4V6NMMmZNKNqDi0J5O-msWyzc9Eww-7nLdgbubveJxLR_t0-R8Lg==","bp":"66677","seats":[{"title":"Mr","firstName":"test","lastName":"test","age":"34","eMail":"goibibobusinesstest@gmail.com","mobile":"9888888888","seatName":"36","seatFare":"122"}]}}'}
+	customer = [['title', 'Mr'],
+			   ['firstName', fname], 
+               ['lastName',lname], 
+               ['age',age], 
+               ['eMail',email], 
+               ['mobile',mobile],
+               ['seatName', seat_name],
+               ['seatFare',seat_fare],
+               ]
+	customer_details=[mydict(customer)]
+	bus=[['skey',request.COOKIES.get('skey')],
+		['bp',request.COOKIES.get('bpoint_id')],
+		['seats',customer_details]]
+	bus_info=mydict(bus)
+	onw=[['onw',bus_info]]
+	onw_info=mydict(onw)
+	payload={'holddata':'%s'%onw_info}
+	#payload={'holddata':'{"onw":{"skey":"zJ5yLDs6ptU20KB7EtLDKv4V6NMMmZNKNqDi0J5O-msWyzc9Eww-7nLdgbubveJxLR_t0-R8Lg==","bp":"66677","seats":[{"title":"Mr","firstName":"test","lastName":"test","age":"34","eMail":"goibibobusinesstest@gmail.com","mobile":"9888888888","seatName":"36","seatFare":"122"}]}}'}
 	headers = {
         'content-type': "application/x-www-form-urlencoded"
     }
-	response = requests.request("POST", url, data=payload, headers=headers, auth=('apitesting@goibibo.com','test123'))
-	# return HttpResponse(response)
+	details = requests.request("POST", url, data=payload, headers=headers, auth=('apitesting@goibibo.com','test123'))
+	#response=HttpResponse(details)
 	# return HttpResponse(simplejson.dumps(response), mimetype='application/json')
-	return render_to_response('bus/bus-tentativebooking.html',{'response':response,'joindata_bus':joindata_bus},context_instance=RequestContext(request))
+	response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
+	print details.json()
+	response.set_cookie('bookid',details.json()['data']['bookingID'])
+	response.set_cookie('fname',fname)
+	response.set_cookie('lname',lname)
+	response.set_cookie('age',age)
+	response.set_cookie('email',email)
+	response.set_cookie('mobile',mobile)
+	return response
 
-
-def confirmbooking(request):	
+@csrf_exempt
+def confirmbook(request):	
 	"""
-	CancelTicket Bus
+	CancelTicket Bus 
 	"""
 	from hashlib import md5, sha512
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	md5str = "travelibibo" + '|' + "GOBUS0d1441438774394" + '|' + "test123"
+	md5str = "travelibibo" + '|' + request.COOKIES.get('bookid') + '|' + "test123"
 	secret = sha512(md5str).hexdigest()
 	clientkey='test123'
-	bookingid='GOBUS0d1441438774394'
+	bookingid=request.COOKIES.get('bookid')
 	getbookconform=GO.BookConform(secret,bookingid,clientkey)
-	busdetails=request.COOKIES.get('reviews')
-	print(busdetails)
-	return render_to_response('bus/bus-confirmbook.html',{'status':status},context_instance=RequestContext(request))
-	# return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
+	#return render_to_response('bus/bus-confirmbook.html',{'status':status},context_instance=RequestContext(request))
+	return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
 	
-def bookingstatus(request):
+def busbookstatus(request):
+	return render_to_response('bus/busbookingstatus.html', context_instance=RequestContext(request)) 
+
+
+def busbookingstatus(request):
 	"""
 	Booking Status
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	pid='GOBUS0d1441438774394'
+	pid=request.POST.get('bookid')
 	getbookingstatus=GO.BookStatus(pid)
 	status={}
 	for k,v in getbookingstatus.iteritems():
@@ -181,12 +279,15 @@ def bookingstatus(request):
 			status['BPAddress']=j['BPDetails']['BPAddress']		
 	return HttpResponse(simplejson.dumps(status), mimetype='application/json')
 
+def buscencelticket(request):
+	return render_to_response('bus/buscancelticket.html', context_instance=RequestContext(request))
+
 def cancelticket(request):
 	"""
 	CancelTicket Bus
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	pid='GOBUS0693d143'
+	pid=request.POST.get('bookid')
 	getcancelticket=GO.CancelTicket(pid)
 	return HttpResponse(simplejson.dumps(getcancelticket['data']), mimetype='application/json')	
 

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="gap"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Customer</h3>
+            <p>Sign in to your <a href="#">Traveler account</a> for fast booking.</p>
+         <form action="{% url "bus.views.tentativebooking" %}" method="post" name="tentativebooking" class="tentativebooking">
+                <div class="row">
+                    <div class="col-md-4">
+                   
+                        <div class="form-group">
+                            <label>First & Last Name</label>
+                            <input class="form-control" type="text" />
+                            <span></span>
+                        </div>
+                 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input class="i-check" type="checkbox" checked/>Create Traveler account <small>(password will be send to your e-mail)</small>
+                    </label>
+                </div>
+               
+            </form>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="pp-img" src="img/paypal.png" alt="Image Alternative text" title="Image Title" />
+                    <p>Important: You will be redirected to PayPal's website to securely complete your payment.</p><a class="btn btn-primary">Checkout via Paypal</a>	
+                </div>
+
+                <div class="col-md-6">
+                    <h4>Pay via Credit/Debit Card</h4>
+                    <form class="cc-form">
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-number">
+                                <label>Card Number</label>
+                                <input class="form-control" placeholder="xxxx xxxx xxxx xxxx" type="text" /><span class="cc-card-icon"></span>
+                            </div>
+                            <div class="form-group form-group-cc-cvc">
+                                <label>CVC</label>
+                                <input class="form-control" placeholder="xxxx" type="text" />
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-name">
+                                <label>Cardholder Name</label>
+                                <input class="form-control" type="text" />
+                            </div>
+                            <div class="form-group form-group-cc-date">
+                                <label>Valid Thru</label>
+                                <input class="form-control" placeholder="mm/yy" type="text" />
+                            </div>
+                        </div>
+                        <div class="checkbox checkbox-small">
+                            <label>
+                                <input class="i-check" type="checkbox" checked/>Add to My Cards</label>
+                        </div>
+                      <a href="/bookconform/"> <input class="btn btn-primary" type="submit" value="Proceed Payment" /></a>  
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="booking-item-payment">
+                <header class="clearfix">
+                    <a class="booking-item-payment-img" href="#">
+                        <img src="img/Maserati-GranTurismo-Sport-facelift.png" alt="Image Alternative text" title="Image Title" />
+                    </a>
+                    <h5 class="booking-item-payment-title"><a href="#">Maserati GranTurismo</a></h5>
+                </header>
+                <ul class="booking-item-payment-details">
+                    <li>
+                    <dl id="onwdets" class="travDet">
+            <dt class="jdet">Onward Journey </dt>
+            <!-- Search data Display -->
+                <dd class="travCity">{{source}} to {{destination}}</dd> 
+                <dd id="doj" class="travDate">{{joindata_bus}}</dd>
+
+                <dd class="travSeat">Seat no(s)&nbsp;:&nbsp;<span class="TextNormal">34</span></dd>              
+                <dd class="travType TextNormal">Non A/C Seater/Sleeper (2+1)</dd>   
+                <dd class="travTrav">{{travel_name}}</dd>
+
+                </dl>
+
+                <p class="booking-item-payment-total">Total trip: <span>{{fare}}</span>
+                </p>
+            <!-- End -->
+            </div>
+        </div>
+    </div>
+    <div class="gap"></div>
+</div>
+{% endblock %} 
+
+
+
+

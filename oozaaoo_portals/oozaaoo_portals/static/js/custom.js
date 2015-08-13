@@ -1,8 +1,40 @@
 "use strict";
+$('#oneway').click(function(){
+    $('#oneway').attr('checked',true);
+    $('#round').removeattr('checked');
+});
 
+$('#round').click(function(){
+    $('#round').attr('checked',true);
+    $('#oneway').removeattr('checked');
+});
 
+$('.slide').click(function(){
+    var par = $(this).parent();
+    $('.seat_map',par).slideDown("slow");
+    var par = $(this).parent();
+    var skey= $('input[name=skey]',par).val();
+    $.ajax({
+    type: 'POST',
+    url: '/seat_map/',
+    dataType: 'html',
+    data: {"skey":skey}, // or JSON.stringify ({name: 'jonas'}),
+    success: function(data) { 
+        $('.seat_map',par).html(data);
+    },
+    //contentType: "application/json",
+   
+    });
+});
+    $('.amount').click(function(){
+        var total = 0;
+            $(':checkbox:checked#seat').each(function () {
+                total += +this.value;
+            });
+            alert(total);
+    });
 $(function() {    
-    $( "#filterkeywordtxt" ).autocomplete({
+    $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
     source: function (request, response) {
         $.getJSON("/getcity?term=" + request.term, function (data) {             
             response($.map(data, function (value, key) {                            

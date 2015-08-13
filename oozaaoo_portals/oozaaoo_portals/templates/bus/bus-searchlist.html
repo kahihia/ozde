@@ -289,58 +289,33 @@
                         
                         {% for values in reviews %}
                         <li>
-                            <a class="booking-item" href="/seat_map/">
+                            <!-- <form action="{%url "bus.views.bus_booking" %}" method="post">{% csrf_token %} -->
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="booking-item-car-img">
-                                            <img src="img/Maserati-GranTurismo-Sport-facelift.png" alt="Image Alternative text" title="Image Title" />
-                                            <p class="booking-item-car-title">Maserati GranTurismo</p>
+                                            <p class="booking-item-car-title"><h3>{{values.businfos.TravelsName}}</h3></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <ul class="booking-item-features booking-item-features-sign clearfix">
-                                                    <li rel="tooltip" data-placement="top" title="Passengers"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x 6</span>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Doors"><i class="im im-car-doors"></i><span class="booking-item-feature-sign">x 2</span>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Baggage Quantity"><i class="fa fa-briefcase"></i><span class="booking-item-feature-sign">x 1</span>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Automatic Transmission"><i class="im im-shift-auto"></i><span class="booking-item-feature-sign">auto</span>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Diesel Vehicle"><i class="im im-diesel"></i><span class="booking-item-feature-sign">diesel</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="booking-item-features booking-item-features-small clearfix">
-                                                    <li rel="tooltip" data-placement="top" title="Air Conditioning"><i class="im im-air"></i>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Satellite Navigation"><i class="im im-satellite"></i>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="FM Radio"><i class="im im-fm"></i>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Stereo CD/MP3"><i class="im im-stereo"></i>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Tilt Steering Wheel"><i class="im im-car-wheel"></i>
-                                                    </li>
-                                                    <li rel="tooltip" data-placement="top" title="Power Windows"><i class="im im-car-window"></i>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <ul class="booking-item-features booking-item-features-dark">
-                                                    <li rel="tooltip" data-placement="top" title="Terminal Pickup"><i class="fa fa-plane"></i>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-3">
+                                        <span><b>Boarding point:</b>{{values.boardingpoints.BPLocation}}</span>
+                                        <span><b>Depturepoints:</b>{{values.depturepoints.DPLocation}}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span><b>SeatsAvailable:</b>{{values.seatinfo.SeatsAvailable}}</span>
+                                        <span><b>SeatType:</b>{{values.seatinfo.seatType}}</span>
                                     </div>
                                     <div class="col-md-3"><span class="booking-item-price">{{values.businfos.fare}}</span><span>/day</span>
-                                        <p class="booking-item-flight-class">Luxury</p><span class="btn btn-primary">Select</span>
+                                        
                                     </div>
+                                   
                                 </div>
-                            </a>
-                        </li> 
+                                <input type="hidden" name='skey'value="{{values.businfos.skey}}" >
+                                 <input type="button" value="Seats" class="slide">
+                                     <div class="seat_map">
+                                       
+                                     </div>
+                                 <!-- </form>
+                         --></li> 
                         {% endfor %}
                     <!--/form-->                           
                     </ul>
@@ -378,6 +353,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="dummy">
+                
             </div>
             <div class="gap"></div>
         </div>

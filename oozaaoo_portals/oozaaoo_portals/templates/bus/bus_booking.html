@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="gap"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Customer</h3>
+         <form action="{% url "bus.views.tentativebooking" %}" method="post">{% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <select name="title">
+                                <option value="mr">Mr</option>
+                                <option value="mrs">Mrs</option>
+                                <option value="miss">Miss</option>
+                            </select>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input class="form-control" type="text" name="fname"/>
+                            <span></span>
+                        </div>
+                 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Lastname</label>
+                            <input class="form-control" type="text" name="lname" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                   
+                        <div class="form-group">
+                            <label>age</label>
+                            <input class="form-control" type="text" name="age" />
+                            <span></span>
+                        </div>
+                 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input class="form-control" type="text" name="mobile" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" name="email" />
+                        </div>
+                    </div>
+                </div>
+               <input class="btn btn-primary" type="submit" value="Proceed Payment" />
+            </form>
+            <hr>
+        </div>
+    </div>
+    <div class="gap"></div>
+</div>
+{% endblock %} 
+
+
+
+

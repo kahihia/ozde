@@ -77,16 +77,34 @@ def login_user(request):
 	"""
 	logout(request)
 	username = password = ''
-	if request.POST:
+	print request.POST['next']
+	if request.POST["next"] is not "":
 	    username = request.POST['username']
 	    password = request.POST['password']
-
 	    user = authenticate(username=username, password=password)
 	    if user is not None:
 	        if user.is_active:
 	            login(request, user)
-	            return HttpResponseRedirect('/main/')
-	return render_to_response('login.html', context_instance=RequestContext(request))
+	            return HttpResponseRedirect(request.POST["next"])
+	else:
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/')
+	return render_to_response('login-register.html', context_instance=RequestContext(request))
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+def myprofile(request):
+	user = request.user
+	userprofile=UserProfile.objects.get(pk=user.id)
+	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
+
 
 def home(request):
 	"""
@@ -303,7 +321,8 @@ def gethoteldetails(request):
 	response.set_cookie('l',_hotel['l'])
 	response.set_cookie('hr',_hotel['hr'])
 	return response
-
+	
+@login_required(login_url='/register/')
 def userdetails(request):
 	"""
 	UserDetails for PayU Methods with Amount.

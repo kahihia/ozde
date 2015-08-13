@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a>
+                </li>
+                <li><a href="#">United States</a>
+                </li>
+                <li><a href="#">New York (NY)</a>
+                </li>
+                <li><a href="#">New York City</a>
+                </li>
+                <li class="active">New York City Rental Cars</li>
+            </ul>
+           <!--  <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="search-dialog">
+                <h3>Search for Car</h3>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-highlight"></i>
+                                <label>Pick-up From</label>
+                                <input class="typeahead form-control" placeholder="City, Airport or U.S. Zip Code" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-highlight"></i>
+                                <label>Drop-off To</label>
+                                <input class="typeahead form-control" placeholder="City, Airport or U.S. Zip Code" value="Same as Pick-up" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-daterange" data-date-format="MM d, D">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                    <label>Pick-up Date</label>
+                                    <input class="form-control" name="start" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-clock-o input-icon input-icon-highlight"></i>
+                                    <label>Drop-off Time</label>
+                                    <input class="time-pick form-control" value="12:00 AM" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                    <label>Drop-off Date</label>
+                                    <input class="form-control" name="end" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-clock-o input-icon input-icon-highlight"></i>
+                                    <label>Pick-up Time</label>
+                                    <input class="time-pick form-control" value="12:00 AM" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg" type="submit">Search for Flights</button>
+                </form>
+            </div> -->
+            <h3 class="booking-title">105 Rental Cars in New York on Mar 22 - Mar 27<small>
+            <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="nav-drop booking-sort">
+                            <h5 class="booking-sort-title"><a href="#">Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
+                            <ul class="nav-drop-menu">
+                                <li><a href="#">Price (high to low)</a>
+                                </li>
+                                <li><a href="#">Car Name (A-Z)</a>
+                                </li>
+                                <li><a href="#">Car Name (Z-A)</a>
+                                </li>
+                                <li><a href="#">Car Type</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Content loop Start  -->
+                        <ul class="booking-list">
+                        <!--form action="{% url "bus.views.search_bus" %}" method="post" name="search_bus" class="bus_search"-->
+                            {% for values in reviews %}
+                            <li>
+                                <form action="{%url "bus.views.seat_map" %}" method="post">{% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="booking-item-car-img">
+                                                <p class="booking-item-car-title"><h3>{{values.businfos.TravelsName}}</h3></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><b>Boarding point:</b>{{values.boardingpoints.BPLocation}}</span>
+                                            <span><b>Depturepoints:</b>{{values.depturepoints.DPLocation}}</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><b>SeatsAvailable:</b>{{values.seatinfo.SeatsAvailable}}</span>
+                                            <span><b>SeatType:</b>{{values.seatinfo.seatType}}</span>
+                                        </div>
+                                        <div class="col-md-3"><span class="booking-item-price">{{values.businfos.fare}}</span><span>/day</span>
+                                            
+                                        </div>
+                                       
+                                    </div>
+                                    <input type="hidden" name='skey'value="{{values.businfos.skey}}" >
+                                     <input type="submit" value="Select">
+                                     
+                                     </form>
+                            </li> 
+                            {% endfor %}
+                        <!--/form-->                           
+                        </ul>
+                        <!-- Content loop End  -->
+                    </div>
+                    <div class="col-md-6">
+                        <div class="nav-drop booking-sort">
+                            <h5 class="booking-sort-title"><a href="#">Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
+                            <ul class="nav-drop-menu">
+                                <li><a href="#">Price (high to low)</a>
+                                </li>
+                                <li><a href="#">Car Name (A-Z)</a>
+                                </li>
+                                <li><a href="#">Car Name (Z-A)</a>
+                                </li>
+                                <li><a href="#">Car Type</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Content loop Start  -->
+                        <ul class="booking-list">
+                        <!--form action="{% url "bus.views.search_bus" %}" method="post" name="search_bus" class="bus_search"-->
+                            
+                            {% for values_return in reviews_return %}
+                            <li>
+                                <form action="{%url "bus.views.seat_map" %}" method="post">{% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="booking-item-car-img">
+                                                <p class="booking-item-car-title"><h3>{{values_return.businfos.TravelsName}}</h3></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><b>Boarding point:</b>{{values_return.boardingpoints.BPLocation}}</span>
+                                            <span><b>Depturepoints:</b>{{values_return.depturepoints.DPLocation}}</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><b>SeatsAvailable:</b>{{values_return.seatinfo.SeatsAvailable}}</span>
+                                            <span><b>SeatType:</b>{{values_return.seatinfo.seatType}}</span>
+                                        </div>
+                                        <div class="col-md-3"><span class="booking-item-price">{{values_return.businfos.fare}}</span><span>/day</span>
+                                            
+                                        </div>
+                                       
+                                    </div>
+                                    <input type="hidden" name='skey'value="{{values_return.businfos.skey}}" >
+                                     <input type="submit" value="Select">
+                                     </form>
+                            </li> 
+                            {% endfor %}
+                        <!--/form-->                           
+                        </ul>
+                        <!-- Content loop End  -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gap"></div>
+        </div>
+{% endblock %}        
+
+
+        
+
+        
+
