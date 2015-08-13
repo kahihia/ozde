@@ -26,16 +26,7 @@ $('.slide').click(function(){
    
     });
 });
-$('input[name="seat"]').change(function() {
-   var total_span = 0;
-    $('input[name="seat"]').each(function() {
-        if ($(this).is(':checked')) {
-            total_span += parseInt($(this).prop('value'));
-        }
-    });
-    
-    $(".amount").html(total_span);
-});
+
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
     source: function (request, response) {
@@ -780,7 +771,20 @@ $('#searchBtn').click(function(){
             // alert("enter the destination");
             $('.error_mgs').show();
             return false;
+            if($('.startdate').val() == ''){
+                $('.error_mgs').show();
+                return false;
+            if($('.enddate').val() == ''){
+                $('.error_mgs').show();
+                return false;
+            if($('.child_age').val() == ''){
+                $('.error_mgs').show();
+            
+            return false;
         }
+    }
+    }
+    }
         else{
             return true;
         }
