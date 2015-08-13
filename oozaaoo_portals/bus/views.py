@@ -52,7 +52,6 @@ def search_bus(request):
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
-	print'trip',trip
 	getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
 	reviews = []
 	for bussearchlist in getbusresponse['data']['onwardflights']:	
@@ -144,6 +143,7 @@ def seat_map(request):
 	Seat Map Info 
 	"""
 	skey=request.POST.get('skey',request.COOKIES.get('skey')) 
+	print skey
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	getbusseat=GO.Busseat(skey)
 	results=[]
