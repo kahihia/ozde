@@ -1,14 +1,12 @@
-{% extends 'base.html' %}
-{% load i18n %}
-{% block content %} 
+
  <form action="{% url "bus.views.bus_booking" %}" method="post" name="seat_map" class="busseat">{% csrf_token %}
 	<div class="col-md-12">
-		<div class="col-md-6">
-			<div class="col-md-3">
+		<div class="col-md-3">
+			<div class="col-md-6">
 					<span class="circle-bg">1</span>
-					<code>select seat</code>
+					<span>select seat</span>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<select name="seat">
 					{% for b in results.0 %}
 						{% if b.seat_status == 'availableSeat'%}
@@ -17,26 +15,13 @@
 					{% endfor %}
 				</select>
 			</div>
-			<div class="col-md-3">
-					<span class="circle-bg">2</span>
-					<code>Booked seat</code>
-			</div>
-			<div class="col-md-3">
-				<select>
-					{% for b in results.0 %}
-						{% if not b.seat_status == 'availableSeat'%}
-					<option disabled>{{ b.SeatName }}</option>
-						{% endif %}
-					{% endfor %}
-				</select>
-			</div>
 		</div>
-		<div class="col-md-6">
-			<div class="col-md-12">
+		<div class="col-md-9">
+			<div class="col-md-3">
 				<span class="circle-bg">2</span>
-				<code>select boardingpoint</code>
+				<span>select boardingpoint</span>
 			</div>
-			<div class="col-md-12">
+			<div class="col-md-9">
 				<select name="bpoint">
 					{% for b in results.1 %}
 					<option value="{{b.BPName}}">{{ b.BPLocation }}</option>
@@ -47,6 +32,5 @@
 
 		</div>
 	</div>
-</form>
-{% endblock %}  
+</form> 
 
