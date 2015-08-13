@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+
+<div class="container">
+Username{{user.username}}<br/>
+Email{{user.email}}<br/>
+ Name{{userprofile.name}}<br/>
+ Phone{{userprofile.phone}}<br/>
+ DateofBirth{{userprofile.dateofbirth}}<br/>
+</div>
+{% endblock %}    
+
+

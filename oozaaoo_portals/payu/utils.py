@@ -10,7 +10,6 @@ def generate_hash(data):
             'udf9',  'udf10')
     hash = sha512('')
     for key in KEYS:
-        print str(data.get(key, ''))
         hash.update("%s%s" % (str(data.get(key, '')), '|'))
     hash.update(settings.PAYU_INFO.get('merchant_salt'))
     return hash.hexdigest().lower()

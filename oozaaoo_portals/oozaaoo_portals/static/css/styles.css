@@ -583,7 +583,7 @@ label {
   color: #f19c4f !important;
 }
 .form-group.form-group-ghost .form-control {
-  background: rgba(255,255,255,0.1);
+  background: #262626;
   border-color: #fff;
   color: #fff;
 }
@@ -6625,7 +6625,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   margin-right: 7px;
 }
 .booking-item-rating .booking-item-rating-number > b {
-  font-size: 16px;
+  font-size: 25px;
 }
 .booking-item-address {
   line-height: 1em;
@@ -11016,3 +11016,6 @@ img.mfp-img {
 }
 .view_gallery div { display: none; }
 .view_gallery div img { position:relative;  z-index:100 !important; }
+.seat_map{
+  display: none;
+}
