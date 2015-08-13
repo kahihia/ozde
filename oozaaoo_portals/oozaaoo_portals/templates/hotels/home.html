@@ -43,13 +43,19 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                                             <label>Check-in</label>
-                                                            <input class="form-control start_date" name="start" type="text" />
+
+                                                            <input class="form-control startdate" name="start" type="text" />
+                                                            <div class="error_mgs" style="display:none; color:red;">Enter the Check in date</div>
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                                             <label>Check-out</label>
                                                             <input class="form-control enddate" name="end" type="text" />
+
+                                                            <div class="error_mgs" style="display:none; color:red;">Enter the Check out date</div>
+
                                                         </div>
                                                     </div>
                                                   </div><!-- row -->
@@ -83,14 +89,15 @@
                                                                         <option value="2" >2</option>
                                                                         
                                                                     </select>
+                                                                    
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-2 child-1-act dn" id="test1">
                                                                 <div class="form-group form-group-lg form-group-select-plus">
-                                                                    <label>Child-1 age</label>                                     
-                                                                    <select class="form-control" name="childage1_1"> 
-                                                                        <option selected="selected" value="0" >0</option>
+                                                                    <label>Child-1 age</label>                              
+                                                                    <select class="form-control child_age" name="childage1_1">   
+
                                                                         <option value="1" >1</option>
                                                                         <option value="2" >2</option>
                                                                         <option value="3" >3</option>
@@ -104,13 +111,14 @@
                                                                         <option value="11" >11</option>
                                                                         <option value="12" >12</option>
                                                                     </select>
+                                                                    <div class="error_mgs" style="display:none; color:red;">Enter the child age</div>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-2 child-2-act dn">
                                                                 <div class="form-group form-group-lg form-group-select-plus">
                                                                     <label>Child-2 age</label>                                     
-                                                                    <select class="form-control" name="childage2_1 "> 
+                                                                    <select class="form-control child_age" name="childage2_1 "> 
                                                                         <option selected="selected" value="0" >0</option>
                                                                         <option value="1" >1</option>
                                                                         <option value="2" >2</option>
@@ -126,6 +134,7 @@
                                                                         <option value="12" >12</option>
                                                                         
                                                                     </select>
+                                                                    <div class="error_mgs" style="display:none; color:red;">Enter the child age</div>
                                                                 </div>
                                                             </div>
 

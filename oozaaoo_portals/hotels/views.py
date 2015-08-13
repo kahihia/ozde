@@ -222,7 +222,7 @@ def gethotellist(request):
 		if k in cityFields:
 			city[k] = v
 
-	hotelFields = ['prc', 'hn', 'hr', 'hc', 'fwdp', 'c', 't', 'ibp','l','fm']
+	hotelFields = ['prc', 'hn', 'hr', 'hc', 'fwdp', 'c', 't', 'ibp','l','fm','offer_tag','gr']
 	hotel_city=hotelFields[5]
 	print hotel_city
 	hotels = []
@@ -233,7 +233,9 @@ def gethotellist(request):
 			if k in hotelFields:
 				_hotel[k] = v
 		hotels.append(_hotel)
-	
+		
+		# if 'fm' in hotels:
+		# 	hotel_fm=hotels.fm
 		
   	if rooms4=='4':
 		joindata = uncde(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
@@ -287,7 +289,7 @@ def gethoteldetails(request):
 		hotelroominfos.append(_rhotelinfo)	
 
 	# /** Hotel  Reviews Details */		
-	hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle']	
+	hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
 	reviews = []
 	for hotelreview in gethotelreviewresponse['data']:
 		review = {}
@@ -297,7 +299,7 @@ def gethoteldetails(request):
 			else:
 					review[f] = None
 		reviews.append(review)
-
+	print reviews
 
 	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
 

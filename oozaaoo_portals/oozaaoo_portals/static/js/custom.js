@@ -777,7 +777,20 @@ $('#searchBtn').click(function(){
             // alert("enter the destination");
             $('.error_mgs').show();
             return false;
+            if($('.startdate').val() == ''){
+                $('.error_mgs').show();
+                return false;
+            if($('.enddate').val() == ''){
+                $('.error_mgs').show();
+                return false;
+            if($('.child_age').val() == ''){
+                $('.error_mgs').show();
+            
+            return false;
         }
+    }
+    }
+    }
         else{
             return true;
         }

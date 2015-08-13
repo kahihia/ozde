@@ -44,13 +44,13 @@
                                                 <i class="fa fa-star icon-group booking-item-rating-stars"></i>
                                             {% endif %}</b>
                             <p class="lh1em text-small"><i class="fa fa-map-marker"></i>{{hotels.address}}</p>
-                            <ul class="list list-inline text-small">
+                            <!-- <ul class="list list-inline text-small">
                                 <li><a href="#"><i class="fa fa-envelope"></i> Hotel E-mail</a>
                                 </li>
                                 <li><a href="#"><i class="fa fa-home"></i> Hotel Website</a>
                                 </li>
                                 <li><i class="fa fa-phone"></i> +1 (163) 493-1463</li>
-                            </ul>
+                            </ul> -->
                         </div>
                         <div class="col-md-3">
                             <p class="booking-item-header-price"><small>price from</small>  <span class="text-lg">&#8377;{{hotels.prc|floatformat}}</span>/night</p>
@@ -77,8 +77,8 @@
                                         {%endfor%} -->
                                        </div><!-- product_angle -->
                                        <div class="google_map">
-                                            <div id="googleMap" style="width:480px;height:380px; "></div>
-
+                                            <!-- <img src ="http://maps.google.com/?q=[{{hotels.la}}],[{{hotels.lo}}]"/> -->
+                                            <iframe src=http://maps.google.com/?q={{hotels.la}},{{hotels.lo}} scrolling=yes frameborder=1></iframe>
                                       </div>
 
                                     
@@ -102,8 +102,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="booking-item-meta">
-                            <h2 class="lh1em mt40">Exeptional!</h2>
-                            <h3>97% <small >of guests recommend</small></h3>
+                            <!-- <h2 class="lh1em mt40">Exeptional!</h2>
+                            <h3>97% <small >of guests recommend</small></h3> -->
                             <div class="booking-item-rating">
                                 <!-- <ul class="icon-list icon-group booking-item-rating-stars">
                                     <li><i class="fa fa-star"></i>
@@ -120,8 +120,8 @@
                                 <span class="booking-item-rating-number"><b >
                                 {{hotels.gr}}
                                 </b> of 5 <small class="text-smaller">guest rating</small></span>
-                                <p><a class="text-default" href="#">based on 1535 reviews</a>
-                                </p>
+                                <!-- <p><a class="text-default" href="#">based on 1535 reviews</a>
+                                </p> -->
                             </div>
                         </div>
                         <div class="row">
@@ -627,53 +627,59 @@
                 <h3 class="mb20">Hotel Reviews</h3>
                 <div class="row row-wrap">
                     <div class="col-md-8">
+                    {% for review in reviews%}
                         <ul class="booking-item-reviews list">
                             <li>
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="booking-item-review-person">
                                             <a class="booking-item-review-person-avatar round" href="#">
-                                                <img src="img/70x70.png" alt="Image Alternative text" title="Afro" />
+                                                <img src="img/70x70.png" alt="Image Alternative text" title="Good job" />
                                             </a>
-                                            <p class="booking-item-review-person-name"><a href="#">John Doe</a>
+                                            <p class="booking-item-review-person-name"><a href="#">
+                                            
+                                            <p> {{review.firstName}}</p>
+                                            <p> {{review.lastName}}</p>
+                                           
+                                            </a>
                                             </p>
-                                            <p class="booking-item-review-person-loc">Palm Beach, FL</p><small><a href="#">143 Reviews</a></small>
+                                            <!-- <p class="booking-item-review-person-loc">Palm Beach, FL</p><small><a href="#">126 Reviews</a></small> -->
                                         </div>
                                     </div>
                                     <div class="col-md-10">
                                         <div class="booking-item-review-content">
-                                            <h5>"Ridiculus volutpat varius"</h5>
-                                            <ul class="icon-group booking-item-rating-stars">
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                            </ul>
-                                            
-                                            <div class="booking-item-review-more-content">
-                                                <p>Fringilla dictum montes eget senectus cras dictum dictum sollicitudin maecenas</p>
-                                                <p>Aliquam quisque orci auctor auctor natoque ultrices elit quisque porta tortor sollicitudin bibendum proin facilisi duis magna risus fringilla donec velit justo pretium curabitur velit quis platea tristique libero iaculis velit scelerisque ullamcorper id proin placerat faucibus hac purus tristique consectetur interdum donec fames euismod consequat sodales egestas faucibus</p>
-                                                <p class="text-small mt20">Stayed March 2014, traveled as a couple</p>
-                                                <p>{{reviews.0.hotelName}}<span class="booking-item-review-more"> </span>
+                                            <h5>{{review.reviewTitle}}</h5>
+                                            <!-- <p>{{review.totalRating}}</p> -->
+                                            {% if review.totalRating == 1 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif review.totalRating == 2 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif review.totalRating == 3 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif review.totalRating == 4 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif review.totalRating == 5 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% endif %}
+                                            <p>{{review.reviewContent}}
                                             </p>
-                                            {% for review in reviews %}
-                                            
-                                            <p> First name :{{review.firstName}}</p>
-                                            <p> Last name :{{review.lastName}}</p>
-                                            <p>Feedback :{{review.reviewContent}}</p>
-                                            <p> User Rating :{{review.totalRating}}</p>
-                                            {% endfor %}
+                                            <div class="booking-item-review-more-content">
+                                                <p>{{reviews.ratings}}</p>
+                                                <p class="text-small mt20">Stayed March 2014, traveled as a couple</p>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <ul class="list booking-item-raiting-summary-list">
                                                             <li>
-
                                                                 <div class="booking-item-raiting-list-title">Sleep</div>
                                                                 <ul class="icon-group booking-item-rating-stars">
                                                                     <li><i class="fa fa-smile-o"></i>
@@ -684,7 +690,7 @@
                                                                     </li>
                                                                     <li><i class="fa fa-smile-o"></i>
                                                                     </li>
-                                                                    <li><i class="fa fa-smile-o text-gray"></i>
+                                                                    <li><i class="fa fa-smile-o"></i>
                                                                     </li>
                                                                 </ul>
                                                             </li>
@@ -733,7 +739,7 @@
                                                                     </li>
                                                                     <li><i class="fa fa-smile-o"></i>
                                                                     </li>
-                                                                    <li><i class="fa fa-smile-o text-gray"></i>
+                                                                    <li><i class="fa fa-smile-o"></i>
                                                                     </li>
                                                                 </ul>
                                                             </li>
@@ -756,59 +762,32 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                             <div class="booking-item-review-expand"><span class="booking-item-review-expand-more">More <i class="fa fa-angle-down"></i></span><span class="booking-item-review-expand-less">Less <i class="fa fa-angle-up"></i></span>
                                             </div>
                                             <p class="booking-item-review-rate">Was this review helpful?
-                                                <a class="fa fa-thumbs-o-up box-icon-inline round" href="#"></a><b class="text-color"> 7</b>
+                                               <!--  <a class="fa fa-thumbs-o-up box-icon-inline round" href="#"></a><b class="text-color"> 12</b> -->
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            
-                        </ul>
-                        <div class="row wrap">
-                            <div class="col-md-5">
-                                <p><small>1108 reviews on this hotel. &nbsp;&nbsp;Showing 1 to 7</small>
-                                </p>
+                            </ul>
+                            {% endfor %}
                             </div>
-                            <div class="col-md-7">
-                                <ul class="pagination">
-                                    <li class="active"><a href="#">1</a>
-                                    </li>
-                                    <li><a href="#">2</a>
-                                    </li>
-                                    <li><a href="#">3</a>
-                                    </li>
-                                    <li><a href="#">4</a>
-                                    </li>
-                                    <li><a href="#">5</a>
-                                    </li>
-                                    <li><a href="#">6</a>
-                                    </li>
-                                    <li><a href="#">7</a>
-                                    </li>
-                                    <li class="dots">...</li>
-                                    <li><a href="#">43</a>
-                                    </li>
-                                    <li class="next"><a href="#">Next Page</a>
-                                    </li>
-                                </ul>
                             </div>
-                        </div>
-                        <div class="gap gap-small"></div>
-                        <div class="box bg-gray">
+                            <div class="box bg-gray">
                             <h3>Write a Review</h3>
                             <form>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label>Review Title</label>
-                                            <input class="form-control" type="text" />
+                                            <input type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Review Text</label>
-                                            <textarea class="form-control" rows="6"></textarea>
+                                            <textarea rows="6" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -889,176 +868,11 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                        <input class="btn btn-primary" type="submit" value="Leave a Review" />
+                                        <input type="submit" value="Leave a Review" class="btn btn-primary">
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Hotels Near InterContinental New York Barclay</h4>
-                        <ul class="booking-list">
-                            <li>
-                                <div class="booking-item booking-item-small">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <h5 class="booking-item-title">Waldorf Astoria New York</h5>
-                                            <ul class="icon-group booking-item-rating-stars">
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$345</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="booking-item booking-item-small">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY LIBERDADE" />
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <h5 class="booking-item-title">Holiday Inn Express Kennedy Airport</h5>
-                                            <ul class="icon-group booking-item-rating-stars">
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star-half-empty"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$223</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="booking-item booking-item-small">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel THE CLIFF BAY spa suite" />
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <h5 class="booking-item-title">Wellington Hotel</h5>
-                                            <ul class="icon-group booking-item-rating-stars">
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star-o"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$395</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="booking-item booking-item-small">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel 2" />
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <h5 class="booking-item-title">New York Hilton Midtown</h5>
-                                            <ul class="icon-group booking-item-rating-stars">
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star-half-empty"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$166</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="booking-item booking-item-small">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <img src="img/800x600.png" alt="Image Alternative text" title="The pool" />
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <h5 class="booking-item-title">Grand Hyatt New York</h5>
-                                            <ul class="icon-group booking-item-rating-stars">
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star-o"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$423</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="booking-item booking-item-small">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY RIO INTERNACIONAL rooftop pool" />
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <h5 class="booking-item-title">Warwick New York Hotel</h5>
-                                            <ul class="icon-group booking-item-rating-stars">
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star"></i>
-                                                </li>
-                                                <li><i class="fa fa-star-half-empty"></i>
-                                                </li>
-                                                <li><i class="fa fa-star-o"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$218</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="gap gap-small"></div>
-        </div>
+                
 
 {% endblock %}        
