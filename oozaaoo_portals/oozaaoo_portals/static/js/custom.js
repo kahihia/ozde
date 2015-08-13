@@ -26,7 +26,13 @@ $('.slide').click(function(){
    
     });
 });
-
+    $('.amount').click(function(){
+        var total = 0;
+            $(':checkbox:checked#seat').each(function () {
+                total += +this.value;
+            });
+            alert(total);
+    });
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
     source: function (request, response) {
