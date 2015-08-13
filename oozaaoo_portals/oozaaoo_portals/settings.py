@@ -166,7 +166,7 @@ PAYU_INFO = {'merchant_key': "gtKFFx",
              'merchant_salt': "eCwWELxi",
              # for production environment use 'https://secure.payu.in/_payment'
              'payment_url': 'https://test.payu.in/_payment',
-             'surl':'http://localhost:8000/pay-success/',
+             'surl':'http://localhost:8000/setprovisionalbooking/',
              'surl1':'http://localhost:8000/confirmbook/',
              'furl':'http://localhost:8000/failure/',
              'curl':'http://localhost:8000/cancel/',

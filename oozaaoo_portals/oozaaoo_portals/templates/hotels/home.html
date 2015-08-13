@@ -35,7 +35,7 @@
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                                 <label>Where are you going?</label>
                                                 <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value="" />
-
+                                                <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>
                                                 <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filterkeyword" value="" name="filterkeyword" />
                                             </div>
                                             <div class="input-daterange" data-date-format="M d, D">
@@ -44,12 +44,14 @@
                                                         <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                                             <label>Check-in</label>
                                                             <input class="form-control start_date" name="start" type="text" />
+                                                            <div class="error_mgs" style="display:none; color:red;">Enter the Check in date</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                                             <label>Check-out</label>
                                                             <input class="form-control enddate" name="end" type="text" />
+                                                            <div class="error_mgs" style="display:none; color:red;">Enter the Check out date</div>
                                                         </div>
                                                     </div>
                                                   </div><!-- row -->
@@ -89,7 +91,7 @@
                                                             <div class="col-md-2 child-1-act dn" id="test1">
                                                                 <div class="form-group form-group-lg form-group-select-plus">
                                                                     <label>Child-1 age</label>                                     
-                                                                    <select class="form-control" name="childage1_1"> 
+                                                                    <select class="form-control child_age" name="childage1_1"> 
                                                                         <option selected="selected" value="0" >0</option>
                                                                         <option value="1" >1</option>
                                                                         <option value="2" >2</option>
@@ -104,13 +106,14 @@
                                                                         <option value="11" >11</option>
                                                                         <option value="12" >12</option>
                                                                     </select>
+                                                                    <div class="error_mgs" style="display:none; color:red;">Enter the child age</div>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-2 child-2-act dn">
                                                                 <div class="form-group form-group-lg form-group-select-plus">
                                                                     <label>Child-2 age</label>                                     
-                                                                    <select class="form-control" name="childage2_1 "> 
+                                                                    <select class="form-control child_age" name="childage2_1 "> 
                                                                         <option selected="selected" value="0" >0</option>
                                                                         <option value="1" >1</option>
                                                                         <option value="2" >2</option>
@@ -126,6 +129,7 @@
                                                                         <option value="12" >12</option>
                                                                         
                                                                     </select>
+                                                                    <div class="error_mgs" style="display:none; color:red;">Enter the child age</div>
                                                                 </div>
                                                             </div>
 
@@ -384,6 +388,23 @@
                                                         <input id="round" type="radio" name="trip" value="round" />Round
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-md-6">
+                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                            <label>Source</label>
+                                            <input class="typeahead source form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus"/>
+                                            <span class="error" style="display:none; color:red;">please enter the source</span>
+                                            <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus" value="" name="filter_bus" />
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                            <label>Destination</label>
+                                            <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des"/>
+                                            <span class="error" style="display:none; color:red;">please enter the destination</span>
+                                            <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus_des" value="" name="filter_bus_des" />
+                                            </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
