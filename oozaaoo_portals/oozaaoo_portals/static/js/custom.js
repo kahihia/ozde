@@ -824,8 +824,14 @@ $('#searchbus').click(function(){
             $('.error').show();
             if($('.destination').val() == '') {
                $('.error').show(); 
+           if($('.depart').val() == '') {
+               $('.error').show(); 
+            if($('.return').val() == '') {
+               $('.error').show(); 
             return false;
-        }
+            }
+            }
+    }
     }
         else{
             return true;
