@@ -33,6 +33,7 @@ from urllib import unquote_plus
 from django.utils import simplejson as json
 from django.http import HttpResponse
 from django.utils import simplejson
+from transaction.models import *
 
 class mydict(dict):
         def __str__(self):
@@ -366,9 +367,106 @@ def setprovisionalbooking(request):
 	print "res", response.json()	
 	#print response
 	#return HttpResponse(response)
-	
-	return render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+	from datetime import datetime
+	fmt = '%Y/%m/%d'
+	print "respons", response
+	print "response.json", response.json()['success']
+	response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+	response1.set_cookie('provisionalbooking_status',response.json()['success'])
+	# Code for storing Order Details
+	order=Order()	
+	order.userprofile =UserProfile.objects.get(user=request.user)
+	order.hotelcode=request.COOKIES.get('hc')
+	order.hotelname=request.COOKIES.get('hn')
+	order.hotelcity=request.COOKIES.get('c')
+	order.checkin=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+	order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+	order.rooms=request.COOKIES.get('rooms')
+	order.guest=request.COOKIES.get('guest')
+	order.save()
+	response1.set_cookie('orderdetails',order.id)
 
+	#Code for storing OrderList Details
+	joindata=request.COOKIES.get('joindata')
+	# print "joindata.length", len(joindata.split('-'))
+	# print "joindata", joindata.split('-')
+	joindata1=joindata.split('-')
+	print "joindata1",joindata1
+	if joindata1[4]:
+		joindata4=joindata1[4].split('_')
+		print "joindata1[4]",joindata4
+		orderlist=OrderList()
+		orderlist.order=order
+		orderlist.room=1
+		orderlist.adults=joindata4[0]
+		orderlist.children=joindata4[1]
+		orderlist.child1_age=joindata4[2]
+		orderlist.child2_age=joindata4[3]
+		orderlist.save()
+	if (len(joindata1)==6):
+		joindata5=joindata1[5].split('_')
+		print "joindata1[5]",joindata5
+		orderlist=OrderList()
+		orderlist.order=order
+		orderlist.room=2
+		orderlist.adults=joindata5[0]
+		orderlist.children=joindata5[1]
+		orderlist.child1_age=joindata5[2]
+		orderlist.child2_age=joindata5[3]
+		orderlist.save()
+	if (len(joindata1)==7):
+		joindata6=joindata1[6].split('_')
+		print "joindata1[6]",joindata6
+		orderlist=OrderList()
+		orderlist.order=order
+		orderlist.room=3
+		orderlist.adults=joindata6[0]
+		orderlist.children=joindata6[1]
+		orderlist.child1_age=joindata6[2]
+		orderlist.child2_age=joindata6[3]
+		orderlist.save()
+	if (len(joindata1)==8):
+		joindata7=joindata1[7].split('_')
+		print "joindata1[7]",joindata7
+		orderlist=OrderList()
+		orderlist.order=order
+		orderlist.room=4
+		orderlist.adults=joindata7[0]
+		orderlist.children=joindata7[1]
+		orderlist.child1_age=joindata7[2]
+		orderlist.child2_age=joindata7[3]
+		orderlist.save()
+
+	#Code for storing Payu Details
+	payudetails=PayuDetails()
+	payudetails.mihpayid=request.POST.get('mihpayid')
+	payudetails.userprofile=UserProfile.objects.get(user=request.user)
+	payudetails.mode=request.POST.get('mode')
+	payudetails.status=request.POST.get('status')
+	payudetails.unmappedstatus=request.POST.get('unmappedstatus')
+	payudetails.key=request.POST.get('key')
+	payudetails.txnid=request.POST.get('txnid')
+	payudetails.amount=request.POST.get('amount')
+	payudetails.cardCategory=request.POST.get('cardCategory')
+	payudetails.discount=request.POST.get('discount')
+	payudetails.net_amount_debit=request.POST.get('net_amount_debit')
+	payudetails.addedon=request.POST.get('addedon')
+	payudetails.productinfo=request.POST.get('productinfo')
+	payudetails.hash=request.POST.get('hash')
+	payudetails.payment_source=request.POST.get('payment_source')
+	payudetails.PG_TYPE=request.POST.get('PG_TYPE')
+	payudetails.bank_ref_num=request.POST.get('bank_ref_num')
+	payudetails.bankcode=request.POST.get('bankcode')
+	payudetails.error=request.POST.get('error')
+	payudetails.error_Message=request.POST.get('error_Message')
+	payudetails.name_on_card=request.POST.get('name_on_card')
+	payudetails.cardnum=request.POST.get('cardnum')
+	payudetails.issuing_bank=request.POST.get('issuing_bank')
+	payudetails.card_type=request.POST.get('card_type')
+	payudetails.save()
+	response1.set_cookie('payudetails',payudetails.id)
+	response1.set_cookie('payustatus',payudetails.status)
+	return response1
 
 def confirmbooking(request):
 	from django.utils import simplejson
@@ -393,6 +491,39 @@ def confirmbooking(request):
 	}
 	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
 	print "res", response.json()
+
+	#Code for storing Transaction Details
+	if 'data' in response.json():
+		response_json=response.json()['data']
+		transaction=Transaction()
+		transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
+		transaction.payu_details=PayuDetails.objects.get(id=request.COOKIES.get('payudetails'))
+		transaction.provisionalbooking_id=gobookingid
+		if 'bookingid' in response_json:
+			transaction.confirmationbooking_id=response_json['bookingid']
+		else:
+			transaction.confirmationbooking_id=''
+		transaction.productinfo=productinfo
+		transaction.payu_status=request.COOKIES.get('payustatus')
+		transaction.provisionalbooking_status=request.COOKIES.get('provisionalbooking_status')
+		transaction.confirmationbooking_status=response_json['status']
+		transaction.save()
+
+		send_templated_mail(
+					template_name='bookingdetails_hotel',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=[registration_form.cleaned_data["email"]],
+					context={
+						'username': registration_form.cleaned_data["email"],
+						'name': registration_form.cleaned_data["first_name"],
+						'bookingid':transaction.confirmationbooking_id,
+						'guests':request.COOKIES.get('guest'),
+						# 'amount':request.COOKIES.get('guest'),
+						'checkin':request.COOKIES.get('checkin'),
+						'checkout':request.COOKIES.get('checkout'),
+					},
+				)
+
 	return render_to_response("hotels/hotel-book-successfull.html",{'response':response.json()}, context_instance=RequestContext(request))
 
 def bookingstatus(request):
@@ -410,7 +541,8 @@ def refund(request):
 
 def getbookingstatus(request):
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	gobookingid='GOHTLDV2ee67a1438838485'
+	# gobookingid='GOHTLDV22896e1439528786'
+	gobookingid =request.POST.get('bookid',request.COOKIES.get('bookid'))
 	bookingstatus=GO.BookingStatus(gobookingid)
 	return HttpResponse(simplejson.dumps(bookingstatus['data']), mimetype='application/json')
 
