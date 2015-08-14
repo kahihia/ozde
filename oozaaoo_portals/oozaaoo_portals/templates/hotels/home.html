@@ -2,6 +2,8 @@
 {% load i18n %}
 {% block content %}
         <!-- TOP AREA -->
+
+
         <div class="top-area show-onload">
             <div class="bg-holder full">
                 <div class="bg-front bg-front-mob-rel">
@@ -387,7 +389,7 @@
                                             <div class="col-md-6">
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                             <label>Source</label>
-                                            <input class="typeahead source form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus"/>
+                                            <input class="typeahead source form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus" name="source"/>
                                             <span class="error" style="display:none; color:red;">please enter the source</span>
                                             <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus" value="" name="filter_bus" />
                                             </div>
@@ -395,7 +397,7 @@
                                             <div class="col-md-6">
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                             <label>Destination</label>
-                                            <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des"/>
+                                            <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des" name="destination" />
                                             <span class="error" style="display:none; color:red;">please enter the destination</span>
                                             <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus_des" value="" name="filter_bus_des" />
                                             </div>
