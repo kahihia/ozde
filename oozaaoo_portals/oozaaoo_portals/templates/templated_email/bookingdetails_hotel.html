@@ -1,0 +1,18 @@
+{% block subject %}Welcome to Travel Portal {{username}}{% endblock %}
+{% block html %}
+
+<h3>Dear {{name}},</h3>
+
+<p>Thank you for choosing to stay with us at the Sample Hotel. We are pleased to confirm your reservation as follows: </p>
+<pre>
+	Booking Id: {{bookingid}}
+	Guest Name: {{name}}
+	Number of Guests:{{guests}}
+	Amount: {{}}
+	Check-in:{{checkin}}
+	Check-out:{{checkout}}
+</pre>      
+<p>We look forward to the pleasure of having you as our guest at the OOzaoo</p>
+  <p>Best regards,</p>
+  Travel Portal Team
+{% endblock %}
