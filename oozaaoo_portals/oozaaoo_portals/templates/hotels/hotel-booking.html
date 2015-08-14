@@ -112,13 +112,14 @@
                                     <!-- class="booking-item-payment-date-weekday">Saturday</p-->
                                 </div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
                                 <div class="booking-item-payment-date">
-                                    <p class="booking-item-payment-date-day">{{ request.COOKIES.checkin}}</p>
+                                    <p class="booking-item-payment-date-day">{{ request.COOKIES.checkout}}</p>
                                     <!--p class="booking-item-payment-date-weekday">Saturday</p-->
                                 </div>
                             </li>
                             <li>
                                 <h5>Room {{ request.COOKIES.rooms}}</h5>
-                                
+                                <h5>Booking for {{results}} days</h5>
+                            
                                 <ul class="booking-item-payment-price">
                                     <!--li>
                                         <p class="booking-item-payment-price-title">7 Nights</p>

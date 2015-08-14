@@ -63,25 +63,19 @@
                             <ul class="nav nav-tabs" id="myTab">
                                 <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-camera"></i>Photos</a>
                                 </li>
-                                <li class="map"><a href="#google-map-tab" data-toggle="tab"><i class="fa fa-map-marker"></i>On the Map</a>
+                                <li><a href="#google-map-tab" data-toggle="tab"><i class="fa fa-map-marker"></i>On the Map</a>
                                 </li>
                             </ul>
-                            
-
-                            <div class="idp_shoe_gallery">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-1">
+                                    <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
+                                       <div class="idp_shoe_gallery">
                                      <div id="product_angle">
-                                     
-                                     <img src="{{hotels.gallery.2.2}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
-                                       <!-- {% for image in hotels.gallery %}
-                                            <img src="{{image.2}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />                                   
-                                        {%endfor%} -->
-                                       </div><!-- product_angle -->
-                                       <div class="google_map">
-                                            <!-- <img src ="http://maps.google.com/?q=[{{hotels.la}}],[{{hotels.lo}}]"/> -->
-                                            <iframe src=http://maps.google.com/?q={{hotels.la}},{{hotels.lo}} scrolling=yes frameborder=1></iframe>
-                                      </div>
-
+                                        <img src="{{hotels.gallery.2.2}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
+                                    </div><!-- product_angle -->
+                                       
                                     
+                                     
                                      <div class="idp_views_tab">
                                          <h3>Royal Blue Velvet</h3>
                                          <div class="view_gallery view_glry_act" id="black" style="display:block;">
@@ -95,10 +89,38 @@
                                      </div><!-- idp_views_tab -->
                                      <div class="clear_both"></div>
                                 </div><!-- idp_shoe_gallery -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="google-map-tab">
+                                    <div id="map-canvas" style="width:100%; height:500px;"></div>
+                                </div>
+                            
+
+                            <!-- <div class="idp_shoe_gallery">
+                                     <div id="product_angle">
+                                        <img src="{{hotels.gallery.2.2}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
+                                    </div> --><!-- product_angle -->
+                                       
+                                    
+                                     
+                                     <!-- <div class="idp_views_tab">
+                                         <h3>Royal Blue Velvet</h3>
+                                         <div class="view_gallery view_glry_act" id="black" style="display:block;">
+                                         {% for image in hotels.gallery %}
+                                             <span><img src="{{image.0}}" alt="" /></span>
+                                             <div><img src="{{image.2}}" alt="" /></div>
+                                         {%endfor%}   
+                                             
+                                         </div> --><!-- view_gallery -->
+                                        <!--  <div class="clear_both"></div>
+                                     </div> --><!-- idp_views_tab -->
+                                     <!-- <div class="clear_both"></div>
+                                </div> --><!-- idp_shoe_gallery -->
 
 
 
                         </div>
+                    </div>
                     </div>
                     <div class="col-md-6">
                         <div class="booking-item-meta">
@@ -122,10 +144,7 @@
                                 </b> of 5 <small class="text-smaller">guest rating</small></span>
                                 <!-- <p><a class="text-default" href="#">based on 1535 reviews</a>
                                 </p> -->
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
+
                                 <h4 class="lh1em"> BOOKING DETAILS </h4>                             
 
                                 <form name="probook" id="probook" action="{% url "hotels.views.userdetails" %}" method="post">
@@ -165,6 +184,51 @@
                                 </form>
 
                             </div>
+                            </div>
+                        </div>
+                        </div>
+                      
+                        <!-- <div class="row">
+                            <div class="col-md-8">
+                                <h4 class="lh1em"> BOOKING DETAILS </h4>                             
+
+                                <form name="probook" id="probook" action="{% url "hotels.views.userdetails" %}" method="post">
+
+                                <ul class="list booking-item-raiting-list">
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">CheckIn</div>
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.checkin}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">CheckOut</div>
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.checkout}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Rooms</div>
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.rooms}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="booking-item-raiting-list-title">Guest</div>
+                                        
+                                        <div class="booking-item-raiting-list-number">{{ request.COOKIES.guest}}</div>
+                                    </li>
+                                </ul>
+                                {% csrf_token %}
+
+                                <!{% for hotelroominfo in hotelroominfos %}
+                                {{hotelroominfo}}
+                                <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
+                                <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
+                                {% endfor %}         -->                       
+                                <!-- <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
+                                <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
+                                <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
+                                <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
+                                <a href="{% url "hotels.views.userdetails" %}">Book Now</a> -->
+                                <!--input type="submit" name="booknow" value="Book Now" class="btn btn-primary" /-->
+                                <!-- </form>
+
+                            </div> --> 
                             <!-- <div class="col-md-4">
                                 <h4 class="lh1em">Summary</h4>
                                 <ul class="list booking-item-raiting-summary-list">
@@ -245,11 +309,11 @@
                                     </li>
                                 </ul>
                             </div> -->
-                        </div>
+                       <!--  </div> -->
                         <!-- <a href="#" class="btn btn-primary">Write a Review</a> -->
                         
-                    </div>
-                </div>
+                   <!--  </div>
+                </div> -->
                 <div class="gap"></div>
                 <h3>About Hotel</h3>
                 {{hotels.des}}

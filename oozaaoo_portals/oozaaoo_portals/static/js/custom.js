@@ -213,6 +213,27 @@ $('div.bg-parallax').each(function() {
 $(document).ready(
     function() {
 
+  //   var mapCanvas = document.getElementById('map_canvas');
+     
+  //   var mapOptions = {
+  //     center: new google.maps.LatLng(11.9421943409,79.8288596119 ),
+  //     zoom: 8,
+  //     mapTypeId: google.maps.MapTypeId.ROADMAP
+  //   }
+      
+  //   // var map = new google.maps.Map(map_canvas, map_options);
+  //   function initialize() {
+
+  //   var mapCanvas = document.getElementById('map_canvas');
+     
+  //   var mapOptions = {
+  //     center: new google.maps.LatLng(11.9421943409, 79.8288596119 ),
+  //     zoom: 8,
+  //     mapTypeId: google.maps.MapTypeId.ROADMAP
+  //   }
+     
+  //   var map = new google.maps.Map(map_canvas, map_options);
+  // }
 
     $(".cl_glry_hver_act> span").click(function(){
         $(this).siblings('div:visible').hide();
@@ -466,37 +487,40 @@ $('.booking-item-container').children('.booking-item').click(function(event) {
 
 
 
-// if ($('#map-canvas').length) {
-//     var map,
-//         service;
+if ($('#map-canvas').length) {
+    var map,
+        service;
 
-//     jQuery(function($) {
-//         $(document).ready(function() {
-//             var latlng = new google.maps.LatLng(40.7564971, -73.9743277);
-//             var myOptions = {
-//                 zoom: 16,
-//                 center: latlng,
-//                 mapTypeId: google.maps.MapTypeId.ROADMAP,
-//                 scrollwheel: false
-//             };
+    jQuery(function($) {
+        $(document).ready(function() {
+            var latlng = new google.maps.LatLng(11.9421943409, 79.8288596119);
+            // alert( $.cookie("la") );
 
-//             map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+            // var latlng = new google.maps.LatLng(request.COOKIES.la, request.COOKIES.lo);
+            var myOptions = {
+                zoom: 8,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                scrollwheel: false
+            };
 
-
-//             var marker = new google.maps.Marker({
-//                 position: latlng,
-//                 map: map
-//             });
-//             marker.setMap(map);
+            map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
 
-//             $('a[href="#google-map-tab"]').on('shown.bs.tab', function(e) {
-//                 google.maps.event.trigger(map, 'resize');
-//                 map.setCenter(latlng);
-//             });
-//         });
-//     });
-// }
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+            });
+            marker.setMap(map);
+
+
+            $('a[href="#google-map-tab"]').on('shown.bs.tab', function(e) {
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter(latlng);
+            });
+        });
+    });
+}
 
 
 $('.card-select > li').click(function() {
@@ -813,45 +837,102 @@ $('#paynow').click(function(){
     }
 });
 
-$('.map').click(function(){
-    $('.google_map').toggle();
-});
+// $('.map_details').click(function(){
+    
+
+// var map;
+// function initMap() {
+//     alert("enter");
+//   map = new google.maps.Map(document.getElementById('map'), {
+//     center: {lat: -34.397, lng: 150.644},
+//     zoom: 8
+//   });
+// }
+
+
+// });
 
 // bus//
 $('#searchbus').click(function(){
         if($('.source').val() == '') {
             // alert("enter the destination");
             $('.error').show();
+            return false;
             if($('.destination').val() == '') {
                $('.error').show(); 
+               return false;
            if($('.depart').val() == '') {
                $('.error').show(); 
+               return false;
             if($('.return').val() == '') {
                $('.error').show(); 
             return false;
+                    }
+                }
             }
-            }
-    }
-    }
+        }
         else{
             return true;
         }
 
     });
 
-var nowTemp = new Date();
-var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
- 
-var checkin = $('#dpd1').datepicker({
-onRender: function(date) {
-return date.valueOf() < now.valueOf() ? 'disabled' : '';
+$('#round').click(function(){
+    if($('.return').val() == '') {
+               $('.error').show(); 
+            return false;
+        }
+        else{
+            return true;
+        }
+});
+$('#payment').click(function(){
+    if($('.fname').val() == ''){
+            // alert("please enter the first name");
+            $('.errormgs').show();
+             return false;
+        if($('.lname').val() == ''){
+            // alert("please enter the last name");
+             $('.errormgs').show();
+              return false;
+        if($('.age').val() == ''){
+            // alert("please enter the last name");
+             $('.errormgs').show();
+              return false;
+         if($('.mobileno').val() == ''){
+            // alert("please enter the mobile number");
+             $('.errormgs').show();
+              return false;
+             if($('.email').val() == ''){
+            // alert("please enter the email");
+             $('.errormgs').show();
+            return false;
+                }
+            }
+         }
+    }}
+    else{
+       return true; 
+    }
+});
+
+var CheckinDate=new Date();
+ var CheckoutDate=new Date(); 
+ var diff=new Date();
+ $('#checkin').datepicker({
+       onSelect: function(dateText, inst) {
+       CheckinDate=datetext;
+
+    }
+    });
+
+$('#checkout').datepicker({
+   onSelect: function(dateText, inst) {
+   CheckoutDate=datetext;
+   diff=(CheckoutDate.getTime() - CheckinDate.getTime())/(1000*60*60*24);
+
+
 }
-}).on('changeDate', function(ev) {
-if (ev.date.valueOf() > checkout.date.valueOf()) {
-var newDate = new Date(ev.date)
-newDate.setDate(newDate.getDate() + 1);
-checkout.setValue(newDate);
-}
-checkin.hide();
-$('#dpd2')[0].focus();
-}).data('datepicker');
+});
+
+

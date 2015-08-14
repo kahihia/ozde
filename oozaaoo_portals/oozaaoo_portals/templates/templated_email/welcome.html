@@ -1,5 +1,9 @@
-{% block subject %}Welcome to Travel Portal {{username}}{% endblock %}
+{% load i18n %}
+{% block subject %}
+Welcome to Travel Portal {{username}}
+{% endblock %}
 {% block html %}
+	<img src="{{ STATIC_URL }}img/.png"
 
 <h3>Dear {{name}},</h3>
 

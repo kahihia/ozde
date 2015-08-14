@@ -14,12 +14,12 @@
                                     </li>
                                     <li><a href="#tab-2" data-toggle="tab"><i class="fa fa-plane"></i> <span >Flights</span></a>
                                     </li>
-                                    <li><a href="#tab-3" data-toggle="tab"><i class="fa fa-home"></i> <span >Rentals</span></a>
-                                    </li>
+                                    <!-- <li><a href="#tab-3" data-toggle="tab"><i class="fa fa-home"></i> <span >Rentals</span></a>
+                                    </li> -->
                                     <li><a href="#tab-4" data-toggle="tab"><i class="fa fa-car"></i> <span >Bus</span></a>
                                     </li>
-                                    <li><a href="#tab-5" data-toggle="tab"><i class="fa fa-bolt"></i> <span >Activities</span></a>
-                                    </li>
+                                    <!-- <li><a href="#tab-5" data-toggle="tab"><i class="fa fa-bolt"></i> <span >Activities</span></a>
+                                    </li> -->
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="tab-1">
@@ -379,7 +379,7 @@
                                                         <input id="oneway" type="radio" name="trip" value="oneway" checked="checked"/>One way
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input id="round" type="radio" name="trip" value="round" />Round
+                                                        <input id="round" type="radio" name="trip" value="round" class="round" />Round
                                                     </div>
                                                 </div>
                                             </div>
@@ -387,7 +387,7 @@
                                             <div class="col-md-6">
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                             <label>Source</label>
-                                            <input class="typeahead source form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus"/>
+                                            <input class="typeahead source form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus" name="source"/>
                                             <span class="error" style="display:none; color:red;">please enter the source</span>
                                             <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus" value="" name="filter_bus" />
                                             </div>
@@ -395,7 +395,7 @@
                                             <div class="col-md-6">
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                             <label>Destination</label>
-                                            <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des"/>
+                                            <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des" name="destination" />
                                             <span class="error" style="display:none; color:red;">please enter the destination</span>
                                             <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus_des" value="" name="filter_bus_des" />
                                             </div>
@@ -464,7 +464,7 @@
                         <div class="bg-content">
                             <div class="container">
                                 <div class="loc-info text-right hidden-xs hidden-sm">
-                                    <h3 class="loc-info-title"><img src="{{ STATIC_URL }}img/flags/32/fr.png" alt="Image Alternative text" title="Image Title" />Paris</h3>
+                                   <!--  <h3 class="loc-info-title"><img src="{{ STATIC_URL }}img/flags/32/fr.png" alt="Image Alternative text" title="Image Title" />Paris</h3>
                                     <p class="loc-info-weather"><span class="loc-info-weather-num">+25</span><i class="im im-cloudy loc-info-weather-icon"></i>
                                     </p>
                                     <ul class="loc-info-list">
@@ -476,7 +476,7 @@
                                         </li>
                                         <li><a href="#"><i class="fa fa-bolt"></i> 195 Activities this Week</a>
                                         </li>
-                                    </ul><a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                                    </ul><a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
                                 </div>
                             </div>
                         </div>
@@ -487,7 +487,7 @@
                         <div class="bg-content">
                             <div class="container">
                                 <div class="loc-info text-right hidden-xs hidden-sm">
-                                    <h3 class="loc-info-title"><img src="{{ STATIC_URL }}img/flags/32/hu.png" alt="Image Alternative text" title="Image Title" />Budapest</h3>
+                                    <!-- <h3 class="loc-info-title"><img src="{{ STATIC_URL }}img/flags/32/hu.png" alt="Image Alternative text" title="Image Title" />Budapest</h3>
                                     <p class="loc-info-weather"><span class="loc-info-weather-num">+31</span><i class="im im-cloudy loc-info-weather-icon"></i>
                                     </p>
                                     <ul class="loc-info-list">
@@ -499,7 +499,7 @@
                                         </li>
                                         <li><a href="#"><i class="fa fa-bolt"></i> 170 Activities this Week</a>
                                         </li>
-                                    </ul><a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                                    </ul><a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
                                 </div>
                             </div>
                         </div>
@@ -510,7 +510,7 @@
                         <div class="bg-content">
                             <div class="container">
                                 <div class="loc-info text-right hidden-xs hidden-sm">
-                                    <h3 class="loc-info-title"><img src="{{ STATIC_URL }}img/flags/32/us.png" alt="Image Alternative text" title="Image Title" />Las Vegas</h3>
+                                    <!-- <h3 class="loc-info-title"><img src="{{ STATIC_URL }}img/flags/32/us.png" alt="Image Alternative text" title="Image Title" />Las Vegas</h3>
                                     <p class="loc-info-weather"><span class="loc-info-weather-num">+34</span><i class="im im-rain loc-info-weather-icon"></i>
                                     </p>
                                     <ul class="loc-info-list">
@@ -522,7 +522,7 @@
                                         </li>
                                         <li><a href="#"><i class="fa fa-bolt"></i> 160 Activities this Week</a>
                                         </li>
-                                    </ul><a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                                    </ul><a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
                                 </div>
                             </div>
                         </div>
@@ -635,7 +635,7 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <!-- <div class="container">
             <div class="gap"></div>
             <h1 class="text-center mb20">Last Minute Deals</h1>
             <div class="row row-wrap">
@@ -815,5 +815,5 @@
                 </div>
             </div>
             <div class="gap gap-small"></div>
-        </div>
+        </div> -->
 {% endblock %}

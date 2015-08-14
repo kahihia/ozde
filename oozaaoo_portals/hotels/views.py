@@ -238,7 +238,7 @@ def gethotellist(request):
 		# 	hotel_fm=hotels.fm
 		
   	if rooms4=='4':
-		joindata = uncde(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
+		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 		guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)+int(adults3)+int(nochildrens3)+int(adults4)+int(nochildrens4)
 	elif rooms3=='3':
 		joindata= unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)
@@ -299,8 +299,7 @@ def gethoteldetails(request):
 			else:
 					review[f] = None
 		reviews.append(review)
-	print reviews
-
+	
 	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
 
 	# reviews = []
@@ -320,6 +319,8 @@ def gethoteldetails(request):
 	response.set_cookie('c',_hotel['c'])
 	response.set_cookie('l',_hotel['l'])
 	response.set_cookie('hr',_hotel['hr'])
+	response.set_cookie('la',_hotel['la'])
+	response.set_cookie('lo',_hotel['lo'])
 	return response
 	
 @login_required(login_url='/register/')
@@ -329,7 +330,13 @@ def userdetails(request):
 	"""	
 	rtc = request.POST.get('rtc',request.COOKIES.get('rtc'))
 	rpc = request.POST.get('rpc',request.COOKIES.get('rpc'))
-	response= render_to_response("hotels/hotel-booking.html", context_instance=RequestContext(request))
+	from datetime import datetime
+	fmt = '%Y/%m/%d'
+	d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+	d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+	result=str((d1-d0).days)
+	print result
+	response= render_to_response("hotels/hotel-booking.html",{'results':result}, context_instance=RequestContext(request))
 	response.set_cookie('rtc',rtc)
 	response.set_cookie('rpc',rpc)
 	return response
@@ -448,4 +455,4 @@ def confirmcancel(request):
 	'content-type': "application/x-www-form-urlencoded"
 	}
 	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
-	return HttpResponse(response)
+	return render_to_response("hotels/hotel_cancel.html",context_instance=RequestContext(request))

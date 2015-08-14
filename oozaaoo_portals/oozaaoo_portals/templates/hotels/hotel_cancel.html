@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}     
+<div class="cancel_policy" style="width:600;margin-left:25px;height:500;margin-right:25px;">
+<p>
+Cancellation & Amendment Policy :
+</p>
+<p>
+    No Show, Cancellation charges will be 100 % Cost.
+    On cancellation of bookings done using promotional codes, the charges are calculated on total price
+    Most hotels do not allow unmarried / unrelated couples to check-in. This is at full discretion of the hotel management. No refund would be applicable in case the hotel denies check-in under such circumstances .
+    Goibibo doesn't support changes and modifications to online bookings once they're made.
+</p>
+<p>
+Hotel Policy :
+</p>
+<p>
+    The standard check-in date is {{ request.COOKIES.checkin}} and the standard check-out date is {{ request.COOKIES.checkout}}. Early check-in or late check-out is strictly subjected to availability and may be chargeable by the hotel. Any early check-in or late check-out request must be directed and reconfirmed with hotel directly</p>
+<p>    
+    Child Policy: </p>
+    <p>
+    child below 12 year is Complimentary if using parents bed
+    In keeping with our heightened security procedures we request you to carry a photo-identity to present at check-in. Foreign nationals will require to present the Passport and valid Visa, while Indian nationals can present any one of these: Passport, Driving License, Voter ID Card or PAN Card.
+    Hotel may charge compulsory gala dinner supplement on Christmas / New Year's eve or other festive periods. Any such supplements need to be paid directly at the hotel.
+    Most hotels do not allow unmarried / unrelated couples to check-in. This is at full discretion of the hotel management. No refund would be applicable in case the hotel denies check-in under such circumstances.
+    Please note that it takes minimum of 4 to 8 working hours to confirm a reservation at the hotel for same day check-ins.
+    For distant check-ins, you are not required to call the hotel to reconfirm the reservations. Your booking details will reach the hotel in time and the booking will be re-confirmed from our end.
+</p>
+</div>
+{% endblock %} 

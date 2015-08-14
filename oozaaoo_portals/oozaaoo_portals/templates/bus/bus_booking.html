@@ -20,18 +20,19 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" name="fname"/>
-                            <span></span>
-                        </div>
+                       <div class="form-group">
+                                    <label>First Name</label>
+                                    <input id="fname" class="form-control fname" type="text" name="fname">
+                                    <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                </div>
                  
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Lastname</label>
-                            <input class="form-control" type="text" name="lname" />
-                        </div>
+                                    <label>Lastname</label>
+                                    <input id="lname" class="form-control lname" type="text" name="lname" />
+                                    <span class="errormgs" style="display:none; color:red;">please enter the last name</span>
+                                </div>
                     </div>
                 </div>
                 <div class="row">
@@ -39,25 +40,28 @@
                    
                         <div class="form-group">
                             <label>age</label>
-                            <input class="form-control" type="text" name="age" />
+                            <input class="form-control age" type="text" name="age" />
                             <span></span>
+                            <span class="errormgs" style="display:none; color:red;">please enter the age</span>
                         </div>
                  
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input class="form-control" type="text" name="mobile" />
+                            <input class="form-control mobileno" type="text" name="mobile" />
+                            <span class="errormgs" style="display:none; color:red;">please enter the mobile number</span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>E-mail</label>
-                            <input class="form-control" type="text" name="email" />
+                            <input class="form-control email" type="text" name="email" />
+                            <span class="errormgs" style="display:none; color:red;">please enter the email</span>
                         </div>
                     </div>
                 </div>
-               <input class="btn btn-primary" type="submit" value="Proceed Payment" />
+               <input class="btn btn-primary" type="submit" value="Proceed Payment" id="payment"/>
             </form>
             <hr>
         </div>
