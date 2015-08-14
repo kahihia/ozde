@@ -398,6 +398,15 @@ def confirmbooking(request):
 def bookingstatus(request):
 	return render_to_response("hotels/bookingstatus.html",context_instance=RequestContext(request))
 
+def cancelhotel(request):
+	return render_to_response("hotels/cancelhotel.html",context_instance=RequestContext(request))
+
+def bookinfo(request):
+	return render_to_response("hotels/bookinfo.html",context_instance=RequestContext(request))
+
+def refund(request):
+	return render_to_response("hotels/refund.html",context_instance=RequestContext(request))
+
 
 def getbookingstatus(request):
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
