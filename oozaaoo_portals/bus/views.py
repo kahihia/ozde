@@ -7,9 +7,8 @@ import json
 from django.utils import simplejson
 from json import dumps, loads
 import simplejson as json
-
 from apiservice.views import *
-
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -33,11 +32,39 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse
 import collections
-
+from django.contrib import messages
 
 class mydict(dict):
         def __str__(self):
             return json.dumps(self)
+
+def format_redirect_url(redirect_path, query_string):
+    ''' utility to format redirect url with fixido query string
+    '''
+    stop_popup = True if 'st=' in query_string else False
+    
+    url_join_str = '?'
+    if url_join_str in redirect_path:
+        redirect_path, qs = redirect_path.split(url_join_str, 1)
+        query_string = qs + '&' + query_string
+    
+    qs = {}
+    for q in query_string.split('&'):
+        if '=' in q:
+            k, v = q.split('=', 1)
+            qs[k] = v
+    
+    if stop_popup:
+        if qs.has_key('zr'): del qs['zr']
+        if qs.has_key('lr'): del qs['lr']
+        if qs.has_key('ler'): del qs['ler']
+        if qs.has_key('thanks'): del qs['thanks']
+    
+    query_string = ''
+    for k in qs:
+        query_string += k + '=' + qs[k] + '&'
+        
+    return redirect_path + url_join_str + query_string[:-1]
 
 
 def search_bus(request):
@@ -52,77 +79,86 @@ def search_bus(request):
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
-	print'trip',trip
-	getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
-	reviews = []
-	for bussearchlist in getbusresponse['data']['onwardflights']:	
-		_rbuslist	= {}
-		_rbuslist['businfos'] = {
-			'origin':bussearchlist['origin'],
-			'destination':bussearchlist['destination'],
-			'BusType':bussearchlist['BusType'],
-			'DepartureTime':bussearchlist['DepartureTime'],
-			'duration':bussearchlist['duration'],
-			'skey':bussearchlist['skey'],
-			'fare':bussearchlist['fare']['totalfare'],
-			'TravelsName':bussearchlist['TravelsName'],
-			'ArrivalTime':bussearchlist['ArrivalTime'],
-			'depdate':bussearchlist['depdate'],
-			'arrdate':bussearchlist['arrdate'],
-			'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
-		}
+	try:
+		getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
+		reviews = []
+		try:
+			for bussearchlist in getbusresponse['data']['onwardflights']:	
+				_rbuslist	= {}
+				_rbuslist['businfos'] = {
+					'origin':bussearchlist['origin'],
+					'destination':bussearchlist['destination'],
+					'BusType':bussearchlist['BusType'],
+					'DepartureTime':bussearchlist['DepartureTime'],
+					'duration':bussearchlist['duration'],
+					'skey':bussearchlist['skey'],
+					'fare':bussearchlist['fare']['totalfare'],
+					'TravelsName':bussearchlist['TravelsName'],
+					'ArrivalTime':bussearchlist['ArrivalTime'],
+					'depdate':bussearchlist['depdate'],
+					'arrdate':bussearchlist['arrdate'],
+					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+				}
 
-		if bussearchlist.get('BPPrims'):
-			for morevalues in bussearchlist['BPPrims']['list']:
-				_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+				if bussearchlist.get('BPPrims'):
+					for morevalues in bussearchlist['BPPrims']['list']:
+						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
 
-			if bussearchlist.get('DPPrims'):
-				for morevalues in bussearchlist['DPPrims']['list']:
-					_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
-			
+					if bussearchlist.get('DPPrims'):
+						for morevalues in bussearchlist['DPPrims']['list']:
+							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+					
 
-			if bussearchlist.get('RouteSeatTypeDetail'):
-				for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
-					_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
-			
-			reviews.append(_rbuslist)
-		else:
-			reviews.append(_rbuslist)
-			# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
-	reviews_return = []
-	for bussearchlist in getbusresponse['data']['returnflights']:	
-		_rbuslist	= {}
-		_rbuslist['businfos'] = {
-			'origin':bussearchlist['origin'],
-			'destination':bussearchlist['destination'],
-			'BusType':bussearchlist['BusType'],
-			'DepartureTime':bussearchlist['DepartureTime'],
-			'duration':bussearchlist['duration'],
-			'skey':bussearchlist['skey'],
-			'fare':bussearchlist['fare']['totalfare'],
-			'TravelsName':bussearchlist['TravelsName'],
-			'ArrivalTime':bussearchlist['ArrivalTime'],
-			'depdate':bussearchlist['depdate'],
-			'arrdate':bussearchlist['arrdate'],
-			'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
-		}
+					if bussearchlist.get('RouteSeatTypeDetail'):
+						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+					
+					reviews.append(_rbuslist)
+				else:
+					reviews.append(_rbuslist)
+					# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
+										
+			reviews_return = []
+			for bussearchlist in getbusresponse['data']['returnflights']:	
+				_rbuslist	= {}
+				_rbuslist['businfos'] = {
+					'origin':bussearchlist['origin'],
+					'destination':bussearchlist['destination'],
+					'BusType':bussearchlist['BusType'],
+					'DepartureTime':bussearchlist['DepartureTime'],
+					'duration':bussearchlist['duration'],
+					'skey':bussearchlist['skey'],
+					'fare':bussearchlist['fare']['totalfare'],
+					'TravelsName':bussearchlist['TravelsName'],
+					'ArrivalTime':bussearchlist['ArrivalTime'],
+					'depdate':bussearchlist['depdate'],
+					'arrdate':bussearchlist['arrdate'],
+					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+				}
 
-		if bussearchlist.get('BPPrims'):
-			for morevalues in bussearchlist['BPPrims']['list']:
-				_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+				if bussearchlist.get('BPPrims'):
+					for morevalues in bussearchlist['BPPrims']['list']:
+						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
 
-			if bussearchlist.get('DPPrims'):
-				for morevalues in bussearchlist['DPPrims']['list']:
-					_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
-			
+					if bussearchlist.get('DPPrims'):
+						for morevalues in bussearchlist['DPPrims']['list']:
+							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+					
 
-			if bussearchlist.get('RouteSeatTypeDetail'):
-				for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
-					_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
-			
-			reviews_return.append(_rbuslist)
-		else:
-			reviews_return.append(_rbuslist)	
+					if bussearchlist.get('RouteSeatTypeDetail'):
+						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+					
+					reviews_return.append(_rbuslist)
+				else:
+					reviews_return.append(_rbuslist)
+		except:
+			messages.add_message(request, messages.INFO,'API not responding for one way tripa')
+			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
+	except:
+		messages.add_message(request, messages.INFO,'User Entering data is wrong')
+		return HttpResponseRedirect(format_redirect_url("/", 'error=1'))
+
 	source = unicode(source)
 	destination = unicode(destination)
 	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
@@ -144,13 +180,17 @@ def seat_map(request):
 	Seat Map Info 
 	"""
 	skey=request.POST.get('skey',request.COOKIES.get('skey')) 
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	getbusseat=GO.Busseat(skey)
-	results=[]
-	for k,v in getbusseat.iteritems():
-		results.append(v['onwardSeats'])
-		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
-			results.append(i)
+	try:
+		GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+		getbusseat=GO.Busseat(skey)
+		results=[]
+		for k,v in getbusseat.iteritems():
+			results.append(v['onwardSeats'])
+			for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
+				results.append(i)
+	except:
+		messages.add_message(request, messages.INFO,'Search key not given by API.skey is %s'%request.POST.get('skey',request.COOKIES.get('skey')))
+		return HttpResponseRedirect(format_redirect_url("/", 'error=4'))
 	#return HttpResponse(simplejson.dumps(results), mimetype='application/json')
 	#return simplejson.dumps(results)
 	response= render_to_response('bus/bus-seatmapinfo.html', {'results':results}, context_instance=RequestContext(request)) 
@@ -174,18 +214,27 @@ def cancelpolicy(request):
 
 @login_required(login_url='/register/')
 def bus_booking(request):
-	bpoint=request.POST.get('bpoint',request.COOKIES.get('bpoint'))
-	bpoint_id,bpoint_name= bpoint.split("-")
-	seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
-	fare , seat_name=seatdetails.split(",")
-	response= render_to_response('bus/bus_booking.html', context_instance=RequestContext(request)) 
-	response.set_cookie('bpoint',bpoint)
-	response.set_cookie('seatdetails',seatdetails)
-	response.set_cookie('bpoint_id',bpoint_id)
-	response.set_cookie('bpoint_name',bpoint_name)
-	response.set_cookie('seat_fare',fare)
-	response.set_cookie('seat_name',seat_name)
-	return response
+	
+	try:
+		bpoint=request.POST.get('bpoint',request.COOKIES.get('bpoint'))
+		bpoint_id,bpoint_name= bpoint.split("-")
+		seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
+		fare , seat_name=seatdetails.split(",")
+		response= render_to_response('bus/bus_booking.html', context_instance=RequestContext(request)) 
+		response.set_cookie('bpoint',bpoint)
+		response.set_cookie('seatdetails',seatdetails)
+		response.set_cookie('bpoint_id',bpoint_id)
+		response.set_cookie('bpoint_name',bpoint_name)
+		response.set_cookie('seat_fare',fare)
+		response.set_cookie('seat_name',seat_name)
+		return response
+	except:
+		messages.add_message(request, messages.INFO,'Enter the details correct way')
+		trip = request.COOKIES.get('trip')
+		if trip=='oneway':	
+			return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
+		else:
+			return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
 
 
 def tentativebooking(request):
@@ -228,7 +277,11 @@ def tentativebooking(request):
 	details = requests.request("POST", url, data=payload, headers=headers, auth=('apitesting@goibibo.com','test123'))
 	#response=HttpResponse(details)
 	# return HttpResponse(simplejson.dumps(response), mimetype='application/json')
-	response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
+	try:
+		response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
+	except:
+		messages.add_message(request, messages.INFO,'Enter the details correct way')
+		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=5'))
 	print details.json()
 	response.set_cookie('bookid',details.json()['data']['bookingID'])
 	response.set_cookie('fname',fname)
@@ -250,9 +303,16 @@ def confirmbook(request):
 	clientkey='test123'
 	bookingid=request.COOKIES.get('bookid')
 	print secret
-	getbookconform=GO.BookConform(secret,bookingid,clientkey)
-	#return render_to_response('bus/bus-confirmbook.html',{'status':status},context_instance=RequestContext(request))
-	return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
+	print clientkey
+	print bookingid
+	try:
+		getbookconform=GO.BookConform(secret,bookingid,clientkey)
+	except:
+		messages.add_message(request, messages.INFO,'Something wrong from API')
+		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
+	print getbookconform
+	return render_to_response('bus/success-payment.html',{'status':getbookconform},context_instance=RequestContext(request))
+	#return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
 	
 def busbookstatus(request):
 	return render_to_response('bus/busbookingstatus.html', context_instance=RequestContext(request)) 
@@ -264,20 +324,30 @@ def busbookingstatus(request):
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	pid=request.POST.get('bookid')
-	getbookingstatus=GO.BookStatus(pid)
-	status={}
-	for k,v in getbookingstatus.iteritems():
-		for j in v:
-			status['status']=j['status']
-			status['Destination']=j['Destination']
-			status['Travels']=j['Travels']
-			status['Source']=j['Source']
-			status['TicketStatus']=j['TicketStatus']
-			status['BPContactNumber']=j['BPDetails']['BPContactNumber']
-			status['BPName']=j['BPDetails']['BPName']
-			status['BPLandmark']=j['BPDetails']['BPLandmark']
-			status['BPLocation']=j['BPDetails']['BPLocation']
-			status['BPAddress']=j['BPDetails']['BPAddress']		
+	try:
+		getbookingstatus=GO.BookStatus(pid)
+		try:
+			status={}
+			for k,v in getbookingstatus.iteritems():
+				for j in v:
+					status['status']=j['status']
+					status['Destination']=j['Destination']
+					status['Travels']=j['Travels']
+					status['Source']=j['Source']
+					status['TicketStatus']=j['TicketStatus']
+					status['BPContactNumber']=j['BPDetails']['BPContactNumber']
+					status['BPName']=j['BPDetails']['BPName']
+					status['BPLandmark']=j['BPDetails']['BPLandmark']
+					status['BPLocation']=j['BPDetails']['BPLocation']
+					status['BPAddress']=j['BPDetails']['BPAddress']
+		except:
+			messages.add_message(request, messages.INFO,'Your booking till queued')
+		return HttpResponseRedirect(format_redirect_url("/busbookstatus", 'error=9'))
+
+	except:
+		messages.add_message(request, messages.INFO,'Booking id not given by API')
+		return HttpResponseRedirect(format_redirect_url("busbookstatus", 'error=7'))
+
 	return HttpResponse(simplejson.dumps(status), mimetype='application/json')
 
 def buscencelticket(request):

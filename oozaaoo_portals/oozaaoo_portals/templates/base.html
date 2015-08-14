@@ -24,8 +24,7 @@
     <link rel="stylesheet" href="{% static "css/mystyles.css" %}">
 
     <script src="{% static "js/modernizr.js" %}"></script>
-    
-   
+
 
 </head>
 
@@ -98,6 +97,11 @@
                 </div>
             </div>
         </header>
+        {% if request.REQUEST.error %}
+            {%for message in messages%}
+                <h1>{{message}}</h1>
+            {%endfor%}
+        {%endif%}
         {% block content %}
         
         {% endblock %}
