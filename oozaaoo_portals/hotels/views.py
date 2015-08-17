@@ -106,6 +106,13 @@ def myprofile(request):
 	userprofile=UserProfile.objects.get(pk=user.id)
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
+def mybooking(request):
+	# user = request.user
+	# userprofile=UserProfile.objects.get(pk=user.id)
+	# print userprofile
+	trans_details=Transaction_order.objects.all()
+	print trans_details
+	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
 
 def home(request):
 	"""
@@ -274,7 +281,7 @@ def gethoteldetails(request):
 	gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
 
 	# # /** Hotel  Details */
-	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo']
+	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','attractions']
 	_hotel = {}
 	for k, v in gethoteldetailresponse['data'].iteritems():		
 		# _hotel = {'hn':hotel['hn']}		
@@ -290,7 +297,7 @@ def gethoteldetails(request):
 		hotelroominfos.append(_rhotelinfo)	
 
 	# /** Hotel  Reviews Details */		
-	hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
+	hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','ratings']	
 	reviews = []
 	for hotelreview in gethotelreviewresponse['data']:
 		review = {}
@@ -322,6 +329,7 @@ def gethoteldetails(request):
 	response.set_cookie('hr',_hotel['hr'])
 	response.set_cookie('la',_hotel['la'])
 	response.set_cookie('lo',_hotel['lo'])
+	response.set_cookie('attractions',_hotel['attractions'])
 	return response
 	
 @login_required(login_url='/register/')

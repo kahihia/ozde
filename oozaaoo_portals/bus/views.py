@@ -98,6 +98,8 @@ def search_bus(request):
 					'depdate':bussearchlist['depdate'],
 					'arrdate':bussearchlist['arrdate'],
 					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+					'busCondition':bussearchlist.get('busCondition'),
+					'BusType':bussearchlist.get('BusType'),
 				}
 
 				if bussearchlist.get('BPPrims'):
