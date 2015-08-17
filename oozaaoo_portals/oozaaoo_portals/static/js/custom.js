@@ -791,6 +791,9 @@ $(add_room).on("click",".remove_field", function(e){ //user click on remove text
 
 // hotels //
 $('#searchBtn').click(function(){
+
+    // var d = new Date();
+    // alert(d);
         if($('.typeahead').val() == '') {
             // alert("enter the destination");
             $('.error_mgs').show();

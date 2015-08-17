@@ -114,6 +114,13 @@ def myprofile(request):
 	userprofile=UserProfile.objects.get(pk=user.id)
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
+def mybooking(request):
+	# user = request.user
+	# userprofile=UserProfile.objects.get(pk=user.id)
+	# print userprofile
+	trans_details=Transaction_order.objects.all()
+	print trans_details
+	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
 
 def home(request):
 	"""
@@ -347,6 +354,60 @@ def gethoteldetails(request):
 	except:
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
 		return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
+
+	gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
+	gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
+
+	# # /** Hotel  Details */
+	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','attractions']
+	_hotel = {}
+	for k, v in gethoteldetailresponse['data'].iteritems():		
+		# _hotel = {'hn':hotel['hn']}		
+		if k in hoteldetails:
+			_hotel[k] = v
+
+	# /** Hotel  Gallery Image */		
+	_hotel['gallery']= gethoteldetailresponse['data']['gallery']
+
+	hotelroominfos = []
+	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc']}
+		hotelroominfos.append(_rhotelinfo)	
+
+	# /** Hotel  Reviews Details */		
+	hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','ratings']	
+	reviews = []
+	for hotelreview in gethotelreviewresponse['data']:
+		review = {}
+		for f in hotelreviewsFields:
+			if f in hotelreview:
+			 		review[f] = hotelreview[f]
+			else:
+					review[f] = None
+		reviews.append(review)
+	
+	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
+
+	# reviews = []
+	# for hotelreview in gethotelreviewresponse['data']:
+	# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
+	# 	reviews.append(_rhotel)
+
+	#return HttpResponse(simplejson.dumps(gethoteldetailresponse), mimetype='application/json')
+	response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
+	response.set_cookie('hc',hc)
+	response.set_cookie('ibp',ibp)
+	response.set_cookie('fwdp',fwdp)
+	response.set_cookie('rtc',hotelroominfo['rtc'])
+	response.set_cookie('rpc',hotelroominfo['rpc'])
+	response.set_cookie('hn',_hotel['hn'])
+	response.set_cookie('prc',_hotel['prc'])
+	response.set_cookie('c',_hotel['c'])
+	response.set_cookie('l',_hotel['l'])
+	response.set_cookie('hr',_hotel['hr'])
+	response.set_cookie('la',_hotel['la'])
+	response.set_cookie('lo',_hotel['lo'])
+	response.set_cookie('attractions',_hotel['attractions'])
 
 	return response
 	
