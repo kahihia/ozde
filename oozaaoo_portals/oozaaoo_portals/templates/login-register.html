@@ -29,25 +29,32 @@
                                 <div class="col-md-4">
                                     <h3 class="mb15">New To Traveler?</h3>
                                     {% if message %}<h5>{{message}}</h5>{% endif %}
-                                    <form method="POST">
+                                    <form method="POST" action="/register/">
                                     {% csrf_token %}
                                         <div class="form-group form-group-ghost form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                                            <label>Full Name</label>
-                                            {{registration_form.first_name}}
-                                            {{registration_form.first_name.errors}}
+                                            <label style="color:black;">Full Name</label>
+                                            <input class="form-control" placeholder="e.g. johndoe" type="text" name="username" />
                                         </div>
                                         <div class="form-group form-group-ghost form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show"></i>
-                                            <label>Email</label>
-                                            {{registration_form.email}}
-                                            {{registration_form.email.errors}}
+                                            <label style="color:black;">Email</label>
+                                            <input class="form-control" placeholder="e.g. johndoe@gmail.com" type="text" name="email" />
+
                                         </div>
                                         <div class="form-group form-group-ghost form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
-                                            <label>Password</label>
-                                            {{registration_form.password}}
-                                            {{registration_form.password.errors}}
+                                            <label style="color:black;">Password</label><input class="form-control" type="password" placeholder="my secret password" name="password" />
+
+                                        </div>
+                                        <div class="form-group form-group-ghost form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                                            <label style="color:black;">phone</label>
+                                            <input class="form-control" placeholder="e.g. johndoe@gmail.com" type="text" name="phone" />
+
+                                        </div>
+                                        <div class="form-group form-group-ghost form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                                            <label style="color:black;">dateofbirth</label>
+                                            <input class="form-control" placeholder="e.g.2015-08-19" type="text" name="dob" />
                                         </div>
 
-                                        <input class="btn btn-primary" type="submit" name="user_registration" value="Sign up for Traveler" />
+                                        <input class="btn btn-primary" type="submit" value="Sign up for Traveler" />
                                     </form>
                                 </div>
         </div>

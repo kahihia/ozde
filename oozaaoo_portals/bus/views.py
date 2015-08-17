@@ -215,7 +215,6 @@ def cancelpolicy(request):
 
 	# return HttpResponse(simplejson.dumps(policy), mimetype='application/json')
 	return render_to_response('bus/bus-cancelpolicy.html', {'policy':policy}, context_instance=RequestContext(request)) 
-
 @login_required(login_url='/register/')
 def bus_booking(request):	
 	try:
@@ -342,15 +341,15 @@ def tentativebooking(request):
 	# return HttpResponse(simplejson.dumps(response), mimetype='application/json')
 	response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
 	print details.json()
-	#try:
-	response.set_cookie('bookid',details.json()['data']['bookingID'])
-	# except:
-	# 	temp= details.json()
-	# 	if temp.has_key("data"):
-	# 		messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
-	# 	else:
-	# 		messages.add_message(request, messages.INFO,temp['Error']+'.Please Search again')
-	# 	return HttpResponseRedirect(format_redirect_url("/bus_booking", 'error=11'))
+	try:
+		response.set_cookie('bookid',details.json()['data']['bookingID'])
+	except:
+		temp= details.json()
+		if temp.has_key("data"):
+			messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
+		else:
+			messages.add_message(request, messages.INFO,temp['Error']+'.Please Search again')
+		return HttpResponseRedirect(format_redirect_url("/bus_booking", 'error=11'))
 	response.set_cookie('fname',fname)
 	response.set_cookie('lname',lname)
 	response.set_cookie('age',age)
