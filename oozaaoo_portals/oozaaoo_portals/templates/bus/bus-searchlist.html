@@ -7,7 +7,7 @@
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a>
                 </li>
-                <li><a href="#">{{ request.COOKIES.source}} to {{ request.COOKIES.destination}}</a>
+                <li><a href="#">{{ source}} to {{ destination }}</a>
                 </li>
                 <!-- <li><a href="#">New York (NY)</a>
                 </li>
@@ -63,54 +63,30 @@
                     <button class="btn btn-primary btn-lg" type="submit">Search for Flights</button>
                 </form>
             </div> -->
-            <h3 class="booking-title">Buses for {{ request.COOKIES.source}} to {{ request.COOKIES.destination}} <small>
+            <h3 class="booking-title">Buses for {{source}} to {{destination}} <small>
             <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
             
             <div class="booking-item-dates-change mb30">
                 <form class="input-daterange" data-date-format="MM d, D">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                         <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                                 <label>Pick Up Location</label>
-                                <input class="typeahead form-control" value="USA, New York" placeholder="City or Airport" type="text" />
+                                <input class="typeahead form-control" value="{{source}}" placeholder="City or Airport" type="text" />
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="row">
-                                <div class="col-md-6">
                                     <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                         <label>Check in</label>
                                         <input class="form-control" name="start" type="text" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-icon-left"><i class="fa fa-clock-o input-icon input-icon-hightlight"></i>
-                                        <label>Time</label>
-                                        <input class="time-pick form-control" value="12:00 AM" type="text" />
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                         <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                                 <label>Drop Off Location</label>
-                                <input class="typeahead form-control" value="Same as Pickup" placeholder="City or Airport" type="text" />
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                        <label>Check out</label>
-                                        <input class="form-control" name="end" type="text" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-icon-left"><i class="fa fa-clock-o input-icon input-icon-hightlight"></i>
-                                        <label>Time</label>
-                                        <input class="time-pick form-control" value="12:00 AM" type="text" />
-                                    </div>
-                                </div>
+                                <input class="typeahead form-control" value="{{destination}}" placeholder="City or Airport" type="text" />
                             </div>
                         </div>
                     </div>
@@ -287,7 +263,7 @@
                     <!-- Content loop Start  -->
                     <ul class="booking-list">                        
                         {% for values in reviews %}
-                        <li>
+                        <li class="booking-item-dates-change mb30">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="booking-item-car-img">

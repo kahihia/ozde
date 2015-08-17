@@ -61,7 +61,7 @@
                     <button class="btn btn-primary btn-lg" type="submit">Search for Flights</button>
                 </form>
             </div> -->
-            <h3 class="booking-title">105 Rental Cars in New York on Mar 22 - Mar 27<small>
+            <h3 class="booking-title">Buses for {{source}} to {{destination}}<small>
             <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
             <div class="row">
                 <div class="col-md-12">
@@ -134,7 +134,6 @@
                             
                             {% for values_return in reviews_return %}
                             <li>
-                                <form action="{%url "bus.views.seat_map" %}" method="post">{% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="booking-item-car-img">
@@ -155,8 +154,9 @@
                                        
                                     </div>
                                     <input type="hidden" name='skey'value="{{values_return.businfos.skey}}" >
-                                     <input type="submit" value="Select">
-                                     </form>
+                                     <input type="button" value="Seats" class="slide">
+                                     <div class="seat_map">  
+                                     </div>
                             </li> 
                             {% endfor %}
                         <!--/form-->                           

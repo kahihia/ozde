@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+        {{status}}
+        {% if status %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>	
+                    <h2 class="text-center">Your Booking Details</h2>
+
+                    <ul class="order-payment-list list mb30">
+
+                        <li>
+                            <div class="row">
+                               <table class="table">
+                                   <tr>
+                                       <td>First Name</td>
+                                       <td>{{status.title}}.{{status.firstname}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Last Name</td>
+                                       <td>{{status.lastname}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Mobile no</td>
+                                       <td>{{status.country_phone_code}}{{status.mobile}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Email</td>
+                                       <td>{{status.email}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Check in date</td>
+                                       <td>{{status.ci}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>RoomType</td>
+                                       <td>{{status.RoomType}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>No of adults</td>
+                                       <td>{{status.noofAdults}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>No of Children</td>
+                                       <td>{{status.noofChildren}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>No of Nights</td>
+                                       <td>{{status.noofNights}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>HotelName</td>
+                                       <td>{{status.HotelName}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>HotelAddress</td>
+                                       <td>{{status.HotelAddress}}</td>
+                                   </tr>
+                                   
+                                   <tr>
+                                       <td>Hotel phone</td>
+                                       <td>{{status.phone}}</td>
+                                   </tr>
+                                   
+                                   <tr>
+                                       <td>Hotel Code</td>
+                                       <td>{{status.hc}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Booking id</td>
+                                       <td>{{status.bookingid}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Go booking id</td>
+                                       <td>{{status.gobookingid}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>CancelPolicy</td>
+                                       <td>{%for cancel in status.cancelPolicy%}
+                                       {{cancel}}<br/>{%endfor%}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>HotelPolicy</td>
+                                       <td>{{status.hotelPolicy.0}}</td>
+                                   </tr>
+                               </table>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%else%}
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-times-circle round box-icon-large box-icon-center box-icon-error mb30"></i>  
+                    <h2 class="text-center">Invalid Booking id</h2>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%endif%}
+        {% endblock %} 
+
+
+
+    

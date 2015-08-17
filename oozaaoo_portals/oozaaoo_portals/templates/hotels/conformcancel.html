@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+        {{status}}
+        {% if status.data %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="text-center">Your cancellization details</h2>
+
+                    <ul class="order-payment-list list mb30">
+
+                        <li>
+                            <div class="row">
+                               <table class="table">
+                                   <tr>
+                                       <td>Bank Referance number</td>
+                                       <td>{{status.data.bank_ref_num}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Amount</td>
+                                       <td>{{status.data.amt}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Status</td>
+                                       <td>{{status.data.msg}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Cancel ID</td>
+                                       <td>{{status.data.request_id}}</td>
+                                   </tr>
+                               </table>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%else%}
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-times-circle round box-icon-large box-icon-center box-icon-error mb30"></i>  
+                    <h2 class="text-center">{{status.errors.message}}</h2>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%endif%}
+        {% endblock %} 
+
+
+
+    

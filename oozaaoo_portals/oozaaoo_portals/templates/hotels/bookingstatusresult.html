@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+        {{status}}
+        {% if status.data %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>	
+                    <h2 class="text-center">Booking status</h2>
+
+                    <ul class="order-payment-list list mb30">
+
+                        <li>
+                            <div class="row">
+                               <table class="table">
+                                   <tr>
+                                       <td>Booking status</td>
+                                       <td>{{status.data.status}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Booking Id</td>
+                                       <td>{{status.data.bookingid}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Email</td>
+                                       <td>{{status.data.email}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Vendor</td>
+                                       <td>{{status.data.vendor}}</td>
+                                   </tr>
+                               </table>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%else%}
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-times-circle round box-icon-large box-icon-center box-icon-error mb30"></i>  
+                    <h2 class="text-center">Invalid Booking id</h2>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%endif%}
+        {% endblock %} 
+
+
+
+    
