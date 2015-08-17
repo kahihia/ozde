@@ -98,6 +98,8 @@ def search_bus(request):
 					'depdate':bussearchlist['depdate'],
 					'arrdate':bussearchlist['arrdate'],
 					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+					'busCondition':bussearchlist.get('busCondition'),
+					'BusType':bussearchlist.get('BusType'),
 				}
 
 				if bussearchlist.get('BPPrims'):
@@ -214,13 +216,22 @@ def cancelpolicy(request):
 
 @login_required(login_url='/register/')
 def bus_booking(request):
-	
 	try:
+		totalfare=request.POST.get('total_seat_amount')
+		print totalfare
+		selected_seats=request.POST.getlist('available_seat')
+		print'selected_seats', selected_seats
+		selected_seats_fare=request.POST.getlist('available_seat_fare')
+		print'selected_seats_fare', selected_seats_fare
 		bpoint=request.POST.get('bpoint',request.COOKIES.get('bpoint'))
 		bpoint_id,bpoint_name= bpoint.split("-")
 		seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
 		fare , seat_name=seatdetails.split(",")
 		response= render_to_response('bus/bus_booking.html', context_instance=RequestContext(request)) 
+		print bpoint_id
+		# seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
+		# fare , seat_name=seatdetails.split(",")
+		response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':selected_seats,'fare':selected_seats_fare}, context_instance=RequestContext(request)) 
 		response.set_cookie('bpoint',bpoint)
 		response.set_cookie('seatdetails',seatdetails)
 		response.set_cookie('bpoint_id',bpoint_id)
@@ -254,6 +265,61 @@ def tentativebooking(request):
 	email=request.POST.get('email',request.COOKIES.get('email'))
 	mobile=request.POST.get('mobile',request.COOKIES.get('mobile'))
 	bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
+	print 'bpoint_name',bpoint_name
+	totalfare=request.COOKIES.get('totalfare')
+	print 'totalfare',totalfare
+
+	selected_seats=request.COOKIES.get('selected_seat')
+	print 'selected_seats',selected_seats
+
+	total_seat=request.COOKIES.get('total_seats')
+	print 'total_seat',total_seat
+	seat_fare=int(totalfare)/int(total_seat)
+	title=request.POST.get('title_1',request.COOKIES.get('title'))
+	fname=request.POST.get('fname_1',request.COOKIES.get('fname'))
+	lname=request.POST.get('lname_1',request.COOKIES.get('lname'))
+	seat_name=request.POST.get('seat_1',request.COOKIES.get('seat'))
+	age=request.POST.get('age_1',request.COOKIES.get('age'))
+	title1=request.POST.get('title_2')
+	fname1=request.POST.get('fname_2')
+	lname1=request.POST.get('lname_2')
+	seat_name1=request.POST.get('seat_2')
+	age1=request.POST.get('age_2')
+	title2=request.POST.get('title_3')
+	fname2=request.POST.get('fname_3')
+	lname2=request.POST.get('lname_3')
+	seat_name2=request.POST.get('seat_3')
+	age2=request.POST.get('age_3')
+	title3=request.POST.get('title_4')
+	fname3=request.POST.get('fname_4')
+	lname3=request.POST.get('lname_4')
+	seat_name3=request.POST.get('seat_4')
+	age3=request.POST.get('age_4')
+	title4=request.POST.get('title_5')
+	fname4=request.POST.get('fname_5')
+	lname4=request.POST.get('lname_5')
+	seat_name4=request.POST.get('seat_5')
+	age4=request.POST.get('age_5')
+	title5=request.POST.get('title_6')
+	fname5=request.POST.get('fname_6')
+	lname5=request.POST.get('lname_6')
+	seat_name5=request.POST.get('seat_6')
+	age5=request.POST.get('age_6')
+	email=request.POST.get('email',request.COOKIES.get('email'))
+	mobile=request.POST.get('mobile',request.COOKIES.get('mobile'))
+	if total_seat == '6':
+		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4+"-6_"+seat_name5+"_"+fname5+"_"+lname5+"_"+age5
+	elif total_seat == '5':
+		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4
+	elif total_seat == '4':
+		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3
+	elif total_seat == '3':
+		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2
+	elif total_seat == '2':
+		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1
+	else:
+		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
+	print bus_join_data
 	url = "http://pp.goibibobusiness.com/api/bus/hold/"
 	customer = [['title', 'Mr'],
 			   ['firstName', fname], 
@@ -309,7 +375,7 @@ def tentativebooking(request):
 	response.set_cookie('age',age)
 	response.set_cookie('email',email)
 	response.set_cookie('mobile',mobile)
-	response.set_cookie('bus_join_data',bus_join_data)	
+	response.set_cookie('bus_join_data',bus_join_data)
 	return response
 
 @csrf_exempt
