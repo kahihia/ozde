@@ -81,20 +81,26 @@ def login_user(request):
 	logout(request)
 	username = password = ''
 	print request.POST['next']
-	if request.POST["next"] is not "":
+	if request.POST["next"] is not 'http://localhost:8000/register/':
+
 	    username = request.POST['username']
 	    password = request.POST['password']
+
 	    user = authenticate(username=username, password=password)
 	    if user is not None:
 	        if user.is_active:
 	            login(request, user)
+	            print 'hello1',username
 	            return HttpResponseRedirect(request.POST["next"])
 	else:
+
 		username = request.POST['username']
 		password = request.POST['password']
+		
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			if user.is_active:
+				print 'hello1111111',username
 				login(request, user)
 				return HttpResponseRedirect('/')
 	return render_to_response('login-register.html', context_instance=RequestContext(request))
