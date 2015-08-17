@@ -112,8 +112,8 @@ def mybooking(request):
 	# user = request.user
 	# userprofile=UserProfile.objects.get(pk=user.id)
 	# print userprofile
-	trans_details=Transaction_order.objects.all()
-	print trans_details
+	trans_details=Order.objects.all()
+	
 	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
 
 def home(request):

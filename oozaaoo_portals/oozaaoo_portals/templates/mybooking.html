@@ -3,13 +3,14 @@
 {% block content %} 
 
 <div class="container">
-	<!-- Name:{{userprofile.name}}<br/> -->
- 	Hotel Name:{{trans_details}}<br/>
- 	Hotel City:<br/>
- 	Check in:<br/>
- 	Check out:<br/>
- 	Booked on:<br/>
- 	No. of Rooms:<br/>
-
+{% for details in trans_details %}
+	Name:{{details.userprofile_id}}<br/>
+ 	Hotel Name:{{details.hotelname}}<br/>
+ 	Hotel City:{{details.hotelcity}}<br/>
+ 	Check in:{{details.checkin}}<br/>
+ 	Check out:{{details.checkout}}<br/>
+ 	Booked on:{{details.created_date}}<br/>
+ 	No. of Rooms:{{details.rooms}}<br/>
+{% endfor %}
 </div>
 {% endblock %}  

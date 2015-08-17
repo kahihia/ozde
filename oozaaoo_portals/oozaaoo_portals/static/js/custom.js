@@ -792,8 +792,8 @@ $(add_room).on("click",".remove_field", function(e){ //user click on remove text
 // hotels //
 $('#searchBtn').click(function(){
 
-    // var d = new Date();
-    // alert(d);
+    var d= new Date( )
+    alert(d);
         if($('.typeahead').val() == '') {
             // alert("enter the destination");
             $('.error_mgs').show();
@@ -857,6 +857,9 @@ $('#paynow').click(function(){
 
 // bus//
 $('#searchbus').click(function(){
+
+    var d= new Date(year, month, day)
+    alert(d);
         if($('.source').val() == '') {
             // alert("enter the destination");
             $('.error').show();
