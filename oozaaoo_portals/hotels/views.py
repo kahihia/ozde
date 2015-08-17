@@ -81,20 +81,26 @@ def login_user(request):
 	logout(request)
 	username = password = ''
 	print request.POST['next']
-	if request.POST["next"] is not "":
+	if request.POST["next"] is not 'http://localhost:8000/register/':
+
 	    username = request.POST['username']
 	    password = request.POST['password']
+
 	    user = authenticate(username=username, password=password)
 	    if user is not None:
 	        if user.is_active:
 	            login(request, user)
+	            print 'hello1',username
 	            return HttpResponseRedirect(request.POST["next"])
 	else:
+
 		username = request.POST['username']
 		password = request.POST['password']
+		
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			if user.is_active:
+				print 'hello1111111',username
 				login(request, user)
 				return HttpResponseRedirect('/')
 	return render_to_response('login-register.html', context_instance=RequestContext(request))
@@ -105,7 +111,8 @@ def logout_view(request):
 
 def myprofile(request):
 	user = request.user
-	userprofile=UserProfile.objects.get(pk=user.id)
+	print "user", user
+	userprofile=UserProfile.objects.get(user=request.user)
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
 def mybooking(request):
@@ -122,7 +129,6 @@ def home(request):
 	"""
 	from hotels.models import citylist	
 	return render_to_response("hotels/home.html", context_instance=RequestContext(request))
-
 
 def getcitylist(request):
 	"""
@@ -477,6 +483,8 @@ def setprovisionalbooking(request):
 		order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
 		order.rooms=request.COOKIES.get('rooms')
 		order.guest=request.COOKIES.get('guest')
+		order.amount=request.COOKIES.get('prc')
+		order.category_type="hotel"
 		order.save()
 		response1.set_cookie('orderdetails',order.id)
 
@@ -530,36 +538,7 @@ def setprovisionalbooking(request):
 			orderlist.child1_age=joindata7[2]
 			orderlist.child2_age=joindata7[3]
 			orderlist.save()
-
-		#Code for storing Payu Details
-		payudetails=PayuDetails()
-		payudetails.mihpayid=request.POST.get('mihpayid')
-		payudetails.userprofile=UserProfile.objects.get(user=request.user)
-		payudetails.mode=request.POST.get('mode')
-		payudetails.status=request.POST.get('status')
-		payudetails.unmappedstatus=request.POST.get('unmappedstatus')
-		payudetails.key=request.POST.get('key')
-		payudetails.txnid=request.POST.get('txnid')
-		payudetails.amount=request.POST.get('amount')
-		payudetails.cardCategory=request.POST.get('cardCategory')
-		payudetails.discount=request.POST.get('discount')
-		payudetails.net_amount_debit=request.POST.get('net_amount_debit')
-		payudetails.addedon=request.POST.get('addedon')
-		payudetails.productinfo=request.POST.get('productinfo')
-		payudetails.hash=request.POST.get('hash')
-		payudetails.payment_source=request.POST.get('payment_source')
-		payudetails.PG_TYPE=request.POST.get('PG_TYPE')
-		payudetails.bank_ref_num=request.POST.get('bank_ref_num')
-		payudetails.bankcode=request.POST.get('bankcode')
-		payudetails.error=request.POST.get('error')
-		payudetails.error_Message=request.POST.get('error_Message')
-		payudetails.name_on_card=request.POST.get('name_on_card')
-		payudetails.cardnum=request.POST.get('cardnum')
-		payudetails.issuing_bank=request.POST.get('issuing_bank')
-		payudetails.card_type=request.POST.get('card_type')
-		payudetails.save()
-		response1.set_cookie('payudetails',payudetails.id)
-		response1.set_cookie('payustatus',payudetails.status)
+		store_payudetails()
 	except:
 		messages.add_message(request, messages.INFO,'You cannot refresh again')
 		return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
@@ -609,20 +588,20 @@ def confirmbooking(request):
 			transaction.confirmationbooking_status=response_json['status']
 			transaction.save()
 
-			# send_templated_mail(
-			# 			template_name='bookingdetails_hotel',
-			# 			from_email='testmail123sample@gmail.com',
-			# 			recipient_list=[registration_form.cleaned_data["email"]],
-			# 			context={
-			# 				'username': registration_form.cleaned_data["email"],
-			# 				'name': registration_form.cleaned_data["first_name"],
-			# 				'bookingid':transaction.confirmationbooking_id,
-			# 				'guests':request.COOKIES.get('guest'),
-			# 				# 'amount':request.COOKIES.get('guest'),
-			# 				'checkin':request.COOKIES.get('checkin'),
-			# 				'checkout':request.COOKIES.get('checkout'),
-			# 			},
-			# 		)
+			send_templated_mail(
+						template_name='bookingdetails_hotel',
+						from_email='testmail123sample@gmail.com',
+						recipient_list=[registration_form.cleaned_data["email"]],
+						context={
+							'username': registration_form.cleaned_data["email"],
+							'name': registration_form.cleaned_data["first_name"],
+							'bookingid':transaction.confirmationbooking_id,
+							'guests':request.COOKIES.get('guest'),
+							# 'amount':request.COOKIES.get('guest'),
+							'checkin':request.COOKIES.get('checkin'),
+							'checkout':request.COOKIES.get('checkout'),
+						},
+					)
 	except:
 		messages.add_message(request, messages.INFO,'You cannot make again')
 		return HttpResponseRedirect(format_redirect_url("/", 'error=51'))

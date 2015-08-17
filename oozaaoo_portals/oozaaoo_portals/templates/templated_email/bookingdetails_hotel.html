@@ -2,7 +2,7 @@
 {% block html %}
 
 <h3>Dear {{name}},</h3>
-
+{% if bookingid %}
 <p>Thank you for choosing to stay with us at the Sample Hotel. We are pleased to confirm your reservation as follows: </p>
 <pre>
 	Booking Id: {{bookingid}}
@@ -11,7 +11,17 @@
 	Amount: {{}}
 	Check-in:{{checkin}}
 	Check-out:{{checkout}}
-</pre>      
+</pre> 
+{% else %}   
+<p> Your Below reserved details is in processing stage...We will send you the booking id on mail after successfully your reservation completed<p>
+<pre>
+	Guest Name: {{name}}
+	Number of Guests:{{guests}}
+	Amount: {{}}
+	Check-in:{{checkin}}
+	Check-out:{{checkout}}
+</pre> 
+{% end if %}  
 <p>We look forward to the pleasure of having you as our guest at the OOzaoo</p>
   <p>Best regards,</p>
   Travel Portal Team

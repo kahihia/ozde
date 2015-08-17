@@ -100,7 +100,7 @@
         </header>
         {% if request.REQUEST.error %}
             {%for message in messages%}
-                <h1>{{message}}</h1>
+                <h4 class="text-center text-danger">{{message}}</h4>
             {%endfor%}
         {%endif%}
         {% block content %}
