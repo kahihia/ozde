@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+        {{status}}
+        {% if status.message %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>	
+                    <h2 class="text-center">Refund status</h2>
+
+                    <ul class="order-payment-list list mb30">
+
+                        <li>
+                            <div class="row">
+                               <table class="table">
+                                   <tr>
+                                       <td>Paid amount</td>
+                                       <td>{{status.paid_amount}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Refund amount</td>
+                                       <td>{{status.refund_amount}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Vendor</td>
+                                       <td>{{status.vendor}}</td>
+                                   </tr>
+                               </table>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%else%}
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-times-circle round box-icon-large box-icon-center box-icon-error mb30"></i>  
+                    <h2 class="text-center">Your booking not cancellable.Please refer cancel policy</h2>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%endif%}
+        {% endblock %} 
+
+
+
+    

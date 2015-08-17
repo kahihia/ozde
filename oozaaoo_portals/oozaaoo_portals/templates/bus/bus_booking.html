@@ -4,14 +4,15 @@
 <div class="gap"></div>
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h3>Customer</h3>
          <form action="{% url "bus.views.tentativebooking" %}" method="post">{% csrf_token %}
+            {% for seats in seat %}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label>Title</label>
-                            <select name="title">
+                            <select name="title_{{forloop.counter}}">
                                 <option value="mr">Mr</option>
                                 <option value="mrs">Mrs</option>
                                 <option value="miss">Miss</option>
@@ -22,31 +23,42 @@
                     <div class="col-md-4">
                        <div class="form-group">
                                     <label>First Name</label>
-                                    <input id="fname" class="form-control fname" type="text" name="fname">
+                                    <input id="fname" class="form-control fname" type="text" name="fname_{{forloop.counter}}">
                                     <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
                                 </div>
                  
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                                     <label>Lastname</label>
-                                    <input id="lname" class="form-control lname" type="text" name="lname" />
+                                    <input id="lname" class="form-control lname" type="text" name="lname_{{forloop.counter}}" />
                                     <span class="errormgs" style="display:none; color:red;">please enter the last name</span>
                                 </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                    
                         <div class="form-group">
                             <label>age</label>
-                            <input class="form-control age" type="text" name="age" />
+                            <input class="form-control age" type="text" name="age_{{forloop.counter}}" />
                             <span></span>
                             <span class="errormgs" style="display:none; color:red;">please enter the age</span>
                         </div>
                  
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-1">
+                   
+                        <div class="form-group">
+                        <label>seat</label>
+                            <span>{{seats}}</span>
+                            <input type="hidden" name="seat_{{forloop.counter}}" value="{{seats}}">
+                        </div>
+                 
+                    </div>
+                </div>
+            {%endfor%}
+                <div class="row">
+
+                    <div class="col-md-4 col-md-offset-2">
                         <div class="form-group">
                             <label>Phone Number</label>
                             <input class="form-control mobileno" type="text" name="mobile" />
@@ -61,6 +73,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="selected_seat" value="{{seat}}">
                <input class="btn btn-primary" type="submit" value="Proceed Payment" id="payment"/>
             </form>
             <hr>
