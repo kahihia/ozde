@@ -169,3 +169,35 @@ def format_redirect_url(redirect_path, query_string):
         query_string += k + '=' + qs[k] + '&'
         
     return redirect_path + url_join_str + query_string[:-1]
+
+def store_payudetails():
+	#Code for storing Payu Details
+	payudetails=PayuDetails()
+	payudetails.mihpayid=request.POST.get('mihpayid')
+	payudetails.userprofile=UserProfile.objects.get(user=request.user)
+	payudetails.mode=request.POST.get('mode')
+	payudetails.status=request.POST.get('status')
+	payudetails.unmappedstatus=request.POST.get('unmappedstatus')
+	payudetails.key=request.POST.get('key')
+	payudetails.txnid=request.POST.get('txnid')
+	payudetails.amount=request.POST.get('amount')
+	payudetails.cardCategory=request.POST.get('cardCategory')
+	payudetails.discount=request.POST.get('discount')
+	payudetails.net_amount_debit=request.POST.get('net_amount_debit')
+	payudetails.addedon=request.POST.get('addedon')
+	payudetails.productinfo=request.POST.get('productinfo')
+	payudetails.hash=request.POST.get('hash')
+	payudetails.payment_source=request.POST.get('payment_source')
+	payudetails.PG_TYPE=request.POST.get('PG_TYPE')
+	payudetails.bank_ref_num=request.POST.get('bank_ref_num')
+	payudetails.bankcode=request.POST.get('bankcode')
+	payudetails.error=request.POST.get('error')
+	payudetails.error_Message=request.POST.get('error_Message')
+	payudetails.name_on_card=request.POST.get('name_on_card')
+	payudetails.cardnum=request.POST.get('cardnum')
+	payudetails.issuing_bank=request.POST.get('issuing_bank')
+	payudetails.card_type=request.POST.get('card_type')
+	payudetails.save()
+	response.set_cookie('payudetails',payudetails.id)
+	response.set_cookie('payustatus',payudetails.status)
+	return
