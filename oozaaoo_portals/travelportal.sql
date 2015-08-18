@@ -129,7 +129,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$qmlfgKXSLuPT$uX7Vz/oDUFu4cqMsMB15MQrhyPb1owNnna4DlJb/z/k=','2015-08-13 05:57:07',1,'admin','','','admin@gmail.com',1,1,'2015-08-13 05:57:07'),(2,'pbkdf2_sha256$12000$K6hbHZWrp2Dt$IlFPK+++XVCVNA7VvxekNphYFzJx+lBlv2HKx85oJIg=','2015-08-13 10:56:27',0,'kalaimca.gs1@gmail.com','kalai','','kalaimca.gs1@gmail.com',0,1,'2015-08-13 07:17:47'),(3,'pbkdf2_sha256$12000$r73UyA8pECFQ$BctKVeC2gWD4rm+K1nrKkcpGspC6A/Igq6AKMbtyvL0=','2015-08-17 06:03:15',0,'kalaimca.gs@gmail.com','kalai','','kalaimca.gs@gmail.com',0,1,'2015-08-14 05:02:49');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$qmlfgKXSLuPT$uX7Vz/oDUFu4cqMsMB15MQrhyPb1owNnna4DlJb/z/k=','2015-08-13 05:57:07',1,'admin','','','admin@gmail.com',1,1,'2015-08-13 05:57:07'),(2,'pbkdf2_sha256$12000$K6hbHZWrp2Dt$IlFPK+++XVCVNA7VvxekNphYFzJx+lBlv2HKx85oJIg=','2015-08-13 10:56:27',0,'kalaimca.gs1@gmail.com','kalai','','kalaimca.gs1@gmail.com',0,1,'2015-08-13 07:17:47'),(3,'pbkdf2_sha256$12000$r73UyA8pECFQ$BctKVeC2gWD4rm+K1nrKkcpGspC6A/Igq6AKMbtyvL0=','2015-08-17 12:12:36',0,'kalaimca.gs@gmail.com','kalai','','kalaimca.gs@gmail.com',0,1,'2015-08-14 05:02:49');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0qgm5w6ifr7c9qtztfu9kx3srir6b360','Nzc1YWEzMDRkMDVkMmZlYzc3YWJjYzQwYTJkMjhkOWEwZDc4NDgyMDp7fQ==','2015-08-27 13:55:38'),('5r5i9xcoj55vrg0ioh8gmnv7xbd9vd98','ODU5ZjZmOGM1ZjQzNjcyMWI2OTJjZDI4NjY3ZDRmMGY2MDJhOWY3Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2015-08-27 07:45:42'),('gjvd5u9om27z6yhspl1hnkenp7tgjuou','ODU5ZjZmOGM1ZjQzNjcyMWI2OTJjZDI4NjY3ZDRmMGY2MDJhOWY3Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2015-08-27 10:56:27'),('lpd67fc93j8p4ztt441bowbn70mpvuuc','ODlmYTE4NDdmYTVhMWM1ZTY5NDVkYmM2YzM3ZWM1ZDk2MDUwN2RlMDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6M30=','2015-08-31 06:03:15'),('tslcz1ld2jp6ly5ow8skxbjpcuet0r47','ODU5ZjZmOGM1ZjQzNjcyMWI2OTJjZDI4NjY3ZDRmMGY2MDJhOWY3Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2015-08-27 07:18:02');
+INSERT INTO `django_session` VALUES ('0qgm5w6ifr7c9qtztfu9kx3srir6b360','Nzc1YWEzMDRkMDVkMmZlYzc3YWJjYzQwYTJkMjhkOWEwZDc4NDgyMDp7fQ==','2015-08-27 13:55:38'),('5r5i9xcoj55vrg0ioh8gmnv7xbd9vd98','ODU5ZjZmOGM1ZjQzNjcyMWI2OTJjZDI4NjY3ZDRmMGY2MDJhOWY3Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2015-08-27 07:45:42'),('ceia6b3lwg4i16uq62rqq9tbjouf3q44','ODlmYTE4NDdmYTVhMWM1ZTY5NDVkYmM2YzM3ZWM1ZDk2MDUwN2RlMDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6M30=','2015-08-31 12:12:36'),('gjvd5u9om27z6yhspl1hnkenp7tgjuou','ODU5ZjZmOGM1ZjQzNjcyMWI2OTJjZDI4NjY3ZDRmMGY2MDJhOWY3Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2015-08-27 10:56:27'),('lpd67fc93j8p4ztt441bowbn70mpvuuc','ODlmYTE4NDdmYTVhMWM1ZTY5NDVkYmM2YzM3ZWM1ZDk2MDUwN2RlMDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6M30=','2015-08-31 06:03:15'),('n1yzuhwnhwkhbpbgugq9a9hfll460obc','ODlmYTE4NDdmYTVhMWM1ZTY5NDVkYmM2YzM3ZWM1ZDk2MDUwN2RlMDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6M30=','2015-08-31 10:12:14'),('tslcz1ld2jp6ly5ow8skxbjpcuet0r47','ODU5ZjZmOGM1ZjQzNjcyMWI2OTJjZDI4NjY3ZDRmMGY2MDJhOWY3Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2015-08-27 07:18:02');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +354,7 @@ CREATE TABLE `payu_payudetails` (
   `cardCategory` varchar(20) DEFAULT NULL,
   `discount` double DEFAULT NULL,
   `net_amount_debit` double DEFAULT NULL,
-  `addedon` datetime NOT NULL,
+  `addedon` datetime DEFAULT NULL,
   `productinfo` varchar(50) DEFAULT NULL,
   `hash` varchar(250) DEFAULT NULL,
   `payment_source` varchar(20) DEFAULT NULL,
@@ -370,7 +370,7 @@ CREATE TABLE `payu_payudetails` (
   PRIMARY KEY (`id`),
   KEY `payu_payudetails_1be1924f` (`userprofile_id`),
   CONSTRAINT `userprofile_id_refs_id_0d6f826e` FOREIGN KEY (`userprofile_id`) REFERENCES `hotels_userprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,7 +379,7 @@ CREATE TABLE `payu_payudetails` (
 
 LOCK TABLES `payu_payudetails` WRITE;
 /*!40000 ALTER TABLE `payu_payudetails` DISABLE KEYS */;
-INSERT INTO `payu_payudetails` VALUES (1,'403993715513014110',1,'CC','success','captured','gtKFFx','3BA5E1EC',2990,'domestic',0,2990,'2015-08-14 17:08:11','Anandha Inn','4b1ae2343a2de7f908d7e7eaab60e42a865ea90da07d8218fdce17bbbb8d0825e7978c9c7843f6361e7a993e316764513ad23df7657571b4a19d6752422624e3','payu','HDFCPG','7735070091752261','CC','E000','No Error','kalaiarasi1','512345XXXXXX2346','HDFC','MAST'),(2,'403993715513014356',1,'CC','success','captured','gtKFFx','BB550673',2990,'domestic',0,2990,'2015-08-14 17:26:16','Anandha Inn','4e9afff719a603e3a06acedaef6793b5f5200fec092db11841ad58702017e0a9cfea4a906c72f7b7866d0f6a47e0138bab5d08e05ae386ede7abbf9445d0bab2','payu','HDFCPG','9383589271752261','CC','E000','No Error','varnika','512345XXXXXX2346','HDFC','MAST'),(3,'403993715513014596',1,'CC','success','captured','gtKFFx','B551301E',2990,'domestic',0,2990,'2015-08-14 17:48:25','Anandha Inn','2393e7b6c32ce3d2cfa7d886c9878abee6af1c5d5eb36156dded666a66971388570010c5583d6affa6d61f2eb0b6c6b400309228e5246a7ce6f49a58bfa6c361','payu','HDFCPG','5433467491752261','CC','E000','No Error','nisha','512345XXXXXX2346','HDFC','MAST'),(4,'403993715513014710',1,'CC','success','captured','gtKFFx','A27E992E',2990,'domestic',0,2990,'2015-08-14 18:00:18','Anandha Inn','3ad0dc8f7dd1592c9207a1e54ea3eef081a15dc08503f189667b1fa8a265d3ad62519b2abd854ac95bfb7b2c789d226042fc27b3bbdc365290564234cceba152','payu','HDFCPG','271872011852261','CC','E000','No Error','karthy','512345XXXXXX2346','HDFC','MAST'),(5,'403993715513014896',1,'CC','success','captured','gtKFFx','80833EB2',2990,'domestic',0,2990,'2015-08-14 18:19:41','Anandha Inn','9b65fde5a5777713e1ec02c1efa1bd1d61517048c0a0f0f02b6086ec0463635293b443596776afd7185bae6b95dbeb4e60ce69a84bf9603b719dfa254eb5fe93','payu','HDFCPG','8347795201852261','CC','E000','No Error','nethra','512345XXXXXX2346','HDFC','MAST'),(6,'403993715513030656',1,'CC','success','captured','gtKFFx','2786CBCB',2990,'domestic',0,2990,'2015-08-17 11:12:43','Anandha Inn','247dc5d52d83c7c7bd6e69f8cdf70753170527f5784877a00b30d2e12ccaa7ec7a4f1a76a3ea039322dd6ce4e726f29a8aebf9f03436de60088e549c25ba0a85','payu','HDFCPG','3266111131152291','CC','E000','No Error','nisha','512345XXXXXX2346','HDFC','MAST');
+INSERT INTO `payu_payudetails` VALUES (1,'403993715513014110',1,'CC','success','captured','gtKFFx','3BA5E1EC',2990,'domestic',0,2990,'2015-08-14 17:08:11','Anandha Inn','4b1ae2343a2de7f908d7e7eaab60e42a865ea90da07d8218fdce17bbbb8d0825e7978c9c7843f6361e7a993e316764513ad23df7657571b4a19d6752422624e3','payu','HDFCPG','7735070091752261','CC','E000','No Error','kalaiarasi1','512345XXXXXX2346','HDFC','MAST'),(2,'403993715513014356',1,'CC','success','captured','gtKFFx','BB550673',2990,'domestic',0,2990,'2015-08-14 17:26:16','Anandha Inn','4e9afff719a603e3a06acedaef6793b5f5200fec092db11841ad58702017e0a9cfea4a906c72f7b7866d0f6a47e0138bab5d08e05ae386ede7abbf9445d0bab2','payu','HDFCPG','9383589271752261','CC','E000','No Error','varnika','512345XXXXXX2346','HDFC','MAST'),(3,'403993715513014596',1,'CC','success','captured','gtKFFx','B551301E',2990,'domestic',0,2990,'2015-08-14 17:48:25','Anandha Inn','2393e7b6c32ce3d2cfa7d886c9878abee6af1c5d5eb36156dded666a66971388570010c5583d6affa6d61f2eb0b6c6b400309228e5246a7ce6f49a58bfa6c361','payu','HDFCPG','5433467491752261','CC','E000','No Error','nisha','512345XXXXXX2346','HDFC','MAST'),(4,'403993715513014710',1,'CC','success','captured','gtKFFx','A27E992E',2990,'domestic',0,2990,'2015-08-14 18:00:18','Anandha Inn','3ad0dc8f7dd1592c9207a1e54ea3eef081a15dc08503f189667b1fa8a265d3ad62519b2abd854ac95bfb7b2c789d226042fc27b3bbdc365290564234cceba152','payu','HDFCPG','271872011852261','CC','E000','No Error','karthy','512345XXXXXX2346','HDFC','MAST'),(5,'403993715513014896',1,'CC','success','captured','gtKFFx','80833EB2',2990,'domestic',0,2990,'2015-08-14 18:19:41','Anandha Inn','9b65fde5a5777713e1ec02c1efa1bd1d61517048c0a0f0f02b6086ec0463635293b443596776afd7185bae6b95dbeb4e60ce69a84bf9603b719dfa254eb5fe93','payu','HDFCPG','8347795201852261','CC','E000','No Error','nethra','512345XXXXXX2346','HDFC','MAST'),(6,'403993715513030656',1,'CC','success','captured','gtKFFx','2786CBCB',2990,'domestic',0,2990,'2015-08-17 11:12:43','Anandha Inn','247dc5d52d83c7c7bd6e69f8cdf70753170527f5784877a00b30d2e12ccaa7ec7a4f1a76a3ea039322dd6ce4e726f29a8aebf9f03436de60088e549c25ba0a85','payu','HDFCPG','3266111131152291','CC','E000','No Error','nisha','512345XXXXXX2346','HDFC','MAST'),(7,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(9,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(10,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,'403993715513043936',1,'CC','success','captured','gtKFFx','5E4F16A8',120,'domestic',0,120,'2015-08-18 10:40:51','Jamnagar-Rajkot','15a1f4160879a1dab6d84d0daf1ca974f4d4c71faabc9e6252e6edf0e9f6b1ed42617eaa478adf0498cba18c6e2d4b271695e3172ee929dad3287fb4043dc5a0','payu','HDFCPG','279158411052301','CC','E000','No Error','darshini','512345XXXXXX2346','HDFC','MAST');
 /*!40000 ALTER TABLE `payu_payudetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -487,10 +487,20 @@ CREATE TABLE `transaction_order` (
   `rooms` int(11) DEFAULT NULL,
   `guest` int(11) DEFAULT NULL,
   `created_date` datetime NOT NULL,
+  `amount` double DEFAULT NULL,
+  `trip` varchar(50) DEFAULT NULL,
+  `source` varchar(50) DEFAULT NULL,
+  `destination` varchar(50) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `totalseats` int(11) DEFAULT NULL,
+  `boardingpoint_id` varchar(50) DEFAULT NULL,
+  `boardingpoint_name` varchar(50) DEFAULT NULL,
+  `category_type` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `transaction_order_1be1924f` (`userprofile_id`),
   CONSTRAINT `userprofile_id_refs_id_55626afd` FOREIGN KEY (`userprofile_id`) REFERENCES `hotels_userprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -499,7 +509,7 @@ CREATE TABLE `transaction_order` (
 
 LOCK TABLES `transaction_order` WRITE;
 /*!40000 ALTER TABLE `transaction_order` DISABLE KEYS */;
-INSERT INTO `transaction_order` VALUES (1,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,1,'2015-08-14 10:34:30'),(2,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 10:40:24'),(3,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',2,4,'2015-08-14 10:51:56'),(4,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',2,4,'2015-08-14 11:04:59'),(5,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:22:59'),(6,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:39:25'),(7,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:42:07'),(8,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:42:57'),(9,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',2,4,'2015-08-14 12:03:13'),(10,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,2,'2015-08-14 12:19:41'),(11,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,1,'2015-08-14 12:31:19'),(12,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,1,'2015-08-14 12:50:40'),(13,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-17','2015-08-24',1,2,'2015-08-17 05:43:38');
+INSERT INTO `transaction_order` VALUES (1,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,1,'2015-08-14 10:34:30',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 10:40:24',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',2,4,'2015-08-14 10:51:56',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',2,4,'2015-08-14 11:04:59',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:22:59',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:39:25',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:42:07',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,3,'2015-08-14 11:42:57',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(9,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',2,4,'2015-08-14 12:03:13',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(10,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,2,'2015-08-14 12:19:41',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,1,'2015-08-14 12:31:19',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(12,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-14','2015-08-21',1,1,'2015-08-14 12:50:40',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(13,1,'3769018583127607778','Anandha Inn','Pondicherry','2015-08-17','2015-08-24',1,2,'2015-08-17 05:43:38',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(22,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2015-08-18 05:03:55',120,'oneway','Jamnagar','Rajkot',NULL,NULL,1,'1121834','Jamnagar Office','bus'),(23,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2015-08-18 05:10:51',120,'oneway','Jamnagar','Rajkot',NULL,NULL,1,'1121834','Jamnagar Office','bus');
 /*!40000 ALTER TABLE `transaction_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -518,6 +528,10 @@ CREATE TABLE `transaction_orderlist` (
   `children` int(11) DEFAULT NULL,
   `child1_age` int(11) DEFAULT NULL,
   `child2_age` int(11) DEFAULT NULL,
+  `seatnumber` int(11) DEFAULT NULL,
+  `firstname` varchar(50) DEFAULT NULL,
+  `lastname` varchar(50) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `transaction_orderlist_68d25c7a` (`order_id`),
   CONSTRAINT `order_id_refs_id_b0428b0d` FOREIGN KEY (`order_id`) REFERENCES `transaction_order` (`id`)
@@ -530,7 +544,7 @@ CREATE TABLE `transaction_orderlist` (
 
 LOCK TABLES `transaction_orderlist` WRITE;
 /*!40000 ALTER TABLE `transaction_orderlist` DISABLE KEYS */;
-INSERT INTO `transaction_orderlist` VALUES (1,1,1,1,0,0,0),(2,2,1,2,1,3,0),(3,3,2,1,1,2,0),(4,4,2,1,1,2,0),(5,5,1,2,1,3,0),(6,8,1,2,1,3,0),(7,9,1,1,1,2,0),(8,9,2,1,1,2,0),(9,10,1,1,1,2,0),(10,11,1,1,0,1,0),(11,12,1,1,0,1,0),(12,13,1,1,1,2,0);
+INSERT INTO `transaction_orderlist` VALUES (1,1,1,1,0,0,0,NULL,NULL,NULL,NULL),(2,2,1,2,1,3,0,NULL,NULL,NULL,NULL),(3,3,2,1,1,2,0,NULL,NULL,NULL,NULL),(4,4,2,1,1,2,0,NULL,NULL,NULL,NULL),(5,5,1,2,1,3,0,NULL,NULL,NULL,NULL),(6,8,1,2,1,3,0,NULL,NULL,NULL,NULL),(7,9,1,1,1,2,0,NULL,NULL,NULL,NULL),(8,9,2,1,1,2,0,NULL,NULL,NULL,NULL),(9,10,1,1,1,2,0,NULL,NULL,NULL,NULL),(10,11,1,1,0,1,0,NULL,NULL,NULL,NULL),(11,12,1,1,0,1,0,NULL,NULL,NULL,NULL),(12,13,1,1,1,2,0,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `transaction_orderlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,12 +566,14 @@ CREATE TABLE `transaction_transaction` (
   `provisionalbooking_status` varchar(20) DEFAULT NULL,
   `confirmationbooking_status` varchar(20) DEFAULT NULL,
   `created_date` datetime NOT NULL,
+  `tentativebooking_id` varchar(50) DEFAULT NULL,
+  `tentativebooking_status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `transaction_transaction_68d25c7a` (`order_id`),
   KEY `transaction_transaction_76c5e174` (`payu_details_id`),
   CONSTRAINT `order_id_refs_id_125368ec` FOREIGN KEY (`order_id`) REFERENCES `transaction_order` (`id`),
   CONSTRAINT `payu_details_id_refs_id_c87c932a` FOREIGN KEY (`payu_details_id`) REFERENCES `payu_payudetails` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -566,7 +582,7 @@ CREATE TABLE `transaction_transaction` (
 
 LOCK TABLES `transaction_transaction` WRITE;
 /*!40000 ALTER TABLE `transaction_transaction` DISABLE KEYS */;
-INSERT INTO `transaction_transaction` VALUES (1,12,5,'GOHTLDV2aebb51439556635','','hotels-7247861711286471145-20150814-20150821-1-1_0_1_0','True','True','error','2015-08-14 12:54:05'),(2,13,6,'GOHTLDV2b9f081439790214','HTLFG7AHYG','hotels-7247861711286471145-20150817-20150824-1-1_1_2_0','success','True','success','2015-08-17 05:43:52');
+INSERT INTO `transaction_transaction` VALUES (1,12,5,'GOHTLDV2aebb51439556635','','hotels-7247861711286471145-20150814-20150821-1-1_0_1_0','True','True','error','2015-08-14 12:54:05',NULL,NULL),(2,13,6,'GOHTLDV2b9f081439790214','HTLFG7AHYG','hotels-7247861711286471145-20150817-20150824-1-1_1_2_0','success','True','success','2015-08-17 05:43:52',NULL,NULL),(4,22,10,NULL,NULL,NULL,NULL,NULL,NULL,'2015-08-18 05:07:53','GOBUSbebdc1439874215','processing');
 /*!40000 ALTER TABLE `transaction_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -579,4 +595,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-17 11:37:44
+-- Dump completed on 2015-08-18 13:01:31

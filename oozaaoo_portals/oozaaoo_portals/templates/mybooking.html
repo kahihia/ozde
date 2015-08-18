@@ -4,7 +4,8 @@
 
 <div class="container">
 {% for details in trans_details %}
-	Name:{{details.userprofile_id}}<br/>
+
+	Name:{{details.userprofile.name}}<br/>
  	Hotel Name:{{details.hotelname}}<br/>
  	Hotel City:{{details.hotelcity}}<br/>
  	Check in:{{details.checkin}}<br/>
