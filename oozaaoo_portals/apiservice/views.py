@@ -96,6 +96,9 @@ class goibiboAPI(object):
 		#=========================BUS API===============================#
 	def Searchbus(self,source,destination,dateofdeparture,dateofarrival):
 		query = self.BASE_BUS+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)+"&dateofarrival="+str(dateofarrival)
+		# f = open("example.txt", "w")
+		f.write('Request url')
+		# f.write(query)
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def Busseat(self,skey):
@@ -203,3 +206,10 @@ def store_payudetails(request):
 	# response.set_cookie('payudetails',payudetails.id)
 	# response.set_cookie('payustatus',payudetails.status)
 	return payudetails.id,payudetails.status
+
+def fileopen(request):
+	f = open("example.txt", "w")
+
+def fileclose(request):
+	f.close()
+

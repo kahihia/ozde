@@ -45,32 +45,48 @@ def registration(request):
 	"""
 	User Registration
 	"""
-	logout(request)
-	message = None
-	registration_form = RegistrationForm()
-	if 'user_registration' in request.POST:
-		registration_form = RegistrationForm(request.POST)
-		if registration_form.is_valid():		
-			user = User.objects.create_user(
-				username=registration_form.cleaned_data["email"],
-				first_name=registration_form.cleaned_data["first_name"],
-				email=registration_form.cleaned_data["email"],
-				)
-			user.set_password(registration_form.cleaned_data["password"])
-			user.save()			
-
-			send_templated_mail(
-				template_name='welcome',
-				from_email='testmail123sample@gmail.com',
-				recipient_list=[registration_form.cleaned_data["email"]],
-				context={
-					'username': registration_form.cleaned_data["email"],
-					'name': registration_form.cleaned_data["first_name"],
-				},
-			)
+	
+	try:
+		logout(request)
+		message = None
+		user=User()
+		userprofile=UserProfile()
+		email=request.POST['email']
+		if User.objects.filter(email=email).exists():
+			messages.add_message(request, messages.INFO,'Email already exists')
+			return HttpResponseRedirect(format_redirect_url("/register", 'error=57'))
+		elif request.method == 'POST':
+			
+			username=request.POST['username']
+			email=request.POST['email']
+			password=request.POST['password']
+			phone=request.POST['phone']
+			dob=request.POST['dob']    
+			user.is_active = True
+			user.username=username
+			user.email=email
+			user.password=password
+			user.set_password(user.password)
+			user.first_name=username
+			user.save()
+			userprofile.user=user       
+			userprofile.phone=phone
+			userprofile.dateofbirth=dob
+			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
+			p.save()
 			message = "You have successfully completed registration."
-	return render_to_response('login-register.html', {'message': message, 'registration_form':registration_form},
+			send_templated_mail(
+					template_name='welcome',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=user.email,
+					context={
+						'username': user.email,
+						'name': user.first_name,})
+		return render_to_response('login-register.html', {'message': "You have successfully completed registration."},
 							  context_instance=RequestContext(request))
+	except:
+		return render_to_response('login-register.html',
+								  context_instance=RequestContext(request))
 							  
 from django.contrib.auth import authenticate, login, logout
 
@@ -81,26 +97,20 @@ def login_user(request):
 	logout(request)
 	username = password = ''
 	print request.POST['next']
-	if request.POST["next"] is not 'http://localhost:8000/register/':
-
+	if request.POST["next"] != "http://localhost:8000/register/" :
 	    username = request.POST['username']
 	    password = request.POST['password']
-
 	    user = authenticate(username=username, password=password)
 	    if user is not None:
 	        if user.is_active:
 	            login(request, user)
-	            print 'hello1',username
 	            return HttpResponseRedirect(request.POST["next"])
 	else:
-
 		username = request.POST['username']
 		password = request.POST['password']
-		
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			if user.is_active:
-				print 'hello1111111',username
 				login(request, user)
 				return HttpResponseRedirect('/')
 	return render_to_response('login-register.html', context_instance=RequestContext(request))
@@ -111,8 +121,8 @@ def logout_view(request):
 
 def myprofile(request):
 	user = request.user
-	print "user", user
-	userprofile=UserProfile.objects.get(user=request.user)
+	print user
+	userprofile=UserProfile.objects.get(user_id=user.id)
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
 def mybooking(request):
