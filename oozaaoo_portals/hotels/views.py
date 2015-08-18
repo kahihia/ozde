@@ -123,13 +123,15 @@ def myprofile(request):
 	user = request.user
 	print user
 	userprofile=UserProfile.objects.get(user_id=user.id)
+	print userprofile
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
 def mybooking(request):
 	user = request.user
-	print "user", user
-	userprofile=UserProfile.objects.get(user=request.user)
-	trans_details=Order.objects.all()
+	print user.id
+	userprofile=UserProfile.objects.get(user_id=user.id)
+	print userprofile.id,"userprofile"
+	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
 	
 	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
 
