@@ -26,6 +26,7 @@ from urllib import urlencode
 from urllib import unquote_plus
 from django.utils import simplejson as json
 from django.contrib.auth import authenticate, login
+from payu.models import *
 
 class goibiboAPI(object):
 
@@ -170,7 +171,7 @@ def format_redirect_url(redirect_path, query_string):
         
     return redirect_path + url_join_str + query_string[:-1]
 
-def store_payudetails():
+def store_payudetails(request):
 	#Code for storing Payu Details
 	payudetails=PayuDetails()
 	payudetails.mihpayid=request.POST.get('mihpayid')
@@ -198,6 +199,7 @@ def store_payudetails():
 	payudetails.issuing_bank=request.POST.get('issuing_bank')
 	payudetails.card_type=request.POST.get('card_type')
 	payudetails.save()
-	response.set_cookie('payudetails',payudetails.id)
-	response.set_cookie('payustatus',payudetails.status)
-	return
+
+	# response.set_cookie('payudetails',payudetails.id)
+	# response.set_cookie('payustatus',payudetails.status)
+	return payudetails.id,payudetails.status

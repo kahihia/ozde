@@ -33,6 +33,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse
 import collections
 from django.contrib import messages
+from transaction.models import *
+from payu.models import *
 
 class mydict(dict):
         def __str__(self):
@@ -215,7 +217,7 @@ def cancelpolicy(request):
 	return render_to_response('bus/bus-cancelpolicy.html', {'policy':policy}, context_instance=RequestContext(request)) 
 
 @login_required(login_url='/register/')
-def bus_booking(request):
+def bus_booking(request):	
 	try:
 		totalfare=request.POST.get('total_seat_amount')
 		print totalfare
@@ -224,20 +226,19 @@ def bus_booking(request):
 		selected_seats_fare=request.POST.getlist('available_seat_fare')
 		print'selected_seats_fare', selected_seats_fare
 		bpoint=request.POST.get('bpoint',request.COOKIES.get('bpoint'))
+		print bpoint
 		bpoint_id,bpoint_name= bpoint.split("-")
-		seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
-		fare , seat_name=seatdetails.split(",")
-		response= render_to_response('bus/bus_booking.html', context_instance=RequestContext(request)) 
 		print bpoint_id
 		# seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
 		# fare , seat_name=seatdetails.split(",")
 		response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':selected_seats,'fare':selected_seats_fare}, context_instance=RequestContext(request)) 
 		response.set_cookie('bpoint',bpoint)
-		response.set_cookie('seatdetails',seatdetails)
+		#response.set_cookie('seatdetails',seatdetails)
 		response.set_cookie('bpoint_id',bpoint_id)
 		response.set_cookie('bpoint_name',bpoint_name)
-		response.set_cookie('seat_fare',fare)
-		response.set_cookie('seat_name',seat_name)
+		response.set_cookie('totalfare',totalfare)
+		response.set_cookie('selected_seats',selected_seats)
+		response.set_cookie('total_seats',len(selected_seats))
 		return response
 	except:
 		messages.add_message(request, messages.INFO,'Enter the details correct way')
@@ -249,22 +250,14 @@ def bus_booking(request):
 
 
 def tentativebooking(request):
-	print "tentativebooking"
 	import requests
 	import urllib
 	from django.utils import simplejson
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
+	print 'skey',skey
 	bpoint_id=request.COOKIES.get('bpoint_id')
+	print 'bpoint_id',bpoint_id
 	bpoint_name=request.COOKIES.get('bpoint_name')
-	seat_fare=request.COOKIES.get('seat_fare')
-	seat_name=request.COOKIES.get('seat_name')
-	title=request.POST.get('title',request.COOKIES.get('title'))
-	fname=request.POST.get('fname',request.COOKIES.get('fname'))
-	lname=request.POST.get('lname',request.COOKIES.get('lname'))
-	age=request.POST.get('age',request.COOKIES.get('age'))
-	email=request.POST.get('email',request.COOKIES.get('email'))
-	mobile=request.POST.get('mobile',request.COOKIES.get('mobile'))
-	bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
 	print 'bpoint_name',bpoint_name
 	totalfare=request.COOKIES.get('totalfare')
 	print 'totalfare',totalfare
@@ -319,6 +312,7 @@ def tentativebooking(request):
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1
 	else:
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
+
 	print bus_join_data
 	url = "http://pp.goibibobusiness.com/api/bus/hold/"
 	customer = [['title', 'Mr'],
@@ -338,6 +332,7 @@ def tentativebooking(request):
 	onw=[['onw',bus_info]]
 	onw_info=mydict(onw)
 	payload={'holddata':'%s'%onw_info}
+	print payload
 	#payload={'holddata':'{"onw":{"skey":"zJ5yLDs6ptU20KB7EtLDKv4V6NMMmZNKNqDi0J5O-msWyzc9Eww-7nLdgbubveJxLR_t0-R8Lg==","bp":"66677","seats":[{"title":"Mr","firstName":"test","lastName":"test","age":"34","eMail":"goibibobusinesstest@gmail.com","mobile":"9888888888","seatName":"36","seatFare":"122"}]}}'}
 	headers = {
         'content-type': "application/x-www-form-urlencoded"
@@ -345,37 +340,46 @@ def tentativebooking(request):
 	details = requests.request("POST", url, data=payload, headers=headers, auth=('apitesting@goibibo.com','test123'))
 	#response=HttpResponse(details)
 	# return HttpResponse(simplejson.dumps(response), mimetype='application/json')
-	try:
-		from datetime import datetime
-		fmt = '%Y/%m/%d'
-		order=Order()	
-		order.userprofile =UserProfile.objects.get(user=request.user)
-		order.trip=request.COOKIES.get('trip')
-		order.source=request.COOKIES.get('source')
-		order.destination=request.COOKIES.get('destination')
-		order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
-		order.end_date=datetime.strptime(request.COOKIES.get('end'), fmt)
-		order.totalseats=request.COOKIES.get('totalseats')
-		order.boardingpoint_id=request.COOKIES.get('bpoint_id')
-		order.boardingpoint_name=request.COOKIES.get('bpoint_name')
-		order.amount=request.COOKIES.get('prc')
-		order.category_type="bus"
-		order.save()
-		response.set_cookie('orderdetails',order.id)
-		response.set_cookie('category_type',order.category_type)
-		store_payudetails()
-		response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
-	except:
-		messages.add_message(request, messages.INFO,'Enter the details correct way')
-		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=5'))
+	response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
 	print details.json()
+	#try:
 	response.set_cookie('bookid',details.json()['data']['bookingID'])
+	# except:
+	# 	temp= details.json()
+	# 	if temp.has_key("data"):
+	# 		messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
+	# 	else:
+	# 		messages.add_message(request, messages.INFO,temp['Error']+'.Please Search again')
+	# 	return HttpResponseRedirect(format_redirect_url("/bus_booking", 'error=11'))
 	response.set_cookie('fname',fname)
 	response.set_cookie('lname',lname)
 	response.set_cookie('age',age)
 	response.set_cookie('email',email)
 	response.set_cookie('mobile',mobile)
 	response.set_cookie('bus_join_data',bus_join_data)
+
+	from datetime import datetime
+	fmt = '%Y/%m/%d'
+	order=Order()	
+	order.userprofile =UserProfile.objects.get(user=request.user)
+	order.trip=request.COOKIES.get('trip')
+	order.source=request.COOKIES.get('source')
+	order.destination=request.COOKIES.get('destination')
+	# order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
+	# order.end_date=datetime.strptime(request.COOKIES.get('end'), fmt)
+	order.totalseats=request.COOKIES.get('total_seats')
+	order.boardingpoint_id=request.COOKIES.get('bpoint_id')
+	order.boardingpoint_name=request.COOKIES.get('bpoint_name')
+	order.amount=request.COOKIES.get('totalfare')
+	order.category_type="bus"
+	order.save()
+	response.set_cookie('orderdetails',order.id)
+	response.set_cookie('category_type',order.category_type)
+	payid, paystatus=store_payudetails(request)
+	print "payid", payid
+	print "paystatus", paystatus
+	response.set_cookie('payudetails',payid)
+	response.set_cookie('payustatus',paystatus)
 	return response
 
 @csrf_exempt
@@ -404,7 +408,7 @@ def confirmbook(request):
 	transaction.payu_details=PayuDetails.objects.get(id=request.COOKIES.get('payudetails'))
 	transaction.tentativebooking_id=bookingid
 	transaction.tentativebooking_status="processing"
-	transaction.save
+	transaction.save()
 	busbookingstatus(request)
 	return render_to_response('bus/success-payment.html',{'status':getbookconform},context_instance=RequestContext(request))
 	#return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')

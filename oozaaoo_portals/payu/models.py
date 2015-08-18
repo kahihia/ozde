@@ -4,6 +4,8 @@ from uuid import UUID
 import uuid
 from django_extensions.db.fields import UUIDField
 from hotels.models import *
+import datetime
+
 
 
 # class MyOrder(models.Model):
