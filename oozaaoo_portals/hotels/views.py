@@ -123,14 +123,16 @@ def myprofile(request):
 	user = request.user
 	print user
 	userprofile=UserProfile.objects.get(user_id=user.id)
+	print userprofile
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
 def mybooking(request):
-	# user = request.user
-	# userprofile=UserProfile.objects.get(pk=user.id)
-	# print userprofile
-	trans_details=Transaction_order.objects.all()
-	print trans_details
+	user = request.user
+	print user.id
+	userprofile=UserProfile.objects.get(user_id=user.id)
+	print userprofile.id,"userprofile"
+	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
+	
 	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
 
 def home(request):
@@ -252,8 +254,8 @@ def gethotellist(request):
 					city[k] = v
 
 			hotelFields = ['prc', 'hn', 'hr', 'hc', 'fwdp', 'c', 't', 'ibp','l','fm','offer_tag','gr']
-			hotel_city=hotelFields[5]
-			print hotel_city
+			# hotel_city=hotelFields[5]
+			# print hotel_city
 			hotels = []
 			for hotel in getcityresponse['data']['city_hotel_info']:
 				_hotel = {}
@@ -346,7 +348,7 @@ def gethoteldetails(request):
 		# for hotelreview in gethotelreviewresponse['data']:
 		# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
 		# 	reviews.append(_rhotel)
-
+		
 		#return HttpResponse(simplejson.dumps(gethoteldetailresponse), mimetype='application/json')
 		response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
 		response.set_cookie('hc',hc)

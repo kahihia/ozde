@@ -792,8 +792,8 @@ $(add_room).on("click",".remove_field", function(e){ //user click on remove text
 // hotels //
 $('#searchBtn').click(function(){
 
-    // var d = new Date();
-    // alert(d);
+
+    
         if($('.typeahead').val() == '') {
             // alert("enter the destination");
             $('.error_mgs').show();
@@ -840,23 +840,11 @@ $('#paynow').click(function(){
     }
 });
 
-// $('.map_details').click(function(){
-    
-
-// var map;
-// function initMap() {
-//     alert("enter");
-//   map = new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: -34.397, lng: 150.644},
-//     zoom: 8
-//   });
-// }
-
-
-// });
 
 // bus//
 $('#searchbus').click(function(){
+
+    
         if($('.source').val() == '') {
             // alert("enter the destination");
             $('.error').show();
@@ -880,34 +868,28 @@ $('#searchbus').click(function(){
 
     });
 
-$('#round').click(function(){
-    if($('.return').val() == '') {
-               $('.error').show(); 
-            return false;
-        }
-        else{
-            return true;
-        }
-});
+
+
 $('#payment').click(function(){
-    if($('.fname').val() == ''){
-            // alert("please enter the first name");
+    
+        if($('.fname').val() == ''){
+            
             $('.errormgs').show();
              return false;
         if($('.lname').val() == ''){
-            // alert("please enter the last name");
+           
              $('.errormgs').show();
               return false;
         if($('.age').val() == ''){
-            // alert("please enter the last name");
+           
              $('.errormgs').show();
               return false;
          if($('.mobileno').val() == ''){
-            // alert("please enter the mobile number");
+            
              $('.errormgs').show();
               return false;
              if($('.email').val() == ''){
-            // alert("please enter the email");
+           
              $('.errormgs').show();
             return false;
                 }
@@ -919,23 +901,5 @@ $('#payment').click(function(){
     }
 });
 
-var CheckinDate=new Date();
- var CheckoutDate=new Date(); 
- var diff=new Date();
- $('#checkin').datepicker({
-       onSelect: function(dateText, inst) {
-       CheckinDate=datetext;
-
-    }
-    });
-
-$('#checkout').datepicker({
-   onSelect: function(dateText, inst) {
-   CheckoutDate=datetext;
-   diff=(CheckoutDate.getTime() - CheckinDate.getTime())/(1000*60*60*24);
-
-
-}
-});
 
 
