@@ -365,7 +365,7 @@ def tentativebooking(request):
 	order.trip=request.COOKIES.get('trip')
 	order.source=request.COOKIES.get('source')
 	order.destination=request.COOKIES.get('destination')
-	# order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
+	order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
 	# order.end_date=datetime.strptime(request.COOKIES.get('end'), fmt)
 	order.totalseats=request.COOKIES.get('total_seats')
 	order.boardingpoint_id=request.COOKIES.get('bpoint_id')
@@ -375,11 +375,18 @@ def tentativebooking(request):
 	order.save()
 	response.set_cookie('orderdetails',order.id)
 	response.set_cookie('category_type',order.category_type)
-	payid, paystatus=store_payudetails(request)
-	print "payid", payid
-	print "paystatus", paystatus
-	response.set_cookie('payudetails',payid)
-	response.set_cookie('payustatus',paystatus)
+	bus_join_data_split=bus_join_data.split('-')
+	print "bus_join_data_split", bus_join_data_split
+	for i in range(0,len(bus_join_data_split)):
+		print "bus_join_data_split", bus_join_data_split[i]
+		data = bus_join_data_split[i].split('_')
+		orderlist=OrderList()
+		orderlist.order=order
+		orderlist.seatnumber=data[1]
+		orderlist.firstname=data[2]
+		orderlist.lastname=data[3]
+		orderlist.age=data[4]
+		orderlist.save()
 	return response
 
 @csrf_exempt
@@ -402,6 +409,12 @@ def confirmbook(request):
 		messages.add_message(request, messages.INFO,'Something wrong from API')
 		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
 	print getbookconform
+	response = render_to_response('bus/success-payment.html',{'status':getbookconform},context_instance=RequestContext(request))
+	payid, paystatus=store_payudetails(request)
+	print "payid", payid
+	print "paystatus", paystatus
+	response.set_cookie('payudetails',payid)
+	response.set_cookie('payustatus',paystatus)
 
 	transaction = Transaction()
 	transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
@@ -410,7 +423,7 @@ def confirmbook(request):
 	transaction.tentativebooking_status="processing"
 	transaction.save()
 	busbookingstatus(request)
-	return render_to_response('bus/success-payment.html',{'status':getbookconform},context_instance=RequestContext(request))
+	return response
 	#return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
 	
 def busbookstatus(request):
