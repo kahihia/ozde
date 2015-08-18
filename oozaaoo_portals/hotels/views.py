@@ -483,6 +483,7 @@ def setprovisionalbooking(request):
 		print "response.json", response.json()['success']
 		response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
 		response1.set_cookie('provisionalbooking_status',response.json()['success'])
+		
 		# Code for storing Order Details
 		order=Order()	
 		order.userprofile =UserProfile.objects.get(user=request.user)
@@ -500,59 +501,40 @@ def setprovisionalbooking(request):
 
 		#Code for storing OrderList Details
 		joindata=request.COOKIES.get('joindata')
-		# print "joindata.length", len(joindata.split('-'))
-		# print "joindata", joindata.split('-')
-		joindata1=joindata.split('-')
-		print "joindata1",joindata1
-		if joindata1[4]:
-			joindata4=joindata1[4].split('_')
-			print "joindata1[4]",joindata4
+		joindata_split=joindata.split('-')
+		print "joindata_split",joindata_split
+		for i in range(4,len(joindata_split)):
+			print "joindata_split", joindata_split[i]
+			data = joindata_split[i].split('_')
 			orderlist=OrderList()
 			orderlist.order=order
-			orderlist.room=1
-			orderlist.adults=joindata4[0]
-			orderlist.children=joindata4[1]
-			orderlist.child1_age=joindata4[2]
-			orderlist.child2_age=joindata4[3]
+			if i==4:
+				orderlist.room=1
+			elif i==5:
+				orderlist.room=2
+			elif i==6:
+				orderlist.room=3
+			elif i==7:
+				orderlist.room=4
+			elif i==8:
+				orderlist.room=5	
+			elif i==9:
+				orderlist.room=6	
+			orderlist.adults=data[0]
+			orderlist.children=data[1]
+			orderlist.child1_age=data[2]
+			orderlist.child2_age=data[3]
 			orderlist.save()
-		if (len(joindata1)==6):
-			joindata5=joindata1[5].split('_')
-			print "joindata1[5]",joindata5
-			orderlist=OrderList()
-			orderlist.order=order
-			orderlist.room=2
-			orderlist.adults=joindata5[0]
-			orderlist.children=joindata5[1]
-			orderlist.child1_age=joindata5[2]
-			orderlist.child2_age=joindata5[3]
-			orderlist.save()
-		if (len(joindata1)==7):
-			joindata6=joindata1[6].split('_')
-			print "joindata1[6]",joindata6
-			orderlist=OrderList()
-			orderlist.order=order
-			orderlist.room=3
-			orderlist.adults=joindata6[0]
-			orderlist.children=joindata6[1]
-			orderlist.child1_age=joindata6[2]
-			orderlist.child2_age=joindata6[3]
-			orderlist.save()
-		if (len(joindata1)==8):
-			joindata7=joindata1[7].split('_')
-			print "joindata1[7]",joindata7
-			orderlist=OrderList()
-			orderlist.order=order
-			orderlist.room=4
-			orderlist.adults=joindata7[0]
-			orderlist.children=joindata7[1]
-			orderlist.child1_age=joindata7[2]
-			orderlist.child2_age=joindata7[3]
-			orderlist.save()
-		store_payudetails()
+
+		#Code for storing PayU Details	
+		payid, paystatus=store_payudetails(request)
+		print "payid", payid
+		print "paystatus", paystatus
+		response1.set_cookie('payudetails',payid)
+		response1.set_cookie('payustatus',paystatus)
 	except:
 		messages.add_message(request, messages.INFO,'You cannot refresh again')
 		return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
-
 	return response1
 
 
@@ -561,60 +543,60 @@ def confirmbooking(request):
 	import urllib
 	import requests
 	from hashlib import md5, sha512
-	try:
-		guest = request.POST.get('guest')
-		firstname = request.POST.get('firstname')
-		amount = request.POST.get('amount')
-		gobookingid = request.POST.get('gobookingid')
-		udf1 = request.POST.get('udf1')
-		productinfo = request.POST.get('productinfo')
-		email = request.POST.get('email')
-		createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
-		createhash = sha512(createhash).hexdigest()
-		print createhash
-		print gobookingid
-		url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
-		payload = {'secretkey':createhash, 'gobookingid':gobookingid}
-		headers = {
-		'content-type': "application/x-www-form-urlencoded"
-		}
-		response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
-		print "res", response.json()
+	# try:
+	guest = request.POST.get('guest')
+	firstname = request.POST.get('firstname')
+	amount = request.POST.get('amount')
+	gobookingid = request.POST.get('gobookingid')
+	udf1 = request.POST.get('udf1')
+	productinfo = request.POST.get('productinfo')
+	email = request.POST.get('email')
+	createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
+	createhash = sha512(createhash).hexdigest()
+	print createhash
+	print gobookingid
+	url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
+	payload = {'secretkey':createhash, 'gobookingid':gobookingid}
+	headers = {
+	'content-type': "application/x-www-form-urlencoded"
+	}
+	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+	print "res", response.json()
 
-		#Code for storing Transaction Details
-		if 'data' in response.json():
-			response_json=response.json()['data']
-			transaction=Transaction()
-			transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
-			transaction.payu_details=PayuDetails.objects.get(id=request.COOKIES.get('payudetails'))
-			transaction.provisionalbooking_id=gobookingid
-			if 'bookingid' in response_json:
-				transaction.confirmationbooking_id=response_json['bookingid']
-			else:
-				transaction.confirmationbooking_id=''
-			transaction.productinfo=productinfo
-			transaction.payu_status=request.COOKIES.get('payustatus')
-			transaction.provisionalbooking_status=request.COOKIES.get('provisionalbooking_status')
-			transaction.confirmationbooking_status=response_json['status']
-			transaction.save()
+	#Code for storing Transaction Details
+	if 'data' in response.json():
+		response_json=response.json()['data']
+		transaction=Transaction()
+		transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
+		transaction.payu_details=PayuDetails.objects.get(id=request.COOKIES.get('payudetails'))
+		transaction.provisionalbooking_id=gobookingid
+		if 'bookingid' in response_json:
+			transaction.confirmationbooking_id=response_json['bookingid']
+		else:
+			transaction.confirmationbooking_id=''
+		transaction.productinfo=productinfo
+		transaction.payu_status=request.COOKIES.get('payustatus')
+		transaction.provisionalbooking_status=request.COOKIES.get('provisionalbooking_status')
+		transaction.confirmationbooking_status=response_json['status']
+		transaction.save()
 
-			send_templated_mail(
-						template_name='bookingdetails_hotel',
-						from_email='testmail123sample@gmail.com',
-						recipient_list=[registration_form.cleaned_data["email"]],
-						context={
-							'username': registration_form.cleaned_data["email"],
-							'name': registration_form.cleaned_data["first_name"],
-							'bookingid':transaction.confirmationbooking_id,
-							'guests':request.COOKIES.get('guest'),
-							# 'amount':request.COOKIES.get('guest'),
-							'checkin':request.COOKIES.get('checkin'),
-							'checkout':request.COOKIES.get('checkout'),
-						},
-					)
-	except:
-		messages.add_message(request, messages.INFO,'You cannot make again')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=51'))
+		# send_templated_mail(
+		# 			template_name='bookingdetails_hotel',
+		# 			from_email='testmail123sample@gmail.com',
+		# 			recipient_list=[registration_form.cleaned_data["email"]],
+		# 			context={
+		# 				'username': registration_form.cleaned_data["email"],
+		# 				'name': registration_form.cleaned_data["first_name"],
+		# 				'bookingid':transaction.confirmationbooking_id,
+		# 				'guests':request.COOKIES.get('guest'),
+		# 				# 'amount':request.COOKIES.get('guest'),
+		# 				'checkin':request.COOKIES.get('checkin'),
+		# 				'checkout':request.COOKIES.get('checkout'),
+		# 			},
+		# 		)
+	# except:
+	# 	messages.add_message(request, messages.INFO,'You cannot make again')
+	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=51'))
 
 	return render_to_response("hotels/hotel-book-successfull.html",{'response':response.json()}, context_instance=RequestContext(request))
 

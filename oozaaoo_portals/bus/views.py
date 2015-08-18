@@ -58,8 +58,8 @@ def search_bus(request):
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
-	f.write("User entered data::")
-	f.write('Source='+source+',Destination='+destination+',Dateofdeparture='+dateofdeparture+',Dateofarrival='+dateofarrival+',Trip type='+trip)
+	# f.write("User entered data::")
+	# f.write('Source='+source+',Destination='+destination+',Dateofdeparture='+dateofdeparture+',Dateofarrival='+dateofarrival+',Trip type='+trip)
 	try:
 		getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
 		# f.write('Response from API')
@@ -344,6 +344,8 @@ def tentativebooking(request):
 	response.set_cookie('email',email)
 	response.set_cookie('mobile',mobile)
 	response.set_cookie('bus_join_data',bus_join_data)
+
+	# Code for storing Order Details
 	fmt = '%Y/%m/%d'
 	order=Order()	
 	order.userprofile =UserProfile.objects.get(user=request.user)
@@ -351,7 +353,8 @@ def tentativebooking(request):
 	order.source=request.COOKIES.get('source')
 	order.destination=request.COOKIES.get('destination')
 	order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
-	# order.end_date=datetime.strptime(request.COOKIES.get('end'), fmt)
+	if not order.trip == "oneway":
+		order.end_date=datetime.strptime(request.COOKIES.get('end'), fmt)
 	order.totalseats=request.COOKIES.get('total_seats')
 	order.boardingpoint_id=request.COOKIES.get('bpoint_id')
 	order.boardingpoint_name=request.COOKIES.get('bpoint_name')
@@ -360,6 +363,8 @@ def tentativebooking(request):
 	order.save()
 	response.set_cookie('orderdetails',order.id)
 	response.set_cookie('category_type',order.category_type)
+
+	#Code for storing OrderList Details
 	bus_join_data_split=bus_join_data.split('-')
 	print "bus_join_data_split", bus_join_data_split
 	for i in range(0,len(bus_join_data_split)):
@@ -372,6 +377,7 @@ def tentativebooking(request):
 		orderlist.lastname=data[3]
 		orderlist.age=data[4]
 		orderlist.save()
+	
 	return response
 
 @csrf_exempt
@@ -395,15 +401,19 @@ def confirmbook(request):
 		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
 	print getbookconform
 	response = render_to_response('bus/success-payment.html',{'status':getbookconform},context_instance=RequestContext(request))
+	
+	#Code for storing PayU Details
 	payid, paystatus=store_payudetails(request)
 	print "payid", payid
 	print "paystatus", paystatus
 	response.set_cookie('payudetails',payid)
 	response.set_cookie('payustatus',paystatus)
-
+	
+	#Code for storing Transaction Details
 	transaction = Transaction()
 	transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
 	transaction.payu_details=PayuDetails.objects.get(id=request.COOKIES.get('payudetails'))
+	transaction.payu_status=request.COOKIES.get('payustatus')
 	transaction.tentativebooking_id=bookingid
 	transaction.tentativebooking_status="processing"
 	transaction.save()
@@ -413,7 +423,6 @@ def confirmbook(request):
 	
 def busbookstatus(request):
 	return render_to_response('bus/busbookingstatus.html', context_instance=RequestContext(request)) 
-
 
 def busbookingstatus(request):
 	"""

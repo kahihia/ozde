@@ -14,7 +14,7 @@ class citylist( models.Model ):
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
-    name=models.CharField(max_length=50, null=True, blank=True)
+    # name=models.CharField(max_length=50, null=True, blank=True)
     phone=models.CharField(max_length=50, null=True, blank=True)
     dateofbirth=models.DateTimeField()
     def __unicode__(self):
