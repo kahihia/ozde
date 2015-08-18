@@ -792,6 +792,7 @@ $(add_room).on("click",".remove_field", function(e){ //user click on remove text
 // hotels //
 $('#searchBtn').click(function(){
 
+
     
         if($('.typeahead').val() == '') {
             // alert("enter the destination");
@@ -839,26 +840,11 @@ $('#paynow').click(function(){
     }
 });
 
-// $('.map_details').click(function(){
-    
-
-// var map;
-// function initMap() {
-//     alert("enter");
-//   map = new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: -34.397, lng: 150.644},
-//     zoom: 8
-//   });
-// }
-
-
-// });
 
 // bus//
 $('#searchbus').click(function(){
 
-    // var d= new Date(year, month, day)
-    // alert(d);
+    
         if($('.source').val() == '') {
             // alert("enter the destination");
             $('.error').show();
