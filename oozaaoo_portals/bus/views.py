@@ -35,44 +35,21 @@ import collections
 from django.contrib import messages
 from transaction.models import *
 from payu.models import *
+import time
+from datetime import datetime
 
 class mydict(dict):
         def __str__(self):
             return json.dumps(self)
-
-def format_redirect_url(redirect_path, query_string):
-    ''' utility to format redirect url with fixido query string
-    '''
-    stop_popup = True if 'st=' in query_string else False
-    
-    url_join_str = '?'
-    if url_join_str in redirect_path:
-        redirect_path, qs = redirect_path.split(url_join_str, 1)
-        query_string = qs + '&' + query_string
-    
-    qs = {}
-    for q in query_string.split('&'):
-        if '=' in q:
-            k, v = q.split('=', 1)
-            qs[k] = v
-    
-    if stop_popup:
-        if qs.has_key('zr'): del qs['zr']
-        if qs.has_key('lr'): del qs['lr']
-        if qs.has_key('ler'): del qs['ler']
-        if qs.has_key('thanks'): del qs['thanks']
-    
-    query_string = ''
-    for k in qs:
-        query_string += k + '=' + qs[k] + '&'
-        
-    return redirect_path + url_join_str + query_string[:-1]
 
 
 def search_bus(request):
 	"""
 	Search Bus based on Source and Destination
 	"""
+	# f = open("example.txt", "w")
+	# f.write("========================SEARCH BUS============================")
+	# f.write(time.strftime("%d/%m/%Y::%H:%M:%S"))
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	source= request.POST.get('source',request.COOKIES.get('source'))
 	destination=request.POST.get('destination',request.COOKIES.get('destination'))
@@ -81,8 +58,12 @@ def search_bus(request):
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
+	f.write("User entered data::")
+	f.write('Source='+source+',Destination='+destination+',Dateofdeparture='+dateofdeparture+',Dateofarrival='+dateofarrival+',Trip type='+trip)
 	try:
 		getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
+		# f.write('Response from API')
+		# f.write(simplejson.dumps(getbusresponse))
 		reviews = []
 		try:
 			for bussearchlist in getbusresponse['data']['onwardflights']:	
@@ -121,7 +102,8 @@ def search_bus(request):
 				else:
 					reviews.append(_rbuslist)
 					# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
-										
+			#f.write('Onward buses')
+			# f.write(reviews)							
 			reviews_return = []
 			for bussearchlist in getbusresponse['data']['returnflights']:	
 				_rbuslist	= {}
@@ -156,6 +138,9 @@ def search_bus(request):
 					reviews_return.append(_rbuslist)
 				else:
 					reviews_return.append(_rbuslist)
+					# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
+			#f.write('Return buses')
+			# f.write(reviews_return)	
 		except:
 			messages.add_message(request, messages.INFO,'API not responding for one way tripa')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
@@ -176,6 +161,9 @@ def search_bus(request):
 	response.set_cookie( 'trip', trip)
 	response.set_cookie( 'destination', destination)
 	response.set_cookie( 'start', departure)
+	response.set_cookie( 'end', arrival)
+	# f.write('Source,Destination,Departure date,Arrivaldate,Trip COOKIES value stored')
+	# f.close()
 	return response
 
 @csrf_exempt	
@@ -215,7 +203,6 @@ def cancelpolicy(request):
 
 	# return HttpResponse(simplejson.dumps(policy), mimetype='application/json')
 	return render_to_response('bus/bus-cancelpolicy.html', {'policy':policy}, context_instance=RequestContext(request)) 
-
 @login_required(login_url='/register/')
 def bus_booking(request):	
 	try:
@@ -342,23 +329,21 @@ def tentativebooking(request):
 	# return HttpResponse(simplejson.dumps(response), mimetype='application/json')
 	response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
 	print details.json()
-	#try:
-	response.set_cookie('bookid',details.json()['data']['bookingID'])
-	# except:
-	# 	temp= details.json()
-	# 	if temp.has_key("data"):
-	# 		messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
-	# 	else:
-	# 		messages.add_message(request, messages.INFO,temp['Error']+'.Please Search again')
-	# 	return HttpResponseRedirect(format_redirect_url("/bus_booking", 'error=11'))
+	try:
+		response.set_cookie('bookid',details.json()['data']['bookingID'])
+	except:
+		temp= details.json()
+		if temp.has_key("data"):
+			messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
+		else:
+			messages.add_message(request, messages.INFO,temp['Error']+'.Please Search again')
+		return HttpResponseRedirect(format_redirect_url("/bus_booking", 'error=11'))
 	response.set_cookie('fname',fname)
 	response.set_cookie('lname',lname)
 	response.set_cookie('age',age)
 	response.set_cookie('email',email)
 	response.set_cookie('mobile',mobile)
 	response.set_cookie('bus_join_data',bus_join_data)
-
-	from datetime import datetime
 	fmt = '%Y/%m/%d'
 	order=Order()	
 	order.userprofile =UserProfile.objects.get(user=request.user)
