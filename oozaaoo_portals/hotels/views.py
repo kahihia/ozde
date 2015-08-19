@@ -131,9 +131,10 @@ def mybooking(request):
 	print user.id
 	userprofile=UserProfile.objects.get(user_id=user.id)
 	print userprofile.id,"userprofile"
-	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
+	trans_details_hotel=Order.objects.filter(userprofile_id=userprofile.id,category_type="hotel")
+	trans_details_bus=Order.objects.filter(userprofile_id=userprofile.id,category_type="bus")
 	
-	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
+	return render_to_response('mybooking.html',{'trans_details_hotel':trans_details_hotel,'trans_details_bus':trans_details_bus}, context_instance=RequestContext(request))
 
 def home(request):
 	"""

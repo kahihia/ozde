@@ -3,15 +3,28 @@
 {% block content %} 
 
 <div class="container">
-{% for details in trans_details %}
-
-	Name:{{details.userprofile.name}}<br/>
+<h2>HOTELS</h2>
+{% for details in trans_details_hotel %}
+	Name:{{details.userprofile.user.username}}<br/>
  	Hotel Name:{{details.hotelname}}<br/>
  	Hotel City:{{details.hotelcity}}<br/>
  	Check in:{{details.checkin}}<br/>
  	Check out:{{details.checkout}}<br/>
  	Booked on:{{details.created_date}}<br/>
  	No. of Rooms:{{details.rooms}}<br/>
+ 	Amount:{{details.amount}}<br/><br/><br/>
+{% endfor %}
+<h2>BUS</h2>
+{% for details in trans_details_bus %}
+	Name:{{details.userprofile.user.username}}<br/>
+ 	Trip:{{details.trip}}<br/>
+ 	Source:{{details.source}}<br/>
+ 	Destination:{{details.destination}}<br/>
+ 	Start_date:{{details.start_date}}<br/>
+ 	{% if details.trip == "round" %}
+ 	End_date:{{details.end_date}}<br/>
+ 	{% endif %}
+ 	Total Seats:{{details.totalseats}}<br/><br/><br/>
 {% endfor %}
 </div>
 {% endblock %}  
