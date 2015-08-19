@@ -840,33 +840,66 @@ $('#paynow').click(function(){
     }
 });
 
-
+$('.return_div').hide();
 // bus//
 $('#searchbus').click(function(){
 
-    
-        if($('.source').val() == '') {
-            // alert("enter the destination");
-            $('.error').show();
-            return false;
-            if($('.destination').val() == '') {
-               $('.error').show(); 
-               return false;
-           if($('.depart').val() == '') {
-               $('.error').show(); 
-               return false;
-            if($('.return').val() == '') {
-               $('.error').show(); 
-            return false;
-                    }
+            if($('.source').val() == '') {
+                $('.error').show();
+                return false;
                 }
-            }
-        }
-        else{
-            return true;
-        }
+            else if($('.destination').val() == '') {
+                   $('.error').show(); 
+                   return false;
+               }
+            else if($('.depart').val() == '') {
+                   $('.error').show(); 
+                   return false;
+                
+                }
+            
+            else{
+                return true;
+             }          
+});
 
+
+$('input:radio[name=trip]').change(function() {
+        if (this.value == 'oneway') {
+            $('.return_div').hide();
+            $('.oneway_div').show();
+        }
+        else if (this.value == 'round') {
+            $('.return_div').show();
+            $('.oneway_div').hide();
+        }
     });
+
+$('#searchbus_return').click(function(){
+
+            if($('.source').val() == '') {
+                $('.error').show();
+                return false;
+                }
+            else if($('.destination').val() == '') {
+                   $('.error').show(); 
+                   return false;
+               }
+            else if($('.depart').val() == '') {
+                   $('.error').show(); 
+                   return false;
+                
+                }
+            else if($('.return').val() == '') {
+                   $('.error').show(); 
+                   return false;
+                
+                }
+            
+            else{
+                return true;
+             }          
+});
 
 
 

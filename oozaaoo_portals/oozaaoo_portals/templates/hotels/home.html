@@ -379,14 +379,14 @@
                                             <div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input id="oneway" type="radio" name="trip" value="oneway" checked="checked"/>One way
+                                                        <input id="oneway" type="radio" name="trip" value="oneway" checked="checked" class="radio"/>One way
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input id="round" type="radio" name="trip" value="round" class="round" />Round
+                                                        <input id="round" type="radio" name="trip" value="round" class="radio" />Round
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row oneway_div">
                                             <div class="col-md-6">
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                             <label>Source</label>
@@ -404,7 +404,51 @@
                                             </div>
                                             </div>
                                             </div>
-                                            <div class="input-daterange" data-date-format="M d, D">
+                                            <div class="input-daterange oneway_div" data-date-format="M d, D">
+                                            <div class="row">
+                                            <div class="col-md-6">
+                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                            <label> Depart  </label>
+                                            <input class="form-control depart" name="start" type="text" />
+                                            <span class="error" style="display:none; color:red;">please enter the depart date</span>
+                                            </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                            <div class="form-group form-group-lg form-group-icon-left"><!-- <i class="fa fa-calendar input-icon input-icon-highlight"></i> -->
+                                            <!-- <label>Return</label>
+                                            <input class="form-control return" name="end" type="text" />
+                                            <span class="error1" style="display:none; color:red;">please enter the return date</span> -->
+                                            </div>
+                                            </div>
+
+                                            </div>
+                                            </div>
+                                            <button class="btn btn-primary btn-lg oneway_div" type="submit" id="searchbus">Search for Bus</button>
+
+
+
+
+
+                                            <div class="row return_div">
+                                            <div class="col-md-6">
+                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                            <label>Source</label>
+                                            <input class="typeahead source form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus" name="source"/>
+                                            <span class="error" style="display:none; color:red;">please enter the source</span>
+                                            <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus" value="" name="filter_bus" />
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                            <label>Destination</label>
+                                            <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des" name="destination" />
+                                            <span class="error" style="display:none; color:red;">please enter the destination</span>
+                                            <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus_des" value="" name="filter_bus_des" />
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="input-daterange return_div" data-date-format="M d, D">
                                             <div class="row">
                                             <div class="col-md-6">
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
@@ -424,7 +468,7 @@
 
                                             </div>
                                             </div>
-                                            <button class="btn btn-primary btn-lg" type="submit" id="searchbus">Search for Bus</button>
+                                            <button class="btn btn-primary btn-lg return_div" type="submit" id="searchbus_return">Search for Bus</button>
                                     </form>
                                     </div>
                                     <div class="tab-pane fade" id="tab-5">

@@ -583,20 +583,20 @@ def confirmbooking(request):
 		transaction.confirmationbooking_status=response_json['status']
 		transaction.save()
 
-		# send_templated_mail(
-		# 			template_name='bookingdetails_hotel',
-		# 			from_email='testmail123sample@gmail.com',
-		# 			recipient_list=[registration_form.cleaned_data["email"]],
-		# 			context={
-		# 				'username': registration_form.cleaned_data["email"],
-		# 				'name': registration_form.cleaned_data["first_name"],
-		# 				'bookingid':transaction.confirmationbooking_id,
-		# 				'guests':request.COOKIES.get('guest'),
-		# 				# 'amount':request.COOKIES.get('guest'),
-		# 				'checkin':request.COOKIES.get('checkin'),
-		# 				'checkout':request.COOKIES.get('checkout'),
-		# 			},
-		# 		)
+		send_templated_mail(
+					template_name='payment_hotel',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=[registration_form.cleaned_data["email"]],
+					context={
+						'username': registration_form.cleaned_data["email"],
+						'name': registration_form.cleaned_data["first_name"],
+						'bookingid':transaction.confirmationbooking_id,
+						'guests':request.COOKIES.get('guest'),
+						# 'amount':request.COOKIES.get('guest'),
+						'checkin':request.COOKIES.get('checkin'),
+						'checkout':request.COOKIES.get('checkout'),
+					},
+				)
 	# except:
 	# 	messages.add_message(request, messages.INFO,'You cannot make again')
 	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=51'))
