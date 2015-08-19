@@ -221,6 +221,7 @@ def gethotellist(request):
 		childage1_2 = request.POST.get('childage1_2', '0')
 		childage2_2 = request.POST.get('childage2_2', '0')
 		rooms3 = request.POST.get('room3', '0')
+
 		adults3 = request.POST.get('adults3', '0')	
 		nochildrens3 = request.POST.get('childs3', '0')
 		childage1_3= request.POST.get('childage1_3', '0')
