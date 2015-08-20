@@ -35,10 +35,22 @@ from django.http import HttpResponse
 from django.utils import simplejson
 from transaction.models import *
 from django.contrib import messages
+import datetime
+import logging
+# logger = logging.getLogger(__name__)
+
 
 class mydict(dict):
-        def __str__(self):
-            return json.dumps(self)
+    def __str__(self):
+        return json.dumps(self)
+
+def log_function(query, response):
+	logging.basicConfig(filename='mysite.log', level=logging.INFO)
+	logging.info("******************************************************************************************************")
+	logging.info(datetime.datetime.now())
+	logging.info(query)
+	logging.info(response)
+	logging.info("******************************************************************************************************")
 
 
 def registration(request):
@@ -96,7 +108,7 @@ def login_user(request):
 	"""
 	logout(request)
 	username = password = ''
-	print request.POST['next']
+	print "request.POST['next']", request.POST['next']
 	if request.POST["next"] != "http://localhost:8000/register/" :
 	    username = request.POST['username']
 	    password = request.POST['password']
@@ -141,6 +153,7 @@ def home(request):
 	Home Page for Travel Portal
 	"""
 	from hotels.models import citylist	
+	# log_function()
 	return render_to_response("hotels/home.html", context_instance=RequestContext(request))
 
 def getcitylist(request):
@@ -237,17 +250,17 @@ def gethotellist(request):
 	try:
 		if rooms4=='4':
 			rooms=4
-			getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)	
+			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)	
 		elif rooms3=='3':
 			rooms=3
-			getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms3,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3)
+			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms3,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3)
 		elif rooms2=='2':
 			rooms=2
-			getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms2,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2)
+			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms2,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2)
 		else:		
 			rooms=1
-			getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
-
+			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
+		print "getcityresponse", getcityresponse
 		try:
 			cityFields = ['country']
 			city = {}
@@ -297,7 +310,7 @@ def gethotellist(request):
 	except:
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
 		return HttpResponseRedirect(format_redirect_url("/", 'error=56'))
-
+	log_function(query, "success:" + str(getcityresponse['success']))	
 	return response
 
 def gethoteldetails(request):
@@ -666,7 +679,6 @@ def getrefund(request):
 
 def cancelhotel(request):
 	return render_to_response("hotels/hotel_cancel.html",context_instance=RequestContext(request))
-
 
 def confirmcancel(request):
 	from django.utils import simplejson
