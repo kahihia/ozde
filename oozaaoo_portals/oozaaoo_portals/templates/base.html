@@ -35,7 +35,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
-                            <a class="logo" href="home.html">
+                            <a class="logo" href="{%url "hotels.views.home" %}">
                                 <img src="{{ STATIC_URL }}img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
                             </a>
                         </div>
@@ -69,7 +69,7 @@
                     <ul class="slimmenu" id="slimmenu">
                         <li class="active"><a href="{%url "hotels.views.home" %}">Home</a>
                         </li>
-                        <li><a href="hotels.html">Hotels</a>
+                        <li><a href="{%url "hotels.views.home" %}">Hotels</a>
                             <ul>
                                 <li><a href="/bookingstatus/">Booking status</a>
                                 </li>
@@ -83,7 +83,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="#">Bus</a>
+                        <li><a href="{%url "hotels.views.home" %}">Bus</a>
                             <ul>
                                 <li><a href="/busbookstatus/">Booking status</a>
                                     
