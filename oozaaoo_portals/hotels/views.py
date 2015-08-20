@@ -689,6 +689,7 @@ def confirmcancel(request):
 	boooingid=request.POST.get('bookid')
 	url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_cancel"
 	payload = {'gobookingid':boooingid}
+	print payload
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}

@@ -26,7 +26,26 @@ $('.slide').click(function(){
    
     });
 });
-
+// $('.slide').click(function(){
+//     var par = $(this).parent();
+//     $('.seat_map',par).slideDown("slow");
+//     var skey= $('input[name=skey]',par).val();
+// $.ajax({
+//           url: 'http://pp.goibibobusiness.com/api/bus/seatmap/',
+//           type: 'GET',
+//           data: {"skey":skey},
+//           dataType: 'json',
+//           success: function(data) { 
+//             $('.seat_map',par).html(data);   
+//             alert(JSON.stringify(data.data)); },
+//           error: function() { alert('boo!'); },
+//           contentType: "application/json",
+//           beforeSend: setHeader
+//         });
+// });
+//       function setHeader(xhr) {
+//         xhr.setRequestHeader('authorization', 'Basic YXBpdGVzdGluZ0Bnb2liaWJvLmNvbTp0ZXN0MTIz');
+//       }
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
     source: function (request, response) {
@@ -937,5 +956,3 @@ $('#checkout').datepicker({
 
 }
 });
-
-
