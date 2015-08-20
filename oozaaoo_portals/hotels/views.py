@@ -131,10 +131,9 @@ def mybooking(request):
 	print user.id
 	userprofile=UserProfile.objects.get(user_id=user.id)
 	print userprofile.id,"userprofile"
-	trans_details_hotel=Order.objects.filter(userprofile_id=userprofile.id,category_type="hotel")
-	trans_details_bus=Order.objects.filter(userprofile_id=userprofile.id,category_type="bus")
+	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
 	
-	return render_to_response('mybooking.html',{'trans_details_hotel':trans_details_hotel,'trans_details_bus':trans_details_bus}, context_instance=RequestContext(request))
+	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
 
 def home(request):
 	"""
@@ -272,17 +271,20 @@ def gethotellist(request):
 				
 		  	if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
-				guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)+int(adults3)+int(nochildrens3)+int(adults4)+int(nochildrens4)
+				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
+				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)+int(nochildrens4)
 			elif rooms3=='3':
 				joindata= unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)
-				guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)+int(adults3)+int(nochildrens3)
+				guest=int(adults1)+int(adults2)+int(adults3)
+				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)
 			elif rooms2=='2':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms2)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)
-				guest=int(adults1)+int(nochildrens1)+int(adults2)+int(nochildrens2)
+				guest=int(adults1)+int(adults2)
+				child=int(nochildrens1)+int(nochildrens2)
 			else:
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
-				guest=int(adults1)+int(nochildrens1)
-			
+				guest=int(adults1)
+				child=int(nochildrens1)
 			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
 		  	response.set_cookie( 'checkin', checkin )
@@ -290,6 +292,7 @@ def gethotellist(request):
 		  	response.set_cookie('filterkeyword',unicode(cityid))
 		  	response.set_cookie('rooms',rooms)
 		  	response.set_cookie('guest',unicode(guest))
+		  	response.set_cookie('child',unicode(child))
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=57'))
@@ -548,6 +551,7 @@ def confirmbooking(request):
 	import requests
 	from hashlib import md5, sha512
 	# try:
+	
 	guest = request.POST.get('guest')
 	firstname = request.POST.get('firstname')
 	amount = request.POST.get('amount')
@@ -557,8 +561,8 @@ def confirmbooking(request):
 	email = request.POST.get('email')
 	createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
 	createhash = sha512(createhash).hexdigest()
-	print createhash
-	print gobookingid
+	# print createhash
+	# print gobookingid
 	url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
 	payload = {'secretkey':createhash, 'gobookingid':gobookingid}
 	headers = {
@@ -587,15 +591,21 @@ def confirmbooking(request):
 		send_templated_mail(
 					template_name='payment_hotel',
 					from_email='testmail123sample@gmail.com',
-					recipient_list=[registration_form.cleaned_data["email"]],
+					recipient_list=[request.COOKIES.get('email')],
 					context={
-						'username': registration_form.cleaned_data["email"],
-						'name': registration_form.cleaned_data["first_name"],
+						'user':request.COOKIES.get('fname'),
 						'bookingid':transaction.confirmationbooking_id,
 						'guests':request.COOKIES.get('guest'),
 						# 'amount':request.COOKIES.get('guest'),
 						'checkin':request.COOKIES.get('checkin'),
 						'checkout':request.COOKIES.get('checkout'),
+						'c':request.COOKIES.get('c'),
+						'hn':request.COOKIES.get('hn'),
+						'l':request.COOKIES.get('l'),
+						'prc':request.COOKIES.get('prc'),
+						'rooms':request.COOKIES.get('rooms'),
+						'guest':request.COOKIES.get('guest'),
+						'child':request.COOKIES.get('child'),
 					},
 				)
 	# except:

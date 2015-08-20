@@ -6,7 +6,7 @@ $('#oneway').click(function(){
 
 $('#round').click(function(){
     $('#round').attr('checked',true);
-    $('#oneway').removeattr('checked');
+    // $('#oneway').removeattr('checked');
 });
 
 $('.slide').click(function(){
@@ -847,17 +847,18 @@ $('#searchbus').click(function(){
             if($('.source').val() == '') {
                 $('.error').show();
                 return false;
-                }
-            else if($('.destination').val() == '') {
+              }
+           else if($('.destination').val() == '') {
                    $('.error').show(); 
                    return false;
                }
-            else if($('.depart').val() == '') {
+          else if($('.depart').val() == '') {
                    $('.error').show(); 
                    return false;
                 
                 }
             
+        
             else{
                 return true;
              }          
@@ -877,28 +878,35 @@ $('input:radio[name=trip]').change(function() {
 
 $('#searchbus_return').click(function(){
 
-            if($('.source').val() == '') {
+            if($('.return').val() == '') {
+                
                 $('.error').show();
                 return false;
-                }
-            else if($('.destination').val() == '') {
-                   $('.error').show(); 
-                   return false;
-               }
-            else if($('.depart').val() == '') {
-                   $('.error').show(); 
-                   return false;
-                
-                }
-            else if($('.return').val() == '') {
-                   $('.error').show(); 
-                   return false;
-                
-                }
-            
+              }    
             else{
                 return true;
-             }          
+             }
+             if($('.source').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }   
+             if($('.destination').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }
+             if($('.depart').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }
 });
 
 
