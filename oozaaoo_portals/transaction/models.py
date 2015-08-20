@@ -39,7 +39,7 @@ class OrderList(models.Model):
     child1_age=models.IntegerField(null=True, blank=True)
     child2_age=models.IntegerField(null=True, blank=True)
     #Bus
-    seatnumber=models.IntegerField(null=True, blank=True)
+    seatnumber=models.CharField(max_length=10, null=True, blank=True)
     firstname=models.CharField(max_length=50, null=True, blank=True)
     lastname=models.CharField(max_length=50, null=True, blank=True)
     age=models.IntegerField(null=True, blank=True)

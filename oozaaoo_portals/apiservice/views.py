@@ -96,9 +96,6 @@ class goibiboAPI(object):
 		#=========================BUS API===============================#
 	def Searchbus(self,source,destination,dateofdeparture,dateofarrival):
 		query = self.BASE_BUS+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)+"&dateofarrival="+str(dateofarrival)
-		# f = open("example.txt", "w")
-		#f.write('Request url')
-		# f.write(query)
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def Busseat(self,skey):
