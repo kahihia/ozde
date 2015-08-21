@@ -261,14 +261,15 @@
                         </ul>
                     </div>
                     <!-- Content loop Start  -->
-                    <ul class="booking-list">                        
+                    <ul class="booking-list">   
+
                         {% for values in reviews %}
                         <li class="booking-item-dates-change mb30">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="booking-item-car-img">
                                             <p class="booking-item-car-title">
-                                            <form action="{% url "bus.views.seat" %}" method="post">{% csrf_token %}
+                                            <!-- <form action="{% url "bus.views.seat" %}" method="post">{% csrf_token %} -->
                                             <h3>{{values.businfos.TravelsName}}</h3></p>
                                             <p>{{values.businfos.BusType}}</p>
                                         </div>
@@ -286,9 +287,11 @@
                                     </div>
                                    
                                 </div>
+                                <input type="hidden" name="bus_type" value="{{values.businfos.BusType}}">
                                 <input type="hidden" name='skey'value="{{values.businfos.skey}}" >
                                  <input type="submit" value="Seats" class="slide">
-            </form>
+                                 <div class="seat_map"></div>
+            <!-- </form> -->
 </li> 
                         {% endfor %}
                          

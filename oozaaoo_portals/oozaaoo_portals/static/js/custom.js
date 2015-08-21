@@ -11,14 +11,16 @@ $('#round').click(function(){
 
 $('.slide').click(function(){
     var par = $(this).parent();
+    $(".seatLayoutHolder").remove();
     $('.seat_map',par).slideDown("slow");
     var par = $(this).parent();
     var skey= $('input[name=skey]',par).val();
+    var bus_type= $('input[name=bus_type]',par).val();
     $.ajax({
     type: 'POST',
-    url: '/seat_map/',
+    url: '/seat/',
     dataType: 'html',
-    data: {"skey":skey}, // or JSON.stringify ({name: 'jonas'}),
+    data: {"skey":skey,"bus_type":bus_type}, // or JSON.stringify ({name: 'jonas'}),
     success: function(data) { 
         $('.seat_map',par).html(data);
     },

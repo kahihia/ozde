@@ -21,7 +21,7 @@ class Order(models.Model):
     end_date=models.DateField(null=True,blank=True)
     totalseats=models.IntegerField(null=True,blank=True)
     boardingpoint_id=models.CharField(max_length=50,null=True,blank=True)
-    boardingpoint_name=models.CharField(max_length=50,null=True,blank=True)
+    boardingpoint_name=models.CharField(max_length=200,null=True,blank=True)
     #Common
     amount=models.FloatField(default=0.0,null=True,blank=True)
     category_type=models.CharField(max_length=20,null=True,blank=True)
