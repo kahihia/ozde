@@ -58,7 +58,7 @@ class goibiboAPI(object):
 		print "hotelcode ======>", hc
 		query = self.BASE + "get_hotel_details" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp=v3"+"&fwdp=''"
 		print "search details ======>", query
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelReviewsDetails(self, hc):
 		print "hotelcode ======>", hc
