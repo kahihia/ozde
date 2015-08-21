@@ -52,14 +52,13 @@ class goibiboAPI(object):
 			query = self.BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2) 
 		else:
 			query = self.BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1) 
-
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelDetailsByCity(self, joindata, hc, ibp, fwdp):
 		print "hotelcode ======>", hc
 		query = self.BASE + "get_hotel_details" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp=v3"+"&fwdp=''"
 		print "search details ======>", query
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelReviewsDetails(self, hc):
 		print "hotelcode ======>", hc

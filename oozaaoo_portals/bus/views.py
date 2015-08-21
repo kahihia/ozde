@@ -36,6 +36,8 @@ from transaction.models import *
 from payu.models import *
 import time
 from datetime import datetime
+from templated_email import send_templated_mail
+
 
 class mydict(dict):
         def __str__(self):
@@ -487,9 +489,30 @@ def confirmbook(request):
 	transaction.payu_details=PayuDetails.objects.get(id=payid)
 	transaction.payu_status=request.COOKIES.get('payustatus')
 	transaction.tentativebooking_id=bookingid
+	print transaction.tentativebooking_id
 	transaction.tentativebooking_status="processing"
 	transaction.save()
 	busbookingstatus(request)
+
+	send_templated_mail(
+					template_name='payment_bus',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=[request.COOKIES.get('email')],
+					context={
+						'user':request.COOKIES.get('fname'),
+						'bookingid':transaction.tentativebooking_id,
+						'trip':request.COOKIES.get('trip'),
+						# 'amount':request.COOKIES.get('guest'),
+						'start':request.COOKIES.get('start'),
+						'end':request.COOKIES.get('end'),
+						'source':request.COOKIES.get('source'),
+						'destination':request.COOKIES.get('destination'),
+						'totalfare':request.COOKIES.get('totalfare'),
+						'totalseats':request.COOKIES.get('totalseats'),
+						# 'rooms':request.COOKIES.get('rooms'),
+						# 'guest':request.COOKIES.get('guest'),
+					},
+				)
 	return response
 	#return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
 	

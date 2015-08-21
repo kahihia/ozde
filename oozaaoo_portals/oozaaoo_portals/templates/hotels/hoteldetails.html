@@ -325,11 +325,30 @@
                         
                    <!--  </div>
                 </div> -->
+                 <h3>Available Rooms</h3>
+                {% for room in hotels.rooms_data %}
+                <h4>{{room.room_info.type_name}}</h4>
+
+                <h5>About Room:</h5>
+                    <p>{{room.room_info.description}}</p>
+                    <img src="{{room.room_info.image}}" alt="Image Alternative text"  style="width:20% !important;" />
+                
+                <p>BED TYPE:{{room.room_info.bedtype}}</p>
+                <p>FACILITIES:<br/>{{room.room_info.facilities.0}}<br/>
+                {{room.room_info.facilities.1}}<br/>
+                {{room.room_info.facilities.2}}<br/>
+                {{room.room_info.facilities.3}}<br/>
+                {{room.room_info.facilities.4}}<br/>
+                {{room.room_info.facilities.5}}<br/>
+                {{room.room_info.facilities.6}}<br/>
+                {{room.room_info.facilities.7}}<br/></p>
+                {% endfor %}
                 <div class="gap"></div>
                 <h3>About Hotel</h3>
                 {{hotels.des}}
                 <div class="gap"></div>
-
+                <!-- {{hotels.rooms_data}} -->
+                
                 <div class="row">
                     <!--div class="col-md-9">
                         <div class="booking-item-dates-change">
@@ -840,8 +859,8 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="booking-item-review-expand"><span class="booking-item-review-expand-more">More <i class="fa fa-angle-down"></i></span><span class="booking-item-review-expand-less">Less <i class="fa fa-angle-up"></i></span>
-                                            </div>
+                                           <!--  <div class="booking-item-review-expand"><span class="booking-item-review-expand-more">More <i class="fa fa-angle-down"></i></span><span class="booking-item-review-expand-less">Less <i class="fa fa-angle-up"></i></span>
+                                            </div> -->
                                             <p class="booking-item-review-rate">Was this review helpful?
                                                <!--  <a class="fa fa-thumbs-o-up box-icon-inline round" href="#"></a><b class="text-color"> 12</b> -->
                                             </p>
