@@ -37,6 +37,7 @@ from payu.models import *
 import time
 from datetime import datetime
 from templated_email import send_templated_mail
+import logging
 
 
 class mydict(dict):
@@ -44,13 +45,20 @@ class mydict(dict):
             return json.dumps(self)
 
 
+def log_function(query, response,payload='Nil'):
+	logging.basicConfig(filename='mysite.log', level=logging.INFO)
+	logging.info("******************************************************************************************************")
+	logging.info(datetime.now())
+	logging.info(query)
+	logging.info(payload)
+	logging.info(response)
+	logging.info("******************************************************************************************************")
+
+
 def search_bus(request):
 	"""
 	Search Bus based on Source and Destination
 	"""
-	# f = open("example.txt", "w")
-	# f.write("========================SEARCH BUS============================")
-	# f.write(time.strftime("%d/%m/%Y::%H:%M:%S"))
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	source= request.POST.get('source',request.COOKIES.get('source'))
 	destination=request.POST.get('destination',request.COOKIES.get('destination'))
@@ -59,12 +67,12 @@ def search_bus(request):
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
-	# f.write("User entered data::")
-	# f.write('Source='+source+',Destination='+destination+',Dateofdeparture='+dateofdeparture+',Dateofarrival='+dateofarrival+',Trip type='+trip)
 	try:
-		getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
-		# f.write('Response from API')
-		# f.write(simplejson.dumps(getbusresponse))
+		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival,trip)
+		if 'data' in getbusresponse:
+			log_function(query, "success:True")
+		else:
+			log_function(query, "success:False" + str(getbusresponse['Error']))
 		reviews = []
 		try:
 			for bussearchlist in getbusresponse['data']['onwardflights']:	
@@ -102,9 +110,6 @@ def search_bus(request):
 					reviews.append(_rbuslist)
 				else:
 					reviews.append(_rbuslist)
-					# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
-			#f.write('Onward buses')
-			# f.write(reviews)							
 			reviews_return = []
 			for bussearchlist in getbusresponse['data']['returnflights']:	
 				_rbuslist	= {}
@@ -139,11 +144,9 @@ def search_bus(request):
 					reviews_return.append(_rbuslist)
 				else:
 					reviews_return.append(_rbuslist)
-					# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
-			#f.write('Return buses')
-			# f.write(reviews_return)	
+
 		except:
-			messages.add_message(request, messages.INFO,'API not responding for one way tripa')
+			messages.add_message(request, messages.INFO,'API not responding for one way trip')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
 	except:
 		messages.add_message(request, messages.INFO,'User Entering data is wrong')
@@ -163,8 +166,6 @@ def search_bus(request):
 	response.set_cookie( 'destination', destination)
 	response.set_cookie( 'start', departure)
 	response.set_cookie( 'end', arrival)
-	# f.write('Source,Destination,Departure date,Arrivaldate,Trip COOKIES value stored')
-	# f.close()
 	return response
 
 @csrf_exempt	
@@ -173,10 +174,13 @@ def seat_map(request):
 	Seat Map Info 
 	"""
 	skey=request.GET.get('skey',request.COOKIES.get('skey'))
-	
 	try:
 		GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-		getbusseat=GO.Busseat(skey)
+		query,getbusseat=GO.Busseat(skey)
+		if 'data' in getbusseat:
+			log_function(query, "success:True")
+		else:
+			log_function(query, "success:False" + str(getbusseat['Error']))
 	except:
 		messages.add_message(request, messages.INFO,'Search key not given by API.skey is %s'%request.POST.get('skey',request.COOKIES.get('skey')))
 		return HttpResponseRedirect(format_redirect_url("/", 'error=4'))
@@ -184,8 +188,8 @@ def seat_map(request):
 	#response= simplejson.dumps(results)
 	# response= render_to_response('bus/bus-seatmapinfo.html', {'results':results}, context_instance=RequestContext(request)) 
 	response.set_cookie('skey',skey)
-	
 	return response
+
 @csrf_exempt
 def seat(request):
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
@@ -197,7 +201,11 @@ def seat(request):
 	print number
 	print name
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	getbusseat=GO.Busseat(skey)
+	query,getbusseat=GO.Busseat(skey)
+	if 'data' in getbusseat:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbusseat['Error']))
 	results=[]
 	for k,v in getbusseat.iteritems():
 		results.append(v['onwardSeats'])
@@ -232,7 +240,11 @@ def cancelpolicy(request):
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	skey='x55sNj4nk-c4y5eIGdK6Kv4V8NAKn5hNfNwfAeSDMq1E-i00KtoMqjSfVHVRB-I='
-	getcencelpolicy=GO.CancelPolicy(skey)
+	query,getcencelpolicy=GO.CancelPolicy(skey)
+	if 'data' in getbusseat:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbusseat['Error']))
 	policy=[]
 	for k,v in getcencelpolicy.iteritems():
 		 for key in v.iteritems():
@@ -399,14 +411,19 @@ def tentativebooking(request):
         'content-type': "application/x-www-form-urlencoded"
     }
 	details = requests.request("POST", url, data=payload, headers=headers, auth=('apitesting@goibibo.com','test123'))
+	
 	#response=HttpResponse(details)
 	# return HttpResponse(simplejson.dumps(response), mimetype='application/json')
 	response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
 	print details.json()
+	temp= details.json()
+	if temp.has_key("data"):
+		log_function('http://pp.goibibobusiness.com/api/bus/hold/', "success:True"+str(details.json()['data']),payload)
+	else:
+		log_function('http://pp.goibibobusiness.com/api/bus/hold/', "success:False" + str(details.json()['Error']),payload)
 	try:
 		response.set_cookie('bookid',details.json()['data']['bookingID'])
 	except:
-		temp= details.json()
 		if temp.has_key("data"):
 			messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
 		else:
@@ -426,7 +443,9 @@ def tentativebooking(request):
 	order.trip=request.COOKIES.get('trip')
 	order.source=request.COOKIES.get('source')
 	order.destination=request.COOKIES.get('destination')
+	print 'start date',request.COOKIES.get('start')
 	order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
+
 	if not order.trip == "oneway":
 		order.end_date=datetime.strptime(request.COOKIES.get('end'), fmt)
 	order.totalseats=request.COOKIES.get('total_seats')
@@ -469,11 +488,15 @@ def confirmbook(request):
 	print clientkey
 	print bookingid
 	try:
-		getbookconform=GO.BookConform(secret,bookingid,clientkey)
+		query,getbookconform=GO.BookConform(secret,bookingid,clientkey)
 	except:
 		messages.add_message(request, messages.INFO,'Something wrong from API')
 		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
 	print getbookconform
+	if 'status' in getbookconform:
+		log_function(query, "success:"+str(getbookconform['status']))
+	else:
+		log_function(query, "success:False" + str(getbookconform['Error']))
 	response = render_to_response('bus/success-payment.html',{'status':getbookconform},context_instance=RequestContext(request))
 	
 	#Code for storing PayU Details
@@ -526,7 +549,7 @@ def busbookingstatus(request):
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	pid=request.POST.get('bookid')
 	try:
-		getbookingstatus=GO.BookStatus(pid)
+		query,getbookingstatus=GO.BookStatus(pid)
 		try:
 			status={}
 			for k,v in getbookingstatus.iteritems():
@@ -547,10 +570,15 @@ def busbookingstatus(request):
 			return HttpResponseRedirect(format_redirect_url("/busbookstatus", 'error=9'))
 
 	except:
-		messages.add_message(request, messages.INFO,'Booking id not given by API')
-		return HttpResponseRedirect(format_redirect_url("busbookstatus", 'error=7'))
+		messages.add_message(request, messages.INFO,'Warning message')
+		return HttpResponseRedirect(format_redirect_url("/busbookstatus", 'error=7'))
+	if 'data' in getbookingstatus:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbookingstatus['Error']))
 
-	return HttpResponse(simplejson.dumps(status), mimetype='application/json')
+	#return HttpResponse(simplejson.dumps(status), mimetype='application/json')
+	return render_to_response("bus/bookingstatusresult.html",{'status':status}, context_instance=RequestContext(request))
 
 def buscencelticket(request):
 	return render_to_response('bus/buscancelticket.html', context_instance=RequestContext(request))
@@ -561,6 +589,15 @@ def cancelticket(request):
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	pid=request.POST.get('bookid')
-	getcancelticket=GO.CancelTicket(pid)
-	return HttpResponse(simplejson.dumps(getcancelticket['data']), mimetype='application/json')	
+	try:
+		query,getcancelticket=GO.CancelTicket(pid)
+		if 'data' in getcancelticket:
+			log_function(query, "success:True"+str(getcancelticket))
+		else:
+			log_function(query, "success:False" + str(getcancelticket['Error']))
+	except:
+		messages.add_message(request, messages.INFO,'Warning message')
+		return HttpResponseRedirect(format_redirect_url("/cancelticket", 'error=12'))
+	#return HttpResponse(simplejson.dumps(getcancelticket['data']), mimetype='application/json')	
+	return render_to_response("bus/conformcancel.html",{'status':getcancelticket},context_instance=RequestContext(request))
 

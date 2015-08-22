@@ -152,7 +152,7 @@ def home(request):
 	Home Page for Travel Portal
 	"""
 	from hotels.models import citylist	
-	# log_function()
+	log_function('Homepage','Homepage')
 	return render_to_response("hotels/home.html", context_instance=RequestContext(request))
 
 def getcitylist(request):

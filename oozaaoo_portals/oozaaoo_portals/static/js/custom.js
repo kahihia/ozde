@@ -6,7 +6,18 @@ $('#oneway').click(function(){
 
 $('#round').click(function(){
     $('#round').attr('checked',true);
-    // $('#oneway').removeattr('checked');
+    $('#oneway').removeattr('checked');
+});
+
+$('.return_date').hide();
+
+$('input:radio[name=trip]').change(function() {
+    if (this.value == 'oneway') {
+        $('.return_date').hide();
+    }
+    else if (this.value == 'round') {
+        $('.return_date').show();
+    }
 });
 
 $('.slide').click(function(){
@@ -860,42 +871,32 @@ $('#paynow').click(function(){
        return true; 
     }
 });
-
-$('.return_div').hide();
+//Edit by priya
+// $('.return_div').hide();
 // bus//
-$('#searchbus').click(function(){
+// $('#searchbus').click(function(){
 
-            if($('.source').val() == '') {
-                $('.error').show();
-                return false;
-              }
-           else if($('.destination').val() == '') {
-                   $('.error').show(); 
-                   return false;
-               }
-          else if($('.depart').val() == '') {
-                   $('.error').show(); 
-                   return false;
+//             if($('.source').val() == '') {
+//                 $('.error').show();
+//                 return false;
+//               }
+//            else if($('.destination').val() == '') {
+//                    $('.error').show(); 
+//                    return false;
+//                }
+//           else if($('.depart').val() == '') {
+//                    $('.error').show(); 
+//                    return false;
                 
-                }
+//                 }
             
         
-            else{
-                return true;
-             }          
-});
+//             else{
+//                 return true;
+//              }          
+// });
 
 
-$('input:radio[name=trip]').change(function() {
-        if (this.value == 'oneway') {
-            $('.return_div').hide();
-            $('.oneway_div').show();
-        }
-        else if (this.value == 'round') {
-            $('.return_div').show();
-            $('.oneway_div').hide();
-        }
-    });
 
 $('#searchbus_return').click(function(){
 
