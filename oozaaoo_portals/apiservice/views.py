@@ -64,6 +64,7 @@ class goibiboAPI(object):
 		print "hotelcode ======>", hc
 		query = self.BASE + "get_hotel_review" + "?hc="+hc
 		print "HotelReviews ======>", query
+		print "response", requests.get(query, auth=(self.username, self.password)).json()
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelCancelPolicy(self):

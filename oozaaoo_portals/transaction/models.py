@@ -7,7 +7,7 @@ class Order(models.Model):
     userprofile=models.ForeignKey(UserProfile)
     #Hotel fields
     hotelcode=models.CharField(max_length=50, null=True, blank=True)
-    hotelname=models.CharField(max_length=50, null=True, blank=True)
+    hotelname=models.CharField(max_length=100, null=True, blank=True)
     hotelcity=models.CharField(max_length=50, null=True, blank=True)
     checkin=models.DateField(null=True,blank=True)
     checkout=models.DateField(null=True,blank=True)
@@ -53,7 +53,7 @@ class Transaction(models.Model):
     #Hotels
     provisionalbooking_id=models.CharField(max_length=50, null=True, blank=True)
     confirmationbooking_id=models.CharField(max_length=50, null=True, blank=True)
-    productinfo=models.CharField(max_length=100, null=True, blank=True)
+    productinfo=models.CharField(max_length=500, null=True, blank=True)
     provisionalbooking_status=models.CharField(max_length=20, null=True, blank=True)
     confirmationbooking_status=models.CharField(max_length=20, null=True, blank=True)
     #Bus

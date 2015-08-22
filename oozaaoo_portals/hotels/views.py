@@ -279,6 +279,8 @@ def gethotellist(request):
 					if k in hotelFields:
 						_hotel[k] = v
 				hotels.append(_hotel)
+			print "hotels", hotels
+			# return HttpResponse(simplejson.dumps(hotels), mimetype='application/json')
 			hotel_price = [ hotels1['prc'] for hotels1 in hotels]
 			cache.set('getcityresponse', getcityresponse)
 			# print "price from cache", cache.get('hotel_price')
@@ -332,70 +334,72 @@ def gethoteldetails(request):
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))	
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
 	fwdp =request.POST.get('fwdp',request.COOKIES.get('fwdp'))
-	try:
-		query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
-		gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
+	# try:
+	query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
+	print "gethoteldetailresponse",gethoteldetailresponse
+	gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
+	print "gethotelreviewresponse", gethotelreviewresponse
 
-		# # /** Hotel  Details */
-		try:
-			hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data']
-			_hotel = {}
-			for k, v in gethoteldetailresponse['data'].iteritems():		
-				# _hotel = {'hn':hotel['hn']}		
-				if k in hoteldetails:
-					_hotel[k] = v
+	# # /** Hotel  Details */
+	# try:
+	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data']
+	_hotel = {}
+	for k, v in gethoteldetailresponse['data'].iteritems():		
+		# _hotel = {'hn':hotel['hn']}		
+		if k in hoteldetails:
+			_hotel[k] = v
 
-			# /** Hotel  Gallery Image */		
-			_hotel['gallery']= gethoteldetailresponse['data']['gallery']
+	# /** Hotel  Gallery Image */		
+	_hotel['gallery']= gethoteldetailresponse['data']['gallery']
 
-			hotelroominfos = []
-			for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
-				print "hotelroominfo", hotelroominfo
-				_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc']}
-				hotelroominfos.append(_rhotelinfo)	
+	hotelroominfos = []
+	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
+		# print "hotelroominfo", hotelroominfo
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc']}
+		hotelroominfos.append(_rhotelinfo)	
+	print "hotelroominfos", hotelroominfos
 
-			# /** Hotel  Reviews Details */		
-			hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
-			reviews = []
-			for hotelreview in gethotelreviewresponse['data']:
-				review = {}
-				for f in hotelreviewsFields:
-					if f in hotelreview:
-					 		review[f] = hotelreview[f]
-					else:
-							review[f] = None
-				reviews.append(review)
-			# print "reviews","***************", reviews
-			morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
-		except:
-			messages.add_message(request, messages.INFO,'API not responding')
-			return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
-		# reviews = []
-		# for hotelreview in gethotelreviewresponse['data']:
-		# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
-		# 	reviews.append(_rhotel)
-		# return HttpResponse(simplejson.dumps(gethoteldetailresponse), mimetype='application/json')
+	# /** Hotel  Reviews Details */		
+	# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
+	# reviews = []
+	# for hotelreview in gethotelreviewresponse['data']:
+	# 	print "hotelreview", hotelreview
+	# 	review = {}
+	# 	for f in hotelreviewsFields:
+	# 		if f in hotelreview:
+	# 		 		review[f] = hotelreview[f]
+	# 		else:
+	# 				review[f] = None
+	# 	reviews.append(review)
+	# print "reviews","***************", reviews
+	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
+	# except:
+	# 	messages.add_message(request, messages.INFO,'API not responding')
+	# 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
+	# reviews = []
+	# for hotelreview in gethotelreviewresponse['data']:
+	# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
+	# 	reviews.append(_rhotel)
+	# return HttpResponse(simplejson.dumps(hotelroominfos), mimetype='application/json')
 
-		response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
-		response.set_cookie('hc',hc)
-		response.set_cookie('ibp',ibp)
-		response.set_cookie('fwdp',fwdp)
-		# response.set_cookie('rtc',hotelroominfos['rtc'])
-		# response.set_cookie('rpc',hotelroominfos['rpc'])
-		if 'rtc' in gethoteldetailresponse['data']['rooms_data']:
-			response.set_cookie('rtc',hotelroominfos['rtc'])
-		if 'rpc' in gethoteldetailresponse['data']['rooms_data']:
-			response.set_cookie('rpc',hotelroominfos['rpc'])
-		response.set_cookie('hn',_hotel['hn'])
-		response.set_cookie('prc',_hotel['prc'])
-		response.set_cookie('c',_hotel['c'])
-		response.set_cookie('l',_hotel['l'])
-		response.set_cookie('hr',_hotel['hr'])
-		response.set_cookie('la',_hotel['la'])
-		response.set_cookie('lo',_hotel['lo'])
-	except:
-		messages.add_message(request, messages.INFO,'User entered data incorrect')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
+	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
+	response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
+	response.set_cookie('hc',hc)
+	response.set_cookie('ibp',ibp)
+	response.set_cookie('fwdp',fwdp)
+	for hotelroominfo in hotelroominfos:
+		response.set_cookie('rtc',hotelroominfo['rtc'])
+		response.set_cookie('rpc',hotelroominfo['rpc'])
+	response.set_cookie('hn',_hotel['hn'])
+	response.set_cookie('prc',_hotel['prc'])
+	response.set_cookie('c',_hotel['c'])
+	response.set_cookie('l',_hotel['l'])
+	response.set_cookie('hr',_hotel['hr'])
+	response.set_cookie('la',_hotel['la'])
+	response.set_cookie('lo',_hotel['lo'])
+	# except:
+	# 	messages.add_message(request, messages.INFO,'User entered data incorrect')
+	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
 	return response
 	
 @login_required(login_url='/register/')
@@ -450,69 +454,69 @@ def setprovisionalbooking(request):
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}
-	try:
-		response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
-		print "res", response.json()	
-		#print response
-		#return HttpResponse(response)
-		from datetime import datetime
-		fmt = '%Y/%m/%d'
-		print "respons", response
-		print "response.json", response.json()['success']
-		response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
-		response1.set_cookie('provisionalbooking_status',response.json()['success'])
-		
-		# Code for storing Order Details
-		order=Order()	
-		order.userprofile =UserProfile.objects.get(user=request.user)
-		order.hotelcode=request.COOKIES.get('hc')
-		order.hotelname=request.COOKIES.get('hn')
-		order.hotelcity=request.COOKIES.get('c')
-		order.checkin=datetime.strptime(request.COOKIES.get('checkin'), fmt)
-		order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
-		order.rooms=request.COOKIES.get('rooms')
-		order.guest=request.COOKIES.get('guest')
-		order.amount=request.COOKIES.get('prc')
-		order.category_type="hotel"
-		order.save()
-		response1.set_cookie('orderdetails',order.id)
+	# try:
+	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
+	print "res", response.json()	
+	#print response
+	#return HttpResponse(response)
+	from datetime import datetime
+	fmt = '%Y/%m/%d'
+	print "respons", response
+	print "response.json", response.json()['success']
+	response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+	response1.set_cookie('provisionalbooking_status',response.json()['success'])
+	
+	# Code for storing Order Details
+	order=Order()	
+	order.userprofile =UserProfile.objects.get(user=request.user)
+	order.hotelcode=request.COOKIES.get('hc')
+	order.hotelname=request.COOKIES.get('hn')
+	order.hotelcity=request.COOKIES.get('c')
+	order.checkin=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+	order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+	order.rooms=request.COOKIES.get('rooms')
+	order.guest=request.COOKIES.get('guest')
+	order.amount=request.COOKIES.get('prc')
+	order.category_type="hotel"
+	order.save()
+	response1.set_cookie('orderdetails',order.id)
 
-		#Code for storing OrderList Details
-		joindata=request.COOKIES.get('joindata')
-		joindata_split=joindata.split('-')
-		print "joindata_split",joindata_split
-		for i in range(4,len(joindata_split)):
-			print "joindata_split", joindata_split[i]
-			data = joindata_split[i].split('_')
-			orderlist=OrderList()
-			orderlist.order=order
-			if i==4:
-				orderlist.room=1
-			elif i==5:
-				orderlist.room=2
-			elif i==6:
-				orderlist.room=3
-			elif i==7:
-				orderlist.room=4
-			elif i==8:
-				orderlist.room=5	
-			elif i==9:
-				orderlist.room=6	
-			orderlist.adults=data[0]
-			orderlist.children=data[1]
-			orderlist.child1_age=data[2]
-			orderlist.child2_age=data[3]
-			orderlist.save()
+	#Code for storing OrderList Details
+	joindata=request.COOKIES.get('joindata')
+	joindata_split=joindata.split('-')
+	print "joindata_split",joindata_split
+	for i in range(4,len(joindata_split)):
+		print "joindata_split", joindata_split[i]
+		data = joindata_split[i].split('_')
+		orderlist=OrderList()
+		orderlist.order=order
+		if i==4:
+			orderlist.room=1
+		elif i==5:
+			orderlist.room=2
+		elif i==6:
+			orderlist.room=3
+		elif i==7:
+			orderlist.room=4
+		elif i==8:
+			orderlist.room=5	
+		elif i==9:
+			orderlist.room=6	
+		orderlist.adults=data[0]
+		orderlist.children=data[1]
+		orderlist.child1_age=data[2]
+		orderlist.child2_age=data[3]
+		orderlist.save()
 
-		#Code for storing PayU Details	
-		payid, paystatus=store_payudetails(request)
-		print "payid", payid
-		print "paystatus", paystatus
-		response1.set_cookie('payudetails',payid)
-		response1.set_cookie('payustatus',paystatus)
-	except:
-		messages.add_message(request, messages.INFO,'You cannot refresh again')
-		return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
+	#Code for storing PayU Details	
+	payid, paystatus=store_payudetails(request)
+	print "payid", payid
+	print "paystatus", paystatus
+	response1.set_cookie('payudetails',payid)
+	response1.set_cookie('payustatus',paystatus)
+	# except:
+	# 	messages.add_message(request, messages.INFO,'You cannot refresh again')
+	# 	return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
 	return response1
 
 

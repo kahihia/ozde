@@ -493,7 +493,7 @@ $( "#slider-range" ).slider({
                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
                 
                 if (val.ibp){
-                    elements += "<form name='hoteldetails' method='POST' id='hoteldetails' action ='/gethoteldetails/'>\
+                    elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
                     <a class='booking-item' href='#'>\
                                 <div class='row'>\

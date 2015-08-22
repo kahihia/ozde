@@ -182,15 +182,18 @@
                                 {% csrf_token %}
 
                                 {% for hotelroominfo in hotelroominfos %}
-                                {{hotelroominfo}}
                                 <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
                                 <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
+                                    {% if hotelroominfo.rtc and hotelroominfo.rpc %}
+                                    <a href="{% url "hotels.views.userdetails" %}">Book Now</a>
+                                    {% else %}
+                                    <a href="#">Booking Not Available</a>
+                                    {% endif %}
                                 {% endfor %}                               
                                 <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
                                 <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
                                 <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
                                 <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
-                                <a href="{% url "hotels.views.userdetails" %}">Book Now</a>
                                 <!--input type="submit" name="booknow" value="Book Now" class="btn btn-primary" /-->
                                 </form>
 

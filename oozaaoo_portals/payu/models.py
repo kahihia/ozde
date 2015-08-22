@@ -55,7 +55,7 @@ class PayuDetails(models.Model):
     discount =models.FloatField(default=0.0,null=True, blank=True)
     net_amount_debit=models.FloatField(default=0.0,null=True, blank=True)
     addedon=models.DateTimeField(default=datetime.datetime.now)
-    productinfo=models.CharField(max_length=50, null=True, blank=True)
+    productinfo=models.CharField(max_length=500, null=True, blank=True)
     hash=models.CharField(max_length=250, null=True, blank=True)
     payment_source =models.CharField(max_length=20, null=True, blank=True)
     PG_TYPE=models.CharField(max_length=20, null=True, blank=True)
