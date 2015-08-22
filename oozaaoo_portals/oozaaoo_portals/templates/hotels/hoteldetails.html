@@ -181,11 +181,11 @@
                                 </ul>
                                 {% csrf_token %}
 
-                                <!-- {% for hotelroominfo in hotelroominfos %}
+                                {% for hotelroominfo in hotelroominfos %}
                                 {{hotelroominfo}}
                                 <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
                                 <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
-                                {% endfor %}         -->                       
+                                {% endfor %}                               
                                 <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
                                 <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
                                 <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />

@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^cancelhotel/', 'hotels.views.cancelhotel', name='cancelhotel'),
     url(r'^payment/', 'payu.views.buy_order', name='payment'),
     url(r'^bookhotel/', 'hotels.views.userdetails', name='userdetails'),
+    url(r'^get_results_by_price/', 'hotels.views.get_results_by_price', name='get_results_by_price'),
         
     #=============================BUS URL=========================#
     url(r'^searchbus/', 'bus.views.search_bus', name='search_bus'),

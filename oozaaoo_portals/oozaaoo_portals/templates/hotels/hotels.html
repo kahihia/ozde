@@ -144,9 +144,19 @@
                     <aside class="booking-filters text-white">
                         <h3>Filter By:</h3>
                         <ul class="list booking-filters-list">
-                            <li>
+                            <!-- <li>
                                 <h5 class="booking-filters-title">Price</h5>
                                 <input type="text" id="price-slider">
+                            </li> -->
+                            <li>
+                            
+                             <p>
+                                <label for="amount">Price range:</label>
+                                <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;background:none;" />
+                            </p>
+
+                            <div id="slider-range" style="width:220px"></div>
+                            
                             </li>
                             <li>
                                 <h5 class="booking-filters-title">Star Rating</h5>
@@ -321,7 +331,7 @@
                         <ul class="nav-drop-menu">
                             <li><a href="#">Price (low to high)</a>
                             </li>
-                            <li><a href="#">Price (hight to low)</a>
+                            <li><a href="#">Price (high to low)</a>
                             </li>
                             
                         </ul>

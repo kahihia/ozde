@@ -20,12 +20,31 @@ $('.slide').click(function(){
     dataType: 'html',
     data: {"skey":skey}, // or JSON.stringify ({name: 'jonas'}),
     success: function(data) { 
+        alert(data);
         $('.seat_map',par).html(data);
     },
     //contentType: "application/json",
    
     });
 });
+
+function getCookie(name) {
+    // alert("getCookie");
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i=0; i<cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // alert(cookie);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length+1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
@@ -409,15 +428,130 @@ $(document).ready(
 $('.nav-drop').dropit();
 
 
-$("#price-slider").ionRangeSlider({
-    min: 130,
-    max: 575,
-    type: 'double',
-    prefix: "$",
-    // maxPostfix: "+",
-    prettify: false,
-    hasGrid: true
+// $("#price-slider").ionRangeSlider({
+//     min: 130,
+//     max: 575,
+//     type: 'double',
+//     prefix: "$",
+//     // maxPostfix: "+",
+//     prettify: false,
+//     hasGrid: true
+// });
+
+$( "#slider-range" ).slider({
+      range: true,
+      min: 1000,
+      max: 10000,
+      values: [ 3000, 8000 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $.ajax({
+            type: 'POST',
+            url:'/get_results_by_price/',
+            data:"get=1&val_min="+ui.values[ 0 ]+"&val_max="+ui.values[ 1 ],
+            success: function(data){
+            // alert(data);
+            var res = eval("("+data+")");
+            var elements = "<li>";
+            // alert("elements1" +elements);
+            jQuery.each(res, function(i,val) {
+                // alert(i+"--"+JSON.stringify(val.hotelname));
+                // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
+                
+                if (val.ibp){
+                    elements += "<form name='hoteldetails' method='POST' id='hoteldetails' action ='/gethoteldetails/'>\
+                    <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
+                    <a class='booking-item' href='#'>\
+                                <div class='row'>\
+                                    <div class='col-md-3'>\
+                                        <div class='booking-item-img-wrap'>\
+                                            <img src=" + val.hotelimage + " alt='Image Alternative text' title='LHOTEL PORTO BAY SAO PAULO suite lhotel living room' />\
+                                            <div class='booking-item-img-num'>\
+                                            <i class='fa fa-picture-o'></i>\
+                                            29\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    <div class='col-md-6'>\
+                                        <div class='booking-item-rating'>\
+                                            <span class='booking-item-rating-number'><b >";
+                    // alert("elements2" +elements);
+                    if (val.hotelrating == 1){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                        // alert("elements3" +elements);
+                    }
+                    else if (val.hotelrating == 2){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements4" +elements); 
+                    }
+                    else if (val.hotelrating == 3){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements5" +elements);
+                    }
+                    else if (val.hotelrating == 4){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements6" +elements);
+                    }
+                    else if (val.hotelrating == 5){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements7" +elements);
+                    }
+                    elements+="</b></span>\
+                                </div>\
+                                <h5 class='booking-item-title'>" + val.hotelname + "</h5>\
+                                <p class='booking-item-address'><i class='fa fa-map-marker'></i>" + val.location + "</p>\
+                                <small class='booking-item-last-booked'> </small>\
+                                </div>\
+                                <div class='col-md-3'>\
+                                        <span class='booking-item-price-from'>from</span>\
+                                        <span class='booking-item-price'>&#8377;" + parseFloat(val.price) + "</span>\
+                                        <span>/night</span>\
+                                        <input type='submit' name='moredetails' value='MoreDetails' class='btn btn-primary' id='more'/>\
+                                        <p>" + val.goibiborating + "/5 Reviews</p>\
+                                    </div>\
+                                </div>\
+                            </a>\
+                        </form>";        
+                        // alert("elements8" +elements);                                                                     
+                }     
+            });
+            elements += "</li>";
+            // alert("elements9" +elements);
+            $(".booking-list").html(elements);
+            }
+        });
+}
 });
+
+$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+// var val_min = $( "#slider-range" ).slider( "values", 0 );
+// // alert(val_min);
+// var val_max = $( "#slider-range" ).slider( "values", 1 );
+// // alert(val_max);
+// $.ajax({
+//     type: 'POST',
+//     url:"/get_results_by_price/",
+//     data:"get=1&val_min="+val_min+"&val_max="+val_max,
+//     success: function(data){
+//     var res = eval("("+data+")");
+//     $("#description").empty();
+//     jQuery.each(res, function(i,val) {//alert(i+"--"+val);
+//         $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
+//     });
+// }
+// });
 
 $('.i-check, .i-radio').iCheck({
     checkboxClass: 'i-check',

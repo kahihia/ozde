@@ -45,12 +45,14 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'oozaaoo_portals.urls'
@@ -167,10 +169,10 @@ PAYU_INFO = {'merchant_key': "gtKFFx",
              'merchant_salt': "eCwWELxi",
              # for production environment use 'https://secure.payu.in/_payment'
              'payment_url': 'https://test.payu.in/_payment',
-             'surl':'http://localhost:8000/setprovisionalbooking/',
-             'surl1':'http://localhost:8000/confirmbook/',
-             'furl':'http://localhost:8000/failure/',
-             'curl':'http://localhost:8000/cancel/',
+             'surl':'http://localhost:8001/setprovisionalbooking/',
+             'surl1':'http://localhost:8001/confirmbook/',
+             'furl':'http://localhost:8001/failure/',
+             'curl':'http://localhost:8001/cancel/',
             }
 
 # LOGGING = {
@@ -205,3 +207,10 @@ PAYU_INFO = {'merchant_key': "gtKFFx",
 #         },
 #     }
 # }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': '/var/run/redis/redis.sock',
+    },
+}
