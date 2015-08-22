@@ -58,7 +58,7 @@ class goibiboAPI(object):
 		print "hotelcode ======>", hc
 		query = self.BASE + "get_hotel_details" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp=v3"+"&fwdp=''"
 		print "search details ======>", query
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelReviewsDetails(self, hc):
 		print "hotelcode ======>", hc
@@ -93,32 +93,32 @@ class goibiboAPI(object):
 
 
 		#=========================BUS API===============================#
-	def Searchbus(self,source,destination,dateofdeparture,dateofarrival):
-		query = self.BASE_BUS+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)+"&dateofarrival="+str(dateofarrival)
-		# f = open("example.txt", "w")
-		# f.write('Request url')
-		# f.write(query)
-		return (requests.get(query, auth=(self.username, self.password)).json())
+	def Searchbus(self,source,destination,dateofdeparture,dateofarrival,trip):
+		if trip == 'oneway':
+			query = self.BASE_BUS+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)
+		else:
+			query = self.BASE_BUS+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)+"&dateofarrival="+str(dateofarrival)
+		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def Busseat(self,skey):
 		query = self.BASE_BUS+"seatmap/?skey="+skey
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def CancelPolicy(self,skey):
 		query=self.BASE_BUS+"cp/?skey="+skey
-		return (requests.get(query, auth=(self.username, self.password)).json()) 
+		return query,(requests.get(query, auth=(self.username, self.password)).json()) 
 
 	def CancelTicket(self,pid):
 		query=self.BASE_BUS+"cancel/?pid="+pid+"skey=asd"
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query,(requests.get(query, auth=(self.username, self.password)).json())
 
 	def BookConform(self,secret,bookingid,clientkey):
 		query=self.BASE_BUS+"bookticket/?bookingid="+bookingid+"&secret="+secret+"&clientkey="+clientkey
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query,(requests.get(query, auth=(self.username, self.password)).json())
 		
 	def BookStatus(self,pid):
 		query=self.BASE_BUS+"status/?pid="+pid
-		return (requests.get(query, auth=(self.username, self.password)).json())
+		return query,(requests.get(query, auth=(self.username, self.password)).json())
 
 			#=========================Flight API===============================#	
 

@@ -3,7 +3,6 @@ import logging
 import random
 import string
 import json
-
 from django.utils import simplejson
 from json import dumps, loads
 import simplejson as json
@@ -37,19 +36,29 @@ from transaction.models import *
 from payu.models import *
 import time
 from datetime import datetime
+from templated_email import send_templated_mail
+import logging
+
 
 class mydict(dict):
         def __str__(self):
             return json.dumps(self)
 
 
+def log_function(query, response,payload='Nil'):
+	logging.basicConfig(filename='mysite.log', level=logging.INFO)
+	logging.info("******************************************************************************************************")
+	logging.info(datetime.now())
+	logging.info(query)
+	logging.info(payload)
+	logging.info(response)
+	logging.info("******************************************************************************************************")
+
+
 def search_bus(request):
 	"""
 	Search Bus based on Source and Destination
 	"""
-	# f = open("example.txt", "w")
-	# f.write("========================SEARCH BUS============================")
-	# f.write(time.strftime("%d/%m/%Y::%H:%M:%S"))
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	source= request.POST.get('source',request.COOKIES.get('source'))
 	destination=request.POST.get('destination',request.COOKIES.get('destination'))
@@ -58,12 +67,12 @@ def search_bus(request):
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
-	# f.write("User entered data::")
-	# f.write('Source='+source+',Destination='+destination+',Dateofdeparture='+dateofdeparture+',Dateofarrival='+dateofarrival+',Trip type='+trip)
 	try:
-		getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival)
-		# f.write('Response from API')
-		# f.write(simplejson.dumps(getbusresponse))
+		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival,trip)
+		if 'data' in getbusresponse:
+			log_function(query, "success:True")
+		else:
+			log_function(query, "success:False" + str(getbusresponse['Error']))
 		reviews = []
 		try:
 			for bussearchlist in getbusresponse['data']['onwardflights']:	
@@ -101,9 +110,6 @@ def search_bus(request):
 					reviews.append(_rbuslist)
 				else:
 					reviews.append(_rbuslist)
-					# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
-			#f.write('Onward buses')
-			# f.write(reviews)							
 			reviews_return = []
 			for bussearchlist in getbusresponse['data']['returnflights']:	
 				_rbuslist	= {}
@@ -138,11 +144,9 @@ def search_bus(request):
 					reviews_return.append(_rbuslist)
 				else:
 					reviews_return.append(_rbuslist)
-					# joindata_bus = unicode(dateofdeparture)+"-"+unicode(bussearchlist['TravelsName'])+"-"+unicode(bussearchlist['fare'])+"-"+unicode(source)+"_"+unicode(destination)
-			#f.write('Return buses')
-			# f.write(reviews_return)	
+
 		except:
-			messages.add_message(request, messages.INFO,'API not responding for one way tripa')
+			messages.add_message(request, messages.INFO,'API not responding for one way trip')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
 	except:
 		messages.add_message(request, messages.INFO,'User Entering data is wrong')
@@ -162,8 +166,6 @@ def search_bus(request):
 	response.set_cookie( 'destination', destination)
 	response.set_cookie( 'start', departure)
 	response.set_cookie( 'end', arrival)
-	# f.write('Source,Destination,Departure date,Arrivaldate,Trip COOKIES value stored')
-	# f.close()
 	return response
 
 @csrf_exempt	
@@ -171,31 +173,78 @@ def seat_map(request):
 	"""
 	Seat Map Info 
 	"""
-	skey=request.POST.get('skey',request.COOKIES.get('skey')) 
+	skey=request.GET.get('skey',request.COOKIES.get('skey'))
 	try:
 		GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-		getbusseat=GO.Busseat(skey)
-		results=[]
-		for k,v in getbusseat.iteritems():
-			results.append(v['onwardSeats'])
-			for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
-				results.append(i)
+		query,getbusseat=GO.Busseat(skey)
+		if 'data' in getbusseat:
+			log_function(query, "success:True")
+		else:
+			log_function(query, "success:False" + str(getbusseat['Error']))
 	except:
 		messages.add_message(request, messages.INFO,'Search key not given by API.skey is %s'%request.POST.get('skey',request.COOKIES.get('skey')))
 		return HttpResponseRedirect(format_redirect_url("/", 'error=4'))
-	#return HttpResponse(simplejson.dumps(results), mimetype='application/json')
-	#return simplejson.dumps(results)
-	response= render_to_response('bus/bus-seatmapinfo.html', {'results':results}, context_instance=RequestContext(request)) 
+	response = HttpResponse(simplejson.dumps(getbusseat), mimetype='application/json')
+	#response= simplejson.dumps(results)
+	# response= render_to_response('bus/bus-seatmapinfo.html', {'results':results}, context_instance=RequestContext(request)) 
 	response.set_cookie('skey',skey)
 	return response
 
+@csrf_exempt
+def seat(request):
+	skey=request.POST.get('skey',request.COOKIES.get('skey'))
+	bus_type=request.POST.get('bus_type',request.COOKIES.get('bus_type'))
+	print bus_type.lower()
+	seat_type=bus_type.lower().split()
+	number= seat_type[-1]
+	name= seat_type[:-1]
+	print number
+	print name
+	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	query,getbusseat=GO.Busseat(skey)
+	if 'data' in getbusseat:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbusseat['Error']))
+	results=[]
+	for k,v in getbusseat.iteritems():
+		results.append(v['onwardSeats'])
+		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
+			results.append(i)
+	if 'sleeper' in name and 'semi'in name and number=='(2+2)':
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+	elif 'seater' in name and number=='(2+2)':
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+	elif 'airbus' in name and number=='(2+2)':
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+	elif 'semisleeper' in name and number=='(2+2)':
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+	elif 'sleeper' in name and number=='(2+1)':
+		response= render_to_response('bus/sleeper(2+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+	elif 'sleeper' in name and number=='(1+1)':
+		response= render_to_response('bus/sleeper(1+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+	elif 'seater/sleeper' in name and number=='(2+1)':
+		response= render_to_response('bus/seater_sleeper(2+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request))
+	elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
+		response= render_to_response('bus/seater(1+1+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request))
+	elif 'seater' in name and number=='(2+3)':
+		response= render_to_response('bus/seater(2+3).html', {'skey':skey,'result':results}, context_instance=RequestContext(request))
+	else:
+		pass
+	response.set_cookie('skey',skey)
+	response.set_cookie('bus_type',bus_type)
+	return response
 def cancelpolicy(request):
 	"""
 	CancelPolicy for the Particular Bus
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	skey='x55sNj4nk-c4y5eIGdK6Kv4V8NAKn5hNfNwfAeSDMq1E-i00KtoMqjSfVHVRB-I='
-	getcencelpolicy=GO.CancelPolicy(skey)
+	query,getcencelpolicy=GO.CancelPolicy(skey)
+	if 'data' in getbusseat:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbusseat['Error']))
 	policy=[]
 	for k,v in getcencelpolicy.iteritems():
 		 for key in v.iteritems():
@@ -206,26 +255,31 @@ def cancelpolicy(request):
 @login_required(login_url='/register/')
 def bus_booking(request):	
 	try:
-		totalfare=request.POST.get('total_seat_amount')
+		totalfare=request.POST.get('totalfare')
 		print totalfare
-		selected_seats=request.POST.getlist('available_seat')
-		print'selected_seats', selected_seats
-		selected_seats_fare=request.POST.getlist('available_seat_fare')
-		print'selected_seats_fare', selected_seats_fare
-		bpoint=request.POST.get('bpoint',request.COOKIES.get('bpoint'))
+		count_of_seat=request.POST.get('seatcount')
+		print'count_of_seat', count_of_seat
+		selected_seats_fare=request.POST.get('seatFare')
+		selected_seats_fare_split=selected_seats_fare.split(",")
+		print'selected_seats_fare', selected_seats_fare_split
+		selected_seats=request.POST.get('seatNumbersList')
+		selected_seats_split=selected_seats.split(",")
+		print 'selected_seats',selected_seats_split
+		bpoint=request.POST.get('boarding_point_list',request.COOKIES.get('boarding_point_list'))
 		print bpoint
 		bpoint_id,bpoint_name= bpoint.split("-")
 		print bpoint_id
+		seat_and_fare=zip(selected_seats_split,selected_seats_fare_split)
 		# seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
 		# fare , seat_name=seatdetails.split(",")
-		response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':selected_seats,'fare':selected_seats_fare}, context_instance=RequestContext(request)) 
+		response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':seat_and_fare,'count':count_of_seat}, context_instance=RequestContext(request)) 
 		response.set_cookie('bpoint',bpoint)
 		#response.set_cookie('seatdetails',seatdetails)
 		response.set_cookie('bpoint_id',bpoint_id)
 		response.set_cookie('bpoint_name',bpoint_name)
 		response.set_cookie('totalfare',totalfare)
 		response.set_cookie('selected_seats',selected_seats)
-		response.set_cookie('total_seats',len(selected_seats))
+		response.set_cookie('total_seats',count_of_seat)
 		return response
 	except:
 		messages.add_message(request, messages.INFO,'Enter the details correct way')
@@ -254,64 +308,96 @@ def tentativebooking(request):
 
 	total_seat=request.COOKIES.get('total_seats')
 	print 'total_seat',total_seat
-	seat_fare=int(totalfare)/int(total_seat)
 	title=request.POST.get('title_1',request.COOKIES.get('title'))
+	print 'title', title
 	fname=request.POST.get('fname_1',request.COOKIES.get('fname'))
 	lname=request.POST.get('lname_1',request.COOKIES.get('lname'))
 	seat_name=request.POST.get('seat_1',request.COOKIES.get('seat'))
+	seat_fare=request.POST.get('fare_1',request.COOKIES.get('fare'))
 	age=request.POST.get('age_1',request.COOKIES.get('age'))
 	title1=request.POST.get('title_2')
+	print 'title1', title1
 	fname1=request.POST.get('fname_2')
 	lname1=request.POST.get('lname_2')
 	seat_name1=request.POST.get('seat_2')
+	seat_fare1=request.POST.get('fare_2')
 	age1=request.POST.get('age_2')
 	title2=request.POST.get('title_3')
+	print 'title2', title2
 	fname2=request.POST.get('fname_3')
 	lname2=request.POST.get('lname_3')
 	seat_name2=request.POST.get('seat_3')
+	seat_fare2=request.POST.get('fare_3')
 	age2=request.POST.get('age_3')
 	title3=request.POST.get('title_4')
 	fname3=request.POST.get('fname_4')
 	lname3=request.POST.get('lname_4')
 	seat_name3=request.POST.get('seat_4')
+	seat_fare3=request.POST.get('fare_4')
 	age3=request.POST.get('age_4')
 	title4=request.POST.get('title_5')
 	fname4=request.POST.get('fname_5')
 	lname4=request.POST.get('lname_5')
 	seat_name4=request.POST.get('seat_5')
+	seat_fare4=request.POST.get('fare_5')
 	age4=request.POST.get('age_5')
 	title5=request.POST.get('title_6')
 	fname5=request.POST.get('fname_6')
 	lname5=request.POST.get('lname_6')
 	seat_name5=request.POST.get('seat_6')
+	seat_fare5=request.POST.get('fare_6')
 	age5=request.POST.get('age_6')
 	email=request.POST.get('email',request.COOKIES.get('email'))
 	mobile=request.POST.get('mobile',request.COOKIES.get('mobile'))
+	url = "http://pp.goibibobusiness.com/api/bus/hold/"
 	if total_seat == '6':
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4+"-6_"+seat_name5+"_"+fname5+"_"+lname5+"_"+age5
+		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+		customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
+		customer5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_name4],['seatFare',seat_fare4]]
+		customer6 = [['title', 'Mr'],['firstName', fname5],['lastName',lname5],['age',age5],['eMail',email],['mobile',mobile],['seatName', seat_name5],['seatFare',seat_fare5]]
+		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4),mydict(customer5),mydict(customer6)]
+
 	elif total_seat == '5':
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4
+		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+		customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
+		customer5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_name4],['seatFare',seat_fare4]]
+		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4),mydict(customer5)]
+
 	elif total_seat == '4':
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3
+		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+		customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
+		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4)]
+
 	elif total_seat == '3':
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2
+		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3)]
+
 	elif total_seat == '2':
+		print '2'
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1
+		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+		customer_details=[mydict(customer1),mydict(customer2)]
 	else:
 		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
+		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		customer_details=[mydict(customer1)]
 
 	print bus_join_data
-	url = "http://pp.goibibobusiness.com/api/bus/hold/"
-	customer = [['title', 'Mr'],
-			   ['firstName', fname], 
-               ['lastName',lname], 
-               ['age',age], 
-               ['eMail',email], 
-               ['mobile',mobile],
-               ['seatName', seat_name],
-               ['seatFare',seat_fare],
-               ]
-	customer_details=[mydict(customer)]
+	#customer = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+	print 'customer_details',customer_details
 	bus=[['skey',request.COOKIES.get('skey')],
 		['bp',request.COOKIES.get('bpoint_id')],
 		['seats',customer_details]]
@@ -325,14 +411,19 @@ def tentativebooking(request):
         'content-type': "application/x-www-form-urlencoded"
     }
 	details = requests.request("POST", url, data=payload, headers=headers, auth=('apitesting@goibibo.com','test123'))
+	
 	#response=HttpResponse(details)
 	# return HttpResponse(simplejson.dumps(response), mimetype='application/json')
 	response=HttpResponseRedirect("/bus_payu/")#,{'response':response,'joindata_bus':joindata_bus}
 	print details.json()
+	temp= details.json()
+	if temp.has_key("data"):
+		log_function('http://pp.goibibobusiness.com/api/bus/hold/', "success:True"+str(details.json()['data']),payload)
+	else:
+		log_function('http://pp.goibibobusiness.com/api/bus/hold/', "success:False" + str(details.json()['Error']),payload)
 	try:
 		response.set_cookie('bookid',details.json()['data']['bookingID'])
 	except:
-		temp= details.json()
 		if temp.has_key("data"):
 			messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
 		else:
@@ -348,11 +439,13 @@ def tentativebooking(request):
 	# Code for storing Order Details
 	fmt = '%Y/%m/%d'
 	order=Order()	
-	order.userprofile =UserProfile.objects.get(user=request.user)
+	order.userprofile =UserProfile.objects.get(user_id=request.user.id)
 	order.trip=request.COOKIES.get('trip')
 	order.source=request.COOKIES.get('source')
 	order.destination=request.COOKIES.get('destination')
+	print 'start date',request.COOKIES.get('start')
 	order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
+
 	if not order.trip == "oneway":
 		order.end_date=datetime.strptime(request.COOKIES.get('end'), fmt)
 	order.totalseats=request.COOKIES.get('total_seats')
@@ -395,11 +488,15 @@ def confirmbook(request):
 	print clientkey
 	print bookingid
 	try:
-		getbookconform=GO.BookConform(secret,bookingid,clientkey)
+		query,getbookconform=GO.BookConform(secret,bookingid,clientkey)
 	except:
 		messages.add_message(request, messages.INFO,'Something wrong from API')
 		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
 	print getbookconform
+	if 'status' in getbookconform:
+		log_function(query, "success:"+str(getbookconform['status']))
+	else:
+		log_function(query, "success:False" + str(getbookconform['Error']))
 	response = render_to_response('bus/success-payment.html',{'status':getbookconform},context_instance=RequestContext(request))
 	
 	#Code for storing PayU Details
@@ -412,12 +509,33 @@ def confirmbook(request):
 	#Code for storing Transaction Details
 	transaction = Transaction()
 	transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
-	transaction.payu_details=PayuDetails.objects.get(id=request.COOKIES.get('payudetails'))
+	transaction.payu_details=PayuDetails.objects.get(id=payid)
 	transaction.payu_status=request.COOKIES.get('payustatus')
 	transaction.tentativebooking_id=bookingid
+	print transaction.tentativebooking_id
 	transaction.tentativebooking_status="processing"
 	transaction.save()
 	busbookingstatus(request)
+
+	send_templated_mail(
+					template_name='payment_bus',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=[request.COOKIES.get('email')],
+					context={
+						'user':request.COOKIES.get('fname'),
+						'bookingid':transaction.tentativebooking_id,
+						'trip':request.COOKIES.get('trip'),
+						# 'amount':request.COOKIES.get('guest'),
+						'start':request.COOKIES.get('start'),
+						'end':request.COOKIES.get('end'),
+						'source':request.COOKIES.get('source'),
+						'destination':request.COOKIES.get('destination'),
+						'totalfare':request.COOKIES.get('totalfare'),
+						'totalseats':request.COOKIES.get('totalseats'),
+						# 'rooms':request.COOKIES.get('rooms'),
+						# 'guest':request.COOKIES.get('guest'),
+					},
+				)
 	return response
 	#return HttpResponse(simplejson.dumps(getbookconform['status']), mimetype='application/json')
 	
@@ -431,7 +549,7 @@ def busbookingstatus(request):
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	pid=request.POST.get('bookid')
 	try:
-		getbookingstatus=GO.BookStatus(pid)
+		query,getbookingstatus=GO.BookStatus(pid)
 		try:
 			status={}
 			for k,v in getbookingstatus.iteritems():
@@ -452,10 +570,15 @@ def busbookingstatus(request):
 			return HttpResponseRedirect(format_redirect_url("/busbookstatus", 'error=9'))
 
 	except:
-		messages.add_message(request, messages.INFO,'Booking id not given by API')
-		return HttpResponseRedirect(format_redirect_url("busbookstatus", 'error=7'))
+		messages.add_message(request, messages.INFO,'Warning message')
+		return HttpResponseRedirect(format_redirect_url("/busbookstatus", 'error=7'))
+	if 'data' in getbookingstatus:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbookingstatus['Error']))
 
-	return HttpResponse(simplejson.dumps(status), mimetype='application/json')
+	#return HttpResponse(simplejson.dumps(status), mimetype='application/json')
+	return render_to_response("bus/bookingstatusresult.html",{'status':status}, context_instance=RequestContext(request))
 
 def buscencelticket(request):
 	return render_to_response('bus/buscancelticket.html', context_instance=RequestContext(request))
@@ -466,6 +589,15 @@ def cancelticket(request):
 	"""
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	pid=request.POST.get('bookid')
-	getcancelticket=GO.CancelTicket(pid)
-	return HttpResponse(simplejson.dumps(getcancelticket['data']), mimetype='application/json')	
+	try:
+		query,getcancelticket=GO.CancelTicket(pid)
+		if 'data' in getcancelticket:
+			log_function(query, "success:True"+str(getcancelticket))
+		else:
+			log_function(query, "success:False" + str(getcancelticket['Error']))
+	except:
+		messages.add_message(request, messages.INFO,'Warning message')
+		return HttpResponseRedirect(format_redirect_url("/cancelticket", 'error=12'))
+	#return HttpResponse(simplejson.dumps(getcancelticket['data']), mimetype='application/json')	
+	return render_to_response("bus/conformcancel.html",{'status':getcancelticket},context_instance=RequestContext(request))
 

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+        {% if status %}
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>	
+                    <h2 class="text-center">Booking status</h2>
+
+                    <ul class="order-payment-list list mb30">
+
+                        <li>
+                            <div class="row">
+                               <table class="table">
+                                   <tr>
+                                       <td>Booking status</td>
+                                       <td>{{status.status}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Source</td>
+                                       <td>{{status.Source}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Destination</td>
+                                       <td>{{status.Destination}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Travels name</td>
+                                       <td>{{status.Travels}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>TicketStatus </td>
+                                       <td>{{status.TicketStatus}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>BoardingPoint Address </td>
+                                       <td>{{status.BPAddress}}</td>
+                                   </tr>
+                               </table>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%else%}
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-times-circle round box-icon-large box-icon-center box-icon-error mb30"></i>  
+                    <h2 class="text-center">Invalid Booking id</h2>
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%endif%}
+        {% endblock %} 
+
+
+
+    

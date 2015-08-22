@@ -1,7 +1,7 @@
 {% load static from staticfiles %}
 {% load i18n %}
-<link rel="stylesheet" href="{% static "css/seat.css" %}">
-<script src="{% static "js/jquery.js" %}"></script>
+<!-- <link rel="stylesheet" href="{% static "css/seat.css" %}">
+<script src="{% static "js/jquery.js" %}"></script> -->
 <div class="panel panel-default seatLayoutHolder">
 	<div class="panel-body">
 		
@@ -40,13 +40,13 @@
     <div class="col-md-5">
         
         <h5 class="bold"><span class="num-circle">2</span> Choose Boarding Point</h5>
-        <form style="width:500px;margin:5px auto 20px auto;" name="seat_blocked" id="seat_blocked" action="">
+       
         <select style="width:300px;" required name="boarding_point_list" id="boarding_point_list">
         {% for b in result.1 %}
         <option value="{{b.BPName}}" data-address="">{{ b.BPLocation }}</option>
         {% endfor %}
         </select>
-        </form>
+  
 	    <div style="width:350px;margin:0 auto;" id="address_boarding_points"></div>
         <div class="seats_no" style="height:50px;font-size:14px;margin:10px;">
 <table>
@@ -82,7 +82,7 @@ function getJson(url) {
             }
  
 var bus_seat = getJson();
-var bus=[{"seatlayout":bus_seat.data.onwardSeats,"onwardflightsMaxC":bus_seat.data.onwardflightsMaxC,"onwardflightsMaxR":bus_seat.data.onwardflightsMaxR}]
+var bus=[{"seatlayout":bus_seat.data.onwardSeats,"onwardflightsMaxC":bus_seat.data.onwardflightsMaxC,"onwardflightsMaxR":bus_seat.data.onwardflightsMaxR}];
 var max_no_of_seat;
 var u_rows,rows;
 var u_cols,cols;

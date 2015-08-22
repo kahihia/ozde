@@ -9,16 +9,29 @@ $('#round').click(function(){
     $('#oneway').removeattr('checked');
 });
 
+$('.return_date').hide();
+
+$('input:radio[name=trip]').change(function() {
+    if (this.value == 'oneway') {
+        $('.return_date').hide();
+    }
+    else if (this.value == 'round') {
+        $('.return_date').show();
+    }
+});
+
 $('.slide').click(function(){
     var par = $(this).parent();
+    $(".seatLayoutHolder").remove();
     $('.seat_map',par).slideDown("slow");
     var par = $(this).parent();
     var skey= $('input[name=skey]',par).val();
+    var bus_type= $('input[name=bus_type]',par).val();
     $.ajax({
     type: 'POST',
-    url: '/seat_map/',
+    url: '/seat/',
     dataType: 'html',
-    data: {"skey":skey}, // or JSON.stringify ({name: 'jonas'}),
+    data: {"skey":skey,"bus_type":bus_type}, // or JSON.stringify ({name: 'jonas'}),
     success: function(data) { 
         alert(data);
         $('.seat_map',par).html(data);
@@ -45,6 +58,27 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+// $('.slide').click(function(){
+//     var par = $(this).parent();
+//     $('.seat_map',par).slideDown("slow");
+//     var skey= $('input[name=skey]',par).val();
+// $.ajax({
+//           url: 'http://pp.goibibobusiness.com/api/bus/seatmap/',
+//           type: 'GET',
+//           data: {"skey":skey},
+//           dataType: 'json',
+//           success: function(data) { 
+//             $('.seat_map',par).html(data);   
+//             alert(JSON.stringify(data.data)); },
+//           error: function() { alert('boo!'); },
+//           contentType: "application/json",
+//           beforeSend: setHeader
+//         });
+// });
+//       function setHeader(xhr) {
+//         xhr.setRequestHeader('authorization', 'Basic YXBpdGVzdGluZ0Bnb2liaWJvLmNvbTp0ZXN0MTIz');
+//       }
 
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
@@ -973,34 +1007,65 @@ $('#paynow').click(function(){
        return true; 
     }
 });
-
-
+//Edit by priya
+// $('.return_div').hide();
 // bus//
-$('#searchbus').click(function(){
+// $('#searchbus').click(function(){
 
-    
-        if($('.source').val() == '') {
-            // alert("enter the destination");
-            $('.error').show();
-            return false;
-            if($('.destination').val() == '') {
-               $('.error').show(); 
-               return false;
-           if($('.depart').val() == '') {
-               $('.error').show(); 
-               return false;
+//             if($('.source').val() == '') {
+//                 $('.error').show();
+//                 return false;
+//               }
+//            else if($('.destination').val() == '') {
+//                    $('.error').show(); 
+//                    return false;
+//                }
+//           else if($('.depart').val() == '') {
+//                    $('.error').show(); 
+//                    return false;
+                
+//                 }
+            
+        
+//             else{
+//                 return true;
+//              }          
+// });
+
+
+
+$('#searchbus_return').click(function(){
+
             if($('.return').val() == '') {
-               $('.error').show(); 
-            return false;
-                    }
-                }
-            }
-        }
-        else{
-            return true;
-        }
-
-    });
+                
+                $('.error').show();
+                return false;
+              }    
+            else{
+                return true;
+             }
+             if($('.source').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }   
+             if($('.destination').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }
+             if($('.depart').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }
+});
 
 
 
@@ -1034,6 +1099,21 @@ $('#payment').click(function(){
        return true; 
     }
 });
+var CheckinDate=new Date();
+ var CheckoutDate=new Date(); 
+ var diff=new Date();
+ $('#checkin').datepicker({
+       onSelect: function(dateText, inst) {
+       CheckinDate=datetext;
+
+    }
+    });
+
+$('#checkout').datepicker({
+   onSelect: function(dateText, inst) {
+   CheckoutDate=datetext;
+   diff=(CheckoutDate.getTime() - CheckinDate.getTime())/(1000*60*60*24);
 
 
-
+}
+});

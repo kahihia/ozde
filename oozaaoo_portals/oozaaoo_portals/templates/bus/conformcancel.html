@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %} 
+        {{status}}
+        {% if not status.data.Error %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="text-center">Your cancellization details</h2>
+
+                    <ul class="order-payment-list list mb30">
+
+                        <li>
+                            <div class="row">
+                               <table class="table">
+                                   <tr>
+                                       <td>Refund Amount</td>
+                                       <td>{{status.data.refund}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Total Fare</td>
+                                       <td>{{status.data.totalFare}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Refund Percentage</td>
+                                       <td>{{status.data.refundPercent}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Fixed Charge</td>
+                                       <td>{{status.data.fixedCharge}}</td>
+                                   </tr>
+                               </table>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%else%}
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fa fa-times-circle round box-icon-large box-icon-center box-icon-error mb30"></i>  
+                    <h2 class="text-center">{{status.data.Error}}</h2>
+
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+        {%endif%}
+        {% endblock %} 
+
+
+
+    
