@@ -181,6 +181,7 @@
                                 </ul>
                                 {% csrf_token %}
 
+                                {% if hotelroominfos|length == 1 %}
                                 {% for hotelroominfo in hotelroominfos %}
                                 <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
                                 <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
@@ -189,7 +190,10 @@
                                     {% else %}
                                     <a href="#">Booking Not Available</a>
                                     {% endif %}
-                                {% endfor %}                               
+                                {% endfor %}     
+                                {% else %}  
+                                 <a href="#">Booking Not Available</a>
+                                {% endif %}                      
                                 <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
                                 <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
                                 <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />

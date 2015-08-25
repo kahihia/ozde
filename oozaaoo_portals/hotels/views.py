@@ -260,7 +260,7 @@ def gethotellist(request):
 		else:		
 			rooms=1
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
-		# print "getcityresponse", getcityresponse
+		print "getcityresponse", getcityresponse
 		try:
 			cityFields = ['country']
 			city = {}
@@ -338,7 +338,7 @@ def gethoteldetails(request):
 	query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
 	print "gethoteldetailresponse",gethoteldetailresponse
 	gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
-	print "gethotelreviewresponse", gethotelreviewresponse
+	# print "gethotelreviewresponse", gethotelreviewresponse
 
 	# # /** Hotel  Details */
 	# try:
@@ -517,6 +517,7 @@ def setprovisionalbooking(request):
 	# except:
 	# 	messages.add_message(request, messages.INFO,'You cannot refresh again')
 	# 	return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
+	# response1 = render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))
 	return response1
 
 
@@ -587,6 +588,7 @@ def confirmbooking(request):
 	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=51'))
 
 	return render_to_response("hotels/hotel-book-successfull.html",{'response':response.json()}, context_instance=RequestContext(request))
+	# return render_to_response("hotels/hotel-book-successfull.html", context_instance=RequestContext(request))
 
 def bookingstatus(request):
 	return render_to_response("hotels/bookingstatus.html",context_instance=RequestContext(request))
