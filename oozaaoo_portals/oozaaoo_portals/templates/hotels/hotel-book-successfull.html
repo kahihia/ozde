@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 {{ response }}
-                <h3>Thank you, testing!{{response.data.message}}</h3>
+                <h3>Thank you, {{request.user}} {{response.data.message}}</h3>
                 <span> We are working hard to get the confirmation of this booking in a short while.</span>
                 <span> Confirmation booking id <b>{{response.data.bookingid}}</b> for further communication with our support team.</span>
                 <span>We will send the confirmation voucher to {{response.data.email} once we receive confirmation from hotel.If you don't hear back from us in 30 minutes, please reach out to us on 1800-208-1060</span>

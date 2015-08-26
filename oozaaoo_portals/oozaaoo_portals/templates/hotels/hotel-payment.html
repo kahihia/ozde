@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block content %}        
+{% block content %}  
+  <script language='javascript'>window.onload = function(){ document.forms['confirmbook'].submit() }</script>     
         <div class="gap"></div>
 
 
         <div class="container">
             <div class="row">
-                {{ response.data }}
+               <!--  {{ response.data }}
                 <h3>Thank you, {{ response.data.firstname }}! We will confirm this booking in a while</h3><br/>
                 <span> It seems hotelier's system is slow and is taking a while to generate the booking status</span><br/>
                 <span> We are working hard to get the confirmation of this booking in a short while.</span><br/>
                 <span> Please use the go booking id <b>{{ response.data.gobookingid }}</b> for further communication with our support team.</span><br/>
-                <span>We will send the confirmation voucher to {{ response.data.email }} once we receive confirmation from hotel.If you don't hear back from us in 30 minutes, please reach out to us on 1800-208-1060</span>
-                <form method="post" action="{% url "hotels.views.confirmbooking" %}">{% csrf_token %}
+                <span>We will send the confirmation voucher to {{ response.data.email }} once we receive confirmation from hotel.If you don't hear back from us in 30 minutes, please reach out to us on 1800-208-1060</span> -->
+                <img src="/static/img/loading.gif" style="align:center;width:100px;height:100px;top:50px;">
+
+                <form method="post" action="{% url "hotels.views.confirmbooking" %}" name="confirmbook">{% csrf_token %}
                 <input type="hidden" value="{{ response.data.guest }}" name="guest">
                 <input type="hidden" value="{{ response.data.firstname }}" name="firstname">
                 <input type="hidden" value="{{ response.data.amount }}" name="amount">
@@ -20,7 +23,7 @@
                 <input type="hidden" value="{{ response.data.udf1 }}" name="udf1">
                 <input type="hidden" value="{{ response.data.productinfo }}" name="productinfo">
                 <input type="hidden" value="{{ response.data.email }}" name="email">
-                <input type="submit" value="confirm">
+                <input type="submit" value="confirm" style="display:none;">
                 </form>
             </div>
         </div>
