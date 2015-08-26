@@ -6,7 +6,7 @@
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a>
                 </li>
-                 <li><a href="#">{{ request.COOKIES.source}} to {{ request.COOKIES.destination}}</a>
+                 <li><a href="#">{{source}} to {{destination}}</a>
                 <!-- <li><a href="#">New York (NY)</a>
                 </li>
                 <li><a href="#">New York City</a>
@@ -61,7 +61,7 @@
                     <button class="btn btn-primary btn-lg" type="submit">Search for Flights</button>
                 </form>
             </div> -->
-            <h3 class="booking-title">Buses for {{ request.COOKIES.source}} to {{ request.COOKIES.destination}}<small>
+            <h3 class="booking-title">Buses for {{source}} to {{destination}}<small>
             <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
             <div class="row">
                 <div class="col-md-12">
@@ -139,6 +139,7 @@
                                         <div class="col-md-3">
                                             <div class="booking-item-car-img">
                                                 <p class="booking-item-car-title"><h3>{{values_return.businfos.TravelsName}}</h3></p>
+                                                <p>{{values.businfos.BusType}}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -154,6 +155,7 @@
                                         </div>
                                        
                                     </div>
+                                    <input type="hidden" name="bus_type" value="{{values_return.businfos.BusType}}">
                                     <input type="hidden" name='skey'value="{{values_return.businfos.skey}}" >
                                      <input type="button" value="Seats" class="slide">
                                      <div class="seat_map">  

@@ -463,9 +463,10 @@ def setprovisionalbooking(request):
 	fmt = '%Y/%m/%d'
 	print "respons", response
 	print "response.json", response.json()['success']
-	response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
-	response1.set_cookie('provisionalbooking_status',response.json()['success'])
-	
+	# response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+	# response1.set_cookie('provisionalbooking_status',response.json()['success'])
+	response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
+	return HttpResponseRedirect(response1)
 	# Code for storing Order Details
 	order=Order()	
 	order.userprofile =UserProfile.objects.get(user=request.user)
@@ -520,20 +521,34 @@ def setprovisionalbooking(request):
 	return response1
 
 
-def confirmbooking(request):
+def confirmbooking(request, pid, udf1, pinfo, email):
 	from django.utils import simplejson
 	import urllib
 	import requests
 	from hashlib import md5, sha512
 	# try:
 	
-	guest = request.POST.get('guest')
-	firstname = request.POST.get('firstname')
-	amount = request.POST.get('amount')
-	gobookingid = request.POST.get('gobookingid')
-	udf1 = request.POST.get('udf1')
-	productinfo = request.POST.get('productinfo')
-	email = request.POST.get('email')
+	guest = request.COOKIES.get('guest')
+	firstname = request.COOKIES.get('fname')
+	amount = request.COOKIES.get('prc')
+	# gobookingid = request.POST.get('gobookingid')
+	# udf1 = request.POST.get('udf1')
+	# productinfo = request.POST.get('productinfo')
+	# email = request.POST.get('email')
+	# guest = request.COOKIES.get('guest')
+	# print "guest", guest
+	# firstname = request.COOKIES.get('fname')
+	# print "firstname", firstname
+	# amount = request.COOKIES.get('prc')
+	# print "amount", amount
+	gobookingid = pid
+	print "gobookingid", gobookingid
+	udf1 = udf1
+	print "udf1", udf1
+	productinfo = pinfo
+	print "productinfo", productinfo
+	email = email
+	print "email", email
 	createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
 	createhash = sha512(createhash).hexdigest()
 	print createhash
