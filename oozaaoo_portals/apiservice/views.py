@@ -82,6 +82,7 @@ class goibiboAPI(object):
 		
 	def BookingStatus(self, gobookingid):
 		query = self.BASE + "get_booking_status?gobookingid="+gobookingid
+		print "response",requests.get(query, auth=(self.username, self.password)).json() 
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def BookingDetails(self, gobookingid):

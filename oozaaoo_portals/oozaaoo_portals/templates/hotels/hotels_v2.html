@@ -1,0 +1,953 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+     <section class="search-section">
+    <div class="container">
+        <div class="row padding20">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3 marginbottom10">
+                          <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown">
+                                <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
+                                <ul class="dropdown-menu" aria-labelledby="themes">
+                                  <li><a href="#">Flights</a></li>
+                                  <li><a href="#">Cars</a></li>
+                                 </ul>
+                            </li>
+                          </ul>
+                    </div>
+                    <div class="col-md-7">
+                         <div class="input-group">
+                         {{hotels.0.c}}
+                             <!-- <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" />  -->
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 top10">
+                <a href="#" class="paddingleft20"><i class="fa fa-heart"></i> My Lists</a>
+                <a href="#" class="paddingleft20"><i class="ion ion-log-in"></i> Manage Booking</a>
+            </div>
+        </div>
+    </div>
+    </section>
+    
+    <section>
+        <div class="panel panel-default borderleftright0">
+            <div class="panel-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label top10 pull-right">Date</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" value="yyyy/mm/dd" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" value="yyyy/mm/dd" />
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <select class="form-control" name="guest">
+                                        <option value="1">1 Guest</option>
+                                        <option value="2">2 Guest</option>
+                                        <option value="3">3 Guest</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" name="room">
+                                        <option value="1">1 Room</option>
+                                        <option value="2">2 Room</option>
+                                        <option value="3">3 Room</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label top10 pull-right">Budget</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                              <div class="col-md-4">
+                                    <select class="form-control" name="min">
+                                        <option value="Min">Min</option>
+                                        <option value="2500">2500</option>
+                                        <option value="3500">3500</option>
+                                        <option value="4500">4500</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" name="max">
+                                        <option value="Max">Max</option>
+                                        <option value="5000">5000</option>
+                                        <option value="6000">6000</option>
+                                        <option value="6000+">Above 6000</option>
+                                    </select>
+                                </div>
+                                 <div class="col-md-4">
+                                    <div class="dropdown">
+                                      <button class="btn btn-grey dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        More Filters
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Filter1</a></li>
+                                        <li><a href="#">Filter2</a></li>
+                                        <li><a href="#">Filter3</a></li>
+                                        <li><a href="#">Filter4</a></li>
+                                      </ul>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </section>
+    
+    <section class="search-result-section">
+        <div class="container">
+            <p class="top10 bold">63 properties available</p>
+            <div class="row">
+                <div class="col-md-6">
+                
+                    <div class="sort-tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li><span class="top10">Sort By: </span></li>
+                            <li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab">Price</a></li>
+                            <li role="presentation"><a href="#stars" aria-controls="stars" role="tab" data-toggle="tab">Stars</a></li>
+                            <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab">Recommended</a></li>
+                            <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">Review</a></li>
+                            <li role="presentation"><a href="#budget-deals" aria-controls="budget-deals" role="tab" data-toggle="tab">Budget Deals</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                           {%for hotel in hotels %}
+
+                           {% if hotel.ibp %}
+                         <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" class="hotel_search" id="myform">
+                      
+                        <div role="tabpanel" class="tab-pane fade" id="price">
+                            <div class="hotel-list">
+                                
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <!-- <img src="images/hotels/promenade.png" alt="Villa Shanthi" /> -->
+                                        <img src="{{hotel.t}}" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i>{{hotel.prc|floatformat}} <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">{{hotel.hn}}</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> {{hotel.l}} 
+                                            {% if hotel.hr == 1 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 2 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 3 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 4 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% elif hotel.hr == 5 %}
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                                <i class="fa fa-star icon-group booking-item-rating-stars"></i>
+                                            {% endif %}
+                                            <!-- <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i>  -->
+                                            <span class="pull-right">{{hotel.gr}}/5 Reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        {% for fm1 in hotel.fm %}
+                                             
+                                             {% if fm1 == 'Free Internet' %}
+                                                <span class="wifi"></span>
+                                            
+                                            {% elif fm1 == 'Room Service' %}
+                                                <span class="room-serve"></span>
+                                            {% elif fm1 == 'Swimming Pool' %}
+                                                 <span class="swimming"></span>
+                                            {% elif fm1 == 'Restaurant/Coffee Shop' %}
+                                                <span class="cutlury"></span>
+                                             {% endif %}
+                                            
+                                        {% endfor %}
+                                        <!-- <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve"></span>
+                                        <span class="fa fa-heart-o pull-right"></span> -->
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       
+                         </form>
+                         {% endif %}
+                     {% endfor %}
+                    </div>
+                   
+                    </div>
+                    <div class="col-md-6">
+                      <div id="googleMap" style="width:100%;height:820px;"></div>
+                </div>  
+                    </div>
+                    </div>
+                    </section>
+                                <!-- <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/hotel-de-lorient.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 11,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Hotel De L'Orient</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">21 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/la-villa.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 4,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">La Villa</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">16 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>  
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/hotel-de-lorient.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 11,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Hotel De L'Orient</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">21 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="stars">
+                            <div class="hotel-list">
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/la-villa.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 4,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">La Villa</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">16 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/hotel-de-lorient.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 11,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Hotel De L'Orient</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">21 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/promenade.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade in active" id="recommended">
+                            <div class="hotel-list">
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/promenade.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 6,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">The Promenade</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> 
+                                            <span class="pull-right">18 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/la-villa.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 4,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">La Villa</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">16 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/hotel-de-lorient.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 11,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Hotel De L'Orient</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">21 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/promenade.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="review">
+                            <div class="hotel-list">
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/la-villa.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 4,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">La Villa</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">16 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/promenade.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 6,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">The Promenade</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> 
+                                            <span class="pull-right">18 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/hotel-de-lorient.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 11,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Hotel De L'Orient</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">21 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/promenade.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="budget-deals">
+                            <div class="hotel-list">
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/promenade.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 6,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">The Promenade</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> 
+                                            <span class="pull-right">18 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/la-villa.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 4,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">La Villa</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">16 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/hotel-de-lorient.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 11,500 <span class="size11">per night</span></div>
+                                        <div class="last-booked hidden">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Hotel De L'Orient</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">21 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/villa-santhi.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="hotel-container col-md-6 nopaddingleft padding10">
+                                    <div class="img-container">
+                                        <img src="images/hotels/promenade.png" alt="Villa Shanthi" />
+                                        <div class="ribbon1"><i class="fa fa-rupee"></i> 2,768 <span class="size11">per night</span></div>
+                                        <div class="last-booked">Last booked: 5 min ago</div>
+                                        <div class="cirlce-tick"><i class="fa fa-check"></i></div>
+                                    </div>
+                                    <div class="hotel-details">
+                                        <a href="#">Villa Shanti</a>
+                                        <p class="size11 help-block">
+                                            <i class="fa fa-map-marker"></i> Pondicherry <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star star-yellow"></i> <i class="fa fa-star"></i> 
+                                            <span class="pull-right">14 reviews</span>
+                                            <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                    <div class="hotel-features">
+                                        <p class="text-muted bold size20">
+                                        <span class="wifi"></span>
+                                        <span class="swimming_trans"></span>
+                                        <span class="cutlury"></span>
+                                        <span class="rest-chair_trans"></span>
+                                        <span class="room-serve_trans"></span>
+                                        <span class="fa fa-heart-o pull-right"></span>
+                                        <span class="clearfix"></span>
+                                        </p>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                        
+                    </div>
+                </form>
+
+
+            
+                <div class="col-md-6">
+                      <div id="googleMap" style="width:100%;height:820px;"></div>
+                </div>      
+          </div>
+                   </div>
+                   </section>  --> 
+        
+{% endblock %}
