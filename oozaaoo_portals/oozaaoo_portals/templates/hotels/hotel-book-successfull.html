@@ -7,10 +7,17 @@
         <div class="container">
             <div class="row">
                 {{ response }}
+               {% if response.data.status == "success" %}
                 <h3>Thank you, {{request.user}} {{response.data.message}}</h3>
-                <span> We are working hard to get the confirmation of this booking in a short while.</span>
+                <span> And Your booking id is {{response.data.bookingid}}</span>
+                <span> If you want more details about ur confirmation, please check ur mail id {{response.data.email}}</span>
+               <!--  <span> We are working hard to get the confirmation of this booking in a short while.</span>
                 <span> Confirmation booking id <b>{{response.data.bookingid}}</b> for further communication with our support team.</span>
-                <span>We will send the confirmation voucher to {{response.data.email} once we receive confirmation from hotel.If you don't hear back from us in 30 minutes, please reach out to us on 1800-208-1060</span>
+                <span>We will send the confirmation voucher to {{response.data.email} once we receive confirmation from hotel.If you don't hear back from us in 30 minutes, please reach out to us on 1800-208-1060</span> -->
+                {% else %}
+                Dear {{request.user}},
+                <span>Sorry, Your booking is not confirmed....because {{response.data.message}} </span>
+                {% endif %}
             </div>
         </div>
 {% endblock %}        

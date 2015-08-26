@@ -1,5 +1,4 @@
 "use strict";
-//code by muthu
 $('#oneway').click(function(){
     $('#oneway').attr('checked',true);
     $('#round').removeattr('checked');
@@ -9,9 +8,6 @@ $('#round').click(function(){
     $('#round').attr('checked',true);
     $('#oneway').removeattr('checked');
 });
-//*************
-
-// code by priya
 
 $('.return_date').hide();
 
@@ -23,7 +19,6 @@ $('input:radio[name=trip]').change(function() {
         $('.return_date').show();
     }
 });
-// *************
 
 $('.slide').click(function(){
     var par = $(this).parent();
@@ -189,8 +184,8 @@ $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
 
 
 
-// $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
-// $('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
+$('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
+$('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
 
 $('input.time-pick').timepicker({
     minuteStep: 15,
@@ -200,13 +195,6 @@ $('input.time-pick').timepicker({
 $('input.date-pick-years').datepicker({
     startView: 2
 });
-
-// $( ".mySelectCalendar2" ).datepicker({
-//         dateFormat: "yy/mm/dd",
-//       changeDate:true,  
-//       changeMonth: true,//this option for allowing user to select month
-//       changeYear: true //this option for allowing user to select from year range
-//     });
 
 
 
@@ -423,14 +411,14 @@ $(document).ready(
         });
 
 
-   //  // footer always on bottom
-   //  var docHeight = $(window).height();
-   // var footerHeight = $('#main-footer').height();
-   // var footerTop = $('#main-footer').position().top + footerHeight;
+    // footer always on bottom
+    var docHeight = $(window).height();
+   var footerHeight = $('#main-footer').height();
+   var footerTop = $('#main-footer').position().top + footerHeight;
    
-   // if (footerTop < docHeight) {
-   //  $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
-   // }
+   if (footerTop < docHeight) {
+    $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
+   }
 
   
    $(document).on('change', '.child_age_act', function() {     
@@ -447,29 +435,25 @@ $(document).ready(
                $(this).parent().parent().siblings(".child-1-act").show();
                $(this).parent().parent().siblings(".child-2-act").show();
          }
-         if($(this).val() == 3 ) {
-               $(this).parent().parent().siblings(".child-1-act").show();
-               $(this).parent().parent().siblings(".child-2-act").show();
-         }
     });
 
-    var count = 0;
-    $(document).on('click', '.add_room_act', function() {
-        // count++; 
-        // $(".clone_add_room_act").clone().appendTo(".add_room_holder"); 
-        // $(".clone_add_room_act").filter('[class]').each(function() { // For each new item with an ID
-        //     this.class = this.class + '_' + count; // Append the counter to the ID
-        // }); 
+    // var count = 0;
+    // $(document).on('click', '.add_room_act', function() {
+    //     // count++; 
+    //     // $(".clone_add_room_act").clone().appendTo(".add_room_holder"); 
+    //     // $(".clone_add_room_act").filter('[class]').each(function() { // For each new item with an ID
+    //     //     this.class = this.class + '_' + count; // Append the counter to the ID
+    //     // }); 
 
-        // $(".clone_add_room_act").clone().attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) ).appendTo('.add_room_holder')
-        var html_1 = $(".clone_add_room_act").attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) )
-        $(".add_room_holder").append(html_1)
-    });
+    //     // $(".clone_add_room_act").clone().attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) ).appendTo('.add_room_holder')
+    //     var html_1 = $(".clone_add_room_act").attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) )
+    //     $(".add_room_holder").append(html_1)
+    // });
 
-    $(document).on('click', '.remove_room_act', function() {        
-        $(this).closest(".clone_add_room_act").remove();
-        e.preventDefault();   
-    });
+    // $(document).on('click', '.remove_room_act', function() {        
+    //     $(this).closest(".clone_add_room_act").remove();
+    //     e.preventDefault();   
+    // });
    
 
 }); 
@@ -972,7 +956,7 @@ $(add_room).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parents('.clonedInput').remove(); i--;
     });
 
-// code by priya
+
 // hotels //
 $('#searchBtn').click(function(){
 
@@ -1023,6 +1007,32 @@ $('#paynow').click(function(){
        return true; 
     }
 });
+//Edit by priya
+// $('.return_div').hide();
+// bus//
+// $('#searchbus').click(function(){
+
+//             if($('.source').val() == '') {
+//                 $('.error').show();
+//                 return false;
+//               }
+//            else if($('.destination').val() == '') {
+//                    $('.error').show(); 
+//                    return false;
+//                }
+//           else if($('.depart').val() == '') {
+//                    $('.error').show(); 
+//                    return false;
+                
+//                 }
+            
+        
+//             else{
+//                 return true;
+//              }          
+// });
+
+
 
 $('#searchbus_return').click(function(){
 
@@ -1107,4 +1117,3 @@ $('#checkout').datepicker({
 
 }
 });
-// *********************
