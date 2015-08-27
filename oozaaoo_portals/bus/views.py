@@ -381,31 +381,63 @@ def cancelpolicy(request):
 @login_required(login_url='/register/')
 def bus_booking(request):	
 	try:
-		totalfare=request.POST.get('totalfare')
-		print totalfare
-		count_of_seat=request.POST.get('seatcount')
-		print'count_of_seat', count_of_seat
-		selected_seats_fare=request.POST.get('seatFare')
-		selected_seats_fare_split=selected_seats_fare.split(",")
-		print'selected_seats_fare', selected_seats_fare_split
-		selected_seats=request.POST.get('seatNumbersList')
-		selected_seats_split=selected_seats.split(",")
-		print 'selected_seats',selected_seats_split
-		bpoint=request.POST.get('boarding_point_list',request.COOKIES.get('boarding_point_list'))
-		print bpoint
-		bpoint_id,bpoint_name= bpoint.split("-")
-		print bpoint_id
-		seat_and_fare=zip(selected_seats_split,selected_seats_fare_split)
+		trip = request.COOKIES.get('trip')
+		if trip=='oneway':
+			totalfare=request.POST.get('totalfare')
+			count_of_seat=request.POST.get('seatcount')
+			selected_seats_fare=request.POST.get('seatFare')
+			selected_seats_fare_split=selected_seats_fare.split(",")
+			selected_seats=request.POST.get('seatNumbersList')
+			selected_seats_split=selected_seats.split(",")
+			bpoint=request.POST.get('boarding_point_list',request.COOKIES.get('boarding_point_list'))
+			bpoint_id,bpoint_name= bpoint.split("-")
+			seat_and_fare=zip(selected_seats_split,selected_seats_fare_split)
+			response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':seat_and_fare,'count':count_of_seat}, context_instance=RequestContext(request)) 
+
+		else:
+			totalfare=request.POST.get('total_amount')
+			print 'totalfare',totalfare
+			count_of_seat=request.POST.get('seat_count_round')
+			print 'count_of_seat',count_of_seat
+			selected_seats_fare_onward=request.POST.get('seatFareOnward')
+			print 'selected_seats_fare_onward',selected_seats_fare_onward
+			selected_seats_fare_split_onward=selected_seats_fare_onward.split(",")
+			print 'selected_seats_fare_split_onward',selected_seats_fare_split_onward
+			selected_seats_fare_return=request.POST.get('seatFareReturn')
+			print 'selected_seats_fare_return',selected_seats_fare_return
+			selected_seats_fare_split_return=selected_seats_fare_return.split(",")
+			print 'selected_seats_fare_split_return',selected_seats_fare_split_return
+			selected_seats_onward=request.POST.get('seats_onward')
+			print 'selected_seats_onward',selected_seats_onward
+			selected_seats_split_onward=selected_seats_onward.split(",")
+			print 'selected_seats_split_onward',selected_seats_split_onward
+			selected_seats_return=request.POST.get('seats_return')
+			print 'selected_seats_return',selected_seats_return
+			selected_seats_split_return=selected_seats_return.split(",")
+			print 'selected_seats_split_return',selected_seats_split_return
+			bpoint_onward=request.POST.get('OnwardBoardingPoint')
+			bpoint_id_onward,bpoint_name_onward= bpoint_onward.split("-")
+			print 'bpoint_id' ,bpoint_id_onward
+			print 'bpoint_name' ,bpoint_name_onward
+			bpoint_return=request.POST.get('ReturnBoardingPoint')
+			bpoint_id_return,bpoint_name_return= bpoint_return.split("-")
+			print 'bpoint_id' ,bpoint_id_return
+			print 'bpoint_name' ,bpoint_name_return
+			seat_and_fare_onward=zip(selected_seats_split_onward,selected_seats_fare_split_onward)
+			print 'seat_and_fare_onward',seat_and_fare_onward
+			seat_and_fare_return=zip(selected_seats_split_return,selected_seats_fare_split_return)
+			print 'seat_and_fare_return',seat_and_fare_return
+			seat_details=zip(selected_seats_split_onward,selected_seats_split_return)
+			response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':seat_details,'seat_return':seat_and_fare_return,'count':count_of_seat}, context_instance=RequestContext(request)) 
 		# seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
 		# fare , seat_name=seatdetails.split(",")
-		response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':seat_and_fare,'count':count_of_seat}, context_instance=RequestContext(request)) 
-		response.set_cookie('bpoint',bpoint)
-		#response.set_cookie('seatdetails',seatdetails)
-		response.set_cookie('bpoint_id',bpoint_id)
-		response.set_cookie('bpoint_name',bpoint_name)
-		response.set_cookie('totalfare',totalfare)
-		response.set_cookie('selected_seats',selected_seats)
-		response.set_cookie('total_seats',count_of_seat)
+		# response.set_cookie('bpoint',bpoint)
+		# #response.set_cookie('seatdetails',seatdetails)
+		# response.set_cookie('bpoint_id',bpoint_id)
+		# response.set_cookie('bpoint_name',bpoint_name)
+		# response.set_cookie('totalfare',totalfare)
+		# response.set_cookie('selected_seats',selected_seats)
+		# response.set_cookie('total_seats',count_of_seat)
 		return response
 	except:
 		messages.add_message(request, messages.INFO,'Enter the details correct way')

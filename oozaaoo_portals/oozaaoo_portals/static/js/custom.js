@@ -1117,3 +1117,4 @@ $('#checkout').datepicker({
 
 }
 });
+$('.temp').hide();
