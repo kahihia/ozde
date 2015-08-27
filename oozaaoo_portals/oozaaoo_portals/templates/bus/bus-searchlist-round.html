@@ -63,30 +63,59 @@
             </div> -->
             <h3 class="booking-title">Buses for {{source}} to {{destination}}<small>
             <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
+            <form action="{% url "bus.views.bus_booking" %}" method="POST">{% csrf_token %}
             <div class="row">
                 <div class="col-md-12 temp">
-                    <div class="col-md-6 onward">
-                        <p>{{request.COOKIES.start}}</p>
+                    <div class="col-md-4 onward booking_status">
                         <p class="travels_onward"></p>
+                        <input type="hidden" name="travels_onward" value="" readonly>
                         <p class="bpoint_onward"></p>
+                        <input type="hidden" name="bpoint_onward" value="" readonly>
                         <p class="dept_time_onward"></p>
+                        <input type="hidden" name="dept_time_onward" value="" readonly>
                         <p class="arri_time_onward"></p>
+                        <input type="hidden" name="arri_time_onward" value="" readonly>
                         <p class="bus_type_onward"></p>
+                        <input type="hidden" name="bus_type_onward" value="" readonly>
                         <p class="seats_onward"></p>
+                        <input type="hidden" name="seats_onward" value="" readonly>
                         <p class="fare_onward"></p>
+                        <input type="hidden" name="fare_onward" value="" readonly>
+                        <input type="hidden" name="seatFareOnward" value="" readonly>
+                        <input type="hidden" name="OnwardBoardingPoint" value="" readonly>
+
+
                     </div>
-                    <div class="col-md-6 return">
-                        <p>{{request.COOKIES.end}}</p>
+                    <div class="col-md-4 return booking_status">
                         <p class="travels_return"></p>
+                        <input type="hidden" name="travels_return" value="" readonly>
                         <p class="bpoint_return"></p>
+                        <input type="hidden" name="bpoint_return" value="" readonly>
                         <p class="dept_time_return"></p>
+                        <input type="hidden" name="dept_time_return" value="" readonly>
                         <p class="arri_time_return"></p>
+                        <input type="hidden" name="arri_time_return" value="" readonly>
                         <p class="bus_type_return"></p>
+                        <input type="hidden" name="bus_type_return" value="" readonly>
                         <p class="seats_return"></p>
+                        <input type="hidden" name="seats_return" value="" readonly>
                         <p class="fare_return"></p>
+                        <input type="hidden" name="fare_return" value="" readonly>
+                        <input type="hidden" name="seatFareReturn" value="" readonly>
+                        <input type="hidden" name="ReturnBoardingPoint" value="" readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="0" name="total_amount">
+                        <input type="hidden" name="totalfare" value="">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="0" name="seat_count_round">
+                        <input type="hidden" name="seatcount" value="">
+                        <input type="submit" name="book" value="Book">
                     </div>
                 </div>
             </div>
+            </form>
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-6">
@@ -133,6 +162,7 @@
                                         </div>
                                        
                                     </div>
+                                    <!-- This values for append data to top -->
                                     <input type="hidden" name="travels" value="{{values.businfos.TravelsName}}">
                                     <input type="hidden" name="bpoint" value="{{values.boardingpoints.BPLocation}}">
                                     <input type="hidden" name="dept_time" value="{{values.businfos.DepartureTime}}">
@@ -140,7 +170,7 @@
                                     <input type="hidden" name="bus_type" value="{{values.businfos.BusType}}">
                                     <input type="hidden" name='skey'value="{{values.businfos.skey}}" >
                                      <input type="button" value="Seats" class="slide">
-                                     <input type="hidden" value="onward">
+                                     <input type="hidden" value="onward" name="route_type">
                                      <div class="seat_map">  
                                      </div>
                                      
@@ -199,7 +229,7 @@
                                     <input type="hidden" name="bus_type" value="{{values_return.businfos.BusType}}">
                                     <input type="hidden" name='skey'value="{{values_return.businfos.skey}}" >
                                      <input type="button" value="Seats" class="slide">
-                                     <input type="text" value="return">
+                                     <input type="hidden" value="return">
                                      <div class="seat_map">  
                                      </div>
                             </li> 

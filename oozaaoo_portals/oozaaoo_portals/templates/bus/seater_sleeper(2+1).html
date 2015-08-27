@@ -34,12 +34,14 @@
 </style>
 <div class="panel panel-default seatLayoutHolder">
 	<div class="panel-body">
+	
+	{% if trip == 'oneway'%}
 	<form action="{% url "bus.views.bus_booking" %}" method="POST">{% csrf_token %}
 		<div class="row">
         
-	{% if trip == 'oneway'%}
 	<div class="col-md-7">
 	{%else%}
+	<div class="row">
 	<div class="col-md-12">
 	{%endif%}
 
@@ -108,11 +110,126 @@
 <span class="seattype_list" style="display:none;"></span>
 </div>
 	</div>
-	<input type="submit" value="Book">
+	{% if trip == 'oneway'%}
+    <input type="submit" value="Book">
     </form>
+    {%else%}
+    <input type="button" value="Book" class="onward_book">
+    {%endif%}
 </div>    
 		<script>
 $(document).ready(function(e) {
+$('.onward_book').click(function(){
+	var total=$('input[name=total_amount]').val();
+	alert(total);
+	var travels=$(this).parents('li').find('input[name=travels]').val();
+    var bpoint=$(this).parents('li').find('input[name=bpoint]').val();
+    var dept_time=$(this).parents('li').find('input[name=dept_time]').val();
+    var arri_time=$(this).parents('li').find('input[name=arri_time]').val();
+    var bus_type=$(this).parents('li').find('input[name=bus_type]').val();
+    var route_type=$(this).parents('li').find('input[name=route_type]').val();
+    var selected_seat=$(this).parent().find('input[name=seatNumbersList]').val();
+    var selected_seats_fare=$(this).parent().find('input[name=seatFare]').val();
+    var fare=$(this).parent().find('input[name=totalfare]').val()
+    var seat_count=$(this).parent().find('input[name=seatcount]').val()
+    var selected_boarding_point=$(this).parent().find('#boarding_point_list').val()
+    //alert($(this).parent().html());
+	    if ($('input[name=seat_count_round]').val()== 0){
+	    	if (route_type == 'onward'){
+		    	$('.travels_onward').append(travels);
+		    	$('input[name=travels_onward]').val(travels);
+		    	$('.bpoint_onward').append(bpoint);
+		    	$('input[name=bpoint_onward]').val(bpoint);
+		    	$('.dept_time_onward').append(dept_time);
+		    	$('input[name=dept_time_onward]').val(dept_time);
+		    	$('.arri_time_onward').append(arri_time);
+		    	$('input[name=arri_time_onward]').val(arri_time);
+		    	$('.bus_type_onward').append(bus_type);
+		    	$('input[name=bus_type_onward]').val(bus_type);
+		    	$('.seats_onward').append(selected_seat);
+		    	$('input[name=seats_onward]').val(selected_seat);
+		    	$('.fare_onward').append(fare);
+		    	$('input[name=fare_onward]').val(fare);
+		    	$('input[name=seatFareOnward]').val(selected_seats_fare);
+		    	$('input[name=OnwardBoardingPoint]').val(selected_boarding_point);
+			}
+			else
+			{
+				$('.travels_return').append(travels);
+				$('input[name=travels_return]').val(travels);
+		    	$('.bpoint_return').append(bpoint);
+		    	$('input[name=bpoint_return]').val(bpoint);
+		    	$('.dept_time_return').append(dept_time);
+		    	$('input[name=dept_time_return]').val(dept_time);
+		    	$('.arri_time_return').append(arri_time);
+		    	$('input[name=arri_time_return]').val(arri_time);
+		    	$('.bus_type_return').append(bus_type);
+		    	$('input[name=bus_type_return]').val(bus_type);
+		    	$('.seats_return').append(selected_seat);
+		    	$('input[name=seats_return]').val(selected_seat);
+		    	$('.fare_return').append(fare);
+		    	$('input[name=fare_return]').val(fare);
+		    	$('input[name=seatFareReturn]').val(selected_seats_fare);
+		    	$('input[name=ReturnBoardingPoint]').val(selected_boarding_point);
+			}
+			var total_amount= parseInt(total)+parseInt(fare);
+			alert(total_amount);
+			$('input[name=total_amount]').val(total_amount);
+			$('input[name=seat_count_round]').val(seat_count);    
+		}
+		else if ($('input[name=seat_count_round]').val()== seat_count){
+			if (route_type == 'onward'){
+		    	$('.travels_onward').append(travels);
+		    	$('input[name=travels_onward]').val(travels);
+		    	$('.bpoint_onward').append(bpoint);
+		    	$('input[name=bpoint_onward]').val(bpoint);
+		    	$('.dept_time_onward').append(dept_time);
+		    	$('input[name=dept_time_onward]').val(dept_time);
+		    	$('.arri_time_onward').append(arri_time);
+		    	$('input[name=arri_time_onward]').val(arri_time);
+		    	$('.bus_type_onward').append(bus_type);
+		    	$('input[name=bus_type_onward]').val(bus_type);
+		    	$('.seats_onward').append(selected_seat);
+		    	$('input[name=seats_onward]').val(selected_seat);
+		    	$('.fare_onward').append(fare);
+		    	$('input[name=fare_onward]').val(fare);
+		    	$('input[name=seatFareOnward]').val(selected_seats_fare);
+		    	$('input[name=OnwardBoardingPoint]').val(selected_boarding_point);
+			}
+			else
+			{
+				$('.travels_return').append(travels);
+				$('input[name=travels_return]').val(travels);
+		    	$('.bpoint_return').append(bpoint);
+		    	$('input[name=bpoint_return]').val(bpoint);
+		    	$('.dept_time_return').append(dept_time);
+		    	$('input[name=dept_time_return]').val(dept_time);
+		    	$('.arri_time_return').append(arri_time);
+		    	$('input[name=arri_time_return]').val(arri_time);
+		    	$('.bus_type_return').append(bus_type);
+		    	$('input[name=bus_type_return]').val(bus_type);
+		    	$('.seats_return').append(selected_seat);
+		    	$('input[name=seats_return]').val(selected_seat);
+		    	$('.fare_return').append(fare);
+		    	$('input[name=fare_return]').val(fare);
+		    	$('input[name=seatFareReturn]').val(selected_seats_fare);
+		    	$('input[name=ReturnBoardingPoint]').val(selected_boarding_point);
+			}
+			var total_amount= parseInt(total)+parseInt(fare);
+			alert(total_amount);
+			$('input[name=total_amount]').val(total_amount);
+			$('input[name=seat_count_round]').val(seat_count);    
+
+		}
+		else{
+			alert("You Should Slelect"+$('input[name=seat_count_round]').val()+" seats same");
+		}
+	
+	$('.temp').show();
+});
+
+
+	
 	  var max_no_of_seat;
 function getJson(url) {
     return JSON.parse($.ajax({
@@ -272,7 +389,17 @@ $.each(bus,function(index,v)
 		});
 	});
 	
+	{% if trip == 'oneway' %}
 	max_no_of_seat='6';//total_seats;//v.seatlayout.maxNumberOfSeats;
+	{% else %}
+	var s_count=$('input[name=seat_count_round]').val();
+	if (parseInt(s_count)== 0){
+		max_no_of_seat='6';
+	}
+	else{
+		max_no_of_seat=$('input[name=seat_count_round]').val();
+	}
+	{% endif %}
     var clicked=[],totalfare=[],fare=0,seattypeid_list=[],seattype_list=[];
 	{
 	$(".seats td").click(function(e) {
@@ -398,7 +525,17 @@ $.each(bus,function(index,v)
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
 		else{
+			{% if trip == 'oneway' %}
 			alert("Max. of 6 seats .");	
+			{%else%}
+			if ($('input[name=seat_count_round]').val()==0){
+				alert("Max. of 6 seats .");	
+			}
+			else{
+				alert("You should select "+$('input[name=seat_count_round]').val()+" seats same.");
+
+			}
+			{% endif %}
 		}
 		}
 		$("input[name=seatcount]").val(clicked.length);
