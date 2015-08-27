@@ -208,9 +208,3 @@ PAYU_INFO = {'merchant_key': "gtKFFx",
 #     }
 # }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': '/var/run/redis/redis.sock',
-    },
-}
