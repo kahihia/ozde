@@ -1,0 +1,890 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load i18n %}
+{% block content %}
+<section class="search-section">
+    <div class="container">
+    	<div class="row padding20">
+        	<div class="col-md-2"></div>
+            <div class="col-md-6">
+            	<div class="row">
+                	<div class="col-md-3 marginbottom10">
+                          <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown">
+                                <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
+                                <ul class="dropdown-menu" aria-labelledby="themes">
+                                  <li><a href="#">Flights</a></li>
+                                  <li><a href="#">Cars</a></li>
+                                 </ul>
+                            </li>
+                          </ul>
+                    </div>
+                 	<div class="col-md-7">
+                         <div class="input-group">
+                             <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                        </div>
+               		</div>
+                </div>
+            </div>
+            <div class="col-md-4 top10">
+            	<a href="#" class="paddingleft20"><i class="fa fa-heart"></i> My Lists</a>
+                <a href="#" class="paddingleft20"><i class="ion ion-log-in"></i> Manage Booking</a>
+            </div>
+        </div>
+    </div>
+    </section>
+    
+    <section>
+    	<div class="panel panel-default borderleftright0">
+        	<div class="panel-body">
+            	<div class="container">
+                	<div class="row">
+                    	<div class="col-md-8">
+                        	<div class="row">
+                            	<div class="col-md-2">
+                                	<label class="control-label top10 pull-right">Date</label>
+                                </div>
+                                <div class="col-md-2">
+                                	<input type="text" class="form-control" value="19-08-2015" />
+                                </div>
+                                <div class="col-md-2">
+                                	<input type="text" class="form-control" value="21-08-2015" />
+                                </div>
+                            
+                            	<div class="col-md-2">
+                                	<select class="form-control" name="guest">
+                                    	<option value="1">1 Guest</option>
+                                        <option value="2">2 Guest</option>
+                                        <option value="3">3 Guest</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                	<select class="form-control" name="room">
+                                    	<option value="1">1 Room</option>
+                                        <option value="2">2 Room</option>
+                                        <option value="3">3 Room</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                	<label class="control-label top10 pull-right">Budget</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        	<div class="row">
+                              <div class="col-md-4">
+                                	<select class="form-control" name="min">
+                                    	<option value="Min">Min</option>
+                                        <option value="2500">2500</option>
+                                        <option value="3500">3500</option>
+                                        <option value="4500">4500</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                	<select class="form-control" name="max">
+                                    	<option value="Max">Max</option>
+                                        <option value="5000">5000</option>
+                                        <option value="6000">6000</option>
+                                        <option value="6000+">Above 6000</option>
+                                    </select>
+                                </div>
+                                 <div class="col-md-4">
+                                 	<div class="dropdown">
+                                      <button class="btn btn-grey dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        More Filters
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Filter1</a></li>
+                                        <li><a href="#">Filter2</a></li>
+                                        <li><a href="#">Filter3</a></li>
+                                        <li><a href="#">Filter4</a></li>
+                                      </ul>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>	
+    </section>
+    
+    <section class="search-result-section">
+    	<div class="container">
+        	<div class="row">
+            	<div class="col-md-3 sorting_list">
+					  <div class="panel panel-default top20">
+                            <div class="panel-body">
+                            <div class="well borderradious5 margintop25right5">
+                            	<h5 class="nomargin marginbottom10 bold">Your Search</h5>
+                                <p><i class="fa fa-check"></i> Pondicherry</p>
+                                <p><i class="fa fa-check"></i> 2 adults</p>
+                                <p><i class="fa fa-check"></i> 1 night<br/><span class="left10">(Sept 18 - Sept 19)</span></p>
+                                <button class="btn btn-primary borderradious3">Change Search</button>
+                            </div>
+                            
+                            <a role="button" data-toggle="collapse" href="#collapse-price-range" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="bold">Price (per night) <i class="fa fa-caret-down pull-left"></i></h5>
+                                <div class="clearfix"></div>
+                            </a>
+                            <div id="collapse-price-range" class="panel-collapse collapse in" role="tabpanel">
+                            	<label class="pull-left">Rs. 1,300</label><label class="pull-right">Rs. 32,000</label>
+                                <div class="clearfix"></div>
+                                <input id="price-range" type="text" class="span2" value="" data-slider-min="1300" data-slider-max="32000" data-slider-step="100" data-slider-value="[1300,32000]"/> 
+                                <ul>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> Hotel with deals</label></div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> Free cancellation</label></div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> Pay at hotel</label></div>
+                                    </li>
+                            	</ul>
+                            </div>
+                            <hr />	
+                            <a role="button" data-toggle="collapse" href="#collapse-star-rating" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="bold"> Star rating <i class="fa fa-caret-down pull-left"></i></h5>
+                                <div class="clearfix"></div>
+                            </a>
+                            <div id="collapse-star-rating" class="panel-collapse collapse in" role="tabpanel">
+                            	 <ul>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 5 Stars</label></div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 4 Stars</label></div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 3 Stars</label></div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 2 Stars</label></div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 1 Stars</label></div>
+                                    </li>
+                            	</ul>
+                            </div>
+                            <hr />	
+                            <a role="button" data-toggle="collapse" href="#meals" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Meals</h5>
+                                <div class="clearfix"></div>
+                            </a>
+                            <div id="meals" class="panel-collapse collapse in" role="tabpanel"></div>
+                          
+                           <hr />	
+                            <a role="button" data-toggle="collapse" href="#property_type" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Property Type</h5>
+                                <div class="clearfix"></div>
+                            </a>
+                            <div id="property_type" class="panel-collapse collapse in" role="tabpanel"></div>
+                          
+                           <hr />	
+                           <a role="button" data-toggle="collapse" href="#facility" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Facility</h5>
+                                <div class="clearfix"></div>
+                            </a>
+                            <div id="facility" class="panel-collapse collapse in" role="tabpanel"></div>
+                          
+                           <hr />	
+                          
+                        </div>
+                    </div>
+                </div>
+            	<div class="col-md-9"><br>
+                	<p class="marginbottom10"><strong>Pondicherry :</strong> 63 properties available</p>
+                	<div class="sort-tabs">
+                    	<ul class="nav nav-tabs" role="tablist">
+                            <li><span class="top10">Sort By: </span></li>
+                            <li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab">Price</a></li>
+                            <li role="presentation"><a href="#stars" aria-controls="stars" role="tab" data-toggle="tab">Stars</a></li>
+                            <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab">Recommended</a></li>
+                            <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">Review</a></li>
+                            <li role="presentation"><a href="#budget-deals" aria-controls="budget-deals" role="tab" data-toggle="tab">Budget Deals</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade" id="price">
+                        	<div class="hotel-list-vertical">
+                                 <div class="panel panel-default top10">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+	                             <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                 <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="stars">
+                        	<div class="hotel-list-vertical">
+                                 <div class="panel panel-default top10">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+	                             <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                 <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade in active" id="recommended">
+                        		<div class="hotel-list-vertical">
+                                 <div class="panel panel-default top10">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+	                             <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                 <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                       
+                        <div role="tabpanel" class="tab-pane fade" id="review">
+                        	<div class="hotel-list-vertical">
+                                 <div class="panel panel-default top10">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+	                             <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                 <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="budget-deals">
+                        	<div class="hotel-list-vertical">
+                                 <div class="panel panel-default top10">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+	                             <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                 <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                 	<div class="panel-body">
+                                      <div class="row">
+                                      <div class="col-md-3">
+                                      
+                                        <a href="#"><img alt=""></a>
+                                      </div>
+                                      <div class="col-md-7 nopaddingleft">
+                                              <a href="#">
+                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
+                                              </a>
+                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
+                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+	                                  </div>
+                                      <div class="col-md-2">
+                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <div class="clearfix"></div><br>
+                                         <div class="text-right">
+                                         <button class="btn btn-warning">Reverse</button>
+                                         </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+         </div>
+ {% endblock %}        
+         
