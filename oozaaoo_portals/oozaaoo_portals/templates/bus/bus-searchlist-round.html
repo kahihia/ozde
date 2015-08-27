@@ -64,6 +64,30 @@
             <h3 class="booking-title">Buses for {{source}} to {{destination}}<small>
             <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
             <div class="row">
+                <div class="col-md-12 temp">
+                    <div class="col-md-6 onward">
+                        <p>{{request.COOKIES.start}}</p>
+                        <p class="travels_onward"></p>
+                        <p class="bpoint_onward"></p>
+                        <p class="dept_time_onward"></p>
+                        <p class="arri_time_onward"></p>
+                        <p class="bus_type_onward"></p>
+                        <p class="seats_onward"></p>
+                        <p class="fare_onward"></p>
+                    </div>
+                    <div class="col-md-6 return">
+                        <p>{{request.COOKIES.end}}</p>
+                        <p class="travels_return"></p>
+                        <p class="bpoint_return"></p>
+                        <p class="dept_time_return"></p>
+                        <p class="arri_time_return"></p>
+                        <p class="bus_type_return"></p>
+                        <p class="seats_return"></p>
+                        <p class="fare_return"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <div class="nav-drop booking-sort">
@@ -80,11 +104,15 @@
                             </ul>
                         </div>
                         <!-- Content loop Start  -->
+
+
+
+
                         <ul class="booking-list">
                         <!--form action="{% url "bus.views.search_bus" %}" method="post" name="search_bus" class="bus_search"-->
                             {% for values in reviews %}
                             <li>
-                                <form action="{%url "bus.views.seat_map" %}" method="post">{% csrf_token %}
+                                <!-- <form action="{%url "bus.views.seat_map" %}" method="post">{% csrf_token %} -->
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="booking-item-car-img">
@@ -105,13 +133,21 @@
                                         </div>
                                        
                                     </div>
+                                    <input type="hidden" name="travels" value="{{values.businfos.TravelsName}}">
+                                    <input type="hidden" name="bpoint" value="{{values.boardingpoints.BPLocation}}">
+                                    <input type="hidden" name="dept_time" value="{{values.businfos.DepartureTime}}">
+                                    <input type="hidden" name="arri_time" value="{{values.businfos.ArrivalTime}}">
+                                    <input type="hidden" name="bus_type" value="{{values.businfos.BusType}}">
                                     <input type="hidden" name='skey'value="{{values.businfos.skey}}" >
-                                     <input type="submit" value="Select">
+                                     <input type="button" value="Seats" class="slide">
+                                     <input type="hidden" value="onward">
+                                     <div class="seat_map">  
+                                     </div>
                                      
                                      </form>
                             </li> 
                             {% endfor %}
-                        <!--/form-->                           
+                        <!--form-->                           
                         </ul>
                         <!-- Content loop End  -->
                     </div>
@@ -139,7 +175,7 @@
                                         <div class="col-md-3">
                                             <div class="booking-item-car-img">
                                                 <p class="booking-item-car-title"><h3>{{values_return.businfos.TravelsName}}</h3></p>
-                                                <p>{{values.businfos.BusType}}</p>
+                                                <p>{{values_return.businfos.BusType}}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -155,9 +191,15 @@
                                         </div>
                                        
                                     </div>
+                                    <input type="hidden" name="travels" value="{{values_return.businfos.TravelsName}}">
+                                    <input type="hidden" name="bpoint" value="{{values_return.boardingpoints.BPLocation}}">
+                                    <input type="hidden" name="dept_time" value="{{values_return.businfos.DepartureTime}}">
+                                    <input type="hidden" name="arri_time" value="{{values_return.businfos.ArrivalTime}}">
+                                    <input type="hidden" name="bus_type" value="{{values_return.businfos.BusType}}">
                                     <input type="hidden" name="bus_type" value="{{values_return.businfos.BusType}}">
                                     <input type="hidden" name='skey'value="{{values_return.businfos.skey}}" >
                                      <input type="button" value="Seats" class="slide">
+                                     <input type="text" value="return">
                                      <div class="seat_map">  
                                      </div>
                             </li> 

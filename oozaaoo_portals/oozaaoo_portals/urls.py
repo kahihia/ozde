@@ -35,6 +35,7 @@ urlpatterns = patterns('',
         
     #=============================BUS URL=========================#
     url(r'^searchbus/', 'bus.views.search_bus', name='search_bus'),
+    url(r'^v2/searchbus/', 'bus.views.search_bus_v2', name='search_bus_v2'),
     url(r'^seat/', 'bus.views.seat', name='seat'),
     url(r'^seat_map/', 'bus.views.seat_map', name='seat_map'),
     url(r'^bus_booking/','bus.views.bus_booking', name='bus_booking'),

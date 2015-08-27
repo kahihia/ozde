@@ -6,9 +6,12 @@
 	<div class="panel-body">
 		
         <form action="{% url "bus.views.bus_booking" %}" method="POST">{% csrf_token %}
-        <div class="row">
-	<div class="col-md-7">
-
+        <div class="row">{{skey}}
+        {% if trip == 'oneway'%}
+			<div class="col-md-7 col-sm-12">
+		{%else%}
+			<div class="col-md-12 col-sm-12">
+		{%endif%}
     	<h5 class="bold"><span class="num-circle">1</span> Select your seat</h5>
         <div class="drive"></div>
         <div id="seats_layout" style="margin:20px auto;padding:10px;position:relative;">
@@ -36,9 +39,12 @@
             <div class="help-block pull-left widthauto margin-right20"><i class="seat seat_booked"></i> Booked Seat</div>
             <div class="help-block pull-left widthauto margin-right20"><i class="seat seat_ladies_booked"></i> Booked Ladies Seat</div>
         </div>
-    </div>
-    <div class="col-md-5">
-        
+    </div>{{trip}}
+    {% if trip == 'oneway'%}
+    <div class="col-md-5 col-sm-12">
+    {%else%}
+        <div class="col-md-12 col-sm-12">
+        {%endif%}
         <h5 class="bold"><span class="num-circle">2</span> Choose Boarding Point</h5>
         <form style="width:500px;margin:5px auto 20px auto;" name="seat_blocked" id="seat_blocked" action="">
         <select style="width:300px;" required name="boarding_point_list" id="boarding_point_list">

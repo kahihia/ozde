@@ -157,9 +157,129 @@ def search_bus(request):
 	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
 	#return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
 	if trip=='oneway':	
-		response = render_to_response('bus/bus-searchlist.html', {'reviews':reviews}, context_instance=RequestContext(request))
+		response = render_to_response('bus/bus-searchlist.html', {'reviews':reviews,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,}, context_instance=RequestContext(request))
 	else:
-		response = render_to_response('bus/bus-searchlist-round.html', {'reviews':reviews,'reviews_return':reviews_return}, context_instance=RequestContext(request))
+		response = render_to_response('bus/bus-searchlist-round.html', {'reviews':reviews,'reviews_return':reviews_return,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,}, context_instance=RequestContext(request))
+
+	response.set_cookie( 'source', source)
+	response.set_cookie( 'trip', trip)
+	response.set_cookie( 'destination', destination)
+	response.set_cookie( 'start', departure)
+	response.set_cookie( 'end', arrival)
+	return response
+
+def search_bus_v2(request):
+	"""
+	Search Bus based on Source and Destination
+	"""
+	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	source= request.POST.get('source',request.COOKIES.get('source'))
+	destination=request.POST.get('destination',request.COOKIES.get('destination'))
+	departure=request.POST.get('start',request.COOKIES.get('start'))
+	month,date,year=departure.split('/')
+	dateofdeparture = year+month+date
+	print dateofdeparture
+	arrival=request.POST.get('end',request.COOKIES.get('end'))
+	month,date,year=arrival.split('/')
+	dateofarrival = year+month+date
+	print dateofarrival
+	trip=request.POST.get('trip',request.COOKIES.get('trip'))
+	try:
+		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival,trip)
+		if 'data' in getbusresponse:
+			log_function(query, "success:True")
+		else:
+			log_function(query, "success:False" + str(getbusresponse['Error']))
+		reviews = []
+		try:
+			for bussearchlist in getbusresponse['data']['onwardflights']:	
+				_rbuslist	= {}
+				_rbuslist['businfos'] = {
+					'origin':bussearchlist['origin'],
+					'destination':bussearchlist['destination'],
+					'BusType':bussearchlist['BusType'],
+					'DepartureTime':bussearchlist['DepartureTime'],
+					'duration':bussearchlist['duration'],
+					'skey':bussearchlist['skey'],
+					'fare':bussearchlist['fare']['totalfare'],
+					'TravelsName':bussearchlist['TravelsName'],
+					'ArrivalTime':bussearchlist['ArrivalTime'],
+					'depdate':bussearchlist['depdate'],
+					'arrdate':bussearchlist['arrdate'],
+					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+					'busCondition':bussearchlist.get('busCondition'),
+					'BusType':bussearchlist.get('BusType'),
+				}
+
+				if bussearchlist.get('BPPrims'):
+					for morevalues in bussearchlist['BPPrims']['list']:
+						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+
+					if bussearchlist.get('DPPrims'):
+						for morevalues in bussearchlist['DPPrims']['list']:
+							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+					
+
+					if bussearchlist.get('RouteSeatTypeDetail'):
+						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+					
+					reviews.append(_rbuslist)
+				else:
+					reviews.append(_rbuslist)
+			reviews_return = []
+			for bussearchlist in getbusresponse['data']['returnflights']:	
+				_rbuslist	= {}
+				_rbuslist['businfos'] = {
+					'origin':bussearchlist['origin'],
+					'destination':bussearchlist['destination'],
+					'BusType':bussearchlist['BusType'],
+					'DepartureTime':bussearchlist['DepartureTime'],
+					'duration':bussearchlist['duration'],
+					'skey':bussearchlist['skey'],
+					'fare':bussearchlist['fare']['totalfare'],
+					'TravelsName':bussearchlist['TravelsName'],
+					'ArrivalTime':bussearchlist['ArrivalTime'],
+					'depdate':bussearchlist['depdate'],
+					'arrdate':bussearchlist['arrdate'],
+					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+				}
+
+				if bussearchlist.get('BPPrims'):
+					for morevalues in bussearchlist['BPPrims']['list']:
+						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+
+					if bussearchlist.get('DPPrims'):
+						for morevalues in bussearchlist['DPPrims']['list']:
+							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+					
+
+					if bussearchlist.get('RouteSeatTypeDetail'):
+						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+					
+					reviews_return.append(_rbuslist)
+				else:
+					reviews_return.append(_rbuslist)
+
+		except:
+			messages.add_message(request, messages.INFO,'API not responding for one way trip')
+			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
+	except:
+		messages.add_message(request, messages.INFO,'User Entering data is wrong')
+		return HttpResponseRedirect(format_redirect_url("/", 'error=1'))
+
+	source = unicode(source)
+	destination = unicode(destination)
+	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
+	#return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
+	if trip=='oneway':	
+		#response = render_to_response('bus/bus-searchlist.html', {'reviews':reviews}, context_instance=RequestContext(request))
+		response = HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
+
+	else:
+		#response = render_to_response('bus/bus-searchlist-round.html', {'reviews':reviews,'reviews_return':reviews_return}, context_instance=RequestContext(request))
+		response = HttpResponse(simplejson.dumps(reviews_return), mimetype='application/json')
 
 	response.set_cookie( 'source', source)
 	response.set_cookie( 'trip', trip)
@@ -194,14 +314,15 @@ def seat_map(request):
 def seat(request):
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
 	bus_type=request.POST.get('bus_type',request.COOKIES.get('bus_type'))
-	print bus_type.lower()
+
 	seat_type=bus_type.lower().split()
 	number= seat_type[-1]
 	name= seat_type[:-1]
-	print number
-	print name
+	trip=request.COOKIES.get('trip')
+	print 'trip====',trip
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	query,getbusseat=GO.Busseat(skey)
+
 	if 'data' in getbusseat:
 		log_function(query, "success:True")
 	else:
@@ -212,28 +333,31 @@ def seat(request):
 		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
 			results.append(i)
 	if 'sleeper' in name and 'semi'in name and number=='(2+2)':
-		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'seater' in name and number=='(2+2)':
-		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'airbus' in name and number=='(2+2)':
-		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'semisleeper' in name and number=='(2+2)':
-		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'sleeper' in name and number=='(2+1)':
-		response= render_to_response('bus/sleeper(2+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
+		response= render_to_response('bus/sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'sleeper' in name and number=='(1+1)':
-		response= render_to_response('bus/sleeper(1+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request)) 
-	elif 'seater/sleeper' in name and number=='(2+1)':
-		response= render_to_response('bus/seater_sleeper(2+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request))
+		response= render_to_response('bus/sleeper(1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	elif 'seater/sleeper' in name and number=='(2+1)' or 'seater' in name and'sleeper' in name and number=='(2+1)':
+		response= render_to_response('bus/seater_sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
-		response= render_to_response('bus/seater(1+1+1).html', {'skey':skey,'result':results}, context_instance=RequestContext(request))
+		response= render_to_response('bus/seater(1+1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name and number=='(2+3)':
-		response= render_to_response('bus/seater(2+3).html', {'skey':skey,'result':results}, context_instance=RequestContext(request))
+		response= render_to_response('bus/seater(2+3).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	else:
-		pass
+		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	
 	response.set_cookie('skey',skey)
 	response.set_cookie('bus_type',bus_type)
 	return response
+
+
 def cancelpolicy(request):
 	"""
 	CancelPolicy for the Particular Bus
@@ -252,6 +376,8 @@ def cancelpolicy(request):
 
 	# return HttpResponse(simplejson.dumps(policy), mimetype='application/json')
 	return render_to_response('bus/bus-cancelpolicy.html', {'policy':policy}, context_instance=RequestContext(request)) 
+
+
 @login_required(login_url='/register/')
 def bus_booking(request):	
 	try:

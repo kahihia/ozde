@@ -7,7 +7,11 @@
         
         <form action="{% url "bus.views.bus_booking" %}" method="POST">{% csrf_token %}
         <div class="row">
-    <div class="col-md-7">
+    {% if trip == 'oneway'%}
+	<div class="col-md-7">
+	{%else%}
+	<div class="col-md-12">
+	{%endif%}
 
         <h5 class="bold"><span class="num-circle">1</span> Select your seat</h5>
         <div class="drive"></div>
@@ -37,8 +41,12 @@
             <div class="help-block pull-left widthauto margin-right20"><i class="seat seat_ladies_booked"></i> Booked Ladies Seat</div>
         </div>
     </div>
-    <div class="col-md-5">
-        
+    {% if trip == 'oneway'%}
+	<div class="col-md-5">
+	{%else%}
+	<div class="col-md-12">
+	{%endif%}
+
         <h5 class="bold"><span class="num-circle">2</span> Choose Boarding Point</h5>
        
         <select style="width:300px;" required name="boarding_point_list" id="boarding_point_list">

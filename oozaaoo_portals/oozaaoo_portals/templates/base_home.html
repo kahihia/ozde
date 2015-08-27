@@ -491,10 +491,12 @@
             </form> 
         </div> -->
         <div id="tab4">
+        <form action="{% url "bus.views.search_bus_v2" %}" method="post" name="bus_search" class="bus_search" id="myform">
+                                            {% csrf_token %}
             <div class="row">
                 <div class="col-md-12">
-                    <label class="control-label"><input type="radio" value="One Way" checked name="bus" /> One Way</label>
-                    <label class="control-label"><input type="radio" value="Round Trip" name="bus" /> Round Trip</label>
+                    <label class="control-label"><input type="radio" value="oneway" checked name="trip" /> One Way</label>
+                    <label class="control-label"><input type="radio" value="round" name="trip" /> Round Trip</label>
                     <label class="control-label"><input type="checkbox" value="Bus Hotel" name="bus" /> Bus + Hotel</label>
                 </div>
             </div>
@@ -521,21 +523,21 @@
             <div class="w50percent">
                 <div class="wh90percent textleft">
                     <span class="opensans size13"><b>Departure</b></span>
-                    <input type="text" class="form-control mySelectCalendar2" id="datepicker3" placeholder="mm/dd/yyyy"/>
+                    <input type="text" class="form-control mySelectCalendar2" id="datepicker3" placeholder="mm/dd/yyyy" name="start" />
                 </div>
             </div>
 
-            <div class="w50percentlast">
-                <div class="wh90percent textleft right">
+            <div class="w50percentlast return_date">
+                <div class="wh90percent textleft right ">
                     <span class="opensans size13"><b>Return</b></span>
-                    <input type="text" class="form-control mySelectCalendar2" id="datepicker4" placeholder="mm/dd/yyyy"/>
+                    <input type="text" class="form-control mySelectCalendar2" id="datepicker4" placeholder="mm/dd/yyyy" name="end" />
                 </div>
             </div>
             
             <div class="clearfix"></div>
             
             
-            <form action="#">
+
                 <button type="submit" class="btn-search2">Search</button>   
             </form> 
         </div>

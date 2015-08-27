@@ -4,11 +4,14 @@
 <script src="{% static "js/jquery.js" %}"></script> -->
 <div class="panel panel-default seatLayoutHolder">
 	<div class="panel-body">
-		
-        <form action="{% url "bus.views.bus_booking" %}" method="POST">{% csrf_token %}
-        <div class="row">
-	<div class="col-md-7">
-
+		{% if trip == 'oneway'%}
+        	<form action="{% url "bus.views.bus_booking" %}" method="POST">{% csrf_token %}
+        		<div class="row">
+					<div class="col-md-7">
+		{%else%}
+			<div class="row">
+				<div class="col-md-12">
+		{%endif%}
     	<h5 class="bold"><span class="num-circle">1</span> Select your seat</h5>
         <div class="drive"></div>
         <div id="seats_layout" style="margin:20px auto;padding:10px;position:relative;">
@@ -37,8 +40,11 @@
             <div class="help-block pull-left widthauto margin-right20"><i class="seat seat_ladies_booked"></i> Booked Ladies Seat</div>
         </div>
     </div>
+    {% if trip == 'oneway'%}
     <div class="col-md-5">
-        
+        {%else%}
+        <div class="col-md-12">
+        {%endif%}
         <h5 class="bold"><span class="num-circle">2</span> Choose Boarding Point</h5>
        
         <select style="width:300px;" required name="boarding_point_list" id="boarding_point_list">
@@ -60,12 +66,23 @@
 <input type="hidden" name="seatcount" value="">
 </div>
 	</div>
+    
+    {% if trip == 'oneway'%}
     <input type="submit" value="Book">
     </form>
+    {%else%}
+    <input type="button" value="Book" class="onward_book">
+    {%endif%}
 </div>    
 		<script>
 $(document).ready(function(e) {
-	  var max_no_of_seat;
+$('.onward_book').click(function(){
+    var par=$(this).parents('li');
+    alert(('.travels',par).html());
+});
+
+
+var max_no_of_seat;
 function getJson(url) {
     return JSON.parse($.ajax({
                  type: 'GET',
