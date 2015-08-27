@@ -12,10 +12,10 @@
             <ul class='tabs'>
                 <li class="b1" onclick='mySelectUpdate(); changeAnimation1();'><a href='#tab1'><div class="anihome"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Home</div></a></li>
                 <li class="b2" onclick='mySelectUpdate(); changeAnimation2();'><a href='#tab2'><div class="anihotels"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Hotels</div></a></li>
-                <!-- <li class="b3" onclick='mySelectUpdate(); changeAnimation3();'><a href='#tab3'><div class="aniflights"><img src="{{ STATIC_URL }}images/spacer.png" alt=""/>Flights</div></a></li> -->
+                <!-- <li class="b3" onclick='mySelectUpdate(); changeAnimation3();'><a href='#tab3'><div class="aniflights"><img src="{{ STATIC_URL }}img/spacer.png" alt=""/>Flights</div></a></li> -->
                 <li class="b4" onclick='mySelectUpdate(); changeAnimation4();'><a href='#tab4'><div class="anibuses"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Buses</div></a></li>
-               <!--  <li class="b5" onclick='mySelectUpdate(); changeAnimation5();'><a href='#tab5'><div class="anicars"><img src="{{ STATIC_URL }}images/spacer.png" alt=""/>Cars</div></a></li>
-                <li class="b6" onclick='mySelectUpdate(); changeAnimation3();'><a href='#tab6'><div class="anicruises"><img src="{{ STATIC_URL }}images/spacer.png" alt=""/>Cruises</div></a></li> -->
+               <!--  <li class="b5" onclick='mySelectUpdate(); changeAnimation5();'><a href='#tab5'><div class="anicars"><img src="{{ STATIC_URL }}img/spacer.png" alt=""/>Cars</div></a></li>
+                <li class="b6" onclick='mySelectUpdate(); changeAnimation3();'><a href='#tab6'><div class="anicruises"><img src="{{ STATIC_URL }}img/spacer.png" alt=""/>Cruises</div></a></li> -->
             </ul>
         </div>
         
@@ -36,10 +36,10 @@
         <img class="car" src="{{ STATIC_URL }}v2/img/girl.png" alt="" />
         <img class="girl-cruise" src="{{ STATIC_URL }}v2/img/girl.png" alt="" />
         <div class="palmbgcontainer"></div>
-        <img class="dubai" src="{{ STATIC_URL }}v2/img/girl.jpg" alt="" />
-        <img class="plane" src="{{ STATIC_URL }}v2/img/girl.jpg" alt="" />
-        <img class="road" src="{{ STATIC_URL }}v2/img/girl.jpg" alt="" />
-        <img class="cruise" src="{{ STATIC_URL }}v2/img/girl.jpg" alt="" />
+        <img class="dubai" src="{{ STATIC_URL }}v2/img/girl.png" alt="" />
+        <img class="plane" src="{{ STATIC_URL }}v2/img/girl.png" alt="" />
+        <img class="road" src="{{ STATIC_URL }}v2/img/girl.png" alt="" />
+        <img class="cruise" src="{{ STATIC_URL }}v2/img/girl.png" alt="" />
 
         <div id="tab1">
         
@@ -65,11 +65,10 @@
                 <div class="wh90percent textleft">
                 <div class="input-daterange" data-date-format="M d, D">
                 <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                    <label>Check-in</label>
-                    <input class="form-control" name="start" type="text"placeholder="yyyy/mm/dd" />
+                    <span class="opensans size13"><b>Check in date</b></span>
+                    <input type="text" name="start" class="form-control mySelectCalendar2" id="datepicker7" placeholder="mm/dd/yyyy"/>
                 </div>
-                    <!-- <span class="opensans size13"><b>Check in date</b></span>
-                    <input type="text" name="start" class="form-control mySelectCalendar2" id="datepicker7" placeholder="mm/dd/yyyy"/> -->
+                   
                     
                     <div class="error_mgs" style="display:none; color:red;">Enter the Check in date</div>
                 </div>
@@ -80,11 +79,10 @@
                 <div class="wh90percent textleft right">
                 <div class="input-daterange" data-date-format="M d, D">
                 <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                <label>Check-out</label>
-                <input class="form-control" name="end" type="text" placeholder="yyyy/mm/dd" />
-                                                        </div>
-                    <!-- <span class="opensans size13"><b>Check out date</b></span>
-                    <input type="text" name="end" class="form-control mySelectCalendar2" id="datepicker8" placeholder="mm/dd/yyyy"/> -->
+                	<span class="opensans size13"><b>Check out date</b></span>
+                    <input type="text" name="end" class="form-control mySelectCalendar2" id="datepicker8" placeholder="mm/dd/yyyy"/>
+                </div>
+                    
                     <div class="error_mgs" style="display:none; color:red;">Enter the Check out date</div>
                 </div>
                 </div>
