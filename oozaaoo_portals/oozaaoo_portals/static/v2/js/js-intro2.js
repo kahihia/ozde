@@ -181,25 +181,17 @@ $(function(){
 "use strict";
 	//PRELOAD IMAGES
 	var images = [
-		'../images/palmbg.jpg',
-		'../images/parisbg.jpg',
-		'../images/couple.png',
-		'../images/green-leaf.png',
-		'../images/logo-intro.png',
-		'../images/icon-facebook.png',
-		'../images/icon-twitter.png',
-		'../images/icon-gplus.png',
-		'../images/icon-youtube.png',
-		'../images/select.png',
-		'../images/girl.png',
-		'../images/girl2.png',
-		'../images/dubai.jpg',
-		'../images/plane.jpg',
-		'../images/girl-car.png',		
-		'../images/road.jpg',		
-		'../images/car.png',		
-		'../images/girl-cruise.png',		
-		'../images/cruise.jpg'
+		'../static/v2/img/palmbg.jpg',
+		'../static/v2/img/parisbg.jpg',
+		'../static/v2/img/couple.png',
+
+		'../static/v2/img/logo-intro.png',
+		'../static/v2/img/icon-facebook.png',
+		'../static/v2/img/icon-twitter.png',
+		'../static/v2/img/icon-gplus.png',
+		'../static/v2/img/icon-youtube.png',
+		'../static/v2/img/select.png',
+		'../static/v2/img/girl.png',
 	];
 
 	$.preload(images, 1, function(last){
