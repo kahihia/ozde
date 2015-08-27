@@ -2,6 +2,8 @@
 .none {
     display: none
 }
+.textleft p { font-size:14px !important; color:#000 !important; }
+.textleft h2 { font-size:20px !important; color:#F5784E !important; }
 .block,
 .line1 {
     display: block
