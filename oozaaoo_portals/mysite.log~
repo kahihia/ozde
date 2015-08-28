@@ -1,0 +1,59 @@
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 08:50:29.170830
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): pp.goibibobusiness.com
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): pp.goibibobusiness.com
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 08:51:20.936286
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 08:52:07.413773
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 08:52:14.886808
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 08:52:18.418463
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+WARNING:py.warnings:/home/gssd-4/travelportal/venv/local/lib/python2.7/site-packages/django/http/response.py:327: DeprecationWarning: Using mimetype keyword argument is deprecated, use content_type instead
+  super(HttpResponse, self).__init__(*args, **kwargs)
+
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): pp.goibibobusiness.com
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): pp.goibibobusiness.com
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 08:52:31.987935
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 08:53:20.030395
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): pp.goibibobusiness.com
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): pp.goibibobusiness.com
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 09:03:13.542424
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 10:43:34.774670
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************
+INFO:root:******************************************************************************************************
+INFO:root:2015-08-28 10:45:25.412375
+INFO:root:Homepage
+INFO:root:Homepage
+INFO:root:******************************************************************************************************

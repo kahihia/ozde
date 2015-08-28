@@ -1,0 +1,225 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+<div class="bg-lightgrey bus-payment">
+    <div class="bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 marginbottom10">
+                    <h2 class="bold">Hotel Booking<br/><span class="logo-span-txt">Made easy!</span></h2>         
+                </div>
+                <div class="col-md-4 pull-right">
+                    <h4 class="size17 padding20">Need Help? <strong class="marginleft10"> Call us:</strong> (0452) 394 12345 </h4>
+                </div>
+            </div>
+        </div>
+    </div>    
+ <header class="navbar bg-lightgrey1">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="bs-navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">Easy Cancel/Refund new</a>
+        </li>
+      </ul>
+     </nav>
+  </div>
+</header>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="light-purple text-center">Make your booking in 3 simple steps! </h2>
+            </div>
+        </div>
+        <div class="padding10"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <h2 class="panel-title"> 1. Trip Details</h2>
+                    </div>
+                    <div class="panel-body">
+                        <h4 class="size18"><strong>Villa Shanti</strong> <span class="text-muted">(2 nights)</span>
+                        <span class="text-muted pull-right size17 underline">Cancellation policy</span>
+                        <div class="clearfix"></div>
+                        </h4>
+                        <h5 class="size17"><i class="fa fa-map-marker"></i> 14, Suffren Street, 605001 Pondicherry, India. <a href="#">Show map</a></h5>
+                        <div class="padding10"></div>
+                        <div class="padding10 well-yellow">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="nomargin"> Check-in: <strong>29-08-2015</strong></p>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="nomargin"> Check-out: <strong>31-08-2015</strong></p>
+                            </div>
+                             <div class="col-md-3">
+                                <p class="nomargin"> Guests: <strong>2 Adults 1 Children</strong></p>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="nomargin"> Rooms: <strong>1 </strong><button class="btn btn-link pull-right nopadding"><i class="mdi mdi-pencil"></i></button></p>
+                            </div>
+                        </div>
+                        </div>
+                        <h5>Selected room</h5>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="rooms-list">
+                                <div class="row nomargin">
+                                    <div class="col-md-9 nomargin nopadding">
+                                        <div class="panel panel-default min-height120">
+                                            <div class="panel-body">
+                                                <div class="room-img">
+                                                    <img src="images/deluxe-double.jpg" alt="deluxe double" />
+                                                </div>
+                                                <div class="room-details">
+                                                    <h4 class="nomargin"><a href="#">Deluxe Double Room <span class="text-muted size12 red bold">1 Rooms left</span></a></h4>
+                                                    <p class="room-price"><i class="fa fa-rupee"></i> 3500 per room per night</p>
+                                                    <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
+                                                </div>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                    <div class="col-md-2 nomargin nopadding">     
+                                        <div class="panel panel-default pull-left min-height120">
+                                            <div class="panel-body nopadding margintop15">
+                                                <div class="room-price-bg">
+                                                        <h3 class="nomargin"><i class="fa fa-rupee"></i> 7500*</h3>
+                                                        <span class="size12">Prices for 2 nights</span>                                                        <button class="btn btn-primary padding515 margintop5">Change</button>
+                                     
+                                                </div>
+                                             </div>
+                                        </div> 
+                                    </div>         
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hotel-facilities">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="checkbox" class="pull-left" />
+                                    <p class="pull-left marginleft10 size17"><strong>Breakfast</strong><br/>Yes, we'd like breakfast during our stay at no additional cost.</p>
+                                    <div class="clearfix"></div>
+                                    <input type="checkbox" class="pull-left" />
+                                    <p class="pull-left marginleft10 size17"><strong>Car rental</strong><br/>Interested in renting a car for your trip?</p>
+                                </div>
+                            </div>
+                        </div>
+                       <div class="row">
+                        <div class="col-md-9">
+                            <div class="well">
+                                <i class="fa fa-smile-o size30 pull-left padding10"></i>
+                                <p class="size17 nomargin bold">Your stay includes: <br/><span class="size14">Breakfast, Air conditioning, Flat-screen TV, City view, Outdoor Pool, Free WiFi</span></p>
+                            </div>
+                        </div>
+                      </div>  
+                        <section class="special-request">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form>
+                                        <p class="size17"><i class="fa fa-clock-o"></i> Your estimated time of arrival (optional)</p>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <select class="form-control">
+                                                    <option>I don't know</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="padding10"></div>
+                                        <p class="size17"><i class="fa fa-clock-o"></i> Special Requests (not guarented)</p>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <textarea class="form-control" rows="5" placeholder="Example: Need early check in options"></textarea>
+                                            </div>
+                                         </div>    
+                                            
+                                    </form>
+                                </div>
+                            </div>        
+                        </section>
+                        <hr/>
+                    
+                        <div class="row">
+                        <div class="col-md-1 pull-right"></div>
+                            <div class="col-md-4 pull-right">
+                                <p>Price 2x night: <span class="pull-right"><i class="fa fa-rupee"></i> 7000</span></p>
+                                <p>TAX (8.40 %): <span class="pull-right"><i class="fa fa-rupee"></i> 850</span></p>
+                                <p>Service charge (2%): <span class="pull-right"><i class="fa fa-rupee"></i> 300</span></p>
+                                <hr/>
+                          </div>   
+                        </div>
+                        <div class="row">
+                      
+                            <div class="col-md-5 pull-right">
+                                <p class="size17"> <strong>To be paid:</strong> <span class="light-purple size30 text-right pull-right bottom15"><i class="fa fa-rupee"></i> 8150.00 <span class="size14 text-muted">(2 nights)</span></span></p>
+                         </div>   
+                        </div>
+                    </div>
+                </div>
+                <div class="padding10"></div>
+                
+                <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"> 2. Guest details</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Log in to speed up your booking</h5>
+                                <form class="form-horizontal">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email<span class="red">*</span></label>
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Password<span class="red">*</span></label>
+                                            <input type="password" class="form-control" />
+                                        </div>
+                                    </div><br>
+                                     <div class="row">
+                                        <div class="col-md-4">
+                                            <button class="btn btn-primary">Login</button>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h5 class="text-right">Not Registered? <a href="#"> Create New Account</a></h5>
+                                        </div>
+                                     </div>   
+                                  <div class="padding10"></div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                            
+                            </div>
+                        </div>        
+                    </div>
+                </div> 
+                <div class="panel panel-lightpurple opacitydot5">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"> 3. Payment</h4>
+                    </div>
+                </div>    
+            </div>
+            <div class="col-md-1"></div>
+            
+        </div>
+    </div>
+</div><!-- bg-lightgrey bus-payment -->
+ {% endblock %}        
+         

@@ -54,6 +54,8 @@ def log_function(query, response,payload='Nil'):
 	logging.info(response)
 	logging.info("******************************************************************************************************")
 
+def search_bus_v2(request):
+	return render_to_response("v2/bus/buslist_v2.html", context_instance=RequestContext(request))
 
 def search_bus(request):
 	"""
@@ -168,125 +170,7 @@ def search_bus(request):
 	response.set_cookie( 'end', arrival)
 	return response
 
-def search_bus_v2(request):
-	"""
-	Search Bus based on Source and Destination
-	"""
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	source= request.POST.get('source',request.COOKIES.get('source'))
-	destination=request.POST.get('destination',request.COOKIES.get('destination'))
-	departure=request.POST.get('start',request.COOKIES.get('start'))
-	month,date,year=departure.split('/')
-	dateofdeparture = year+month+date
-	print dateofdeparture
-	arrival=request.POST.get('end',request.COOKIES.get('end'))
-	month,date,year=arrival.split('/')
-	dateofarrival = year+month+date
-	print dateofarrival
-	trip=request.POST.get('trip',request.COOKIES.get('trip'))
-	try:
-		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival,trip)
-		if 'data' in getbusresponse:
-			log_function(query, "success:True")
-		else:
-			log_function(query, "success:False" + str(getbusresponse['Error']))
-		reviews = []
-		try:
-			for bussearchlist in getbusresponse['data']['onwardflights']:	
-				_rbuslist	= {}
-				_rbuslist['businfos'] = {
-					'origin':bussearchlist['origin'],
-					'destination':bussearchlist['destination'],
-					'BusType':bussearchlist['BusType'],
-					'DepartureTime':bussearchlist['DepartureTime'],
-					'duration':bussearchlist['duration'],
-					'skey':bussearchlist['skey'],
-					'fare':bussearchlist['fare']['totalfare'],
-					'TravelsName':bussearchlist['TravelsName'],
-					'ArrivalTime':bussearchlist['ArrivalTime'],
-					'depdate':bussearchlist['depdate'],
-					'arrdate':bussearchlist['arrdate'],
-					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
-					'busCondition':bussearchlist.get('busCondition'),
-					'BusType':bussearchlist.get('BusType'),
-				}
 
-				if bussearchlist.get('BPPrims'):
-					for morevalues in bussearchlist['BPPrims']['list']:
-						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
-
-					if bussearchlist.get('DPPrims'):
-						for morevalues in bussearchlist['DPPrims']['list']:
-							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
-					
-
-					if bussearchlist.get('RouteSeatTypeDetail'):
-						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
-							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
-					
-					reviews.append(_rbuslist)
-				else:
-					reviews.append(_rbuslist)
-			reviews_return = []
-			for bussearchlist in getbusresponse['data']['returnflights']:	
-				_rbuslist	= {}
-				_rbuslist['businfos'] = {
-					'origin':bussearchlist['origin'],
-					'destination':bussearchlist['destination'],
-					'BusType':bussearchlist['BusType'],
-					'DepartureTime':bussearchlist['DepartureTime'],
-					'duration':bussearchlist['duration'],
-					'skey':bussearchlist['skey'],
-					'fare':bussearchlist['fare']['totalfare'],
-					'TravelsName':bussearchlist['TravelsName'],
-					'ArrivalTime':bussearchlist['ArrivalTime'],
-					'depdate':bussearchlist['depdate'],
-					'arrdate':bussearchlist['arrdate'],
-					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
-				}
-
-				if bussearchlist.get('BPPrims'):
-					for morevalues in bussearchlist['BPPrims']['list']:
-						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
-
-					if bussearchlist.get('DPPrims'):
-						for morevalues in bussearchlist['DPPrims']['list']:
-							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
-					
-
-					if bussearchlist.get('RouteSeatTypeDetail'):
-						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
-							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
-					
-					reviews_return.append(_rbuslist)
-				else:
-					reviews_return.append(_rbuslist)
-
-		except:
-			messages.add_message(request, messages.INFO,'API not responding for one way trip')
-			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
-	except:
-		messages.add_message(request, messages.INFO,'User Entering data is wrong')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=1'))
-
-	source = unicode(source)
-	destination = unicode(destination)
-	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
-	#return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
-	if trip=='oneway':	
-		#response = render_to_response('bus/bus-searchlist.html', {'reviews':reviews}, context_instance=RequestContext(request))
-		response = HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
-
-	else:
-		#response = render_to_response('bus/bus-searchlist-round.html', {'reviews':reviews,'reviews_return':reviews_return}, context_instance=RequestContext(request))
-		response = HttpResponse(simplejson.dumps(reviews_return), mimetype='application/json')
-
-	response.set_cookie( 'source', source)
-	response.set_cookie( 'trip', trip)
-	response.set_cookie( 'destination', destination)
-	response.set_cookie( 'start', departure)
-	response.set_cookie( 'end', arrival)
-	return response
 
 @csrf_exempt	
 def seat_map(request):
@@ -447,6 +331,8 @@ def bus_booking(request):
 		else:
 			return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
 
+def tentativebooking_v2(request):
+	return render_to_response("v2/bus/buspayment_v2.html", context_instance=RequestContext(request))
 
 def tentativebooking(request):
 	import requests
