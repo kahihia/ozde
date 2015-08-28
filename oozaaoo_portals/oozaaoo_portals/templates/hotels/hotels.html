@@ -153,6 +153,8 @@
                              <p>
                                 <label for="amount">Price range:</label>
                                 <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;background:none;" />
+                                <input type="text" id="amount_min" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="500" name="amount_min" />
+                                <input type="text" id="amount_max" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="10000" name="amount_max" />
                             </p>
 
                             <div id="slider-range" style="width:220px"></div>
@@ -160,167 +162,83 @@
                             </li>
                             <li>
                                 <h5 class="booking-filters-title">Star Rating</h5>
-                                <div class="checkbox">
+                                <div class=" star">
                                     <label>
-                                        <input class="i-check" type="checkbox" />5 star (220)</label>
+                                        <input type="checkbox" value="5" name="star[]" />5 star</label>
+                                        
                                 </div>
-                                <div class="checkbox">
+                                <div class=" star">
                                     <label>
-                                        <input class="i-check" type="checkbox" />4 star (112)</label>
+                                        <input type="checkbox" value="4" name="star[]"/>4 star</label>
+                                        
                                 </div>
-                                <div class="checkbox">
+                                <div class=" star">
                                     <label>
-                                        <input class="i-check" type="checkbox" />3 star (75)</label>
+                                        <input  type="checkbox" value="3" name="star[]"/>3 star</label>
+                                        
                                 </div>
-                                <div class="checkbox">
+                                <div class=" star">
                                     <label>
-                                        <input class="i-check" type="checkbox" />2 star (60)</label>
+                                        <input  type="checkbox" value="2" name="star[]"/>2 star</label>
+                                        
                                 </div>
-                                <div class="checkbox">
+                                <div class=" star">
                                     <label>
-                                        <input class="i-check" type="checkbox" />1 star (20)</label>
-                                </div>
-                            </li>
-                            <li>
-                                <h5 class="booking-filters-title">Facility</h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Wi-Fi (55)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Parking (264)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Airport Shuttle (137)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Fitness Center (15)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Non-Smoking Rooms (20)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Indoor Pool (20)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Spa (20)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Family Rooms (20)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Pet Friendly (20)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Restaurant (20)</label>
+                                        <input  type="checkbox" value="1" name="star[]" />1 star</label>
+                                        
                                 </div>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <h5 class="booking-filters-title">Room Facility</h5>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Air conditioning (55)</label>
+                                        <input class="i-check" type="checkbox" value="Front Desk" name="room[]" />Front Desk</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Bathtub (264)</label>
+                                        <input class="i-check" type="checkbox" value="Room Service" name="room[]"/>Room Service</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Flat-screen TV (137)</label>
+                                        <input class="i-check" type="checkbox" value="Laundry Service" name="room[]"/>Laundry Service</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Kitchen/kitchenette (15)</label>
+                                        <input class="i-check" type="checkbox" value="Restaurant/Coffee Shop" name="room[]"/>Restaurant/Coffee Shop</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Patio (20)</label>
+                                        <input class="i-check" type="checkbox" value="Business Services" name="room[]"/>Business Services</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Soundproof (20)</label>
+                                        <input class="i-check" type="checkbox" value="Health-Spa" name="room[]"/>Health-Spa</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Spa tub (20)</label>
+                                        <input class="i-check" type="checkbox" value="Swimming Pool" name="room[]"/>Swimming Pool</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Terrace (20)</label>
+                                        <input class="i-check" type="checkbox" value="Parking Facility" name="room[]"/>Parking Facility</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />View (20)</label>
+                                        <input class="i-check" type="checkbox" value="Internet" name="room[]"/>Internet</label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Washing machine (20)</label>
+                                        <input class="i-check" type="checkbox" value="Travel Assistance" name="room[]"/>Travel Assistance</label>
                                 </div>
-                            </li>
+                            </li> -->
                             <li>
-                                <h5 class="booking-filters-title">Hotel Theme</h5>
-                                <div class="checkbox">
+                            <h5 class="booking-filters-title">Location</h5>
+                            {%for locations in location%}
+                                <div class="location">
                                     <label>
-                                        <input class="i-check" type="checkbox" />Romance / Honeymoon (225)</label>
+                                        <input value="{{locations}}" type="checkbox" name="location[]" />{{locations}}</label>
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Spa / Relaxation (178)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Family (70)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Budget / Backpacker (15)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />City Trip (53)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Luxury (134)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Design (80)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Shopping (93)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Countryside (4)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Gourmet (15)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Castle (1)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Golf / Sports (37)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Business (210)</label>
-                                </div>
+                            {%endfor%}
                             </li>
                         </ul>
                     </aside>
@@ -337,9 +255,12 @@
                         </ul>
                     </div>
                     <ul class="booking-list">
+
                           {%for hotel in hotels %}                                               
                         <li>
+                        {{hotel}}
                         {% if hotel.ibp %}
+
                         <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails" %}" method="POST" id="hoteldetails">
                             {% csrf_token %}
                             <a class="booking-item" href="#">

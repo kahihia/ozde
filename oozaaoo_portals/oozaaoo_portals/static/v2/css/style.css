@@ -609,11 +609,11 @@
 {
   margin-left:20px; 
 }
-.bg-lightgrey header
+.bg-lightgrey
 {
   background: #fff; 
 }
-.bg-lightgrey header h2
+.bg-lightgrey h2
 {
   margin-bottom:30px;
 }
@@ -741,4 +741,60 @@ footer{
  
     -ms-touch-action: none;
     touch-action: none;
+}
+
+textarea.form-control
+{
+  height:auto !important; 
+}
+.bottom15
+{
+  position:relative;
+  bottom:15px;  
+}
+.opacitydot5
+{
+  opacity:0.5;  
+}
+.bus-payment .nav>li>a
+{
+  border:none !important;
+  padding:15px 15px !important; 
+  background-color:transparent !important;  
+}
+.bus-payment .bg-lightgrey1
+{
+  background:#d8d8d8; 
+}
+.bus-payment .nav>li>a:hover
+{
+  background:#B3B3B3 !important;  
+}
+.size17
+{
+  font-size:17px !important;  
+}
+.size20
+{
+  font-size:20px !important;  
+}
+.size18
+{
+  font-size:18px !important;  
+}
+.size21
+{
+  font-size:21px !important;  
+}
+.size22
+{
+  font-size:22px !important;  
+}
+.size14
+{
+  font-size:14px !important;  
+}
+.underline
+{
+  text-decoration:underline;  
 }
