@@ -1,0 +1,1906 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static "v2/css/ionicons.min.css" %}">
+<link rel="stylesheet" href="{% static "v2/css/materialdesignicons.css" %}">
+
+
+<header class="bg-lightgrey">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="bold">Bus Booking<br/><span class="logo-span-txt">Made easy!</span></h2>
+                
+            </div>
+        </div>
+    </div>
+</header>
+<section class="middle-bar">
+    <div class="container">
+        <p>Bangalore to Chennai, Depart: Thu Aug 27 2015 - Return: Fri Aug 28 2015 (Round Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
+    </div>
+</section>
+<section class="sorting-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-bus"></i> Travels <span class="mdi mdi-chevron-down pull-right"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="#">KPN Travels</a></li>
+                  <li><a href="#">Universal Travels</a></li>
+                 </ul>
+
+            </div>
+            <div class="col-md-2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-window-open"></i> Bus type <span class="mdi mdi-chevron-down pull-right"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="#">2+1 Seater</a></li>
+                  <li><a href="#">2+1 Sleeper</a></li>
+                 </ul>
+
+            </div>
+            <div class="col-md-2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-image-filter-vintage"></i> Amenities<span class="mdi mdi-chevron-down pull-right"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="#">Water Battle</a></li>
+                  <li><a href="#">Snacks</a></li>
+                 </ul>
+
+            </div>
+            <div class="col-md-2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-map-marker"></i> Boarding<span class="mdi mdi-chevron-down pull-right"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="#">Pondicherry Bustand</a></li>
+                  <li><a href="#">Indira Ghandhi Statue</a></li>
+                 </ul>
+
+            </div>
+            <div class="col-md-2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-map-marker"></i> Dropping<span class="mdi mdi-chevron-down pull-right"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="#">Bangalore Bustand</a></li>
+                  <li><a href="#">Mahatma Ghandhi Road</a></li>
+                 </ul>
+
+            </div>
+            <div class="col-md-2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-star"></i> Rating<span class="mdi mdi-chevron-down pull-right"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="#">5 Star</a></li>
+                  <li><a href="#">4 Star</a></li>
+                  <li><a href="#">3 Star</a></li>
+                  <li><a href="#">2 Star</a></li>
+                  <li><a href="#">1 Star</a></li>
+                 </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bus-result-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+            <p class="nomargin padding10">Chennai to Bangalore (Going)</p>
+                <div class="row">
+                        <div class="col-md-12">
+                            
+                                <div class="panel panel-default nomargin">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <h3 class="nomargin">05:30</h3>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h3 class="nomargin marginleft10">11:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <p class="light-purple">Hebron Transports <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                        <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 650</h2>
+                                                <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout1" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                                <p class="text-right green margintop5">20 Seats left</p>
+                                            </div>
+                                        </div>   
+                                            
+                                    </div>
+                                </div>
+                                <div id="collapse-busseat-layout1" class="panel-collapse collapse in" role="tabpanel">
+                                   <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                        <p> 
+                                        <span></span>
+                                            <span><i class="available-seat"></i> Available Seat</span>
+                                            <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                            <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                        <div class="panel panel-default">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <div class="bus-stearing"></div>
+                                                </div>
+                                                <div class="col-md-11">
+                                                      <ul>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat ladies-reserved-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat selected-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">650</span></label>
+                                                <select class="form-control">
+                                                    <option>Choose Boarding Point</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 text-right">
+                                             <br>
+                                            <button class="btn btn-primary">Confirm</button> 
+                                            </div>
+                                        </div>
+                                   </div>       
+                                
+                            </div>
+                            </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">05:30</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">11:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Hebron Transports <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 650</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout2" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">20 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout2" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">650</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">05:30</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">11:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Hebron Transports <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 650</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout3" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">20 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout3" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">650</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">05:30</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">11:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Hebron Transports <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 650</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout4" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">20 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout4" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">650</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">05:30</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">11:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Hebron Transports <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 650</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout5" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">20 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout5" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">650</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">05:30</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">11:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Hebron Transports <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 650</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout6" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">20 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout6" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">650</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                 </div>
+            </div>
+            <div class="col-md-6">
+                <p class="nomargin padding10">Bangalore to Chennai (Return)</p>
+                <div class="row">
+                        <div class="col-md-12">
+                            
+                                <div class="panel panel-default nomargin">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <h3 class="nomargin">11:15</h3>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                        <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                                <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right1" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                                <p class="text-right green margintop5">4 Seats left</p>
+                                            </div>
+                                        </div>   
+                                            
+                                    </div>
+                                </div>
+                                <div id="collapse-busseat-layout_right1" class="panel-collapse collapse" role="tabpanel">
+                                   <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                        <p> 
+                                        <span></span>
+                                            <span><i class="available-seat"></i> Available Seat</span>
+                                            <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                            <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                        <div class="panel panel-default">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <div class="bus-stearing"></div>
+                                                </div>
+                                                <div class="col-md-11">
+                                                      <ul>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat ladies-reserved-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat selected-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div>
+                                                      <ul>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat ladies-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat booked-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                        <li><span class="seat available-seat"></span></li>
+                                                      </ul>
+                                                      <div class="clearfix"></div><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                                <select class="form-control">
+                                                    <option>Choose Boarding Point</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 text-right">
+                                             <br>
+                                            <button class="btn btn-primary">Confirm</button> 
+                                            </div>
+                                        </div>
+                                   </div>       
+                                
+                            </div>
+                            </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">11:15</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right2" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">4 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout_right2" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">11:15</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right3" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">4 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout_right3" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">11:15</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right4" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">4 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout_right4" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">11:15</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right5" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">4 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout_right5" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">11:15</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right6" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">4 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout_right6" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">11:15</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right7" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">4 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout_right7" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <p class="nomargin padding10"></p>
+                            <div class="panel panel-default nomargin">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h3 class="nomargin">11:15</h3>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="nomargin marginleft10">06:30 <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</span></h3>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p class="light-purple">Seabird Tourists <br/> <span class="size12 text-muted">Scania AC Multi Axle Semi Sleeper(2+2)</span>
+                                    <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> 800</h2>
+                                            <a role="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#collapse-busseat-layout_right8" aria-expanded="true">Choose seat</a><span class="clearfix"></span>
+                                            <p class="text-right green margintop5">4 Seats left</p>
+                                        </div>
+                                    </div>   
+                                        
+                                </div>
+                            </div>
+                            <div id="collapse-busseat-layout_right8" class="panel-collapse collapse" role="tabpanel">
+                               <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
+                                    <p> 
+                                    <span></span>
+                                        <span><i class="available-seat"></i> Available Seat</span>
+                                        <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
+                                        <span><i class="selected-seat"></i> Selected Seat</span>                    </p>
+                                    <div class="panel panel-default">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="bus-stearing"></div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat ladies-reserved-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li class="pull-right marginright5"><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat selected-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div>
+                                                  <ul>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat ladies-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat booked-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                    <li><span class="seat available-seat"></span></li>
+                                                  </ul>
+                                                  <div class="clearfix"></div><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label>Seat(s): <span class="light-purple">19</span> <span class="marginleft20px">Total:</span> <span class="light-purple">800</span></label>
+                                            <select class="form-control">
+                                                <option>Choose Boarding Point</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                         <br>
+                                        <button class="btn btn-primary">Confirm</button> 
+                                        </div>
+                                    </div>
+                               </div>       
+                            </div> 
+                        </div>
+                 </div>
+            </div>
+        </div>
+     </div>
+ {% endblock %}        
+         

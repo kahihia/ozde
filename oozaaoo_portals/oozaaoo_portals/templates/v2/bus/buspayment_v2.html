@@ -1,0 +1,210 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+<div class="bg-lightgrey bus-payment">
+<div class="bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 marginbottom10">
+                    <h2 class="bold">Bus Booking<br/><span class="logo-span-txt">Made easy!</span></h2>         
+                </div>
+                <div class="col-md-4 pull-right">
+                    <h4 class="size17 padding20">Need Help? <strong class="marginleft10"> Call us:</strong> (0452) 394 12345 </h4>
+                </div>
+            </div>
+        </div>
+    </div>    
+ <header class="navbar bg-lightgrey1">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="bs-navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">Print/SMS Ticket</a>
+        </li>
+        <li>
+          <a href="#">Easy Cancel/Refund new</a>
+        </li>
+      </ul>
+     </nav>
+  </div>
+</header>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="light-purple text-center">Make your booking in 3 simple steps! </h2>
+            </div>
+        </div>
+        <div class="padding10"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <h2 class="panel-title"> 1. Trip Details</h2>
+                    </div>
+                    <div class="panel-body">
+                        <h4 class="size20 bold">Chennai <i class="fa ion-arrow-right-c margin020"></i> Bangalore <span class="text-muted">(Going)</span></h4>
+                        <h5 class="size17">Friday, August 26th, 2015</h5>
+                        <div class="padding10"></div>
+                        <div class="row">
+                            <div class="col-md-4 size17">
+                                <p><strong>Hebron Travels</strong><br> Volvo A/C Semi Sleeper (2+2)</p>
+                                <p class="size14 text-muted"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</p>
+                            </div>
+                            <div class="col-md-4 size17">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <p class="pull-left">Boarding: Koyembedu<br> Dep time: <strong>07:00 PM</strong> <span class="text-muted">(26th Aug)</span><br>Seat no: <strong>16</strong>
+</p>
+<div class="clearfix"></div>
+                            </div>
+                             <div class="col-md-4 size17">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <p class="pull-left">Drop: Madiwala<br> Arr time: <strong>05:00 AM</strong> <span class="text-muted">(27th Aug)</span>
+</p>
+<div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <h4 class="size20 bold">Bangalore <i class="fa ion-arrow-right-c margin020"></i> Chennai <span class="text-muted">(Return)</span></h4>
+                        <h5 class="size17">Sunday, August 28th, 2015</h5>
+                        <div class="padding10"></div>
+                        <div class="row">
+                            <div class="col-md-4 size17">
+                                <p><strong>KPN Travels</strong><br> Volvo A/C Semi Sleeper (2+2)</p>
+                                <p class="size14 text-muted"><i class="fa fa-clock-o"></i> Duration: 07:10 Hrs</p>
+                            </div>
+                            <div class="col-md-4 size17">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <p class="pull-left">Boarding: Majestic<br> Dep time: <strong>09:00 PM</strong> <span class="text-muted">(28th Aug)</span><br>Seat no: <strong>30</strong>
+</p>
+<div class="clearfix"></div>
+                            </div>
+                             <div class="col-md-4 size17">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <p class="pull-left">Drop: Chennai<br> Arr time: <strong>06:30 AM</strong> <span class="text-muted">(29th Aug)</span>
+</p>
+<div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-4 pull-right">
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> 1300.00</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding10"></div>
+                
+                <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"> 2. Travellers details</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Log in to speed up your booking</h5>
+                                <form class="form-horizontal">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email<span class="red">*</span></label>
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Password<span class="red">*</span></label>
+                                            <input type="password" class="form-control" />
+                                        </div>
+                                    </div><br>
+                                     <div class="row">
+                                        <div class="col-md-4">
+                                            <button class="btn btn-primary">Login</button>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h5 class="text-right">Not Registered? <a href="#"> Create New Account</a></h5>
+                                        </div>
+                                     </div>   
+                                     <hr />
+                                     <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Travellers name<span class="red">*</span></label>
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Age<span class="red">*</span></label>
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Gender<span class="red">*</span></label>
+                                            <select class="form-control">
+                                                <option>Select</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
+                                    </div><br>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email<span class="red">*</span></label>
+                                            <input type="text" class="form-control" />
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Mobile<span class="red">*</span></label>
+                                            <div class="input-group">
+                                              <span class="input-group-addon padding5" id="india-code">+91</span>
+                                              <input type="text" class="form-control" aria-describedby="india-code">
+                                            </div>                                         </div>
+                                       
+                                    </div>
+                                     <div class="help-block">Ticket will be sent to this email only</div>
+                                     <button class="btn btn-primary">Go to payment</button>   
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                            
+                            </div>
+                        </div>        
+                    </div>
+                </div> 
+                <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"> 3. Payment</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5><strong>PayU Money</strong></h5>
+                                <h5>Amount Payable : <i class="fa fa-rupee"></i> 1300.00</h5>
+                                <button class="btn btn-success margintop15">Make payment</button>
+                                <p class="margintop5">By Clicking on Make payment, you agree to all the <a href="#">Terms and Conditions</a></p>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <img src="images/payment-gateway.jpg" alt="Payment Gateway" />
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="col-md-1"></div>
+            
+        </div>
+    </div>
+</div><!-- bg-lightgrey bus-payment -->
+ {% endblock %}        
+         

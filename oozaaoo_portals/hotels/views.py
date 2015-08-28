@@ -555,6 +555,8 @@ def userdetails(request):
 		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=53'))
 	return response
 
+def setprovisionalbooking_v2(request):	
+	return render_to_response("v2/hotels/hotelpayment_v2.html", context_instance=RequestContext(request))
 @csrf_exempt
 def setprovisionalbooking(request):
 	from django.utils import simplejson
