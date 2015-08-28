@@ -695,7 +695,7 @@ $( '.location' ).click(
                 // alert(i+"--"+JSON.stringify(val.hotelname));
                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
                 
-            (val.ibp){
+            if(val.ibp){
                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
                     <a class='booking-item' href='#'>\
