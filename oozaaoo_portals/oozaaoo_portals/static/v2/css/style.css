@@ -1,5 +1,5 @@
 @charset "utf-8";
-
+.dn { display:none; }
 .search-section .input-group:after{display:block;width:14px;height:14px;content:"\f002";font-family:'FontAwesome';background-position:-48px 0;position:absolute;top:8px;right:8px;opacity:.5;z-index:1000;color:#1F2021;}
 .search-section .input-group{width:100%;}
 .bold {
@@ -234,107 +234,107 @@
 }
 .wifi
 {
-  background:url('../images/hotel-features.png') 0px 0px; 
+  background:url('../img/hotel-features.png') 0px 0px; 
   padding:0 15px;
 }
 .wifi1
 {
-  background:url('../images/hotel-features.png') 0px -3px;  
+  background:url('../img/hotel-features.png') 0px -3px;  
   padding:0 15px;
 }
 .wifi_trans
 {
-  background:url('../images/hotel-features.png') 0px -34px; 
+  background:url('../img/hotel-features.png') 0px -34px; 
   padding:0 15px;
 }
 .swimming
 {
-  background:url('../images/hotel-features.png') -30px 0px; 
+  background:url('../img/hotel-features.png') -30px 0px; 
   padding:0 15px;
 }
 .swimming_trans
 {
-  background:url('../images/hotel-features.png') -30px -34px; 
+  background:url('../img/hotel-features.png') -30px -34px; 
   padding:0 15px;
 }
 .cutlury
 {
-  background:url('../images/hotel-features.png') -60px 0px; 
+  background:url('../img/hotel-features.png') -60px 0px; 
   padding:0 15px;
 }
 .cutlury_trans
 {
-  background:url('../images/hotel-features.png') -60px -34px; 
+  background:url('../img/hotel-features.png') -60px -34px; 
   padding:0 15px;
 }
 .rest-chair
 {
-  background:url('../images/hotel-features.png') -90px 0px; 
+  background:url('../img/hotel-features.png') -90px 0px; 
   padding:0 15px;
 }
 .rest-chair_trans
 {
-  background:url('../images/hotel-features.png') -90px -32px; 
+  background:url('../img/hotel-features.png') -90px -32px; 
   padding:0 15px;
 }
 .room-serve
 {
-  background:url('../images/hotel-features.png') -120px 0px;  
+  background:url('../img/hotel-features.png') -120px 0px;  
   padding:0 17px;
 }
 .room-serve_trans
 {
-  background:url('../images/hotel-features.png') -120px -32px;  
+  background:url('../img/hotel-features.png') -120px -32px;  
   padding:0 17px;
 }
 .wifi_white
 {
-  background:url('../images/hotel-features-white.png') 0px 0px; 
+  background:url('../img/hotel-features-white.png') 0px 0px; 
   padding:10px 20px;
 }
 .wifi_trans_white
 {
-  background:url('../images/hotel-features-white.png') 0px -44px; 
+  background:url('../img/hotel-features-white.png') 0px -44px; 
   padding:10px 20px;
 }
 .swimming_white
 {
-  background:url('../images/hotel-features-white.png') -50px 0px; 
+  background:url('../img/hotel-features-white.png') -50px 0px; 
   padding:10px 20px;
 }
 .swimming_trans_white
 {
-  background:url('../images/hotel-features-white.png') -50px -44px; 
+  background:url('../img/hotel-features-white.png') -50px -44px; 
   padding:10px 20px;
 }
 .cutlury_white
 {
-  background:url('../images/hotel-features-white.png') -100px -1px; 
+  background:url('../img/hotel-features-white.png') -100px -1px; 
   padding:10px 20px;
 }
 .cutlury_trans_white
 {
-  background:url('../images/hotel-features-white.png') -100px -44px;  
+  background:url('../img/hotel-features-white.png') -100px -44px;  
   padding:10px 20px;
 }
 .rest_chair_white
 {
-  background:url('../images/hotel-features-white.png') -150px 0px;  
+  background:url('../img/hotel-features-white.png') -150px 0px;  
   padding:10px 20px;
 }
 .rest_chair_trans_white
 {
-  background:url('../images/hotel-features-white.png') -150px -44px;  
+  background:url('../img/hotel-features-white.png') -150px -44px;  
   padding:10px 20px;
 }
 .room_serve_white
 {
-  background:url('../images/hotel-features-white.png') -200px 0px;  
+  background:url('../img/hotel-features-white.png') -200px 0px;  
   padding:10px 20px;
 }
 .room_serve_trans_white
 {
-  background:url('../images/hotel-features-white.png') -200px -44px;  
+  background:url('../img/hotel-features-white.png') -200px -44px;  
   padding:10px 20px;
 }
 .marginbottom10
@@ -408,12 +408,23 @@
 }
 .hotel-bg
 {
-  background:url(../images/villa-shanthi.jpg);
-  background-size:cover;
+  /*background:url("../img/villa-shanthi.jpg");
+  background-size:cover;*/
   width:100%;
   height:450px;
   position:relative;
 }
+.detail_banner_images {
+  position:absolute;
+  width:100%;
+  height:100%;
+  z-index:1000;
+}
+.detail_banner_content {
+   position:relative;
+   z-index:2000;
+}
+.pos_r { position:relative;} 
 .hotel-address
 {
   margin-top:10%;
@@ -674,27 +685,27 @@
 }
 .available-seat
 {
-  background:url('../images/bus-seat-layout.png') 0 0;
+  background:url('../img/bus-seat-layout.png') 0 0;
   padding:3px 15px; 
 }
 .booked-seat
 {
-  background:url('../images/bus-seat-layout.png') -30px 0;
+  background:url('../img/bus-seat-layout.png') -30px 0;
   padding:3px 15px; 
 }
 .ladies-seat
 {
-  background:url('../images/bus-seat-layout.png') 60px 0;
+  background:url('../img/bus-seat-layout.png') 60px 0;
   padding:3px 15px; 
 }
 .ladies-reserved-seat
 {
-  background:url('../images/bus-seat-layout.png') -123px 0;
+  background:url('../img/bus-seat-layout.png') -123px 0;
   padding:3px 15px; 
 }
 .selected-seat
 {
-  background:url('../images/bus-seat-layout.png') -65px 0;
+  background:url('../img/bus-seat-layout.png') -65px 0;
   padding:3px 15px; 
 }
 .busseat-layout ul
@@ -721,4 +732,13 @@ footer{
 }
 .hotel-list-vertical .panel {
   margin:20px 0px 0px 0px !important;
+}
+
+#imagelightbox
+{
+    position: fixed;
+    z-index: 9999;
+ 
+    -ms-touch-action: none;
+    touch-action: none;
 }

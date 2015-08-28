@@ -1,0 +1,327 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+
+<script type="text/javascript" src="{% static "v2/js/imagelightbox.js" %}"></script>
+
+<script>
+    $(".view_act").imageLightbox(
+    {
+        selector:       'id="imagelightbox"',   // string;
+        allowedTypes:   'png|jpg|jpeg|gif',     // string;
+        animationSpeed: 250,                    // integer;
+        preloadNext:    true,                   // bool;            silently preload the next image
+        enableKeyboard: true,                   // bool;            enable keyboard shortcuts (arrows Left/Right and Esc)
+        quitOnEnd:      false,                  // bool;            quit after viewing the last image
+        quitOnImgClick: false,                  // bool;            quit when the viewed image is clicked
+        quitOnDocClick: true,                   // bool;            quit when anything but the viewed image is clicked
+        onStart:        false,                  // function/bool;   calls function when the lightbox starts
+        onEnd:          false,                  // function/bool;   calls function when the lightbox quits
+        onLoadStart:    false,                  // function/bool;   calls function when the image load begins
+        onLoadEnd:      false                   // function/bool;   calls function when the image finishes loading
+    });
+    
+var $instance = $(".view_act").imageLightbox();
+ 
+$instance.switchImageLightbox( index );
+// switches to the other image; accepts integer argument (an index of the desired image)
+ 
+$instance.quitImageLightbox();
+// quits the lightbox
+
+    
+</script>
+<section class="search-section">
+    <div class="container">
+    	<div class="row padding20">
+        	<div class="col-md-2"></div>
+            <div class="col-md-6">
+            	<div class="row">
+                	<div class="col-md-3 marginbottom10">
+                          <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown">
+                                <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
+                                <ul class="dropdown-menu" aria-labelledby="themes">
+                                  <li><a href="#">Flights</a></li>
+                                  <li><a href="#">Cars</a></li>
+                                 </ul>
+                            </li>
+                          </ul>
+                    </div>
+                 	<div class="col-md-7">
+                         <div class="input-group">
+                             <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                        </div>
+               		</div>
+                </div>
+            </div>
+            <div class="col-md-4 top10">
+            	<a href="#" class="paddingleft20"><i class="fa fa-heart"></i> My Lists</a>
+                <a href="#" class="paddingleft20"><i class="ion ion-log-in"></i> Manage Booking</a>
+            </div>
+        </div>
+    </div>
+    </section>
+        <section class="hotel-slider hotel-bg">
+    <img class="detail_banner_images" src="{{ STATIC_URL }}v2/img/villa-shanthi.jpg" alt=""/>
+	    <div class="container detail_banner_content">
+        	<div class="text-center">
+            	<div class="hotel-address">
+                    <h1 class="text-center">Villa Shanthi</h1>
+                    <p><i class="fa fa-map-marker"></i> 14, Suffren Steet, 605001 Pondicherry, India. <a href="#">Show Map</a></p><br>
+                   	<p>
+                    <span class="wifi_white"></span>
+                    <span class="swimming_white"></span>
+                    <span class="cutlury_white"></span>
+                    <span class="rest_chair_white"></span>
+                    <span class="room_serve_trans_white"></span></p><br>
+                    <a class="view_act btn btn-transpurple" data-imagelightbox="a" href="{{ STATIC_URL }}v2/img/villa-shanthi.jpg">View Images</a><br><br>
+
+                    <a class="view_act btn btn-transpurple dn" data-imagelightbox="a" href="{{ STATIC_URL }}v2/img/hotels/hotel-de-lorient.jpg">View Images</a>
+
+
+                    <p>
+                    	<i class="fa fa-star star-yellow"></i>
+                        <i class="fa fa-star star-yellow"></i>
+                        <i class="fa fa-star star-yellow"></i>
+                        <i class="fa fa-star star-yellow"></i>
+                        <i class="fa fa-star grey"></i>
+                    </p>
+                </div> 
+                 <div class="reviews">
+                	<a href="#"><i class="ion ion-ios-heart-outline"></i> Shortlist</a>
+                    <a href="#"><i class="ion ion-ios-paper-outline"></i> Reviews</a>
+                </div>               
+            </div>
+           
+        </div>
+    </section>
+    <section class="hotel-content">
+    	<div class="container">
+        	<div class="row padding20">
+            	<div class="col-md-8">
+                	<p>In the old French town along Suffren Street, Villa Shanti is just a 3-minute walk from the famous Promenade Beach. It provides a 24-hour front desk and free Wi-Fi access throughout the entire property.</p>
+                    <p>Decorated with wood furnishings, including a wardrobe and a sitting area, these spacious air-conditioned rooms include a personal safe, a satellite TV and a minibar. The private bathrooms have shower facilities.</p>
+                    <p>At Villa Shanti, guests can request luggage storage, as well as laundry and ironing services. The tour desk can assist with travel bookings. An airport shuttle service and local shuttle services can be arranged for an additional fee. Guests can also rent a car to explore the area, with the convenience of free parking located nearby. The in-house restaurant serves Indian and continental dishes... <a href="#">Read more</a></p>
+                    <div class="well well-yellow">
+                    	<div class="size30 pull-left margin020"><i class="ion ion-ios-locked light-purple"></i></div>
+                        <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p>                </div>
+                    <h4>Select your room</h4>
+                    <div class="rooms-list">
+                    	<div class="row nomargin">
+                        	<div class="col-md-9 nomargin nopadding">
+                                <div class="panel panel-default min-height120">
+                                    <div class="panel-body">
+                                        <div class="room-img">
+                                            <img src="images/deluxe-double.jpg" alt="deluxe double" />
+                                        </div>
+                                        <div class="room-details">
+                                            <h4 class="nomargin"><a href="#">Deluxe Double Room <span class="text-muted size12 red bold">1 Rooms left</span></a></h4>
+                                            <p class="room-price"><i class="fa fa-rupee"></i> 3500 per room per night</p>
+                                            <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="col-md-3 nomargin nopadding">     
+                                <div class="panel panel-default pull-left min-height120">
+                                    <div class="panel-body">
+                                        <div class="room-price-bg">
+                                                <h3 class="nomargin"><i class="fa fa-rupee"></i> 7500*</h3>
+                                                <span class="size12">Prices for 2 nights</span>
+                                                <button class="btn btn-success padding515">Reserve</button>
+                                                <p class="size11 grey">Fare Policy</p>
+                                        </div>
+                                     </div>
+                                </div> 
+                            </div>         
+                   		</div>
+                        <div class="row nomargin">
+                        	<div class="col-md-9 nomargin nopadding">
+                                <div class="panel panel-default min-height120">
+                                    <div class="panel-body">
+                                        <div class="room-img">
+                                            <img src="images/junior-suit.jpg" alt="" />
+                                        </div>
+                                        <div class="room-details">
+                                            <h4 class="nomargin"><a href="#">Junior Suite<span class="text-muted size12 red bold">5 Rooms left</span></a></h4>
+                                            <p class="room-price"><i class="fa fa-rupee"></i> 6000 per room per night</p>
+                                            <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="col-md-3 nomargin nopadding">     
+                                <div class="panel panel-default pull-left min-height120">
+                                    <div class="panel-body">
+                                        <div class="room-price-bg">
+                                                <h3 class="nomargin"><i class="fa fa-rupee"></i> 12000*</h3>
+                                                <span class="size12">Prices for 2 nights</span>
+                                                <button class="btn btn-success padding515">Reserve</button>
+                                                <p class="size11 grey">Fare Policy</p>
+                                        </div>
+                                     </div>
+                                </div> 
+                            </div>         
+                   		</div>
+                        <div class="row nomargin">
+                        	<div class="col-md-9 nomargin nopadding">
+                                <div class="panel panel-default min-height120">
+                                    <div class="panel-body">
+                                        <div class="room-img">
+                                            <img src="images/premium-suit.jpg" alt="deluxe double" />
+                                        </div>
+                                        <div class="room-details">
+                                            <h4 class="nomargin"><a href="#">Deluxe Double Room <span class="text-muted size12 red bold">2 Rooms left</span></a></h4>
+                                            <p class="room-price"><i class="fa fa-rupee"></i> 8000 per room per night</p>
+                                            <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="col-md-3 nomargin nopadding">     
+                                <div class="panel panel-default pull-left min-height120">
+                                    <div class="panel-body">
+                                        <div class="room-price-bg">
+                                                <h3 class="nomargin"><i class="fa fa-rupee"></i> 16000*</h3>
+                                                <span class="size12">Prices for 2 nights</span>
+                                                <button class="btn btn-success padding515">Reserve</button>
+                                                <p class="size11 grey">Fare Policy</p>
+                                        </div>
+                                     </div>
+                                </div> 
+                            </div>         
+                   		</div>                        
+                	</div>
+                    <h4>Things to know</h4>
+                    <table class="table bg-white">
+                    	<tr>
+                        	<td>Check-in</td>
+                            <td>From 14:00</td>
+                        </tr>
+                        <tr>
+                        	<td>Check-out</td>
+                            <td>Until 12:00</td>
+                        </tr>
+                        <tr>
+                        	<td>Cancellations</td>
+                            <td>Cancellation and prepayment policies vary according to room type.</td>
+                        </tr>
+                        <tr>
+                        	<td>Children and Extra Beds</td>
+                            <td>Free! One child under 5 years stays free of charge when using existing beds</td>
+                        </tr>
+                        <tr>
+                        	<td>Pets</td>
+                            <td>Pets are not allowed</td>
+                        </tr>
+                    </table>
+                    <h4>Reviews and Rating</h4>
+                    <table class="table bg-white">
+                    	<tr>
+                        	<td>
+                            	By Amul.r<br/>
+                                on 10 July,2015<br/>
+                             	<i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star grey"></i>	   
+                            </td>
+                            <td>
+                            	Except frequent power cut it was good. They had restrictions in swimming pool for dress and timings. Overall it was very good best to enjoy with couples. Food was good. Complementary cake was provided. Located before Pondicherry. Must try enjoy thanks to MakeMytrip.
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td>
+                            	By Saravanan <br/> on 10 July,2015<br/>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star grey"></i>
+                                <i class="fa fa-star grey"></i>
+                                <i class="fa fa-star grey"></i>
+                                <i class="fa fa-star grey"></i>
+                            </td>
+                            <td>Service very bad, rooms not clean, basic requirements not fulfilled. A/C not working properly, food quality not nice veg & non veg dishes together. Other guest use the same hand they eat to take further food Termite treatment not done please avoid.
+</td>
+                        </tr>
+                        <tr>
+                        	<td>
+                            	By Alan<br> on 10 July,2015<br/>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star grey"></i>
+                            </td>
+                            <td>Had travelled with family and friends. Awesome place. Wonderfully maintained swimming pool. AC not good at activity centre. Food was not much option for a simple vegetarian dinner. Had to go for buffet. Very cordial and friendly staff. Unfortunately nightclub was below our room. So was disturbing till it ended.
+</td>
+                        </tr>
+                        <tr>
+                        	<td>By Hadley<br/>on 10 July,2015<br/>
+                            <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star star-yellow"></i>
+                                <i class="fa fa-star grey"></i>
+                            </td>
+                            <td>Well located, about 10 KMs from Pondicherry. Large property with good features to keep everyone busy. Close proximity to the beach, though no direct access to it. The property is well maintained and rooms are spacious and provide enough privacy. However, service was all throughout poor right from the reception, </td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                            <td class="text-right"><a href="#">Show more</a></td>
+                        </tr>
+                    </table>
+                    
+                    </div>
+                <div class="col-md-4">
+                	<div class="panel panel-lightpurple hotel-details-rightside">
+                    	<div class="panel-heading">
+                        	<h5 class="panel-title">
+                            	Start at <i class="fa fa-rupee"></i> 3500 (per night)
+                            </h5>
+                        </div>
+                        <div class="panel-body">
+                        	<form class="form-horizontal">
+                        	<div class="row">
+                            	<div class="col-md-5">
+                                	<label>Check-in</label>
+                                    <input type="text" class="form-control" value="29-09-2015" />
+                                </div>
+                                <div class="col-md-5">
+                                	<label>Check-out</label>
+                                    <input type="text" class="form-control" value="31-09-2015" />
+                                </div>
+                                <div class="col-md-2">
+                                	<label>Nights</label>
+                                    <input type="text" class="form-control text-center" value="2" />
+                                </div>
+                            </div>
+                            <div class="row">
+                            	<div class="col-md-2">
+                                	<label>Rooms</label>
+                                    <input type="text" class="form-control text-center" value="2" />
+                                </div>
+                                <div class="col-md-5">
+                                	<label>Guests</label>
+                                    <input type="text" class="form-control" value="2 Adults" />
+                                </div>
+                                <div class="col-md-5">
+                                	<label>Nights</label>
+                                    <input type="text" class="form-control" value="1 Children" />
+                                </div>
+                            </div>
+                            <div class="row">
+	                            <div class="col-md-12">
+                                	<button class="btn btn-primary">Select room</button>
+                                </div>    
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+             <img id="imagelightbox" src="{{ STATIC_URL }}v2/img/villa-shanthi.jpg" alt=""/>
+ {% endblock %}        
+         
