@@ -269,7 +269,6 @@ def gethotellist(request):
 		else:		
 			rooms=1
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
-		print "getcityresponse", getcityresponse
 		try:
 			cityFields = ['country']
 			city = {}
@@ -288,7 +287,16 @@ def gethotellist(request):
 					if k in hotelFields:
 						_hotel[k] = v
 				hotels.append(_hotel)
-			print "hotels", hotels
+			##################---Added by muthu---#####################
+			loc_fields=['l']
+			locations=set()
+			for location in getcityresponse['data']['city_hotel_info']:
+				for k,v in location.iteritems():
+					if k in loc_fields:
+						locations.add(v)
+
+			filtered_location=list(locations)
+			###########################################################
 			# return HttpResponse(simplejson.dumps(hotels), mimetype='application/json')
 			hotel_price = [ hotels1['prc'] for hotels1 in hotels]
 			cache.set('getcityresponse', getcityresponse)
@@ -316,7 +324,7 @@ def gethotellist(request):
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
 				guest=int(adults1)
 				child=int(nochildrens1)
-			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata}, context_instance=RequestContext(request))
+			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata,'location':filtered_location}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
 		  	response.set_cookie( 'checkin', checkin )
 		  	response.set_cookie( 'checkout', checkout )
@@ -817,14 +825,28 @@ def confirmcancel(request):
 
 @csrf_exempt
 def get_results_by_price(request):
-	val_min=request.POST['val_min']
-	val_max=request.POST['val_max']
+	val_min=request.POST.get('val_min','1000')
+	val_max=request.POST.get('val_max','10000')
+	location=request.POST['location']
+	star=request.POST.get('star',5)
+	stars=star.split(',')
+	locations=location.split(',')
+	print 'locations',locations
+	print 'stars',stars
+	print 'val_max',val_max
+	print 'val_min',val_min
 	city_response = cache.get('getcityresponse')
 	morevalue = []
 	for values in city_response['data']['city_hotel_info']:
-		if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max):
+		if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star) and unicode(values['l']) in unicode(locations) :#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
+			print'all'
 			finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
 			morevalue.append(finallist)
+		# elif int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star):#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
+		# 	print'not'
+		# 	finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
+		# 	morevalue.append(finallist)
 	# return HttpResponse(simplejson.dumps(morevalue), mimetype='application/json')
+	#print 'welcome',morevalue
 	return HttpResponse(simplejson.dumps(morevalue))
 	
