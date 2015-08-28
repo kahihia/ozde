@@ -177,7 +177,7 @@ $('.form-group').each(function() {
 // });
 
 
-$('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
+$('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
     todayHighlight: true,
     format: 'yyyy/mm/dd'
 });

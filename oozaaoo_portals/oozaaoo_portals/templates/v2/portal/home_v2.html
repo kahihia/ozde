@@ -49,48 +49,38 @@
                     <p class="size18 font_calibri bold">Travel, through its subsidiaries, provides travel services all over the world. The Company is an airline ticket consolidator that offers ticketing, hotel and accommodation arrangements, tour packages, incentive tours, car rental and cruises. Travel primarily serves the wholesale business and corporate client markets.</p>
                 </div>
             </div>
-        </div>    
-        <div id="tab2">
-        <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" class="hotel_search" id="myform">
-                                            {% csrf_token %}
-            <span class="opensans size18">Choose your destination</span>
-            <!-- <input type="text" class="form-control" placeholder="Greece"> -->
-            <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
-             <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>
-             <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filterkeyword" value="" name="filterkeyword" />
-            
-            <br/>
-            
-            <div class="w50percent">
-                <div class="wh90percent textleft">
-                <div class="input-daterange" data-date-format="M d, D">
-                <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                    <span class="opensans size13"><b>Check in date</b></span>
-                    <input type="text" name="start" class="form-control mySelectCalendar2" id="datepicker7" placeholder="mm/dd/yyyy"/>
-                </div>
-                   
-                    
-                    <div class="error_mgs" style="display:none; color:red;">Enter the Check in date</div>
-                </div>
-                </div>
-            </div>
+      </div>
+      <!-- Hotel Search -->
+      <div id="tab2">
+      <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" class="hotel_search" id="myform">
+      {% csrf_token %}
+      <span class="opensans size18">Choose your destination</span>
+      <!-- <input type="text" class="form-control" placeholder="Greece"> -->
+      <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
+      <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>
+      <input class="typeahead form-control" placeholder="" type="hidden" id="filterkeyword" value="" name="filterkeyword" />          
+      <br/>
+      
+      <div class="w50percent">
+        <div class="wh90percent textleft">
+          <span class="opensans size13"><b>Check in date</b></span>
+          <input type="text" name="start" class="startdate form-control mySelectCalendar2" id="datepicker7" placeholder="yyyy/mm/dd"/>
+          <div class="error_mgs" style="display:none; color:red;">Please Select the Check In-Date</div>
+        </div>
+      </div>
 
-            <div class="w50percentlast">
-                <div class="wh90percent textleft right">
-                <div class="input-daterange" data-date-format="M d, D">
-                <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                	<span class="opensans size13"><b>Check out date</b></span>
-                    <input type="text" name="end" class="form-control mySelectCalendar2" id="datepicker8" placeholder="mm/dd/yyyy"/>
-                </div>
-                    
-                    <div class="error_mgs" style="display:none; color:red;">Enter the Check out date</div>
-                </div>
-                </div>
-            </div>
-            
-            <div class="clearfix"></div>
+      <div class="w50percentlast">
+        <div class="wh90percent textleft right">
+          <span class="opensans size13"><b>Check out date</b></span>
+          <input type="text" name="end" class="enddate form-control mySelectCalendar2" id="datepicker8" placeholder="yyyy/mm/dd"/>          
+          <div class="error_mgs" style="display:none; color:red;">Please Select the Check Out-Date</div>
+        </div>
 
-            <div class="room1 rooms" >
+      </div>
+      
+      <div class="clearfix"></div>
+      
+      <div class="room1 rooms" >
         <div class="w50percent">
           <div class="wh90percent textleft">
             <span class="opensans size13"><b>ROOM 1</b></span><br/>
@@ -167,14 +157,12 @@
                 
       </div>
       
-           
-            
-           <div class="room2 none rooms">
+      <div class="room2 none rooms">
         <div class="clearfix"></div><div class="line1"></div>
         <div class="w50percent">
           <div class="wh90percent textleft">
             <span class="opensans size13"><b>ROOM 2</b></span><br/>
-            <div class="addroom2 block grey"><a href="#" onclick="addroom3()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom2()" class="orange"><img src="{{ STATIC_URL }}v2/img/delete.png" alt="delete"/></a></div>
+            <div class="addroom2 block grey"><a href="#" onclick="addroom3()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom2()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
           </div>
         </div>
 
@@ -243,14 +231,14 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>    
 
-            <div class="room3 none rooms">
+      <div class="room3 none rooms">
         <div class="clearfix"></div><div class="line1"></div>
         <div class="w50percent">
           <div class="wh90percent textleft">
             <span class="opensans size13"><b>ROOM 3</b></span><br/>
-            <div class="addroom3 block grey"><a href="#" onclick="addroom4()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom3()" class="orange"><img src="{{ STATIC_URL }}v2/img/delete.png" alt="delete"/></a></div>
+            <div class="addroom3 block grey"><a href="#" onclick="addroom4()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom3()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
           </div>
         </div>
 
@@ -320,13 +308,13 @@
           </div>
         </div>
       </div>
-
-       <div class="room4 none rooms">
+            
+            <div class="room4 none rooms">
         <div class="clearfix"></div><div class="line1"></div>
         <div class="w50percent">
           <div class="wh90percent textleft">
             <span class="opensans size13"><b>ROOM 4</b></span><br/>
-            <div class="addroom4 block grey"><a href="#" onclick="addroom4()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom4()" class="orange"><img src="{{ STATIC_URL }}v2/img/delete.png" alt="delete"/></a></div>
+            <div class="addroom4 block grey"><a href="#" onclick="addroom4()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom4()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
           </div>
         </div>
 
@@ -395,13 +383,11 @@
             </div>
           </div>
         </div>
-      </div>  
-                <button id="searchBtn"  class="btn btn-primary btn-lg hotel btn-search2" >Search for Hotels</button> 
-          </form> 
-        </div> 
-       
-   
-        <div id="tab4">
+      </div>
+      <button type="submit" class="btn-search2">Search</button> 
+      </form>
+    </div>
+    <div id="tab4">
         <form action="{% url "bus.views.search_bus_v2" %}" method="post" name="bus_search" class="bus_search" id="myform">
                                             {% csrf_token %}
             <div class="row">

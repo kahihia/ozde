@@ -9,8 +9,14 @@ jQuery(function($) {
 	$( "#datepicker4" ).datepicker();
 	$( "#datepicker5" ).datepicker();
 	$( "#datepicker6" ).datepicker();
-	$( "#datepicker7" ).datepicker();
-	$( "#datepicker8" ).datepicker();
+	$( "#datepicker7" ).datepicker({
+		todayHighlight: true,
+	    format: 'yyyy/mm/dd'
+	});
+	$( "#datepicker8" ).datepicker({
+		todayHighlight: true,
+	    format: 'yyyy/mm/dd'
+	});
 	$( "#datepicker9" ).datepicker();
 	$( "#datepicker10" ).datepicker();
 });
@@ -536,6 +542,26 @@ function changeAnimation5(){
 	$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
 }	
 
+/** Home Page Hotel Child Age **/
+$(document).on('change', '.child_act', function() {     
+         if($(this).val() == 0 ) {
+               $(this).parents(".rooms").find(".child1").hide();
+               $(this).parents(".rooms").find(".child2").hide();
+         }
+
+         if($(this).val() == 1 ) {
+               $(this).parents(".rooms").find(".child1").show();
+               $(this).parents(".rooms").find(".child2").hide();
+         }
+         if($(this).val() == 2 ) {
+               $(this).parents(".rooms").find(".child1").show();
+               $(this).parents(".rooms").find(".child2").show();
+         }
+         if($(this).val() == 3 ) {
+               $(this).parents(".rooms").find(".child1").show();
+               $(this).parents(".rooms").find(".child2").show();
+         }
+    });
 
 	
 	

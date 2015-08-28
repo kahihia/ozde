@@ -180,25 +180,25 @@ $('.form-group').each(function() {
 //     }
 // });
 
-
-$('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
-    todayHighlight: true,
-    format: 'yyyy/mm/dd'
-});
+// console.log('here-datepicker');
+// $('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
+//     todayHighlight: true,
+//     format: 'yyyy/mm/dd'
+// });
 
 
 
 // $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
 // $('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
 
-$('input.time-pick').timepicker({
-    minuteStep: 15,
-    showInpunts: false
-})
+// $('input.time-pick').timepicker({
+//     minuteStep: 15,
+//     showInpunts: false
+// })
 
-$('input.date-pick-years').datepicker({
-    startView: 2
-});
+// $('input.date-pick-years').datepicker({
+//     startView: 2
+// });
 
 // $( ".mySelectCalendar2" ).datepicker({
 //         dateFormat: "yy/mm/dd",
@@ -885,33 +885,29 @@ $(add_room).on("click",".remove_field", function(e){ //user click on remove text
 
 // code by priya
 // hotels //
-$('#searchBtn').click(function(){
-
-
-    
-        if($('.typeahead').val() == '') {
-            // alert("enter the destination");
+$('#searchBtn').click(function(){ 
+    alert('here');
+    if($('.typeahead').val() == '') {
+        // alert("enter the destination");
+        $('.error_mgs').show();
+        return false;
+        if($('.startdate').val() == ''){
             $('.error_mgs').show();
-            return false;
-            if($('.startdate').val() == ''){
-                $('.error_mgs').show();
                 return false;
             if($('.enddate').val() == ''){
                 $('.error_mgs').show();
                 return false;
-            if($('.child_age').val() == ''){
-                $('.error_mgs').show();
-            
-            return false;
+                if($('.child_age').val() == ''){
+                    $('.error_mgs').show();
+                    return false;
+                }
+            }
         }
     }
+    else{
+        return true;
     }
-    }
-        else{
-            return true;
-        }
-
-    });
+});
 $('#paynow').click(function(){
     if($('.fname').val() == ''){
             // alert("please enter the first name");
@@ -1000,24 +996,26 @@ $('#payment').click(function(){
        return true; 
     }
 });
-var CheckinDate=new Date();
- var CheckoutDate=new Date(); 
- var diff=new Date();
- $('#checkin').datepicker({
-       onSelect: function(dateText, inst) {
-       CheckinDate=datetext;
 
-    }
-    });
+//  var CheckinDate=new Date();
+//  var CheckoutDate=new Date(); 
+//  var diff=new Date();
+//  $('#checkin').datepicker({
+//        todayHighlight: true,
+//        format: 'yyyy/mm/dd', 
+//        onSelect: function(dateText, inst) {
+//        CheckinDate=datetext;       
+//     }
+//     });
 
-$('#checkout').datepicker({
-   onSelect: function(dateText, inst) {
-   CheckoutDate=datetext;
-   diff=(CheckoutDate.getTime() - CheckinDate.getTime())/(1000*60*60*24);
-
-
-}
-});
+// $('#checkout').datepicker({
+//    todayHighlight: true,
+//    format: 'yyyy/mm/dd',  
+//    onSelect: function(dateText, inst) {
+//    CheckoutDate=datetext;   
+//    diff=(CheckoutDate.getTime() - CheckinDate.getTime())/(1000*60*60*24);
+// }
+// });
 // *********************
 $('.temp').hide();
 $('.onward_book').click(function(){
