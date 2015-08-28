@@ -4,9 +4,14 @@
 {% block content %}
 
 <script type="text/javascript" src="{% static "v2/js/imagelightbox.js" %}"></script>
+<script>
+jQuery(function(){
+    jQuery( 'a' ).imageLightbox();
+});
+</script>
 
 <script>
-    $(".view_act").imageLightbox(
+    jQuery( selector ).imageLightbox(
     {
         selector:       'id="imagelightbox"',   // string;
         allowedTypes:   'png|jpg|jpeg|gif',     // string;
@@ -22,12 +27,12 @@
         onLoadEnd:      false                   // function/bool;   calls function when the image finishes loading
     });
     
-var $instance = $(".view_act").imageLightbox();
+// var $instance = $(".view_act").imageLightbox();
  
-$instance.switchImageLightbox( index );
-// switches to the other image; accepts integer argument (an index of the desired image)
+// $instance.switchImageLightbox( index );
+// // switches to the other image; accepts integer argument (an index of the desired image)
  
-$instance.quitImageLightbox();
+// $instance.quitImageLightbox();
 // quits the lightbox
 
     
@@ -64,30 +69,50 @@ $instance.quitImageLightbox();
     </div>
     </section>
         <section class="hotel-slider hotel-bg">
-    <img class="detail_banner_images" src="{{ STATIC_URL }}v2/img/villa-shanthi.jpg" alt=""/>
+    <img class="detail_banner_images" src="{{hotels.gallery.2.2}}" alt=""/>
 	    <div class="container detail_banner_content">
         	<div class="text-center">
             	<div class="hotel-address">
-                    <h1 class="text-center">Villa Shanthi</h1>
-                    <p><i class="fa fa-map-marker"></i> 14, Suffren Steet, 605001 Pondicherry, India. <a href="#">Show Map</a></p><br>
+                    <h1 class="text-center">{{hotels.hn}}</h1>
+                    <p><i class="fa fa-map-marker"></i> &nbsp; {{hotels.l}},  &nbsp;&nbsp;{{hotels.c}}
+                        <a href="#">Show Map</a>
+                    </p>
+                    <br>
                    	<p>
                     <span class="wifi_white"></span>
                     <span class="swimming_white"></span>
                     <span class="cutlury_white"></span>
                     <span class="rest_chair_white"></span>
                     <span class="room_serve_trans_white"></span></p><br>
-                    <a class="view_act btn btn-transpurple" data-imagelightbox="a" href="{{ STATIC_URL }}v2/img/villa-shanthi.jpg">View Images</a><br><br>
 
-                    <a class="view_act btn btn-transpurple dn" data-imagelightbox="a" href="{{ STATIC_URL }}v2/img/hotels/hotel-de-lorient.jpg">View Images</a>
+                    <a class="view_act btn btn-transpurple" data-imagelightbox="a" href="{{hotels.gallery.2.2}}">View Images</a><br><br>
 
-
-                    <p>
-                    	<i class="fa fa-star star-yellow"></i>
-                        <i class="fa fa-star star-yellow"></i>
-                        <i class="fa fa-star star-yellow"></i>
-                        <i class="fa fa-star star-yellow"></i>
-                        <i class="fa fa-star grey"></i>
-                    </p>
+                    {% for image in hotels.gallery %}
+                    <a class="view_act btn btn-transpurple dn" data-imagelightbox="a" href="{{image.2}}">View Images</a>
+                    {%endfor%} 
+                 
+                        {% if hotels.hr == 1 %}
+                            <i class="fa fa-star star-yellow"></i>
+                        {% elif hotels.hr == 2 %}
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                        {% elif hotels.hr == 3 %}
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                        {% elif hotels.hr == 4 %}
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                        {% elif hotels.hr == 5 %}
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                            <i class="fa fa-star star-yellow"></i>
+                        {% endif %}
+                    
                 </div> 
                  <div class="reviews">
                 	<a href="#"><i class="ion ion-ios-heart-outline"></i> Shortlist</a>
@@ -101,9 +126,7 @@ $instance.quitImageLightbox();
     	<div class="container">
         	<div class="row padding20">
             	<div class="col-md-8">
-                	<p>In the old French town along Suffren Street, Villa Shanti is just a 3-minute walk from the famous Promenade Beach. It provides a 24-hour front desk and free Wi-Fi access throughout the entire property.</p>
-                    <p>Decorated with wood furnishings, including a wardrobe and a sitting area, these spacious air-conditioned rooms include a personal safe, a satellite TV and a minibar. The private bathrooms have shower facilities.</p>
-                    <p>At Villa Shanti, guests can request luggage storage, as well as laundry and ironing services. The tour desk can assist with travel bookings. An airport shuttle service and local shuttle services can be arranged for an additional fee. Guests can also rent a car to explore the area, with the convenience of free parking located nearby. The in-house restaurant serves Indian and continental dishes... <a href="#">Read more</a></p>
+                	{{hotels.des}}
                     <div class="well well-yellow">
                     	<div class="size30 pull-left margin020"><i class="ion ion-ios-locked light-purple"></i></div>
                         <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p>                </div>
@@ -322,6 +345,6 @@ $instance.quitImageLightbox();
                     
                 </div>
             </div>
-             <img id="imagelightbox" src="{{ STATIC_URL }}v2/img/villa-shanthi.jpg" alt=""/>
+            <img id="imagelightbox" src="" alt=""/>
  {% endblock %}        
          
