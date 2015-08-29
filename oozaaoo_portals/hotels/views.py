@@ -53,6 +53,8 @@ def log_function(query, response):
 	logging.info(response)
 	logging.info("******************************************************************************************************")
 
+def registration_v2(request):
+	return render_to_response("v2/portal/signup_v2.html", context_instance=RequestContext(request))
 
 def registration(request):
 	"""
@@ -102,6 +104,9 @@ def registration(request):
 								  context_instance=RequestContext(request))
 							  
 from django.contrib.auth import authenticate, login, logout
+
+def login_user_v2(request):
+	return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
 
 def login_user(request):
 	"""

@@ -5,7 +5,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^register', 'hotels.views.registration', name='registration'),
+    url(r'^v2/register', 'hotels.views.registration_v2', name='registration_v2'),
     url(r'^login', 'hotels.views.login_user', name='login_user'),
+    url(r'^v2/login', 'hotels.views.login_user_v2', name='login_user_v2'),
     url(r'^logout', 'hotels.views.logout_view', name='logout_view'),
     url(r'^myprofile', 'hotels.views.myprofile', name='myprofile'),
      url(r'^mybooking', 'hotels.views.mybooking', name='mybooking'),
