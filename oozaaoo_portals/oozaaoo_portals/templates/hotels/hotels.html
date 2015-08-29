@@ -256,9 +256,8 @@
                     </div>
                     <ul class="booking-list">
 
-                          {%for hotel in hotels %}                                               
-                        <li>
-                        {{hotel}}
+                        {%for hotel in hotels %}                                               
+                        <li>                        
                         {% if hotel.ibp %}
 
                         <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails" %}" method="POST" id="hoteldetails">
