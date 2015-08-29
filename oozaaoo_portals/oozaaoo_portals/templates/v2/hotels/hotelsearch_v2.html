@@ -38,7 +38,7 @@
         	<div class="panel-body">
             	<div class="container">
                 	<div class="row">
-                    	<div class="col-md-8">
+                    	<!--div class="col-md-8">
                         	<div class="row">
                             	<div class="col-md-2">
                                 	<label class="control-label top10 pull-right">Date</label>
@@ -64,12 +64,12 @@
                                         <option value="3">3 Room</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
+                                <!--div class="col-md-2">
                                 	<label class="control-label top10 pull-right">Budget</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <!--div class="col-md-4">
                         	<div class="row">
                               <div class="col-md-4">
                                 	<select class="form-control" name="min">
@@ -102,7 +102,7 @@
                                     </div>
                                  </div>
                             </div>
-                        </div>
+                        </div-->
                     </div>
                 </div>
             </div>
@@ -117,9 +117,11 @@
                             <div class="panel-body">
                             <div class="well borderradious5">
                             	<h5 class="nomargin marginbottom10 bold">Your Search</h5>
-                                <p><i class="fa fa-check"></i> Pondicherry</p>
-                                <p><i class="fa fa-check"></i> 2 adults</p>
-                                <p><i class="fa fa-check"></i> 1 night<br/><span class="left10">(Sept 18 - Sept 19)</span></p>
+                                <p><i class="fa fa-check"></i> {{hotels.0.c}} </p>
+                                <p><i class="fa fa-check"></i> {{request.COOKIES.guest}} Guest</p>
+                                <p><i class="fa fa-check"></i> 1 night<br/><span class="left10">                                
+                                ({{request.COOKIES.checkinvalue}} - {{request.COOKIES.checkoutvalue}})</span>
+                                </p>
                                 <button class="btn btn-primary borderradious3">Change Search</button>
                             </div>
                             
@@ -168,13 +170,13 @@
                             	</ul>
                             </div>
                             <hr />	
-                            <a role="button" data-toggle="collapse" href="#meals" aria-expanded="true" aria-controls="collapseOne">
-                                <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Meals</h5>
+                            <a role="button" data-toggle="collapse" href="#location" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Location</h5>
                                 <div class="clearfix"></div>
                             </a>
-                            <div id="meals" class="panel-collapse collapse in" role="tabpanel"></div>
+                            <div id="location" class="panel-collapse collapse in" role="tabpanel"></div>
                           
-                           <hr />	
+                           <!-- <hr />	
                             <a role="button" data-toggle="collapse" href="#property_type" aria-expanded="true" aria-controls="collapseOne">
                                 <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Property Type</h5>
                                 <div class="clearfix"></div>
@@ -188,21 +190,21 @@
                             </a>
                             <div id="facility" class="panel-collapse collapse in" role="tabpanel"></div>
                           
-                           <hr />	
+                           <hr />	 -->
                           
                         </div>
                     </div>
                 </div>
             	<div class="col-md-9"><br>
-                	<p class="marginbottom10"><strong>Pondicherry :</strong> 63 properties available</p>
+                	<p class="marginbottom10"><strong>{{hotels.0.c}} :</strong> 63 Hotels available</p>
                 	<div class="sort-tabs">
                     	<ul class="nav nav-tabs" role="tablist">
                             <li><span class="top10">Sort By: </span></li>
                             <li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab">Price</a></li>
                             <li role="presentation"><a href="#stars" aria-controls="stars" role="tab" data-toggle="tab">Stars</a></li>
                             <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab">Recommended</a></li>
-                            <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">Review</a></li>
-                            <li role="presentation"><a href="#budget-deals" aria-controls="budget-deals" role="tab" data-toggle="tab">Budget Deals</a></li>
+                            <li role="presentation"><a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">Popularity</a></li>
+                            <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab">Ratings</a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -374,7 +376,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade in active" id="recommended">
                         		<div class="hotel-list-vertical">
-                                 <div class="panel panel-default top10">
+<!--                                  <div class="panel panel-default top10">
                                  	<div class="panel-body">
                                       <div class="row">
                                       <div class="col-md-3">
@@ -399,115 +401,94 @@
                                       </div>
                                       </div>
                                     </div>
-                                </div>
-	                             <div class="panel panel-default">
-                                 	<div class="panel-body">
-                                      <div class="row">
-                                      <div class="col-md-3">
-                                      
-                                        <a href="#"><img alt=""></a>
-                                      </div>
-                                      <div class="col-md-7 nopaddingleft">
-                                              <a href="#">
-                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
-                                              </a>
-                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
-                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
-                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
-	                                  </div>
-                                      <div class="col-md-2">
-                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
-                                         <span class="pull-right text-muted span12"> avg/night</span>
-                                         <div class="clearfix"></div><br>
-                                         <div class="text-right">
-                                         <button class="btn btn-warning">Reverse</button>
-                                         </div>
-                                      </div>
-                                      </div>
-                                    </div>
-                                </div>
-                                 <div class="panel panel-default">
-                                 	<div class="panel-body">
-                                      <div class="row">
-                                      <div class="col-md-3">
-                                      
-                                        <a href="#"><img alt=""></a>
-                                      </div>
-                                      <div class="col-md-7 nopaddingleft">
-                                              <a href="#">
-                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
-                                              </a>
-                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
-                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
-                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
-	                                  </div>
-                                      <div class="col-md-2">
-                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
-                                         <span class="pull-right text-muted span12"> avg/night</span>
-                                         <div class="clearfix"></div><br>
-                                         <div class="text-right">
-                                         <button class="btn btn-warning">Reverse</button>
-                                         </div>
-                                      </div>
-                                      </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                 	<div class="panel-body">
-                                      <div class="row">
-                                      <div class="col-md-3">
-                                      
-                                        <a href="#"><img alt=""></a>
-                                      </div>
-                                      <div class="col-md-7 nopaddingleft">
-                                              <a href="#">
-                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
-                                              </a>
-                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
-                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
-                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
-	                                  </div>
-                                      <div class="col-md-2">
-                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
-                                         <span class="pull-right text-muted span12"> avg/night</span>
-                                         <div class="clearfix"></div><br>
-                                         <div class="text-right">
-                                         <button class="btn btn-warning">Reverse</button>
-                                         </div>
-                                      </div>
-                                      </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                 	<div class="panel-body">
-                                      <div class="row">
-                                      <div class="col-md-3">
-                                      
-                                        <a href="#"><img alt=""></a>
-                                      </div>
-                                      <div class="col-md-7 nopaddingleft">
-                                              <a href="#">
-                                              <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
-                                              </a>
-                                              <p class="text-muted">Pondicherry (Pondicherry)</p>
-                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
-                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
-	                                  </div>
-                                      <div class="col-md-2">
-                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
-                                         <span class="pull-right text-muted span12"> avg/night</span>
-                                         <div class="clearfix"></div><br>
-                                         <div class="text-right">
-                                         <button class="btn btn-warning">Reverse</button>
-                                         </div>
-                                      </div>
+                                </div> -->
+                                {%for hotel in hotels %} 
+                                {% if hotel.ibp %}
+                                    <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails">
+                                    {% csrf_token %}                        
+                                    <div class="panel panel-default">
+                                      <div class="panel-body">
+                                        <div class="row">
+                                          <div class="col-md-3">                                                       
+                                          <a href=""><img src="{{hotel.t}}" alt="Image Alternative text" title="{{hotel.hn}}" />
+                                          </a>
+                                          </div>
+                                          
+                                          <div class="col-md-7 nopaddingleft">
+                                            <a href="#">
+                                            <h4 class="text-left nomargin">{{hotel.hn}}&nbsp;
+                                            {% if hotel.hr == 1 %}
+                                                <i class="fa fa-star star-yellow"></i>
+                                            {% elif hotel.hr == 2 %}
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                            {% elif hotel.hr == 3 %}
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                            {% elif hotel.hr == 4 %}
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                            {% elif hotel.hr == 5 %}
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                                <i class="fa fa-star star-yellow"></i>
+                                            {% endif %}
+                                            </h4>
+                                            </a>
+                                            <p class="text-muted">{{hotel.l}}</p>
+
+                                            <p class="text-muted hotel-features-list">
+                                            {% for fm1 in hotel.fm %}                                              
+                                              {% if fm1 == 'Free Internet' %}
+                                                <i class="wifi"></i>
+                                                {% elif fm1 == 'Laundry Service' %}
+                                                <i class="room-serve"></i>
+                                                {% elif fm1 == 'Room Service' %}
+                                                <i class="room-serve"></i>
+                                                {% elif fm1 == 'Swimming Pool' %}
+                                                <i class="swimming"></i>
+                                                {% elif fm1 == 'Restaurant/Coffee Shop' %}
+                                                <i class="rest-chair"></i>
+                                              {% endif %}
+                                            {% endfor %}
+                                            </p>
+                                            <p>
+                                              <a href="#">{{hotel.gr}}/5</a><span class="text-muted">&nbsp;&nbsp;Rating</span>
+                                            </p>
+                                          </div>
+
+                                          <div class="col-md-2">
+                                            <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i>
+                                            {{hotel.mp|floatformat}}
+                                            </h3>
+                                            <span class="pull-right text-muted span12"> avg/night</span>
+                                            <div class="clearfix"></div><br>
+                                            
+                                            <div class="text-right">                                              
+                                            <input type="submit" name="moredetails" value="Reverse"
+                                               class="btn btn-warning" id="more"/>          
+                                            </div>
+
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
-                                </div>
+                                    <input type="hidden" name="joindata" id="joindata" value="{{joindata}}" />
+                                    <input type="hidden" name="hc" id="hc" value="{{hotel.hc}}" />
+                                    <input type="hidden" name="ibp" id="ibp" value="{{hotel.ibp}}" />
+                                    <input type="hidden" name="fwdp" id="fwdp" value="{{hotel.fwdp}}" />
+                                    </form>
+                                  {% endif %}    
+                                {% endfor %}
                                 </div>
                             </div>
                        
-                        <div role="tabpanel" class="tab-pane fade" id="review">
+                        <div role="tabpanel" class="tab-pane fade" id="popularity">
                         	<div class="hotel-list-vertical">
                                  <div class="panel panel-default top10">
                                  	<div class="panel-body">
@@ -603,8 +584,10 @@
                                               <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
 	                                  </div>
                                       <div class="col-md-2">
-                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
-                                         <span class="pull-right text-muted span12"> avg/night</span>
+                                         <h3 class="text-left bold nomargin pull-right">
+                                            <i class="fa fa-rupee"></i> 1,040
+                                         </h3>
+                                         <span class="pull-right text-muted span12">avg/night</span>
                                          <div class="clearfix"></div><br>
                                          <div class="text-right">
 
@@ -642,7 +625,7 @@
                                 </div>
                                 </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="budget-deals">
+                        <div role="tabpanel" class="tab-pane fade" id="rating">
                         	<div class="hotel-list-vertical">
                                  <div class="panel panel-default top10">
                                  	<div class="panel-body">
@@ -656,8 +639,15 @@
                                               <h4 class="text-left nomargin">Hotel du Parc &nbsp;<i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i><i class="fa fa-star star-yellow"></i></h4>
                                               </a>
                                               <p class="text-muted">Pondicherry (Pondicherry)</p>
-                                              <p class="text-muted hotel-features-list"><i class="wifi"></i><i class="cutlury"></i><i class="swimming"></i><i class="rest-chair"></i><i class="room-serve"></i></p>
-                                              <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
+                                              <p class="text-muted hotel-features-list"><i class="wifi"></i>
+                                                <i class="cutlury"></i>
+                                                <i class="swimming"></i>
+                                                <i class="rest-chair"></i>
+                                                <i class="room-serve"></i>
+                                              </p>
+                                              <p>
+                                                <a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span>
+                                              </p>
 	                                  </div>
                                       <div class="col-md-2">
                                          <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>

@@ -476,13 +476,24 @@ $( "#slider-range" ).slider({
       range: true,
       min: 1000,
       max: 10000,
-      values: [ 3000, 8000 ],
+      values: [ 1000, 10000 ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#amount_min" ).val(ui.values[ 0 ]);
+        $( "#amount_max" ).val(ui.values[ 1 ]);
+        var stars=($('input[name="star[]"]:checked').map(function() { return this.value; }).get().join(', ')) ;
+        if (stars==''){
+            var star=[5,4,3,2,1];
+        }
+        else{
+            var star=stars;
+        }
+        var location=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+
         $.ajax({
             type: 'POST',
             url:'/get_results_by_price/',
-            data:"get=1&val_min="+ui.values[ 0 ]+"&val_max="+ui.values[ 1 ],
+            data:"get=1&val_min="+ui.values[ 0 ]+"&val_max="+ui.values[ 1 ]+"&star="+star+"&location="+location,
             success: function(data){
             // alert(data);
             var res = eval("("+data+")");
@@ -492,7 +503,7 @@ $( "#slider-range" ).slider({
                 // alert(i+"--"+JSON.stringify(val.hotelname));
                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
                 
-                if (val.ibp){
+        if (val.ibp){
                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
                     <a class='booking-item' href='#'>\
@@ -565,6 +576,198 @@ $( "#slider-range" ).slider({
             }
         });
 }
+});
+$( '.star' ).click(
+    function( ) {
+        var amount_min= $( "#amount_min" ).val();
+        var amount_max= $( "#amount_max" ).val();
+        var star=($('input[name="star[]"]:checked').map(function() { return this.value; }).get().join(', '))== null ? '5' :($('input[name="star[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        var location=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        $.ajax({
+            type: 'POST',
+            url:'/get_results_by_price/',
+            data:"get=1&val_min="+amount_min+"&val_max="+amount_max+"&star="+star+"&location="+location,
+            success: function(data){
+            // alert(data);
+            var res = eval("("+data+")");
+            var elements = "<li>";
+            // alert("elements1" +elements);
+            jQuery.each(res, function(i,val) {
+                // alert(i+"--"+JSON.stringify(val.hotelname));
+                // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
+                
+            if (val.ibp){
+                    elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
+                    <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
+                    <a class='booking-item' href='#'>\
+                                <div class='row'>\
+                                    <div class='col-md-3'>\
+                                        <div class='booking-item-img-wrap'>\
+                                            <img src=" + val.hotelimage + " alt='Image Alternative text' title='LHOTEL PORTO BAY SAO PAULO suite lhotel living room' />\
+                                            <div class='booking-item-img-num'>\
+                                            <i class='fa fa-picture-o'></i>\
+                                            29\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    <div class='col-md-6'>\
+                                        <div class='booking-item-rating'>\
+                                            <span class='booking-item-rating-number'><b >";
+                    // alert("elements2" +elements);
+                    if (val.hotelrating == 1){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                        // alert("elements3" +elements);
+                    }
+                    else if (val.hotelrating == 2){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements4" +elements); 
+                    }
+                    else if (val.hotelrating == 3){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements5" +elements);
+                    }
+                    else if (val.hotelrating == 4){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements6" +elements);
+                    }
+                    else if (val.hotelrating == 5){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements7" +elements);
+                    }
+                    elements+="</b></span>\
+                                </div>\
+                                <h5 class='booking-item-title'>" + val.hotelname + "</h5>\
+                                <p class='booking-item-address'><i class='fa fa-map-marker'></i>" + val.location + "</p>\
+                                <small class='booking-item-last-booked'> </small>\
+                                </div>\
+                                <div class='col-md-3'>\
+                                        <span class='booking-item-price-from'>from</span>\
+                                        <span class='booking-item-price'>&#8377;" + parseFloat(val.price) + "</span>\
+                                        <span>/night</span>\
+                                        <input type='submit' name='moredetails' value='MoreDetails' class='btn btn-primary' id='more'/>\
+                                        <p>" + val.goibiborating + "/5 Reviews</p>\
+                                    </div>\
+                                </div>\
+                            </a>\
+                        </form>";        
+                        // alert("elements8" +elements);                                                                     
+             }     
+            });
+            elements += "</li>";
+            // alert("elements9" +elements);
+            $(".booking-list").html(elements);
+            }
+        });
+
+});
+$( '.location' ).click(
+    function( ) {
+        var amount_min= $( "#amount_min" ).val();
+        var amount_max= $( "#amount_max" ).val();
+        var stars=($('input[name="star[]"]:checked').map(function() { return this.value; }).get().join(', ')) ;
+        if (stars==''){
+            var star=[5,4,3,2,1];
+        }
+        else{
+            var star=stars;
+        }
+        var location=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        $.ajax({
+            type: 'POST',
+            url:'/get_results_by_price/',
+            data:"get=1&val_min="+amount_min+"&val_max="+amount_max+"&star="+star+"&location="+location,
+            success: function(data){
+            // alert(data);
+            var res = eval("("+data+")");
+            var elements = "<li>";
+            // alert("elements1" +elements);
+            jQuery.each(res, function(i,val) {
+                // alert(i+"--"+JSON.stringify(val.hotelname));
+                // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
+                
+            if(val.ibp){
+                    elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
+                    <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
+                    <a class='booking-item' href='#'>\
+                                <div class='row'>\
+                                    <div class='col-md-3'>\
+                                        <div class='booking-item-img-wrap'>\
+                                            <img src=" + val.hotelimage + " alt='Image Alternative text' title='LHOTEL PORTO BAY SAO PAULO suite lhotel living room' />\
+                                            <div class='booking-item-img-num'>\
+                                            <i class='fa fa-picture-o'></i>\
+                                            29\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    <div class='col-md-6'>\
+                                        <div class='booking-item-rating'>\
+                                            <span class='booking-item-rating-number'><b >";
+                    // alert("elements2" +elements);
+                    if (val.hotelrating == 1){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                        // alert("elements3" +elements);
+                    }
+                    else if (val.hotelrating == 2){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements4" +elements); 
+                    }
+                    else if (val.hotelrating == 3){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements5" +elements);
+                    }
+                    else if (val.hotelrating == 4){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements6" +elements);
+                    }
+                    else if (val.hotelrating == 5){
+                        elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>\
+                                    <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
+                         // alert("elements7" +elements);
+                    }
+                    elements+="</b></span>\
+                                </div>\
+                                <h5 class='booking-item-title'>" + val.hotelname + "</h5>\
+                                <p class='booking-item-address'><i class='fa fa-map-marker'></i>" + val.location + "</p>\
+                                <small class='booking-item-last-booked'> </small>\
+                                </div>\
+                                <div class='col-md-3'>\
+                                        <span class='booking-item-price-from'>from</span>\
+                                        <span class='booking-item-price'>&#8377;" + parseFloat(val.price) + "</span>\
+                                        <span>/night</span>\
+                                        <input type='submit' name='moredetails' value='MoreDetails' class='btn btn-primary' id='more'/>\
+                                        <p>" + val.goibiborating + "/5 Reviews</p>\
+                                    </div>\
+                                </div>\
+                            </a>\
+                        </form>";        
+                        // alert("elements8" +elements);                                                                     
+                }     
+            });
+            elements += "</li>";
+            // alert("elements9" +elements);
+            $(".booking-list").html(elements);
+            }
+        });
+
 });
 
 $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
