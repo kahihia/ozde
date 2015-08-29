@@ -164,6 +164,9 @@ def home_v2(request):
 	log_function('Homepage','Homepage')
 	return render_to_response("v2/portal/home_v2.html", context_instance=RequestContext(request))
 
+def profile_v2(request):
+	return render_to_response("v2/portal/profile_v2.html", context_instance=RequestContext(request))	
+
 def getcitylist(request):
 	"""
 	Ajax Load in Auto Complete in Home Page City List
