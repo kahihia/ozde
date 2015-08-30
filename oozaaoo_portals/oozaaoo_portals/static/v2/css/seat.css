@@ -213,8 +213,7 @@ li
 }
 .deckLabel {
     float: left;
-    margin: 10px;
-    margin-right: 25px
+    margin: 10px 0px 10px 10px;
 }
 .deckLabel .label,
 .deckLabel .steeringWheel {
@@ -261,11 +260,11 @@ li
 .seat {
     display: block;
     float: left;
-    width: 20px;
-    height: 20px;
-    background-image: url(../img/seatlayout.png);
+    width: 27px;
+    height: 27px;
+    background-image: url(../img/bus-seat-layout.png);
     background-repeat: no-repeat;
-    margin-right: 10px
+    margin: 0px 6px 5px 0px;
 }
  .seat.available {
     background-position: 0 0
@@ -409,9 +408,7 @@ li
 .seatLayoutHolder ul.deck li a.sleeper.available.ladies.selected {
     background-position: -80px -60px
 }
-.seat{
-	display:block;float:left;width:20px;height:20px;background-image:url(../img/Seatlayout.png);background-repeat:no-repeat;margin:3px;
-}
+
 .sleeper{
 	display:block;float:left;width:40px;height:20px;background-image:url(../img/Seatlayout.png);background-repeat:no-repeat;margin:3px;	
 }
@@ -420,13 +417,13 @@ li
 	background-position:0 0px
 }
 	.seat_booked{
-	background-position:0 -39px
+	background-position:-30px 0px
 }
 	.seat_ladies{
-	background-position:1px -18px
+	background-position:-123px 0px
 }
 	.seat_selected{
-	background-position:0 -60px
+	background-position:-65px 0px
 }
 	.sleeper_available{
 	background-position:-40px 0
@@ -444,12 +441,12 @@ li
     background-position: -40px -80px
 }
 .seat_ladies_booked {
-    background-position: -1px -79px
+    background-position: -95px 0px;
 }
 .seats
 {
 	float:left;
-	margin-top:10px;	
+	margin:10px 15px 0px 0px;	
 }
 .seats td
 {
