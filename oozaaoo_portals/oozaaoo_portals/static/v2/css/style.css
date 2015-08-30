@@ -947,7 +947,7 @@ textarea.form-control
 .left-img
 {
   position:relative;
-  right:-50%; 
+  right:40%; 
   z-index:0;
   width: 250px;
     margin-top: 20%;
@@ -967,4 +967,11 @@ textarea.form-control
 .padding5-40
 {
     padding: 5px 40px;  
+}
+.clear_both { clear:both; }
+.add_room_holder span {
+  margin:0px 10px 0px 0px;
+}
+.search_form_home {
+  margin:10px 0px 10px 0px !important;
 }
