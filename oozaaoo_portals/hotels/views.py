@@ -42,8 +42,8 @@ from django.core.cache import cache
 
 
 class mydict(dict):
-    def __str__(self):
-        return json.dumps(self)
+	def __str__(self):
+		return json.dumps(self)
 
 def log_function(query, response):
 	logging.basicConfig(filename='mysite.log', level=logging.INFO)
@@ -54,7 +54,53 @@ def log_function(query, response):
 	logging.info("******************************************************************************************************")
 
 def registration_v2(request):
-	return render_to_response("v2/portal/signup_v2.html", context_instance=RequestContext(request))
+	"""
+	User Registration
+	"""
+	
+	try:
+		logout(request)
+		message = None
+		user=User()
+		userprofile=UserProfile()
+		email=request.POST['email']
+		if User.objects.filter(email=email).exists():
+			messages.add_message(request, messages.INFO,'Email already exists')
+			return HttpResponseRedirect(format_redirect_url("/register", 'error=57'))
+		elif request.method == 'POST':
+			
+			username=request.POST['username']
+			print 'username', username
+			email=request.POST['email']
+			password=request.POST['password']
+			phone=request.POST['phone']
+			dob=request.POST['dob']    
+			user.is_active = True
+			user.username=username
+			user.email=email
+			user.password=password
+			user.set_password(user.password)
+			user.first_name=username
+			user.save()
+			userprofile.user=user       
+			userprofile.phone=phone
+			userprofile.dateofbirth=dob
+			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
+			p.save()
+			message = "You have successfully completed registration."
+			send_templated_mail(
+					template_name='welcome',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=user.email,
+					context={
+						'username': user.email,
+						'name': user.first_name,})
+		return render_to_response('v2/portal/signup_v2.html', {'message': "You have successfully completed registration."},
+							  context_instance=RequestContext(request))
+	except:
+		return render_to_response('v2/portal/signup_v2.html',
+								  context_instance=RequestContext(request))
+	# return render_to_response("v2/portal/signup_v2.html", context_instance=RequestContext(request))
 
 def registration(request):
 	"""
@@ -73,6 +119,7 @@ def registration(request):
 		elif request.method == 'POST':
 			
 			username=request.POST['username']
+			print 'username', username
 			email=request.POST['email']
 			password=request.POST['password']
 			phone=request.POST['phone']
@@ -106,7 +153,35 @@ def registration(request):
 from django.contrib.auth import authenticate, login, logout
 
 def login_user_v2(request):
-	return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
+	print 'login_user_v2'
+	"""
+	Login User
+	"""
+	logout(request)
+	username = password = ''
+	if request.method == "POST" :
+		if request.POST["next"] != "http://localhost:8001/v2/register/" :
+			print 'request.POST["next"]', request.POST["next"]
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				if user.is_active:
+					login(request, user)
+					print 'login(request, user)', login(request, user)
+					return HttpResponseRedirect(request.POST["next"])
+		else:
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username=username, password=password)
+			user.backend = 'django.contrib.auth.backends.ModelBackend'
+			if user is not None:
+				print 'user', user
+				# if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/v2/')
+	else:				
+		return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
 
 def login_user(request):
 	"""
@@ -116,13 +191,13 @@ def login_user(request):
 	username = password = ''
 	print "request.POST['next']", request.POST['next']
 	if request.POST["next"] != "http://localhost:8000/register/" :
-	    username = request.POST['username']
-	    password = request.POST['password']
-	    user = authenticate(username=username, password=password)
-	    if user is not None:
-	        if user.is_active:
-	            login(request, user)
-	            return HttpResponseRedirect(request.POST["next"])
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect(request.POST["next"])
 	else:
 		username = request.POST['username']
 		password = request.POST['password']
@@ -134,8 +209,8 @@ def login_user(request):
 	return render_to_response('login-register.html', context_instance=RequestContext(request))
 
 def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect('/')
+	logout(request)
+	return HttpResponseRedirect('/')
 
 def myprofile(request):
 	user = request.user
@@ -168,6 +243,14 @@ def home_v2(request):
 	from hotels.models import citylist	
 	log_function('Homepage','Homepage')
 	return render_to_response("v2/portal/home_v2.html", context_instance=RequestContext(request))
+
+def home_v3(request):
+	"""
+	Home Page for Travel Portal
+	"""
+	from hotels.models import citylist	
+	log_function('Homepage','Homepage')
+	return render_to_response("v2/portal/homenew_v2.html", context_instance=RequestContext(request))
 
 def profile_v2(request):
 	return render_to_response("v2/portal/profile_v2.html", context_instance=RequestContext(request))	
@@ -316,7 +399,7 @@ def gethotellist(request):
 				# if 'fm' in hotels:
 				# 	hotel_fm=hotels.fm
 				
-		  	if rooms4=='4':
+			if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
 				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)+int(nochildrens4)
@@ -334,12 +417,12 @@ def gethotellist(request):
 				child=int(nochildrens1)
 			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata,'location':filtered_location}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
-		  	response.set_cookie( 'checkin', checkin )
-		  	response.set_cookie( 'checkout', checkout )
-		  	response.set_cookie('filterkeyword',unicode(cityid))
-		  	response.set_cookie('rooms',rooms)
-		  	response.set_cookie('guest',unicode(guest))
-		  	response.set_cookie('child',unicode(child))
+			response.set_cookie( 'checkin', checkin )
+			response.set_cookie( 'checkout', checkout )
+			response.set_cookie('filterkeyword',unicode(cityid))
+			response.set_cookie('rooms',rooms)
+			response.set_cookie('guest',unicode(guest))
+			response.set_cookie('child',unicode(child))
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=57'))
@@ -352,7 +435,7 @@ def gethotellist(request):
 
 # def gethotellist_v2(request):
 #     return render_to_response("v2/hotels/hotelsearch_v2.html", context_instance=RequestContext(request))
-      
+	  
 
 def gethotellist_v2(request):
 	print "gethotellist_v2"
@@ -434,7 +517,7 @@ def gethotellist_v2(request):
 				# if 'fm' in hotels:
 				# 	hotel_fm=hotels.fm
 				
-		  	if rooms4=='4':
+			if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
 				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)+int(nochildrens4)
@@ -452,14 +535,14 @@ def gethotellist_v2(request):
 				child=int(nochildrens1)
 			response = render_to_response("v2/hotels/hotelsearch_v2.html", {'city':city, 'hotels':hotels, 'joindata':joindata}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
-		  	response.set_cookie( 'checkin', checkin )
-		  	response.set_cookie( 'checkinvalue', checkinvalue )
-		  	response.set_cookie( 'checkout', checkout )
-		  	response.set_cookie( 'checkoutvalue', checkoutvalue )
-		  	response.set_cookie('filterkeyword',unicode(cityid))
-		  	response.set_cookie('rooms',rooms)
-		  	response.set_cookie('guest',unicode(guest))
-		  	response.set_cookie('child',unicode(child))
+			response.set_cookie( 'checkin', checkin )
+			response.set_cookie( 'checkinvalue', checkinvalue )
+			response.set_cookie( 'checkout', checkout )
+			response.set_cookie( 'checkoutvalue', checkoutvalue )
+			response.set_cookie('filterkeyword',unicode(cityid))
+			response.set_cookie('rooms',rooms)
+			response.set_cookie('guest',unicode(guest))
+			response.set_cookie('child',unicode(child))
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
 			return HttpResponseRedirect(format_redirect_url("/v2", 'error=57'))
@@ -518,16 +601,16 @@ def gethoteldetails_v2(request):
 	# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
 	# reviews = []
 	# for hotelreview in gethotelreviewresponse['data']:
-	# 	print "hotelreview", hotelreview
+	# 	print "hotelreview", hotelreviewt
 	# 	review = {}
 	# 	for f in hotelreviewsFields:
-	# 		if f in hotelreview:
+	# 		if f in hotelreview, 'mp'::t
 	# 		 		review[f] = hotelreview[f]
 	# 		else:
 	# 				review[f] = None
 	# 	reviews.append(review)
 	# print "reviews","***************", reviews
-	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
+	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}
 	# except:
 	# 	messages.add_message(request, messages.INFO,'API not responding')
 	# 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
@@ -536,7 +619,6 @@ def gethoteldetails_v2(request):
 	# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
 	# 	reviews.append(_rhotel)
 	# return HttpResponse(simplejson.dumps(hotelroominfos), mimetype='application/json')
-
 	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
 	response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
 	response.set_cookie('hc',hc)
@@ -681,12 +763,12 @@ def setprovisionalbooking(request):
 	print "joindata", joindata
 
 	customer = [['firstname', request.COOKIES.get('fname')], 
-               ['lastname', request.COOKIES.get('lname')], 
-               ['email',request.COOKIES.get('email')], 
-               ['mobile', request.COOKIES.get('pnumber')],
-               ['country_phone_code', '+91'],
-               ['title',request.COOKIES.get('initial')],
-               ]
+			   ['lastname', request.COOKIES.get('lname')], 
+			   ['email',request.COOKIES.get('email')], 
+			   ['mobile', request.COOKIES.get('pnumber')],
+			   ['country_phone_code', '+91'],
+			   ['title',request.COOKIES.get('initial')],
+			   ]
 	customer_details=mydict(customer)
 	payload={'fwdp':'{}','customer_details':'%s'%customer_details}
 	print "payload", payload

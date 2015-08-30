@@ -21,20 +21,22 @@
                                         Sign up now and receive exclusive offers with huge discounts from us!
                                     </p>
                                     <div class="sign-in-form">
-                                        <form>
-                                            <input type="text" class="form-control" placeholder="Name*" />
-                                            <input type="email" class="form-control" placeholder="Email*" />
-                                            <input type="password" class="form-control" placeholder="Create Password*" />
-                                            
+                                        <form action="{% url "hotels.views.registration_v2" %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="text" class="form-control" name="username" placeholder="Name*" />
+                                            <input type="email" class="form-control" name="email" placeholder="Email*" />
+                                            <input type="password" class="form-control" name="password" placeholder="Create Password*" />
+                                            <input class="form-control" placeholder="phone no" type="text" name="phone" />                                          
+                                            <input class="form-control" placeholder="e.g.2015-08-19" type="text" name="dob" />
                                             <br>
-                                            <button class="btn btn-primary width100">Create new account</button>
+                                            <button class="btn btn-primary width100" type="submit">Create new account</button> 
                                             <p><input type="checkbox" /> By clicking you agree to <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy.</a></p>
                                             
                                         </form>
                                     </div>
                                 </div>
                                 <div class="panel-footer bg-white">
-                                    <p>Already have an account? <a href="#">Sign in</a></p>
+                                    <p>Already have an account? <a href="/v2/login/">Sign in</a></p>
                                 </div>
                             </div>
                         </div>
