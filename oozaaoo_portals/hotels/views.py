@@ -510,16 +510,16 @@ def gethoteldetails_v2(request):
 	# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
 	# reviews = []
 	# for hotelreview in gethotelreviewresponse['data']:
-	# 	print "hotelreview", hotelreview
+	# 	print "hotelreview", hotelreviewt
 	# 	review = {}
 	# 	for f in hotelreviewsFields:
-	# 		if f in hotelreview:
+	# 		if f in hotelreview, 'mp'::t
 	# 		 		review[f] = hotelreview[f]
 	# 		else:
 	# 				review[f] = None
 	# 	reviews.append(review)
 	# print "reviews","***************", reviews
-	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
+	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}
 	# except:
 	# 	messages.add_message(request, messages.INFO,'API not responding')
 	# 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
@@ -528,7 +528,6 @@ def gethoteldetails_v2(request):
 	# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
 	# 	reviews.append(_rhotel)
 	# return HttpResponse(simplejson.dumps(hotelroominfos), mimetype='application/json')
-
 	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
 	response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
 	response.set_cookie('hc',hc)
