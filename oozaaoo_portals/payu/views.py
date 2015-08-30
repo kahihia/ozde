@@ -79,7 +79,7 @@ def bus_payu(request):
     email=request.COOKIES.get('email')
     txnid=my_random_string(8)
     cleaned_data = {'key': settings.PAYU_INFO['merchant_key'], 
-                    'txnid':txnid,'amount': request.COOKIES.get('totalfare'), 
+                    'txnid':txnid,'amount': request.COOKIES.get('total_amount'), 
                     'productinfo':request.COOKIES.get('source')+'-'+request.COOKIES.get('destination'),
                     'firstname':fname,
                     'email': email, 
@@ -117,7 +117,7 @@ def bus_payu(request):
                          settings.PAYU_INFO['furl'],
                          txnid,
                          request.COOKIES.get('source')+'-'+request.COOKIES.get('destination'),
-                         request.COOKIES.get('totalfare'),
+                         request.COOKIES.get('total_amount'),
                          email,
                          ))
     return response

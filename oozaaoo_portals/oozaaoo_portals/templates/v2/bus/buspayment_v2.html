@@ -56,68 +56,96 @@
                     <div class="panel-heading">
                         <h2 class="panel-title"> 1. Trip Details</h2>
                     </div>
+                    {% if request.COOKIES.trip == "round" %}
                     <div class="panel-body">
-                        <h4 class="size20 bold">Chennai <i class="fa ion-arrow-right-c margin020"></i> Bangalore <span class="text-muted">(Going)</span></h4>
-                        <h5 class="size17">Friday, August 26th, 2015</h5>
+                        <h4 class="size20 bold">{{request.COOKIES.source}} <i class="fa ion-arrow-right-c margin020"></i> {{request.COOKIES.destination}} <span class="text-muted">(Going)</span></h4>
+                        <h5 class="size17">{{request.COOKIES.start}}</h5>
                         <div class="padding10"></div>
                         <div class="row">
                             <div class="col-md-4 size17">
-                                <p><strong>Hebron Travels</strong><br> Volvo A/C Semi Sleeper (2+2)</p>
-                                <p class="size14 text-muted"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</p>
+                                <p><strong>{{travels_onward}}</strong><br>{{bus_type_onward}}</p>
+                                <!-- <p class="size14 text-muted"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</p> -->
                             </div>
                             <div class="col-md-4 size17">
                                 <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
-                                <p class="pull-left">Boarding: Koyembedu<br> Dep time: <strong>07:00 PM</strong> <span class="text-muted">(26th Aug)</span><br>Seat no: <strong>16</strong>
-</p>
-<div class="clearfix"></div>
+                                <p class="pull-left">Boarding: {{bpoint_onward_user}}<br> Dep time: <strong>{{dept_time_onward}}</strong><br>Seat(s) no: <strong>{{selected_seats_split_onward}}</strong></p>
+                                <div class="clearfix"></div>
                             </div>
                              <div class="col-md-4 size17">
                                 <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
-                                <p class="pull-left">Drop: Madiwala<br> Arr time: <strong>05:00 AM</strong> <span class="text-muted">(27th Aug)</span>
-</p>
-<div class="clearfix"></div>
+                                <p class="pull-left">Drop: {{request.COOKIES.destination}}<br> Arr time: <strong>{{arri_time_onward}}</strong></p>
+                                <div class="clearfix"></div>
                             </div>
                         </div>
                         <hr/>
-                        <h4 class="size20 bold">Bangalore <i class="fa ion-arrow-right-c margin020"></i> Chennai <span class="text-muted">(Return)</span></h4>
-                        <h5 class="size17">Sunday, August 28th, 2015</h5>
+                        <h4 class="size20 bold">{{request.COOKIES.destination}} <i class="fa ion-arrow-right-c margin020"></i> {{request.COOKIES.source}} <span class="text-muted">(Return)</span></h4>
+                        <h5 class="size17">{{request.COOKIES.end}}</h5>
                         <div class="padding10"></div>
                         <div class="row">
                             <div class="col-md-4 size17">
-                                <p><strong>KPN Travels</strong><br> Volvo A/C Semi Sleeper (2+2)</p>
-                                <p class="size14 text-muted"><i class="fa fa-clock-o"></i> Duration: 07:10 Hrs</p>
+                                <p><strong>{{travels_return}}</strong><br> {{bus_type_return}}</p>
+                                <!-- <p class="size14 text-muted"><i class="fa fa-clock-o"></i> Duration: 07:10 Hrs</p> -->
                             </div>
                             <div class="col-md-4 size17">
                                 <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
-                                <p class="pull-left">Boarding: Majestic<br> Dep time: <strong>09:00 PM</strong> <span class="text-muted">(28th Aug)</span><br>Seat no: <strong>30</strong>
-</p>
-<div class="clearfix"></div>
+                                <p class="pull-left">Boarding:{{ bpoint_return_user}}<br> Dep time: <strong>{{dept_time_return}}</strong> <br>Seat no: <strong>{{selected_seats_split_return}}</strong></p>
+                                <div class="clearfix"></div>
                             </div>
                              <div class="col-md-4 size17">
                                 <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
-                                <p class="pull-left">Drop: Chennai<br> Arr time: <strong>06:30 AM</strong> <span class="text-muted">(29th Aug)</span>
-</p>
-<div class="clearfix"></div>
+                                <p class="pull-left">Drop: {{request.COOKIES.destination}}<br> Arr time: <strong>{{arri_time_return}}</strong></p>
+                                <div class="clearfix"></div>
                             </div>
                         </div>
                         <hr/>
                         <div class="row">
                             <div class="col-md-4 pull-right">
-                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> 1300.00</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amt}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
                                 
                             </div>
                         </div>
                     </div>
+                    {%else%}
+                    <div class="panel-body">
+                        <h4 class="size20 bold">{{request.COOKIES.source}} <i class="fa ion-arrow-right-c margin020"></i> {{request.COOKIES.destination}} <span class="text-muted">(Going)</span></h4>
+                        <h5 class="size17">{{request.COOKIES.start}}</h5>
+                        <div class="padding10"></div>
+                        <div class="row">
+                            <div class="col-md-4 size17">
+                                <p><strong>{{request.COOKIES.travels_name}}</strong><br>{{request.COOKIES.bus_type}}</p>
+                                <!-- <p class="size14 text-muted"><i class="fa fa-clock-o"></i> Duration: 06:00 Hrs</p> -->
+                            </div>
+                            <div class="col-md-4 size17">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <p class="pull-left">Boarding: {{bpoint_name }}<br> Dep time: <strong>{{request.COOKIES.dept_time_oneway}}</strong><br>Seat(s) no: <strong>{{selected_seats}}</strong></p>
+                                <div class="clearfix"></div>
+                            </div>
+                             <div class="col-md-4 size17">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <p class="pull-left">Drop: {{request.COOKIES.destination}}<br> Arr time: <strong>{{request.COOKIES.arri_time_oneway}}</strong></p>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-4 pull-right">
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amount}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
                 </div>
                 <div class="padding10"></div>
-                
+            {% if not user.is_authenticated %} 
                 <div class="panel panel-lightpurple">
                     <div class="panel-heading">
                         <h4 class="panel-title"> 2. Travellers details</h4>
                     </div>
                     <div class="panel-body">
+                        
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <h5>Log in to speed up your booking</h5>
                                 <form class="form-horizontal">
                                     <div class="row">
@@ -137,69 +165,188 @@
                                         <div class="col-md-8">
                                             <h5 class="text-right">Not Registered? <a href="#"> Create New Account</a></h5>
                                         </div>
-                                     </div>   
-                                     <hr />
-                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Travellers name<span class="red">*</span></label>
-                                            <input type="text" class="form-control" />
+                                     </div>
+                                </form>   
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%else%}
+                <form action="{% url "bus.views.tentativebooking" %}" method="post" class="form-horizontal">{% csrf_token %}
+                    {% if request.COOKIES.trip == "oneway" %}
+                        <div class="panel panel-lightpurple">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> 2. Travellers details</h4>
+                            </div>
+                            <div class="panel-body">
+                                {% for s,f in seat %}
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Title<span class="red">*</span></label>
+                                            <select class="form-control" name="title_{{forloop.counter}}">
+                                                <option value="mr">Mr</option>
+                                                <option value="mrs">Mrs</option>
+                                                <option value="miss">Miss</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Travellers name {{forloop.counter}}<span class="red">*</span></label>
+                                            <input id="fname" type="text" class="form-control fname" name="fname_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Last name<span class="red">*</span></label>
+                                            <input id="lname" type="text" class="form-control lname" name="lname_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
                                         </div>
                                         <div class="col-md-2">
                                             <label>Age<span class="red">*</span></label>
-                                            <input type="text" class="form-control" />
+                                            <input type="text" class="form-control age" name="age_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the age</span>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label>Gender<span class="red">*</span></label>
-                                            <select class="form-control">
-                                                <option>Select</option>
-                                                <option>Male</option>
-                                                <option>Female</option>
-                                            </select>
+                                        <div class="col-md-1">
+                                            <label><span class="red">O</span>{{s}}</label>
+                                            <label><span class="red">R</span>{{f}}</label>
+                                            <input type="hidden" name="seat_{{forloop.counter}}" value="{{s}}" readonly>
+                                            <input type="hidden" name="fare_{{forloop.counter}}" value="{{f}}" readonly>
                                         </div>
-                                    </div><br>
+                                    </div>
+                                {%endfor%}
+                                    <br>
                                     
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Email<span class="red">*</span></label>
-                                            <input type="text" class="form-control" />
+                                            <input type="text" class="form-control email" name="email" />
+                                            <span class="errormgs" style="display:none; color:red;">please enter the email</span>
                                             
                                         </div>
                                         <div class="col-md-6">
                                             <label>Mobile<span class="red">*</span></label>
                                             <div class="input-group">
                                               <span class="input-group-addon padding5" id="india-code">+91</span>
-                                              <input type="text" class="form-control" aria-describedby="india-code">
+                                              <input type="text" class="form-control mobileno" aria-describedby="india-code" name="mobile">
+                                              <span class="errormgs" style="display:none; color:red;">please enter the mobile number</span>
                                             </div>                                         </div>
                                        
                                     </div>
                                      <div class="help-block">Ticket will be sent to this email only</div>
-                                     <button class="btn btn-primary">Go to payment</button>   
-                                </form>
+                                     <button class="btn btn-primary" >Go to payment</button>   
+                               
+                                
                             </div>
                             <div class="col-md-6">
                             
                             </div>
                         </div>        
-                    </div>
-                </div> 
-                <div class="panel panel-lightpurple">
-                    <div class="panel-heading">
-                        <h4 class="panel-title"> 3. Payment</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h5><strong>PayU Money</strong></h5>
-                                <h5>Amount Payable : <i class="fa fa-rupee"></i> 1300.00</h5>
-                                <button class="btn btn-success margintop15">Make payment</button>
-                                <p class="margintop5">By Clicking on Make payment, you agree to all the <a href="#">Terms and Conditions</a></p>
+                        <div class="panel panel-lightpurple">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> 3. Payment</h4>
                             </div>
-                            <div class="col-md-4 text-right">
-                                <img src="images/payment-gateway.jpg" alt="Payment Gateway" />
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5><strong>PayU Money</strong></h5>
+                                        <h5>Amount Payable : <i class="fa fa-rupee"></i> {{total_amount}}</h5>
+                                        <button class="btn btn-success margintop15" type="submit">Make payment</button>
+                                        <p class="margintop5">By Clicking on Make payment, you agree to all the <a href="#">Terms and Conditions</a></p>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <img src="images/payment-gateway.jpg" alt="Payment Gateway" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>    
+                    {%else%}
+                        <div class="panel panel-lightpurple">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> 2. Travellers details</h4>
+                            </div>
+                            <div class="panel-body">
+                                {% for s_o,f_o,s_r,f_r in seat %}
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Title<span class="red">*</span></label>
+                                            <select class="form-control" name="title_{{forloop.counter}}">
+                                                <option value="mr">Mr</option>
+                                                <option value="mrs">Mrs</option>
+                                                <option value="miss">Miss</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Travellers name {{forloop.counter}}<span class="red">*</span></label>
+                                            <input id="fname" type="text" class="form-control fname" name="fname_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Last name<span class="red">*</span></label>
+                                            <input id="lname" type="text" class="form-control lname" name="lname_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Age<span class="red">*</span></label>
+                                            <input type="text" class="form-control age" name="age_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the age</span>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label><span class="red">O</span>{{s_o}}</label>
+                                            <label><span class="red">R</span>{{s_r}}</label>
+                                            <input type="hidden" name="seat_onward_{{forloop.counter}}" value="{{s_o}}" readonly>
+                                            <input type="hidden" name="fare_onward_{{forloop.counter}}" value="{{f_o}}" readonly>
+                                            <input type="hidden" name="seat_return_{{forloop.counter}}" value="{{s_r}}" readonly>
+                                            <input type="hidden" name="fare_return_{{forloop.counter}}" value="{{f_r}}" readonly>
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+                                    <br>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email<span class="red">*</span></label>
+                                            <input type="text" class="form-control email" name="email" />
+                                            <span class="errormgs" style="display:none; color:red;">please enter the email</span>
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Mobile<span class="red">*</span></label>
+                                            <div class="input-group">
+                                              <span class="input-group-addon padding5" id="india-code">+91</span>
+                                              <input type="text" class="form-control mobileno" aria-describedby="india-code" name="mobile">
+                                              <span class="errormgs" style="display:none; color:red;">please enter the mobile number</span>
+                                            </div>                                         </div>
+                                       
+                                    </div>
+                                     <div class="help-block">Ticket will be sent to this email only</div>
+                                     <button class="btn btn-primary" >Go to payment</button>   
+                               
+                                
+                            </div>
+                            <div class="col-md-6">
+                            
+                            </div>
+                        </div>        
+                        <div class="panel panel-lightpurple">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> 3. Payment</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5><strong>PayU Money</strong></h5>
+                                        <h5>Amount Payable : <i class="fa fa-rupee"></i> {{total_amt}}</h5>
+                                        <button class="btn btn-success margintop15" type="submit">Make payment</button>
+                                        <p class="margintop5">By Clicking on Make payment, you agree to all the <a href="#">Terms and Conditions</a></p>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <img src="images/payment-gateway.jpg" alt="Payment Gateway" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {%endif%}   
+                 </form> 
+            {%endif%}
             </div>
             <div class="col-md-1"></div>
             
