@@ -169,6 +169,7 @@
                                     <input type="hidden" name="arri_time" value="{{values.businfos.ArrivalTime}}">
                                     <input type="hidden" name="bus_type" value="{{values.businfos.BusType}}">
                                     <input type="hidden" name='skey'value="{{values.businfos.skey}}" >
+                                    <input type="hidden" name='skey_onward'value="{{values.businfos.skey}}" >
                                      <input type="button" value="Seats" class="slide">
                                      <input type="hidden" value="onward" name="route_type">
                                      <div class="seat_map">  
@@ -228,8 +229,9 @@
                                     <input type="hidden" name="bus_type" value="{{values_return.businfos.BusType}}">
                                     <input type="hidden" name="bus_type" value="{{values_return.businfos.BusType}}">
                                     <input type="hidden" name='skey'value="{{values_return.businfos.skey}}" >
+                                    <input type="hidden" name='skey_return'value="{{values_return.businfos.skey}}" >
                                      <input type="button" value="Seats" class="slide">
-                                     <input type="hidden" value="return">
+                                    <input type="hidden" value="return" name="route_type">
                                      <div class="seat_map">  
                                      </div>
                             </li> 

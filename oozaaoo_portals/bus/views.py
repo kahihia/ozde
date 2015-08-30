@@ -38,6 +38,7 @@ import time
 from datetime import datetime
 from templated_email import send_templated_mail
 import logging
+from django.core.cache import cache
 
 
 class mydict(dict):
@@ -55,7 +56,118 @@ def log_function(query, response,payload='Nil'):
 	logging.info("******************************************************************************************************")
 
 def search_bus_v2(request):
-	return render_to_response("v2/bus/buslist_v2.html", context_instance=RequestContext(request))
+	"""
+	Search Bus based on Source and Destination
+	"""
+	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	source= request.POST.get('source',request.COOKIES.get('source'))
+	destination=request.POST.get('destination',request.COOKIES.get('destination'))
+	departure=request.POST.get('start',request.COOKIES.get('start'))
+	dateofdeparture = departure.replace('/','')
+	arrival=request.POST.get('end',request.COOKIES.get('end'))
+	dateofarrival = departure.replace('/','')
+	trip=request.POST.get('trip',request.COOKIES.get('trip'))
+	try:
+		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival,trip)
+		if 'data' in getbusresponse:
+			log_function(query, "success:True")
+		else:
+			log_function(query, "success:False" + str(getbusresponse['Error']))
+		reviews = []
+		try:
+			for bussearchlist in getbusresponse['data']['onwardflights']:	
+				_rbuslist	= {}
+				_rbuslist['businfos'] = {
+					'origin':bussearchlist['origin'],
+					'destination':bussearchlist['destination'],
+					'BusType':bussearchlist['BusType'],
+					'DepartureTime':bussearchlist['DepartureTime'],
+					'duration':bussearchlist['duration'],
+					'skey':bussearchlist['skey'],
+					'fare':bussearchlist['fare']['totalfare'],
+					'TravelsName':bussearchlist['TravelsName'],
+					'ArrivalTime':bussearchlist['ArrivalTime'],
+					'depdate':bussearchlist['depdate'],
+					'arrdate':bussearchlist['arrdate'],
+					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+					'busCondition':bussearchlist.get('busCondition'),
+					'BusType':bussearchlist.get('BusType'),
+				}
+
+				if bussearchlist.get('BPPrims'):
+					for morevalues in bussearchlist['BPPrims']['list']:
+						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+
+					if bussearchlist.get('DPPrims'):
+						for morevalues in bussearchlist['DPPrims']['list']:
+							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+					
+
+					if bussearchlist.get('RouteSeatTypeDetail'):
+						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+					
+					reviews.append(_rbuslist)
+				else:
+					reviews.append(_rbuslist)
+			reviews_return = []
+			for bussearchlist in getbusresponse['data']['returnflights']:	
+				_rbuslist	= {}
+				_rbuslist['businfos'] = {
+					'origin':bussearchlist['origin'],
+					'destination':bussearchlist['destination'],
+					'BusType':bussearchlist['BusType'],
+					'DepartureTime':bussearchlist['DepartureTime'],
+					'duration':bussearchlist['duration'],
+					'skey':bussearchlist['skey'],
+					'fare':bussearchlist['fare']['totalfare'],
+					'TravelsName':bussearchlist['TravelsName'],
+					'ArrivalTime':bussearchlist['ArrivalTime'],
+					'depdate':bussearchlist['depdate'],
+					'arrdate':bussearchlist['arrdate'],
+					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+				}
+
+				if bussearchlist.get('BPPrims'):
+					for morevalues in bussearchlist['BPPrims']['list']:
+						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+
+					if bussearchlist.get('DPPrims'):
+						for morevalues in bussearchlist['DPPrims']['list']:
+							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+					
+
+					if bussearchlist.get('RouteSeatTypeDetail'):
+						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+					
+					reviews_return.append(_rbuslist)
+				else:
+					reviews_return.append(_rbuslist)
+
+		except:
+			messages.add_message(request, messages.INFO,'API not responding for one way trip')
+			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
+	except:
+		messages.add_message(request, messages.INFO,'User Entering data is wrong')
+		return HttpResponseRedirect(format_redirect_url("/", 'error=1'))
+
+	source = unicode(source)
+	destination = unicode(destination)
+	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
+	#return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
+	if trip=='oneway':	
+		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,}, context_instance=RequestContext(request))
+	else:
+		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'reviews_return':reviews_return,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,}, context_instance=RequestContext(request))
+
+	response.set_cookie( 'source', source)
+	response.set_cookie( 'trip', trip)
+	response.set_cookie( 'destination', destination)
+	response.set_cookie( 'start', departure)
+	response.set_cookie( 'end', arrival)
+	return response
+	#return render_to_response("v2/bus/buslist_v2.html", context_instance=RequestContext(request))
 
 def search_bus(request):
 	"""
@@ -195,15 +307,20 @@ def seat_map(request):
 	return response
 
 @csrf_exempt
-def seat(request):
+def seat_v2(request):
+	route_type=request.POST.get('route_type')
+	print 'route_type',route_type
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
+	arri_time_oneway=request.POST.get('arri_time',request.COOKIES.get('arri_time_oneway'))
+	dept_time_oneway=request.POST.get('dept_time',request.COOKIES.get('dept_time_oneway'))
+	travels_name=request.POST.get('travels_name',request.COOKIES.get('travels_name'))
 	bus_type=request.POST.get('bus_type',request.COOKIES.get('bus_type'))
 
 	seat_type=bus_type.lower().split()
 	number= seat_type[-1]
 	name= seat_type[:-1]
 	trip=request.COOKIES.get('trip')
-	print 'trip====',trip
+	
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	query,getbusseat=GO.Busseat(skey)
 
@@ -217,30 +334,100 @@ def seat(request):
 		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
 			results.append(i)
 	if 'sleeper' in name and 'semi'in name and number=='(2+2)':
+		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	elif 'seater' in name and number=='(2+2)':
+		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	elif 'airbus' in name and number=='(2+2)':
+		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	elif 'semisleeper' in name and number=='(2+2)':
+		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	elif 'sleeper' in name and number=='(2+1)':
+		response= render_to_response('v2/bus/sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	elif 'sleeper' in name and number=='(1+1)':
+		response= render_to_response('v2/bus/sleeper(1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	elif 'seater/sleeper' in name and number=='(2+1)' or 'seater' in name and'sleeper' in name and number=='(2+1)':
+		response= render_to_response('v2/bus/seater_sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
+	elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
+		response= render_to_response('v2/bus/seater(1+1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
+	elif 'seater' in name and number=='(2+3)':
+		response= render_to_response('v2/bus/seater(2+3).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
+	else:
+		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
+	
+	response.set_cookie('skey',skey)
+	if route_type == 'return':
+		response.set_cookie('skey_return',skey)
+	else:
+		response.set_cookie('skey_onward',skey)
+	response.set_cookie('bus_type',bus_type)
+	response.set_cookie('arri_time_oneway',arri_time_oneway)
+	response.set_cookie('travels_name',travels_name)
+	response.set_cookie('dept_time_oneway',dept_time_oneway)
+	return response
+
+
+@csrf_exempt
+def seat(request):
+	route_type=request.POST.get('route_type')
+	print 'route_type',route_type
+	skey=request.POST.get('skey',request.COOKIES.get('skey'))
+	bus_type=request.POST.get('bus_type',request.COOKIES.get('bus_type'))
+
+	seat_type=bus_type.lower().split()
+	number= seat_type[-1]
+	name= seat_type[:-1]
+	trip=request.COOKIES.get('trip')
+	
+	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	query,getbusseat=GO.Busseat(skey)
+
+	if 'data' in getbusseat:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbusseat['Error']))
+	results=[]
+	for k,v in getbusseat.iteritems():
+		results.append(v['onwardSeats'])
+		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
+			results.append(i)
+	if 'sleeper' in name and 'semi'in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'seater' in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'airbus' in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'semisleeper' in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'sleeper' in name and number=='(2+1)':
+		print 'sleeper(2+1)'
 		response= render_to_response('bus/sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'sleeper' in name and number=='(1+1)':
+		print 'sleeper(1+1)'
 		response= render_to_response('bus/sleeper(1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'seater/sleeper' in name and number=='(2+1)' or 'seater' in name and'sleeper' in name and number=='(2+1)':
+		print 'seater_sleeper(2+1)'
 		response= render_to_response('bus/seater_sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
+		print 'seater(1+1+1)'
 		response= render_to_response('bus/seater(1+1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name and number=='(2+3)':
+		print 'seater(2+3)'
 		response= render_to_response('bus/seater(2+3).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	else:
+		print 'else seater'
 		response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	
 	response.set_cookie('skey',skey)
+	if route_type == 'return':
+		response.set_cookie('skey_return',skey)
+	else:
+		response.set_cookie('skey_onward',skey)
 	response.set_cookie('bus_type',bus_type)
 	return response
-
 
 def cancelpolicy(request):
 	"""
@@ -262,7 +449,6 @@ def cancelpolicy(request):
 	return render_to_response('bus/bus-cancelpolicy.html', {'policy':policy}, context_instance=RequestContext(request)) 
 
 
-@login_required(login_url='/register/')
 def bus_booking(request):	
 	try:
 		trip = request.COOKIES.get('trip')
@@ -307,21 +493,22 @@ def bus_booking(request):
 			bpoint_id_return,bpoint_name_return= bpoint_return.split("-")
 			print 'bpoint_id' ,bpoint_id_return
 			print 'bpoint_name' ,bpoint_name_return
-			seat_and_fare_onward=zip(selected_seats_split_onward,selected_seats_fare_split_onward)
-			print 'seat_and_fare_onward',seat_and_fare_onward
-			seat_and_fare_return=zip(selected_seats_split_return,selected_seats_fare_split_return)
-			print 'seat_and_fare_return',seat_and_fare_return
-			seat_details=zip(selected_seats_split_onward,selected_seats_split_return)
-			response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':seat_details,'seat_return':seat_and_fare_return,'count':count_of_seat}, context_instance=RequestContext(request)) 
+			# seat_and_fare_onward=zip(selected_seats_split_onward,selected_seats_fare_split_onward)
+			# print 'seat_and_fare_onward',seat_and_fare_onward
+			# seat_and_fare_return=zip(selected_seats_split_return,selected_seats_fare_split_return)
+			# print 'seat_and_fare_return',seat_and_fare_return
+			seat_details=zip(selected_seats_split_onward,selected_seats_fare_split_onward,selected_seats_split_return,selected_seats_fare_split_return)
+			response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':seat_details,'count':count_of_seat}, context_instance=RequestContext(request)) 
 		# seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
 		# fare , seat_name=seatdetails.split(",")
 		# response.set_cookie('bpoint',bpoint)
-		# #response.set_cookie('seatdetails',seatdetails)
-		# response.set_cookie('bpoint_id',bpoint_id)
-		# response.set_cookie('bpoint_name',bpoint_name)
-		# response.set_cookie('totalfare',totalfare)
-		# response.set_cookie('selected_seats',selected_seats)
-		# response.set_cookie('total_seats',count_of_seat)
+		#response.set_cookie('seatdetails',seatdetails)
+		response.set_cookie('bpoint_id_onward',bpoint_id_onward)
+		response.set_cookie('bpoint_name_onward',bpoint_name_onward)
+		response.set_cookie('bpoint_id_return',bpoint_id_return)
+		response.set_cookie('bpoint_name_onward',bpoint_name_return)
+		response.set_cookie('totalfare',totalfare)
+		response.set_cookie('total_seats',count_of_seat)
 		return response
 	except:
 		messages.add_message(request, messages.INFO,'Enter the details correct way')
@@ -332,13 +519,129 @@ def bus_booking(request):
 			return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
 
 def tentativebooking_v2(request):
-	return render_to_response("v2/bus/buspayment_v2.html", context_instance=RequestContext(request))
+	#return render_to_response("v2/bus/buspayment_v2.html", context_instance=RequestContext(request))
+
+	# try:
+	trip = request.COOKIES.get('trip')
+	if trip=='oneway':
+		total_amount=request.POST.get('totalfare',request.COOKIES.get('total_amount'))
+		count_of_seat=request.POST.get('seatcount',request.COOKIES.get('total_seats'))
+		selected_seats_fare=request.POST.get('seatFare',cache.get('selected_seats_fare'))
+		cache.set('selected_seats_fare', selected_seats_fare)
+		selected_seats_fare_split=selected_seats_fare.split(",")
+		selected_seats=request.POST.get('seatNumbersList',cache.get('selected_seats'))
+		cache.set('selected_seats', selected_seats)
+		selected_seats_split=selected_seats.split(",")
+		bpoint=request.POST.get('boarding_point_list',cache.get('bpoint'))
+		cache.set('bpoint', bpoint)
+		bpoint_id,bpoint_name= bpoint.split("-")
+		seat_and_fare=zip(selected_seats_split,selected_seats_fare_split)
+		response= render_to_response('v2/bus/buspayment_v2.html',{'total_amount':total_amount,'seat':seat_and_fare,'count':count_of_seat,'bpoint_name':bpoint_name,'selected_seats':selected_seats}, context_instance=RequestContext(request)) 
+		response.set_cookie('total_amount',total_amount)
+		response.set_cookie('total_seats',count_of_seat)
+		response.set_cookie('bpoint_id',bpoint_id)
+		return response
+
+	else:
+		total_amount=request.POST.get('total_amount',request.COOKIES.get('total_amount'))
+		print 'total_amount',total_amount
+		seat_count_round=request.POST.get('seat_count_round',request.COOKIES.get('seat_count_round'))
+		print 'seat_count_round',seat_count_round
+		selected_seats_fare_onward=request.POST.get('seatFareOnward',cache.get('selected_seats_fare_onward'))
+		cache.set('selected_seats_fare_onward', selected_seats_fare_onward)
+		print 'selected_seats_fare_onward',selected_seats_fare_onward
+		selected_seats_fare_split_onward=selected_seats_fare_onward.split(",")
+		print 'selected_seats_fare_split_onward',selected_seats_fare_split_onward
+		selected_seats_fare_return=request.POST.get('seatFareReturn',cache.get('selected_seats_fare_return'))
+		cache.set('selected_seats_fare_return', selected_seats_fare_return)
+		print 'selected_seats_fare_return',selected_seats_fare_return
+		selected_seats_fare_split_return=selected_seats_fare_return.split(",")
+		print 'selected_seats_fare_split_return',selected_seats_fare_split_return
+		selected_seats_onward=request.POST.get('seats_onward',cache.get('selected_seats_onward'))
+		cache.set('selected_seats_onward', selected_seats_onward)
+		print 'selected_seats_onward',selected_seats_onward
+		selected_seats_split_onward=selected_seats_onward.split(",")
+		print 'selected_seats_split_onward',selected_seats_split_onward
+		selected_seats_return=request.POST.get('seats_return',cache.get('selected_seats_return'))
+		cache.set('selected_seats_return', selected_seats_return)
+		print 'selected_seats_return',selected_seats_return
+		selected_seats_split_return=selected_seats_return.split(",")
+		print 'selected_seats_split_return',selected_seats_split_return
+		OnwardBoardingPoint=request.POST.get('OnwardBoardingPoint',cache.get('OnwardBoardingPoint'))
+		cache.set('OnwardBoardingPoint', OnwardBoardingPoint)
+		bpoint_id_onward,bpoint_name_onward= OnwardBoardingPoint.split("-")
+		print 'bpoint_id' ,bpoint_id_onward
+		print 'bpoint_name' ,bpoint_name_onward
+		ReturnBoardingPoint=request.POST.get('ReturnBoardingPoint',cache.get('ReturnBoardingPoint'))
+		cache.set('ReturnBoardingPoint', ReturnBoardingPoint)
+		bpoint_id_return,bpoint_name_return= ReturnBoardingPoint.split("-")
+		print 'bpoint_id' ,bpoint_id_return
+		print 'bpoint_name' ,bpoint_name_return
+		arri_time_onward=request.POST.get('arri_time_onward',request.COOKIES.get('arri_time_onward'))
+		arri_time_return=request.POST.get('arri_time_return',request.COOKIES.get('arri_time_return'))
+		bpoint_onward=request.POST.get('bpoint_onward',request.COOKIES.get('bpoint_onward'))
+		bpoint_return=request.POST.get('bpoint_return',request.COOKIES.get('bpoint_return'))
+		bus_type_onward=request.POST.get('bus_type_onward',request.COOKIES.get('bus_type_onward'))
+		bus_type_return=request.POST.get('bus_type_return',request.COOKIES.get('bus_type_return'))
+		dept_time_onward=request.POST.get('dept_time_onward',request.COOKIES.get('dept_time_onward'))
+		dept_time_return=request.POST.get('dept_time_return',request.COOKIES.get('dept_time_return'))
+		fare_onward=request.POST.get('fare_onward',request.COOKIES.get('fare_onward'))
+		fare_return=request.POST.get('fare_return',request.COOKIES.get('fare_return'))
+		travels_onward=request.POST.get('travels_onward',request.COOKIES.get('travels_onward'))
+		travels_return=request.POST.get('travels_return',request.COOKIES.get('travels_return'))
+		seat_details=zip(selected_seats_split_onward,selected_seats_fare_split_onward,selected_seats_split_return,selected_seats_fare_split_return)
+		response= render_to_response('v2/bus/buspayment_v2.html',{'total_amt':total_amount,
+																	'seat':seat_details,
+																	'count':seat_count_round,
+																	'bpoint_onward':bpoint_name_onward,
+																	'bpoint_return':bpoint_name_return,
+																	'arri_time_onward':arri_time_onward,
+																	'arri_time_return':arri_time_return,
+																	'bpoint_onward_user':bpoint_onward,
+																	'bpoint_return_user':bpoint_return,
+																	'bus_type_onward':bus_type_onward,
+																	'bus_type_return':bus_type_return,
+																	'dept_time_onward':dept_time_onward,
+																	'dept_time_return':dept_time_return,
+																	'fare_onward':fare_onward,
+																	'fare_return':fare_return,
+																	'travels_onward':travels_onward,
+																	'travels_return':travels_return,
+																	'selected_seats_onward':selected_seats_onward,
+																	'selected_seats_split_return':selected_seats_return
+																	}, context_instance=RequestContext(request)) 
+		response.set_cookie('total_amount',total_amount)
+		response.set_cookie('seat_count_round',seat_count_round)
+		response.set_cookie('arri_time_onward',arri_time_onward)
+		response.set_cookie('arri_time_return',arri_time_return)
+		response.set_cookie('bpoint_onward',bpoint_onward)
+		response.set_cookie('bpoint_return',bpoint_return)
+		response.set_cookie('bus_type_onward',bus_type_onward)
+		response.set_cookie('bus_type_return',bus_type_return)
+		response.set_cookie('dept_time_onward',dept_time_onward)
+		response.set_cookie('dept_time_return',dept_time_return)
+		response.set_cookie('fare_onward',fare_onward)
+		response.set_cookie('fare_return',fare_return)
+		response.set_cookie('travels_return',travels_return)
+		response.set_cookie('travels_onward',travels_onward)
+		response.set_cookie('bpoint_id_onward',bpoint_id_onward)
+		response.set_cookie('bpoint_id_return',bpoint_id_return)
+		return response
+	# except:
+	# 	messages.add_message(request, messages.INFO,'Enter the details correct way')
+	# 	trip = request.COOKIES.get('trip')
+	# 	if trip=='oneway':	
+	# 		return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
+	# 	else:
+	# 		return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
 
 def tentativebooking(request):
 	import requests
 	import urllib
 	from django.utils import simplejson
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
+	skey_onward=request.COOKIES.get('skey_onward')
+	skey_return=request.COOKIES.get('skey_return')
 	print 'skey',skey
 	bpoint_id=request.COOKIES.get('bpoint_id')
 	print 'bpoint_id',bpoint_id
@@ -347,109 +650,236 @@ def tentativebooking(request):
 	totalfare=request.COOKIES.get('totalfare')
 	print 'totalfare',totalfare
 
-	selected_seats=request.COOKIES.get('selected_seat')
-	print 'selected_seats',selected_seats
-
 	total_seat=request.COOKIES.get('total_seats')
 	print 'total_seat',total_seat
 	title=request.POST.get('title_1',request.COOKIES.get('title'))
 	print 'title', title
 	fname=request.POST.get('fname_1',request.COOKIES.get('fname'))
 	lname=request.POST.get('lname_1',request.COOKIES.get('lname'))
-	seat_name=request.POST.get('seat_1',request.COOKIES.get('seat'))
-	seat_fare=request.POST.get('fare_1',request.COOKIES.get('fare'))
+	
 	age=request.POST.get('age_1',request.COOKIES.get('age'))
 	title1=request.POST.get('title_2')
-	print 'title1', title1
 	fname1=request.POST.get('fname_2')
 	lname1=request.POST.get('lname_2')
-	seat_name1=request.POST.get('seat_2')
-	seat_fare1=request.POST.get('fare_2')
+	
 	age1=request.POST.get('age_2')
 	title2=request.POST.get('title_3')
-	print 'title2', title2
 	fname2=request.POST.get('fname_3')
 	lname2=request.POST.get('lname_3')
-	seat_name2=request.POST.get('seat_3')
-	seat_fare2=request.POST.get('fare_3')
+	
 	age2=request.POST.get('age_3')
 	title3=request.POST.get('title_4')
 	fname3=request.POST.get('fname_4')
 	lname3=request.POST.get('lname_4')
-	seat_name3=request.POST.get('seat_4')
-	seat_fare3=request.POST.get('fare_4')
+	
 	age3=request.POST.get('age_4')
 	title4=request.POST.get('title_5')
 	fname4=request.POST.get('fname_5')
 	lname4=request.POST.get('lname_5')
-	seat_name4=request.POST.get('seat_5')
-	seat_fare4=request.POST.get('fare_5')
+	
 	age4=request.POST.get('age_5')
 	title5=request.POST.get('title_6')
 	fname5=request.POST.get('fname_6')
 	lname5=request.POST.get('lname_6')
-	seat_name5=request.POST.get('seat_6')
-	seat_fare5=request.POST.get('fare_6')
 	age5=request.POST.get('age_6')
+	trip = request.COOKIES.get('trip')
+	if trip == 'oneway':
+		seat_name=request.POST.get('seat_1',request.COOKIES.get('seat'))
+		seat_fare=request.POST.get('fare_1',request.COOKIES.get('fare'))
+		seat_name1=request.POST.get('seat_2')
+		seat_fare1=request.POST.get('fare_2')
+		seat_name2=request.POST.get('seat_3')
+		seat_fare2=request.POST.get('fare_3')
+		seat_name3=request.POST.get('seat_4')
+		seat_fare3=request.POST.get('fare_4')
+		seat_name4=request.POST.get('seat_5')
+		seat_fare4=request.POST.get('fare_5')
+		seat_name5=request.POST.get('seat_6')
+		seat_fare5=request.POST.get('fare_6')
+	else:
+		seat_onward_name=request.POST.get('seat_onward_1')
+		seat_onward_fare=request.POST.get('fare_onward_1')
+		seat_return_name=request.POST.get('seat_return_1')
+		seat_return_fare=request.POST.get('fare_return_1')
+
+		seat_onward_name1=request.POST.get('seat_onward_2')
+		seat_onward_fare1=request.POST.get('fare_onward_2')
+		seat_return_name1=request.POST.get('seat_return_2')
+		seat_return_fare1=request.POST.get('fare_return_2')
+
+		seat_onward_name2=request.POST.get('seat_onward_3')
+		seat_onward_fare2=request.POST.get('fare_onward_3')
+		seat_return_name2=request.POST.get('seat_return_3')
+		seat_return_fare2=request.POST.get('fare_return_3')
+
+		seat_onward_name3=request.POST.get('seat_onward_4')
+		seat_onward_fare3=request.POST.get('fare_onward_4')
+		seat_return_name3=request.POST.get('seat_return_4')
+		seat_return_fare3=request.POST.get('fare_return_4')
+
+		seat_onward_name4=request.POST.get('seat_onward_5')
+		seat_onward_fare4=request.POST.get('fare_onward_5')
+		seat_return_name4=request.POST.get('seat_return_5')
+		seat_return_fare4=request.POST.get('fare_return_5')
+
+		seat_onward_name5=request.POST.get('seat_onward_6')
+		seat_onward_fare5=request.POST.get('fare_onward_6')
+		seat_return_name5=request.POST.get('seat_return_6')
+		seat_return_fare5=request.POST.get('fare_return_6')
+		
 	email=request.POST.get('email',request.COOKIES.get('email'))
 	mobile=request.POST.get('mobile',request.COOKIES.get('mobile'))
 	url = "http://pp.goibibobusiness.com/api/bus/hold/"
-	if total_seat == '6':
-		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4+"-6_"+seat_name5+"_"+fname5+"_"+lname5+"_"+age5
-		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
-		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
-		customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
-		customer5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_name4],['seatFare',seat_fare4]]
-		customer6 = [['title', 'Mr'],['firstName', fname5],['lastName',lname5],['age',age5],['eMail',email],['mobile',mobile],['seatName', seat_name5],['seatFare',seat_fare5]]
-		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4),mydict(customer5),mydict(customer6)]
+	if trip == 'oneway':
+		if total_seat == '6':
+			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4+"-6_"+seat_name5+"_"+fname5+"_"+lname5+"_"+age5
+			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+			customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+			customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+			customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
+			customer5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_name4],['seatFare',seat_fare4]]
+			customer6 = [['title', 'Mr'],['firstName', fname5],['lastName',lname5],['age',age5],['eMail',email],['mobile',mobile],['seatName', seat_name5],['seatFare',seat_fare5]]
+			customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4),mydict(customer5),mydict(customer6)]
 
-	elif total_seat == '5':
-		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4
-		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
-		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
-		customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
-		customer5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_name4],['seatFare',seat_fare4]]
-		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4),mydict(customer5)]
+		elif total_seat == '5':
+			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_name4+"_"+fname4+"_"+lname4+"_"+age4
+			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+			customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+			customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+			customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
+			customer5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_name4],['seatFare',seat_fare4]]
+			customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4),mydict(customer5)]
 
-	elif total_seat == '4':
-		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3
-		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
-		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
-		customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
-		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4)]
+		elif total_seat == '4':
+			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_name3+"_"+fname3+"_"+lname3+"_"+age3
+			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+			customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+			customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+			customer4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_name3],['seatFare',seat_fare3]]
+			customer_details=[mydict(customer1),mydict(customer2),mydict(customer3),mydict(customer4)]
 
-	elif total_seat == '3':
-		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2
-		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
-		customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
-		customer_details=[mydict(customer1),mydict(customer2),mydict(customer3)]
+		elif total_seat == '3':
+			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_name2+"_"+fname2+"_"+lname2+"_"+age2
+			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+			customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+			customer3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_name2],['seatFare',seat_fare2]]
+			customer_details=[mydict(customer1),mydict(customer2),mydict(customer3)]
 
-	elif total_seat == '2':
-		print '2'
-		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1
-		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
-		customer_details=[mydict(customer1),mydict(customer2)]
+		elif total_seat == '2':
+			print '2'
+			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1
+			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+			customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
+			customer_details=[mydict(customer1),mydict(customer2)]
+		else:
+			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
+			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+			customer_details=[mydict(customer1)]
+		print bus_join_data
+		#customer = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		print 'customer_details',customer_details
+		bus=[['skey',request.COOKIES.get('skey')],
+			['bp',request.COOKIES.get('bpoint_id')],
+			['seats',customer_details]]
+		bus_info=mydict(bus)
+		onw=[['onw',bus_info]]
+		onw_info=mydict(onw)
+		payload={'holddata':'%s'%onw_info}
+		print payload
 	else:
-		bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
-		customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		customer_details=[mydict(customer1)]
+		if total_seat == '6':
+			bus_join_data_onward="1_"+seat_onward_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_onward_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_onward_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_onward_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_onward_name4+"_"+fname4+"_"+lname4+"_"+age4+"-6_"+seat_onward_name5+"_"+fname5+"_"+lname5+"_"+age5
+			bus_join_data_return="1_"+seat_return_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_return_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_return_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_return_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_return_name4+"_"+fname4+"_"+lname4+"_"+age4+"-6_"+seat_return_name5+"_"+fname5+"_"+lname5+"_"+age5
+			customer_onward_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_onward_name],['seatFare',seat_onward_fare]]
+			customer_onward_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_onward_name1],['seatFare',seat_onward_fare1]]
+			customer_onward_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_onward_name2],['seatFare',seat_onward_fare2]]
+			customer_onward_4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_onward_name3],['seatFare',seat_onward_fare3]]
+			customer_onward_5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_onward_name4],['seatFare',seat_onward_fare4]]
+			customer_onward_6 = [['title', 'Mr'],['firstName', fname5],['lastName',lname5],['age',age5],['eMail',email],['mobile',mobile],['seatName', seat_onward_name5],['seatFare',seat_onward_fare5]]
+			customer_return_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_return_name],['seatFare',seat_return_fare]]
+			customer_return_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_return_name1],['seatFare',seat_return_fare1]]
+			customer_return_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_return_name2],['seatFare',seat_return_fare2]]
+			customer_return_4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_return_name3],['seatFare',seat_return_fare3]]
+			customer_return_5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_return_name4],['seatFare',seat_return_fare4]]
+			customer_return_6 = [['title', 'Mr'],['firstName', fname5],['lastName',lname5],['age',age5],['eMail',email],['mobile',mobile],['seatName', seat_return_name5],['seatFare',seat_return_fare5]]
+			customer_onward_details=[mydict(customer_onward_1),mydict(customer_onward_2),mydict(customer_onward_3),mydict(customer_onward_4),mydict(customer_onward_5),mydict(customer_onward_6)]
+			customer_return_details=[mydict(customer_return_1),mydict(customer_return_2),mydict(customer_return_3),mydict(customer_return_4),mydict(customer_return_5),mydict(customer_return_6)]
 
-	print bus_join_data
-	#customer = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-	print 'customer_details',customer_details
-	bus=[['skey',request.COOKIES.get('skey')],
-		['bp',request.COOKIES.get('bpoint_id')],
-		['seats',customer_details]]
-	bus_info=mydict(bus)
-	onw=[['onw',bus_info]]
-	onw_info=mydict(onw)
-	payload={'holddata':'%s'%onw_info}
-	print payload
+		elif total_seat == '5':
+			bus_join_data_onward="1_"+seat_onward_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_onward_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_onward_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_onward_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_onward_name4+"_"+fname4+"_"+lname4+"_"+age4
+			bus_join_data_return="1_"+seat_return_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_return_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_return_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_return_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_return_name4+"_"+fname4+"_"+lname4+"_"+age4
+			customer_onward_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_onward_name],['seatFare',seat_onward_fare]]
+			customer_onward_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_onward_name1],['seatFare',seat_onward_fare1]]
+			customer_onward_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_onward_name2],['seatFare',seat_onward_fare2]]
+			customer_onward_4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_onward_name3],['seatFare',seat_onward_fare3]]
+			customer_onward_5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_onward_name4],['seatFare',seat_onward_fare4]]
+			customer_return_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_return_name],['seatFare',seat_return_fare]]
+			customer_return_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_return_name1],['seatFare',seat_return_fare1]]
+			customer_return_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_return_name2],['seatFare',seat_return_fare2]]
+			customer_return_4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_return_name3],['seatFare',seat_return_fare3]]
+			customer_return_5 = [['title', 'Mr'],['firstName', fname4],['lastName',lname4],['age',age4],['eMail',email],['mobile',mobile],['seatName', seat_return_name4],['seatFare',seat_return_fare4]]
+			customer_onward_details=[mydict(customer_onward_1),mydict(customer_onward_2),mydict(customer_onward_3),mydict(customer_onward_4),mydict(customer_onward_5)]
+			customer_return_details=[mydict(customer_return_1),mydict(customer_return_2),mydict(customer_return_3),mydict(customer_return_4),mydict(customer_return_5)]
+
+		elif total_seat == '4':
+			bus_join_data_onward="1_"+seat_onward_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_onward_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_onward_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_onward_name3+"_"+fname3+"_"+lname3+"_"+age3
+			bus_join_data_return="1_"+seat_return_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_return_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_return_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_return_name3+"_"+fname3+"_"+lname3+"_"+age3
+			customer_onward_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_onward_name],['seatFare',seat_onward_fare]]
+			customer_onward_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_onward_name1],['seatFare',seat_onward_fare1]]
+			customer_onward_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_onward_name2],['seatFare',seat_onward_fare2]]
+			customer_onward_4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_onward_name3],['seatFare',seat_onward_fare3]]
+			customer_return_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_return_name],['seatFare',seat_return_fare]]
+			customer_return_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_return_name1],['seatFare',seat_return_fare1]]
+			customer_return_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_return_name2],['seatFare',seat_return_fare2]]
+			customer_return_4 = [['title', 'Mr'],['firstName', fname3],['lastName',lname3],['age',age3],['eMail',email],['mobile',mobile],['seatName', seat_return_name3],['seatFare',seat_return_fare3]]
+			customer_onward_details=[mydict(customer_onward_1),mydict(customer_onward_2),mydict(customer_onward_3),mydict(customer_onward_4)]
+			customer_return_details=[mydict(customer_return_1),mydict(customer_return_2),mydict(customer_return_3),mydict(customer_return_4)]
+
+		elif total_seat == '3':
+			bus_join_data_onward="1_"+seat_onward_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_onward_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_onward_name2+"_"+fname2+"_"+lname2+"_"+age2
+			bus_join_data_return="1_"+seat_return_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_return_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_return_name2+"_"+fname2+"_"+lname2+"_"+age2
+			customer_onward_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_onward_name],['seatFare',seat_onward_fare]]
+			customer_onward_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_onward_name1],['seatFare',seat_onward_fare1]]
+			customer_onward_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_onward_name2],['seatFare',seat_onward_fare2]]
+			customer_return_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_return_name],['seatFare',seat_return_fare]]
+			customer_return_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_return_name1],['seatFare',seat_return_fare1]]
+			customer_return_3 = [['title', 'Mr'],['firstName', fname2],['lastName',lname2],['age',age2],['eMail',email],['mobile',mobile],['seatName', seat_return_name2],['seatFare',seat_return_fare2]]
+			customer_onward_details=[mydict(customer_onward_1),mydict(customer_onward_2),mydict(customer_onward_3)]
+			customer_return_details=[mydict(customer_return_1),mydict(customer_return_2),mydict(customer_return_3)]
+
+		elif total_seat == '2':
+			bus_join_data_onward="1_"+seat_onward_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_onward_name1+"_"+fname1+"_"+lname1+"_"+age1
+			bus_join_data_return="1_"+seat_return_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_return_name1+"_"+fname1+"_"+lname1+"_"+age1
+			customer_onward_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_onward_name],['seatFare',seat_onward_fare]]
+			customer_onward_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_onward_name1],['seatFare',seat_onward_fare1]]
+			customer_return_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_return_name],['seatFare',seat_return_fare]]
+			customer_return_2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_return_name1],['seatFare',seat_return_fare1]]
+			customer_onward_details=[mydict(customer_onward_1),mydict(customer_onward_2)]
+			customer_return_details=[mydict(customer_return_1),mydict(customer_return_2)]
+		else:
+			bus_join_data_onward="1_"+seat_onward_name+"_"+fname+"_"+lname+"_"+age
+			bus_join_data_return="1_"+seat_return_name+"_"+fname+"_"+lname+"_"+age
+			customer_onward_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_onward_name],['seatFare',seat_onward_fare]]
+			customer_return_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_return_name],['seatFare',seat_return_fare]]
+			customer_onward_details=[mydict(customer_onward_1)]
+			customer_return_details=[mydict(customer_return_1)]
+		#print bus_join_data
+		#customer = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
+		#print 'customer_details',customer_details
+		bus_onward=[['skey',request.COOKIES.get('skey_onward')],
+			['bp',request.COOKIES.get('bpoint_id_onward')],
+			['seats',customer_onward_details]]
+		bus_return=[['skey',request.COOKIES.get('skey_return')],
+			['bp',request.COOKIES.get('bpoint_id_return')],
+			['seats',customer_return_details]]
+		bus_info_onw=mydict(bus_onward) #onw= onward
+		bus_info_ret=mydict(bus_return) #ret = return
+		onw=[['onw',bus_info_onw],['ret',bus_info_ret]]
+		onw_info=mydict(onw)
+		payload={'holddata':'%s'%onw_info}
+		print payload
+
+	
 	#payload={'holddata':'{"onw":{"skey":"zJ5yLDs6ptU20KB7EtLDKv4V6NMMmZNKNqDi0J5O-msWyzc9Eww-7nLdgbubveJxLR_t0-R8Lg==","bp":"66677","seats":[{"title":"Mr","firstName":"test","lastName":"test","age":"34","eMail":"goibibobusinesstest@gmail.com","mobile":"9888888888","seatName":"36","seatFare":"122"}]}}'}
 	headers = {
         'content-type': "application/x-www-form-urlencoded"
@@ -478,7 +908,7 @@ def tentativebooking(request):
 	response.set_cookie('age',age)
 	response.set_cookie('email',email)
 	response.set_cookie('mobile',mobile)
-	response.set_cookie('bus_join_data',bus_join_data)
+	#response.set_cookie('bus_join_data',bus_join_data)
 
 	# Code for storing Order Details
 	fmt = '%Y/%m/%d'
@@ -502,18 +932,45 @@ def tentativebooking(request):
 	response.set_cookie('category_type',order.category_type)
 
 	#Code for storing OrderList Details
-	bus_join_data_split=bus_join_data.split('-')
-	print "bus_join_data_split", bus_join_data_split
-	for i in range(0,len(bus_join_data_split)):
-		print "bus_join_data_split", bus_join_data_split[i]
-		data = bus_join_data_split[i].split('_')
-		orderlist=OrderList()
-		orderlist.order=order
-		orderlist.seatnumber=data[1]
-		orderlist.firstname=data[2]
-		orderlist.lastname=data[3]
-		orderlist.age=data[4]
-		orderlist.save()
+	if trip=='oneway':
+		bus_join_data_split=bus_join_data.split('-')
+		print "bus_join_data_split", bus_join_data_split
+		for i in range(0,len(bus_join_data_split)):
+			print "bus_join_data_split", bus_join_data_split[i]
+			data = bus_join_data_split[i].split('_')
+			orderlist=OrderList()
+			orderlist.order=order
+			orderlist.seatnumber=data[1]
+			orderlist.firstname=data[2]
+			orderlist.lastname=data[3]
+			orderlist.age=data[4]
+			orderlist.save()
+	else:
+		bus_join_data_split_onward=bus_join_data_onward.split('-')
+		print "bus_join_data_split", bus_join_data_split_onward
+		for i in range(0,len(bus_join_data_split_onward)):
+			print "bus_join_data_split", bus_join_data_split_onward[i]
+			data = bus_join_data_split_onward[i].split('_')
+			orderlist=OrderList()
+			orderlist.order=order
+			orderlist.seatnumber=data[1]
+			orderlist.firstname=data[2]
+			orderlist.lastname=data[3]
+			orderlist.age=data[4]
+			orderlist.save()
+		bus_join_data_split_return=bus_join_data_return.split('-')
+		print "bus_join_data_split", bus_join_data_split_return
+		for i in range(0,len(bus_join_data_split_return)):
+			print "bus_join_data_split", bus_join_data_split_return[i]
+			data = bus_join_data_split_return[i].split('_')
+			orderlist=OrderList()
+			orderlist.order=order
+			orderlist.seatnumber=data[1]
+			orderlist.firstname=data[2]
+			orderlist.lastname=data[3]
+			orderlist.age=data[4]
+			orderlist.save()
+
 	
 	return response
 

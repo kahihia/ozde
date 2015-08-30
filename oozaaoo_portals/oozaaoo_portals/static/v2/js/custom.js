@@ -10,7 +10,31 @@ $('#round').click(function(){
     $('#oneway').removeattr('checked');
 });
 //*************
-
+$('.slide').click(function(){
+        var par = $(this).parent().parent().parent().parent().parent();
+        $(".seatLayoutHolder").remove();
+        $(par).find('.seat_map').html("Loading");
+        $(par).find('.seat_map').slideDown("slow");
+        var pare = $(this).parent();
+        var skey= $('input[name=skey]',pare).val();
+        var arri_time= $('input[name=dept_time]',pare).val();
+        var dept_time= $('input[name=arri_time]',pare).val();
+        var skey= $('input[name=skey]',pare).val();
+        var travels_name= $('input[name=travels]',pare).val();
+        var route_type= $('input[name=route_type]',pare).val();
+        var bus_type= $('input[name=bus_type]',pare).val();
+        $.ajax({
+        type: 'POST',
+        url: '/seat_v2/',
+        dataType: 'html',
+        data: {"skey":skey,"bus_type":bus_type,"route_type":route_type,"arri_time":arri_time,"dept_time":dept_time,"travels_name":travels_name}, // or JSON.stringify ({name: 'jonas'}),
+        success: function(data) { 
+            $(par).find('.seat_map').html(data);
+        },
+        //contentType: "application/json",
+       
+        });
+    });
 // code by priya
 
 $('.return_date').hide();
@@ -25,25 +49,7 @@ $('input:radio[name=trip]').change(function() {
 });
 // *************
 
-$('.slide').click(function(){
-    var par = $(this).parent();
-    $(".seatLayoutHolder").remove();
-    $('.seat_map',par).slideDown("slow");
-    var par = $(this).parent();
-    var skey= $('input[name=skey]',par).val();
-    var bus_type= $('input[name=bus_type]',par).val();
-    $.ajax({
-    type: 'POST',
-    url: '/seat/',
-    dataType: 'html',
-    data: {"skey":skey,"bus_type":bus_type}, // or JSON.stringify ({name: 'jonas'}),
-    success: function(data) { 
-        $('.seat_map',par).html(data);
-    },
-    //contentType: "application/json",
-   
-    });
-});
+
 
 function getCookie(name) {
     // alert("getCookie");
@@ -133,9 +139,9 @@ $('.countdown').each(function() {
 });
 
 
-$('.btn').button();
+//$('.btn').button();
 
-$("[rel='tooltip']").tooltip();
+//$("[rel='tooltip']").tooltip();
 
 $('.form-group').each(function() {
     var self = $(this),
@@ -1018,8 +1024,11 @@ $('#payment').click(function(){
 // });
 // *********************
 $('.temp').hide();
+$('.temp_onward').hide();
+$('.temp_return').hide();
 $('.onward_book').click(function(){
     var par2=$(this).parents('li');
     var skey= $('input[name=travels]',par2).val();
     alert(skey);
 });
+

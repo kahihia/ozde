@@ -82,13 +82,13 @@ $(document).ready(function(e) {
 
 	$('.onward_book').click(function(){
 	var total=$('input[name=total_amount]').val();
-	alert(total);
-	var travels=$(this).parents('li').find('input[name=travels]').val();
-    var bpoint=$(this).parents('li').find('input[name=bpoint]').val();
-    var dept_time=$(this).parents('li').find('input[name=dept_time]').val();
-    var arri_time=$(this).parents('li').find('input[name=arri_time]').val();
-    var bus_type=$(this).parents('li').find('input[name=bus_type]').val();
-    var route_type=$(this).parents('li').find('input[name=route_type]').val();
+	//alert(total);
+	var travels=$(this).parents('.need_round').find('input[name=travels]').val();
+    var bpoint=$(this).parents('.need_round').find('input[name=bpoint]').val();
+    var dept_time=$(this).parents('.need_round').find('input[name=dept_time]').val();
+    var arri_time=$(this).parents('.need_round').find('input[name=arri_time]').val();
+    var bus_type=$(this).parents('.need_round').find('input[name=bus_type]').val();
+    var route_type=$(this).parents('.need_round').find('input[name=route_type]').val();
     var selected_seat=$(this).parent().find('input[name=seatNumbersList]').val();
     var selected_seats_fare=$(this).parent().find('input[name=seatFare]').val();
     var fare=$(this).parent().find('input[name=totalfare]').val()
@@ -134,7 +134,7 @@ $(document).ready(function(e) {
 		    	$('input[name=ReturnBoardingPoint]').val(selected_boarding_point);
 			}
 			var total_amount= parseInt(total)+parseInt(fare);
-			alert(total_amount);
+			//alert(total_amount);
 			$('input[name=total_amount]').val(total_amount);
 			$('input[name=seat_count_round]').val(seat_count);    
 		}
@@ -177,7 +177,7 @@ $(document).ready(function(e) {
 		    	$('input[name=ReturnBoardingPoint]').val(selected_boarding_point);
 			}
 			var total_amount= parseInt(total)+parseInt(fare);
-			alert(total_amount);
+			//alert(total_amount);
 			$('input[name=total_amount]').val(total_amount);
 			$('input[name=seat_count_round]').val(seat_count);    
 
