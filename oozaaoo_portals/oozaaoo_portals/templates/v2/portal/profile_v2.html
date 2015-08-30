@@ -1,0 +1,133 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load i18n %}
+{% block content %}
+ <div class="bg-lightgrey">
+ <div class="bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 marginbottom10">
+                    <h2 class="bold">Bus Booking<br/><span class="logo-span-txt">Made easy!</span></h2>         
+                </div>
+                <div class="col-md-4">
+                    <h4 class="size14 padding20 text-right">Need Help? <strong class="marginleft10"> Call us:</strong> (0452) 394 12345 </h4>
+                </div>
+                 <div class="col-md-4">
+                 <ul class="nav navbar-nav bus-profile">
+                     <li><a href="#" class="blue"><i class="fa fa-heart"></i> My Lists</a></li>
+                     <li><a href="#" class="blue dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="ion ion-log-in"></i> Suresh <span class="ion mdi ion-chevron-down"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Edit Profile</a></li>
+                            <li><a href="#">Logout</a></li>
+                          </ul>  
+                     </li>
+            </ul>
+              
+                
+            </div>
+            </div>
+        </div>
+    </div>    
+ <section class="middle-bar">
+  <div class="container">
+      <h3 class="white-color nomargin padding10">Welcome Suresh</h3>
+    </div>
+ </section>
+
+<section class="main-content">
+  <div class="container">
+        <div class="padding20">
+            <div class="row">
+                <div class="col-md-2 nopadding"> <!-- required for floating -->
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs tabs-left">
+                    <li class="active"><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-view-dashboard"></i> Dashboard</a></li>
+                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-map-marker"></i> Trips</a></li>
+                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-account-multiple"></i> Travellers</a></li>
+                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-account-box"></i> Profile</a></li>
+                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-settings"></i> Settings</a></li>
+                  </ul>
+                </div>
+
+                <div class="col-md-10 nopadding">
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div class="tab-pane active fade in" id="dashboard">
+                      <div class="panel panel-default noborder">
+                          <div class="panel-body">
+                              <h4 class="nomargin light-purple"><i class="fa fa-bookmark"></i> Upcoming trips</h4>
+                                <hr/>
+                               <div class="trip-container">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <div class="pull-left">
+                                    <h4 class="size17 pull-left margintop5"><strong>Bangalore</strong> <i class="fa ion-arrow-right-c margin020"></i> <strong>Chennai</strong>
+                                    </h4>
+                                    <p class="size17">Friday, August 28th, 2015</p>
+                               </div>     
+                               <div class="clearfix"></div>
+                                     <p><span class="well padding515 marginleft20px" style="width:auto">Travellers: Alan, Suresh</span><p>
+ 
+                                    <button class="btn btn-link">SMS ticket</button>
+                                    <button class="btn btn-link">Print ticket</button>
+                                    <button class="btn btn-link">Go to cancellation</button>
+                            </div>
+                            <hr/>
+                            <h4 class="nomargin light-purple"><i class="mdi mdi-check"></i> Recently completed trips</h4>  <hr/>
+                <div class="trip-container">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <div class="pull-left">
+                                    <h4 class="size17 pull-left margintop5"><strong>Chennai</strong> <i class="fa ion-arrow-right-c margin020"></i> <strong>Bangalore</strong>
+                                    </h4>
+                                    <p class="size17">Friday, August 26th, 2015</p>
+                               </div>     
+                               <div class="clearfix"></div>
+                                     <span class="well padding515 marginleft20px" style="width:auto">Travellers: Alan, Suresh</span>    
+                            </div>
+                                <hr/>
+                                <div class="trip-container">
+                                <p class="text-muted pull-left size22 marginright5"><i class="fa fa-bed"></i></p>
+                                <div class="pull-left">
+                                    <h4 class="size17 margintop5"><strong>Villa Shanti</strong> 
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star grey"></i>
+                                    <span class="text-muted"> (2 nights)</span>
+                                    </h4>
+                                    <p class="size17"><i class="fa fa-map-marker"></i> 14, Suffren Street, 605001 Pondicherry, India.</p>
+                                    <p>Check-in: 29-08-2015 | Check-out: 31-08-2015 | Guests: 2 Adults, 1 Children | Rooms: 1</p>
+                               </div>     
+                               <div class="clearfix"></div>
+                                     <span class="well padding515 marginleft20px" style="width:auto">Guest: Suresh, Amala</span>    
+                            </div>
+                                <hr/>
+                                 <a href="#" class="padding20 marginbottom10">See all my trips &raquo;</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane" id="trips"></div>
+                    <div class="tab-pane" id="travellers"></div>
+                    <div class="tab-pane" id="profile"></div>
+                    <div class="tab-pane" id="settings"></div>
+                  </div>
+                </div>
+       </div>    
+        </div>
+    </div>
+</div><!-- bg-lightgrey -->
+
+<script>
+  $(document).ready(function() {
+    $(".left-tab-menu>div.list-group>a").click(function(e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+        $(".left-tab>.left-tab-content").removeClass("active");
+        $(".left-tab>.left-tab-content").eq(index).addClass("active");
+    });
+});
+</script>  
+
+{% endblock %}

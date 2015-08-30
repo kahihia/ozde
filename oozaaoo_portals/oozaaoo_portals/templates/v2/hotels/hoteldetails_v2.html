@@ -114,10 +114,10 @@ jQuery(function(){
                         {% endif %}
                     
                 </div> 
-                 <div class="reviews">
+                 <!--div class="reviews">
                 	<a href="#"><i class="ion ion-ios-heart-outline"></i> Shortlist</a>
                     <a href="#"><i class="ion ion-ios-paper-outline"></i> Reviews</a>
-                </div>               
+                </div-->               
             </div>
            
         </div>
@@ -126,23 +126,54 @@ jQuery(function(){
     	<div class="container">
         	<div class="row padding20">
             	<div class="col-md-8">
-                	{{hotels.des}}
+                	<p>{{hotels.des}}</p>
                     <div class="well well-yellow">
                     	<div class="size30 pull-left margin020"><i class="ion ion-ios-locked light-purple"></i></div>
-                        <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p>                </div>
+                        <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p></div>
                     <h4>Select your room</h4>
                     <div class="rooms-list">
+                        {% for room in hotels.rooms_data %}                        
                     	<div class="row nomargin">
                         	<div class="col-md-9 nomargin nopadding">
                                 <div class="panel panel-default min-height120">
                                     <div class="panel-body">
                                         <div class="room-img">
-                                            <img src="images/deluxe-double.jpg" alt="deluxe double" />
+                                            <img src="{{room.room_info.image}}" alt="{{room.room_info.bedtype}}" />
                                         </div>
                                         <div class="room-details">
-                                            <h4 class="nomargin"><a href="#">Deluxe Double Room <span class="text-muted size12 red bold">1 Rooms left</span></a></h4>
-                                            <p class="room-price"><i class="fa fa-rupee"></i> 3500 per room per night</p>
-                                            <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
+                                            <h4 class="nomargin">
+                                            <a href="#">{{room.room_info.type_name}} 
+                                            </a>
+                                            <!--span class="text-muted size12 red bold">1 Rooms left</span-->
+                                            </h4>
+                                            <!--p class="room-price">                                                <i class="fa fa-rupee"></i> {{room.op}} per room per night
+                                            </p-->
+                                             
+
+                                            <p class="light-purple nomargin">
+                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <span class="top-6 marginright20">{{room.room_info.facilities.0}}</span>
+
+                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <span class="top-6 marginright20">{{room.room_info.facilities.1}}</span>
+
+                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <span class="top-6 marginright20">{{room.room_info.facilities.2}}</span>
+
+                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <span class="top-6 marginright20">{{room.room_info.facilities.3}}</span>
+
+                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <span class="top-6 marginright20">{{room.room_info.facilities.4}}</span>
+
+                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <span class="top-6 marginright20">{{room.room_info.facilities.5}}</span>
+
+                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <span class="top-6 marginright20">{{room.room_info.facilities.6}}</span>
+
+                                            </p>
+                                            <p>{{room.room_info.description}}</p>
                                         </div>
                                     </div>
                                 </div>   
@@ -151,77 +182,24 @@ jQuery(function(){
                                 <div class="panel panel-default pull-left min-height120">
                                     <div class="panel-body">
                                         <div class="room-price-bg">
-                                                <h3 class="nomargin"><i class="fa fa-rupee"></i> 7500*</h3>
-                                                <span class="size12">Prices for 2 nights</span>
-                                                <button class="btn btn-success padding515">Reserve</button>
+                                                <h3 class="nomargin"><i class="fa fa-rupee"></i>{{room.op}} </h3>
+                                                <span class="size12">Prices for per nights</span>
+                                                <!--button class="btn btn-success padding515">Reserve</button-->
                                                 <p class="size11 grey">Fare Policy</p>
                                         </div>
                                      </div>
                                 </div> 
                             </div>         
                    		</div>
-                        <div class="row nomargin">
-                        	<div class="col-md-9 nomargin nopadding">
-                                <div class="panel panel-default min-height120">
-                                    <div class="panel-body">
-                                        <div class="room-img">
-                                            <img src="images/junior-suit.jpg" alt="" />
-                                        </div>
-                                        <div class="room-details">
-                                            <h4 class="nomargin"><a href="#">Junior Suite<span class="text-muted size12 red bold">5 Rooms left</span></a></h4>
-                                            <p class="room-price"><i class="fa fa-rupee"></i> 6000 per room per night</p>
-                                            <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
-                                        </div>
-                                    </div>
-                                </div>   
-                            </div>
-                            <div class="col-md-3 nomargin nopadding">     
-                                <div class="panel panel-default pull-left min-height120">
-                                    <div class="panel-body">
-                                        <div class="room-price-bg">
-                                                <h3 class="nomargin"><i class="fa fa-rupee"></i> 12000*</h3>
-                                                <span class="size12">Prices for 2 nights</span>
-                                                <button class="btn btn-success padding515">Reserve</button>
-                                                <p class="size11 grey">Fare Policy</p>
-                                        </div>
-                                     </div>
-                                </div> 
-                            </div>         
-                   		</div>
-                        <div class="row nomargin">
-                        	<div class="col-md-9 nomargin nopadding">
-                                <div class="panel panel-default min-height120">
-                                    <div class="panel-body">
-                                        <div class="room-img">
-                                            <img src="images/premium-suit.jpg" alt="deluxe double" />
-                                        </div>
-                                        <div class="room-details">
-                                            <h4 class="nomargin"><a href="#">Deluxe Double Room <span class="text-muted size12 red bold">2 Rooms left</span></a></h4>
-                                            <p class="room-price"><i class="fa fa-rupee"></i> 8000 per room per night</p>
-                                            <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
-                                        </div>
-                                    </div>
-                                </div>   
-                            </div>
-                            <div class="col-md-3 nomargin nopadding">     
-                                <div class="panel panel-default pull-left min-height120">
-                                    <div class="panel-body">
-                                        <div class="room-price-bg">
-                                                <h3 class="nomargin"><i class="fa fa-rupee"></i> 16000*</h3>
-                                                <span class="size12">Prices for 2 nights</span>
-                                                <button class="btn btn-success padding515">Reserve</button>
-                                                <p class="size11 grey">Fare Policy</p>
-                                        </div>
-                                     </div>
-                                </div> 
-                            </div>         
-                   		</div>                        
+                        {% endfor %}                  
                 	</div>
                     <h4>Things to know</h4>
+
+                    hotelroominfos : {{hotelroominfos}}
                     <table class="table bg-white">
                     	<tr>
                         	<td>Check-in</td>
-                            <td>From 14:00</td>
+                            <td>From </td>
                         </tr>
                         <tr>
                         	<td>Check-out</td>
@@ -305,40 +283,82 @@ jQuery(function(){
                             </h5>
                         </div>
                         <div class="panel-body">
-                        	<form class="form-horizontal">
+
+                            
+                        <form name="probook" id="probook" class="form-horizontal" action="{% url "hotels.views.userdetails" %}" method="post">
+                            {% csrf_token %}
                         	<div class="row">
+
+                                <p class="booking-item-header-price">                                
+                                    <span class="text-lg">&#8377;
+                                    {{hotels.mp|floatformat}}
+                                    </span>
+                                    <small>Per Room Per Night</small>                                   
+                                </p>
+
                             	<div class="col-md-5">
                                 	<label>Check-in</label>
-                                    <input type="text" class="form-control" value="29-09-2015" />
+                                    <input type="text" class="form-control" value="{{request.COOKIES.checkin}}" readonly />
                                 </div>
                                 <div class="col-md-5">
                                 	<label>Check-out</label>
-                                    <input type="text" class="form-control" value="31-09-2015" />
+                                    <input type="text" class="form-control" value="{{ request.COOKIES.checkout}}" readonly/>
                                 </div>
                                 <div class="col-md-2">
                                 	<label>Nights</label>
-                                    <input type="text" class="form-control text-center" value="2" />
+                                    <input type="text" class="form-control text-center" value="{{ request.COOKIES.no_night}}" readonly />
                                 </div>
                             </div>
                             <div class="row">
                             	<div class="col-md-2">
                                 	<label>Rooms</label>
-                                    <input type="text" class="form-control text-center" value="2" />
+                                    <input type="text" class="form-control text-center" 
+                                    value="{{ request.COOKIES.rooms}}" readonly />
                                 </div>
                                 <div class="col-md-5">
                                 	<label>Guests</label>
-                                    <input type="text" class="form-control" value="2 Adults" />
+                                    <input type="text" class="form-control" value="{{ request.COOKIES.guest}}" readonly />
                                 </div>
+                                <div class="clear"></div>
                                 <div class="col-md-5">
+                                        <p>
+                                            <span class="text-lg">Sub Total</span>
+                                            <span class="text-lg">{{ request.COOKIES.rmt}}</span>
+                                            <span class="text-lg">Excludes Taxes</span>
+                                        </p>
+                                    
+                                </div>
+
+                                <!--div class="col-md-5">
                                 	<label>Nights</label>
                                     <input type="text" class="form-control" value="1 Children" />
-                                </div>
+                                </div-->
                             </div>
-                            <div class="row">
-	                            <div class="col-md-12">
-                                	<button class="btn btn-primary">Select room</button>
-                                </div>    
-                            </div>
+
+                        {% if hotelroominfos|length == 1 %}
+                            {% for hotelroominfo in hotelroominfos %}
+                            <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
+                            <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
+                                {% if hotelroominfo.rtc and hotelroominfo.rpc %}
+                                    <a href="{% url "hotels.views.userdetails" %}">Book Now</a>
+                                {% else %}
+                                    <a href="#">Booking Not Available</a>
+                                {% endif %}
+                            {% endfor %}     
+                        {% else %}  
+                             <a href="#">Booking Not Available</a>
+                        {% endif %}                      
+                        <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
+                        <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
+                        <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
+                        <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary">Select room</button>
+                            </div>    
+                        </div>
+
                             </form>
                         </div>
                     </div>

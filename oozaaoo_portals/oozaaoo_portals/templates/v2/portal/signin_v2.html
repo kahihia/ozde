@@ -1,0 +1,47 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+<div class="bg-lightgrey bus-payment">
+<div class="container sign-in">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10 marginbottom10">
+                    <h2 class="bold text-center padding20">Bus Booking<br/><span class="logo-span-txt text-center">Made easy!</span></h2>                   <div class="row">
+                        <div class="col-md-3 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-left.png" class="left-img" /></div>
+                        <div class="col-md-6 z-index1 padding5-40">
+                            <div class="panel panel-lightpurple">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title text-center">
+                                        Sign in to your account
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="padding20 text-center bold">
+                                        Access your account information and manage your bookings.
+                                    </p>
+                                    <div class="sign-in-form">
+                                        <form>
+                                            <input type="email" class="form-control" placeholder="Email*" />
+                                            <input type="password" class="form-control" placeholder="Password*" />
+                                            <label class="control-label"><input type="checkbox" /> Keep me logged in</label>
+                                            <br>
+                                            <button class="btn btn-primary width100">Log in</button>
+                                            <a href="#" class="top10">Forget your password?</a>
+                                            <div class="padding10"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="panel-footer bg-white">
+                                    <p>Don't have an account? <a href="#">Sign up</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" /></div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+</div><!-- bg-lightgrey bus-payment -->
+ {% endblock %}

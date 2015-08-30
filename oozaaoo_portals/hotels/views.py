@@ -53,6 +53,8 @@ def log_function(query, response):
 	logging.info(response)
 	logging.info("******************************************************************************************************")
 
+def registration_v2(request):
+	return render_to_response("v2/portal/signup_v2.html", context_instance=RequestContext(request))
 
 def registration(request):
 	"""
@@ -102,6 +104,9 @@ def registration(request):
 								  context_instance=RequestContext(request))
 							  
 from django.contrib.auth import authenticate, login, logout
+
+def login_user_v2(request):
+	return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
 
 def login_user(request):
 	"""
@@ -163,6 +168,9 @@ def home_v2(request):
 	from hotels.models import citylist	
 	log_function('Homepage','Homepage')
 	return render_to_response("v2/portal/home_v2.html", context_instance=RequestContext(request))
+
+def profile_v2(request):
+	return render_to_response("v2/portal/profile_v2.html", context_instance=RequestContext(request))	
 
 def getcitylist(request):
 	"""
@@ -403,7 +411,7 @@ def gethotellist_v2(request):
 				if k in cityFields:
 					city[k] = v
 
-			hotelFields = ['prc', 'hn', 'hr', 'hc', 'fwdp', 'c', 't', 'ibp','l','fm','offer_tag','gr']
+			hotelFields = ['mp', 'hn', 'hr', 'hc', 'fwdp', 'c', 't', 'ibp','l','fm','offer_tag','gr']
 			# hotel_city=hotelFields[5]
 			# print hotel_city
 			hotels = []
@@ -416,7 +424,7 @@ def gethotellist_v2(request):
 				hotels.append(_hotel)
 			print "hotels", hotels
 			# return HttpResponse(simplejson.dumps(hotels), mimetype='application/json')
-			hotel_price = [ hotels1['prc'] for hotels1 in hotels]
+			hotel_price = [ hotels1['mp'] for hotels1 in hotels]
 			cache.set('getcityresponse', getcityresponse)
 			# print "price from cache", cache.get('hotel_price')
 
@@ -474,6 +482,13 @@ def gethoteldetails_v2(request):
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))	
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
 	fwdp =request.POST.get('fwdp',request.COOKIES.get('fwdp'))
+
+	from datetime import datetime
+	fmt = '%Y/%m/%d'
+	d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+	d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+	no_nightbook=str((d1-d0).days)	
+
 	# try:
 	query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
 	print "gethoteldetailresponse",gethoteldetailresponse
@@ -495,7 +510,7 @@ def gethoteldetails_v2(request):
 	hotelroominfos = []
 	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
 		# print "hotelroominfo", hotelroominfo
-		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc']}
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'rmt':hotelroominfo['rmt']}
 		hotelroominfos.append(_rhotelinfo)	
 	print "hotelroominfos", hotelroominfos
 
@@ -530,6 +545,7 @@ def gethoteldetails_v2(request):
 	for hotelroominfo in hotelroominfos:
 		response.set_cookie('rtc',hotelroominfo['rtc'])
 		response.set_cookie('rpc',hotelroominfo['rpc'])
+		response.set_cookie('rmt',hotelroominfo['rmt'])
 	response.set_cookie('hn',_hotel['hn'])
 	response.set_cookie('prc',_hotel['prc'])
 	response.set_cookie('c',_hotel['c'])
@@ -537,6 +553,7 @@ def gethoteldetails_v2(request):
 	response.set_cookie('hr',_hotel['hr'])
 	response.set_cookie('la',_hotel['la'])
 	response.set_cookie('lo',_hotel['lo'])
+	response.set_cookie('no_night', no_nightbook)
 	# except:
 	# 	messages.add_message(request, messages.INFO,'User entered data incorrect')
 	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
@@ -645,6 +662,7 @@ def userdetails(request):
 
 def setprovisionalbooking_v2(request):	
 	return render_to_response("v2/hotels/hotelpayment_v2.html", context_instance=RequestContext(request))
+	
 @csrf_exempt
 def setprovisionalbooking(request):
 	from django.utils import simplejson
