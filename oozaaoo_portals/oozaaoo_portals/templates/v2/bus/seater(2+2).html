@@ -1,16 +1,15 @@
 {% load static from staticfiles %}
 {% load i18n %}
-<!-- <link rel="stylesheet" href="{% static "css/seat.css" %}">
-<script src="{% static "js/jquery.js" %}"></script> -->
-<div class="panel panel-default bg-lightgrey padding20 busseat-layout seatLayoutHolder">
+<div class="panel panel-default seatLayoutHolder">
 <p>	
 <span></span>
 <span><i class="available-seat"></i> Available Seat</span>
 <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
-<span><i class="selected-seat"></i> Selected Seat</span>			        	</p>
+<span><i class="selected-seat"></i> Selected Seat</span>
+</p>
 	<div class="panel-body">
 		{% if trip == 'oneway'%}
-        	<form action="{% url "bus.views.bus_booking" %}" method="POST">{% csrf_token %}
+        	<form action="{% url "bus.views.tentativebooking_v2" %}" method="POST">{% csrf_token %}
         		<div class="row">
 					<div class="col-md-7">
 		{%else%}
@@ -66,23 +65,25 @@
 	</div>
     
     {% if trip == 'oneway'%}
-    <input type="submit" value="Book">
+    <button class="btn btn-primary" type="submit">Confirm</button>
     </form>
     {%else%}
-    <input type="button" value="Book" class="onward_book">
+    <button class="btn btn-primary onward_book">Confirm</button>
     {%endif%}
 </div>    
 		<script>
 $(document).ready(function(e) {
 $('.onward_book').click(function(){
 	var total=$('input[name=total_amount]').val();
-	alert(total);
-	var travels=$(this).parents('li').find('input[name=travels]').val();
-    var bpoint=$(this).parents('li').find('input[name=bpoint]').val();
-    var dept_time=$(this).parents('li').find('input[name=dept_time]').val();
-    var arri_time=$(this).parents('li').find('input[name=arri_time]').val();
-    var bus_type=$(this).parents('li').find('input[name=bus_type]').val();
-    var route_type=$(this).parents('li').find('input[name=route_type]').val();
+	//alert($(this).parents('.need_round').find('input[name=travels]').val());
+	var travels=$(this).parents('.need_round').find('input[name=travels]').val();
+	var source=$(this).parents('.need_round').find('input[name=source]').val();
+	var destination=$(this).parents('.need_round').find('input[name=destination]').val();
+    var bpoint=$(this).parents('.need_round').find('input[name=bpoint]').val();
+    var dept_time=$(this).parents('.need_round').find('input[name=dept_time]').val();
+    var arri_time=$(this).parents('.need_round').find('input[name=arri_time]').val();
+    var bus_type=$(this).parents('.need_round').find('input[name=bus_type]').val();
+    var route_type=$(this).parents('.need_round').find('input[name=route_type]').val();
     var selected_seat=$(this).parent().find('input[name=seatNumbersList]').val();
     var selected_seats_fare=$(this).parent().find('input[name=seatFare]').val();
     var fare=$(this).parent().find('input[name=totalfare]').val()
@@ -91,87 +92,110 @@ $('.onward_book').click(function(){
     //alert($(this).parent().html());
 	    if ($('input[name=seat_count_round]').val()== 0){
 	    	if (route_type == 'onward'){
-		    	$('.travels_onward').append(travels);
+		    	$('.travels_onward').html(travels);
 		    	$('input[name=travels_onward]').val(travels);
-		    	$('.bpoint_onward').append(bpoint);
+		    	$('.source_onward').html(source);
+		    	$('input[name=source_onward]').val(source);
+		    	$('.destination_onward').html(destination);
+		    	$('input[name=destination_onward]').val(destination);
+		    	$('.bpoint_onward').html(bpoint);
 		    	$('input[name=bpoint_onward]').val(bpoint);
-		    	$('.dept_time_onward').append(dept_time);
+		    	$('.dept_time_onward').html(dept_time);
 		    	$('input[name=dept_time_onward]').val(dept_time);
-		    	$('.arri_time_onward').append(arri_time);
+		    	$('.arri_time_onward').html(arri_time);
 		    	$('input[name=arri_time_onward]').val(arri_time);
-		    	$('.bus_type_onward').append(bus_type);
+		    	$('.bus_type_onward').html(bus_type);
 		    	$('input[name=bus_type_onward]').val(bus_type);
-		    	$('.seats_onward').append(selected_seat);
+		    	$('.seats_onward').html(selected_seat);
 		    	$('input[name=seats_onward]').val(selected_seat);
-		    	$('.fare_onward').append(fare);
+		    	$('.fare_onward').html(fare);
 		    	$('input[name=fare_onward]').val(fare);
 		    	$('input[name=seatFareOnward]').val(selected_seats_fare);
 		    	$('input[name=OnwardBoardingPoint]').val(selected_boarding_point);
+		    	$('.temp_onward').show();
 			}
 			else
 			{
-				$('.travels_return').append(travels);
+				$('.travels_return').html(travels);
 				$('input[name=travels_return]').val(travels);
-		    	$('.bpoint_return').append(bpoint);
+				$('.source_return').html(source);
+		    	$('input[name=source_return]').val(source);
+		    	$('.destination_return').html(destination);
+		    	$('input[name=destination_return]').val(destination);
+		    	$('.bpoint_return').html(bpoint);
 		    	$('input[name=bpoint_return]').val(bpoint);
-		    	$('.dept_time_return').append(dept_time);
+		    	$('.dept_time_return').html(dept_time);
 		    	$('input[name=dept_time_return]').val(dept_time);
-		    	$('.arri_time_return').append(arri_time);
+		    	$('.arri_time_return').html(arri_time);
 		    	$('input[name=arri_time_return]').val(arri_time);
-		    	$('.bus_type_return').append(bus_type);
+		    	$('.bus_type_return').html(bus_type);
 		    	$('input[name=bus_type_return]').val(bus_type);
-		    	$('.seats_return').append(selected_seat);
+		    	$('.seats_return').html(selected_seat);
 		    	$('input[name=seats_return]').val(selected_seat);
-		    	$('.fare_return').append(fare);
+		    	$('.fare_return').html(fare);
 		    	$('input[name=fare_return]').val(fare);
 		    	$('input[name=seatFareReturn]').val(selected_seats_fare);
 		    	$('input[name=ReturnBoardingPoint]').val(selected_boarding_point);
+		    	$('.temp_return').show();
 			}
 			var total_amount= parseInt(total)+parseInt(fare);
-			alert(total_amount);
+			//alert(total_amount);
+			$('.total_amount').html(total_amount);
 			$('input[name=total_amount]').val(total_amount);
 			$('input[name=seat_count_round]').val(seat_count);    
 		}
 		else if ($('input[name=seat_count_round]').val()== seat_count){
 			if (route_type == 'onward'){
-		    	$('.travels_onward').append(travels);
+		    	$('.travels_onward').html(travels);
 		    	$('input[name=travels_onward]').val(travels);
-		    	$('.bpoint_onward').append(bpoint);
+		    	$('.source_onward').html(source);
+		    	$('input[name=source_onward]').val(source);
+		    	$('.destination_onward').html(destination);
+		    	$('input[name=destination_onward]').val(destination);
+		    	$('.bpoint_onward').html(bpoint);
 		    	$('input[name=bpoint_onward]').val(bpoint);
-		    	$('.dept_time_onward').append(dept_time);
+		    	$('.dept_time_onward').html(dept_time);
 		    	$('input[name=dept_time_onward]').val(dept_time);
-		    	$('.arri_time_onward').append(arri_time);
+		    	$('.arri_time_onward').html(arri_time);
 		    	$('input[name=arri_time_onward]').val(arri_time);
-		    	$('.bus_type_onward').append(bus_type);
+		    	$('.bus_type_onward').html(bus_type);
 		    	$('input[name=bus_type_onward]').val(bus_type);
-		    	$('.seats_onward').append(selected_seat);
+		    	$('.seats_onward').html(selected_seat);
 		    	$('input[name=seats_onward]').val(selected_seat);
-		    	$('.fare_onward').append(fare);
+		    	$('.fare_onward').html(fare);
 		    	$('input[name=fare_onward]').val(fare);
 		    	$('input[name=seatFareOnward]').val(selected_seats_fare);
 		    	$('input[name=OnwardBoardingPoint]').val(selected_boarding_point);
+		    	$('.temp_onward').show();
 			}
 			else
-			{
-				$('.travels_return').append(travels);
+			{	
+				alert('return');
+				$('.travels_return').html(travels);
 				$('input[name=travels_return]').val(travels);
-		    	$('.bpoint_return').append(bpoint);
+				$('.source_return').html(source);
+		    	$('input[name=source_return]').val(source);
+		    	$('.destination_return').html(destination);
+		    	$('input[name=destination_return]').val(destination);
+		    	$('.bpoint_return').html(bpoint);
 		    	$('input[name=bpoint_return]').val(bpoint);
-		    	$('.dept_time_return').append(dept_time);
+		    	$('.dept_time_return').html(dept_time);
 		    	$('input[name=dept_time_return]').val(dept_time);
-		    	$('.arri_time_return').append(arri_time);
+		    	$('.arri_time_return').html(arri_time);
 		    	$('input[name=arri_time_return]').val(arri_time);
-		    	$('.bus_type_return').append(bus_type);
+		    	$('.bus_type_return').html(bus_type);
 		    	$('input[name=bus_type_return]').val(bus_type);
-		    	$('.seats_return').append(selected_seat);
+		    	$('.seats_return').html(selected_seat);
 		    	$('input[name=seats_return]').val(selected_seat);
-		    	$('.fare_return').append(fare);
+		    	$('.fare_return').html(fare);
 		    	$('input[name=fare_return]').val(fare);
 		    	$('input[name=seatFareReturn]').val(selected_seats_fare);
 		    	$('input[name=ReturnBoardingPoint]').val(selected_boarding_point);
+		    	$('.temp_return').show();
 			}
 			var total_amount= parseInt(total)+parseInt(fare);
-			alert(total_amount);
+			//alert(total_amount);
+			$('.total_amount').html(total_amount);
 			$('input[name=total_amount]').val(total_amount);
 			$('input[name=seat_count_round]').val(seat_count);    
 
@@ -279,7 +303,7 @@ $.each(bus,function(index,v)
 		{
 			if(v_seatlayout.SeatType=='Seater')
 			{
-				$("#seats_layout .lowerDeck .seats").find("tr:nth-child("+(parseInt(v_seatlayout.RowNo)+1)+")").children("td:nth-child("+(parseInt(v_seatlayout.ColumnNo)+1)+")").append('<div class="seat seat_available '+seat_status(v_seatlayout.seat_status)+'" title="Seat No.:'+v_seatlayout.SeatName+' | Fare: '+v_seatlayout.SeatFare+'" data-seatno="'+v_seatlayout.SeatName+'" data-seattype="'+v_seatlayout.SeatType+'" data-seattypeid="'+v_seatlayout.SeatStatus+'" data-seatfare="'+v_seatlayout.SeatFare+'"></div>');
+				$("#seats_layout .lowerDeck .seats").find("tr:nth-child("+(parseInt(v_seatlayout.RowNo)+1)+")").children("td:nth-child("+(parseInt(v_seatlayout.ColumnNo)+1)+")").append('<div class="seat '+seat_status(v_seatlayout.seat_status)+'" title="Seat No.:'+v_seatlayout.SeatName+' | Fare: '+v_seatlayout.SeatFare+'" data-seatno="'+v_seatlayout.SeatName+'" data-seattype="'+v_seatlayout.SeatType+'" data-seattypeid="'+v_seatlayout.SeatStatus+'" data-seatfare="'+v_seatlayout.SeatFare+'"></div>');
 			}
 			else
 			{

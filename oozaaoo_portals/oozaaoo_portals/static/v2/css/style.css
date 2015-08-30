@@ -798,7 +798,15 @@ textarea.form-control
 {
   text-decoration:underline;  
 }
-
+.booking_details_append {
+  background: #fced9e;
+  border: 1px solid #f2df79;
+  padding: 20px 0px 20px 0px;
+}
+.dooted_border {
+  border-left:1px dashed #d7bf41;
+  border-right:1px dashed #d7bf41;
+}
 
 /*** Profile Page **/
 

@@ -26,12 +26,13 @@ $('.slide').click(function(){
     $('.seat_map',par).slideDown("slow");
     var par = $(this).parent();
     var skey= $('input[name=skey]',par).val();
+    var route_type= $('input[name=route_type]',par).val();
     var bus_type= $('input[name=bus_type]',par).val();
     $.ajax({
     type: 'POST',
     url: '/seat/',
     dataType: 'html',
-    data: {"skey":skey,"bus_type":bus_type}, // or JSON.stringify ({name: 'jonas'}),
+    data: {"skey":skey,"bus_type":bus_type,"route_type":route_type}, // or JSON.stringify ({name: 'jonas'}),
     success: function(data) { 
         alert(data);
         $('.seat_map',par).html(data);
@@ -695,7 +696,7 @@ $( '.location' ).click(
                 // alert(i+"--"+JSON.stringify(val.hotelname));
                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
                 
-            if(val.ibp){
+            if (val.ibp){
                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
                     <a class='booking-item' href='#'>\
