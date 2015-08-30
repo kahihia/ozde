@@ -976,9 +976,6 @@ def tentativebooking(request):
 
 @csrf_exempt
 def confirmbook(request):	
-	"""
-	CancelTicket Bus 
-	"""
 	from hashlib import md5, sha512
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	md5str = "travelibibo" + '|' + request.COOKIES.get('bookid') + '|' + "test123"
@@ -1031,7 +1028,7 @@ def confirmbook(request):
 						'end':request.COOKIES.get('end'),
 						'source':request.COOKIES.get('source'),
 						'destination':request.COOKIES.get('destination'),
-						'totalfare':request.COOKIES.get('totalfare'),
+						'totalfare':request.COOKIES.get('total_amount'),
 						'totalseats':request.COOKIES.get('totalseats'),
 						# 'rooms':request.COOKIES.get('rooms'),
 						# 'guest':request.COOKIES.get('guest'),
@@ -1101,4 +1098,62 @@ def cancelticket(request):
 		return HttpResponseRedirect(format_redirect_url("/cancelticket", 'error=12'))
 	#return HttpResponse(simplejson.dumps(getcancelticket['data']), mimetype='application/json')	
 	return render_to_response("bus/conformcancel.html",{'status':getcancelticket},context_instance=RequestContext(request))
+@csrf_exempt
+def confirm_v2(request):
+	from hashlib import md5, sha512
+	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	md5str = "travelibibo" + '|' + request.COOKIES.get('bookid') + '|' + "test123"
+	secret = sha512(md5str).hexdigest()
+	clientkey='test123'
+	bookingid=request.COOKIES.get('bookid')
+	try:
+		query,getbookconform=GO.BookConform(secret,bookingid,clientkey)
+	except:
+		messages.add_message(request, messages.INFO,'Something wrong from API')
+		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
+	print getbookconform
+	if 'status' in getbookconform:
+		log_function(query, "success:"+str(getbookconform['status']))
+	else:
+		log_function(query, "success:False" + str(getbookconform['Error']))
+	response = render_to_response('v2/bus/busconfirmation_v2.html',{'status':getbookconform},context_instance=RequestContext(request))
+	
+	#Code for storing PayU Details
+	payid, paystatus=store_payudetails(request)
+	print "payid", payid
+	print "paystatus", paystatus
+	response.set_cookie('payudetails',payid)
+	response.set_cookie('payustatus',paystatus)
+	
+	#Code for storing Transaction Details
+	transaction = Transaction()
+	transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
+	transaction.payu_details=PayuDetails.objects.get(id=payid)
+	transaction.payu_status=request.COOKIES.get('payustatus')
+	transaction.tentativebooking_id=bookingid
+	print transaction.tentativebooking_id
+	transaction.tentativebooking_status="processing"
+	transaction.save()
+	busbookingstatus(request)
 
+	send_templated_mail(
+					template_name='payment_bus',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=[request.COOKIES.get('email')],
+					context={
+						'user':request.COOKIES.get('fname'),
+						'bookingid':transaction.tentativebooking_id,
+						'trip':request.COOKIES.get('trip'),
+						# 'amount':request.COOKIES.get('guest'),
+						'start':request.COOKIES.get('start'),
+						'end':request.COOKIES.get('end'),
+						'source':request.COOKIES.get('source'),
+						'destination':request.COOKIES.get('destination'),
+						'totalfare':request.COOKIES.get('total_amount'),
+						'totalseats':request.COOKIES.get('totalseats'),
+						# 'rooms':request.COOKIES.get('rooms'),
+						# 'guest':request.COOKIES.get('guest'),
+					},
+				)
+	return response
+	#return render_to_response("v2/bus/busconfirmation_v2.html",context_instance=RequestContext(request))
