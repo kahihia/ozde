@@ -847,6 +847,10 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 def bookingstatus(request):
 	return render_to_response("hotels/bookingstatus.html",context_instance=RequestContext(request))
 
+def bookingstatus_v2(request):
+	return render_to_response("v2/hotels/bookingstatus_v2.html",context_instance=RequestContext(request))
+
+
 def bookinginfo(request):
 	return render_to_response("hotels/bookinfo.html",context_instance=RequestContext(request))
 

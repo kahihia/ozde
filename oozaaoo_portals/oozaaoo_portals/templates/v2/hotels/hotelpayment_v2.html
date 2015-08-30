@@ -5,7 +5,7 @@
 
 
 
-<div class="bg-lightgrey bus-payment">
+<div class="bg-lightgrey bus-payment ">
     <div class="bg-white">
         <div class="container">
             <div class="row">
@@ -34,7 +34,7 @@
           <a href="#">Home</a>
         </li>
         <li>
-          <a href="#">Easy Cancel/Refund new</a>
+          <a href="#"><span class="refund">Easy Cancel/Refund new </span></a>
         </li>
       </ul>
      </nav>
@@ -58,7 +58,8 @@
                     </div>
                     <div class="panel-body">
                         <h4 class="size18"><strong>Villa Shanti</strong> <span class="text-muted">(2 nights)</span>
-                        <span class="text-muted pull-right size17 underline">Cancellation policy</span>
+                       
+                        <span class="text-muted pull-right size17 underline toggleModal">Cancellation policy</span>
                         <div class="clearfix"></div>
                         </h4>
                         <h5 class="size17"><i class="fa fa-map-marker"></i> 14, Suffren Street, 605001 Pondicherry, India. <a href="#">Show map</a></h5>
@@ -224,5 +225,98 @@
         </div>
     </div>
 </div><!-- bg-lightgrey bus-payment -->
- {% endblock %}        
-         
+<div class="wrapper"> <div class="modal">  
+         <div class="close"> <i class="fa fa-times"></i></div>
+
+        <div class="cancel_policy" style="width:600;margin-left:25px;height:500;margin-right:25px;">
+            <p>
+                Cancellation & Amendment Policy :
+            </p>
+            <p>
+                No Show, Cancellation charges will be 100 % Cost.
+                On cancellation of bookings done using promotional codes, the charges are calculated on total price
+                Most hotels do not allow unmarried / unrelated couples to check-in. This is at full discretion of the hotel management. No refund would be applicable in case the hotel denies check-in under such circumstances .
+                Goibibo doesn't support changes and modifications to online bookings once they're made.
+            </p>
+            <p>
+                Hotel Policy :
+            </p>
+            <p>
+                The standard check-in date is {{ request.COOKIES.checkin}} and the standard check-out date is {{ request.COOKIES.checkout}}. Early check-in or late check-out is strictly subjected to availability and may be chargeable by the hotel. Any early check-in or late check-out request must be directed and reconfirmed with hotel directly
+            </p>
+            <p>    
+                Child Policy: 
+            </p>
+            <p>
+                child below 12 year is Complimentary if using parents bed
+                In keeping with our heightened security procedures we request you to carry a photo-identity to present at check-in. Foreign nationals will require to present the Passport and valid Visa, while Indian nationals can present any one of these: Passport, Driving License, Voter ID Card or PAN Card.
+                Hotel may charge compulsory gala dinner supplement on Christmas / New Year's eve or other festive periods. Any such supplements need to be paid directly at the hotel.
+                Most hotels do not allow unmarried / unrelated couples to check-in. This is at full discretion of the hotel management. No refund would be applicable in case the hotel denies check-in under such circumstances.
+                Please note that it takes minimum of 4 to 8 working hours to confirm a reservation at the hotel for same day check-ins.
+                For distant check-ins, you are not required to call the hotel to reconfirm the reservations. Your booking details will reach the hotel in time and the booking will be re-confirmed from our end.
+            </p>
+        </div>
+    <div class="top-area show-onload">
+        <div class="bg-holder full">
+            <div class="bg-front bg-front-mob-rel">
+                <div class="container">
+               
+                    <div class="search-tabs search-tabs-bg search-tabs-abs mt50">
+                        <h2 class="light-purple " >BOOKING CANCEL</h2>
+                        <div class="tabbable">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab-1">
+                                    <h2>Enter your Booking id</h2>
+                                    <form action="{%url "hotels.views.confirmcancel" %}" method="post">{% csrf_token %}
+                                        <div class="input-daterange" data-date-format="M d, D">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-lg form-group-icon-left">
+                                                        <input class="typeahead " placeholder="" type="text" name="bookid"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>     
+</div>
+<div class="modal_refund">
+ <div class="close_btn"> <i class="fa fa-times"></i></div>
+    <div class="container">
+       
+                <div class="search-tabs search-tabs-bg search-tabs-abs mt50">
+                    <h1 style="color:#262626">Refund</h1>
+                    <div class="tabbable">
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="tab-1">
+                                <h2>Enter your Booking id</h2>
+                                <form action="{%url "hotels.views.getrefund" %}" method="post">{% csrf_token %}
+                                    <div class="input-daterange" data-date-format="M d, D">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-group-lg form-group-icon-left">
+                                                    <input class="typeahead " placeholder="" type="text" name="bookid"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit">Refund status</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+ {% endblock %} 
