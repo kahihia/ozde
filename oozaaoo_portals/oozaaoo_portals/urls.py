@@ -54,6 +54,7 @@ urlpatterns = patterns('',
     url(r'^busbookingstatus/', 'bus.views.busbookingstatus', name='busbookingstatus'),
     url(r'^tentativebooking/', 'bus.views.tentativebooking', name='tentativebooking'),
     url(r'^v2/tentativebooking/', 'bus.views.tentativebooking_v2', name='tentativebooking_v2'),
+    url(r'^v2/confirm/', 'bus.views.confirm_v2', name='confirm_v2'),
     #============================forgetpassword========================#
     url(r'^(?i)password_reset/$', 'django.contrib.auth.views.password_reset', {
       'template_name':'registration/password_reset_form.html',
