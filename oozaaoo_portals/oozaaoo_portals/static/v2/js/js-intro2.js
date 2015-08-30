@@ -5,8 +5,16 @@ jQuery(function($) {
 "use strict";
 	$( "#datepicker" ).datepicker();
 	$( "#datepicker2" ).datepicker();
-	$( "#datepicker3" ).datepicker();
-	$( "#datepicker4" ).datepicker();
+	$( "#datepicker3" ).datepicker(
+		{
+		todayHighlight: true,
+	    format: 'yyyy/mm/dd'
+	});
+	$( "#datepicker4" ).datepicker(
+		{
+		todayHighlight: true,
+	    format: 'yyyy/mm/dd'
+	});
 	$( "#datepicker5" ).datepicker();
 	$( "#datepicker6" ).datepicker();
 	$( "#datepicker7" ).datepicker({

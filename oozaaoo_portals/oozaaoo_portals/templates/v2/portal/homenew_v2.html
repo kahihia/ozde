@@ -1,0 +1,145 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+<div class="bg-lightgrey bus-payment">
+<div class="container sign-in">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10 marginbottom10">
+                    <h2 class="bold text-center padding20">Bus Booking<br/><span class="logo-span-txt text-center">Made easy!</span></h2>                   <div class="row">
+                        <div class="col-md-2 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-left.png" class="left-img" /></div>
+                        <div class="col-md-8 z-index1 padding5-40">
+                            <div class="panel panel-lightpurple">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title text-center">
+                                        Sign in to your account
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    
+                                    <div class="sign-in-form search_form_home">
+                                        <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" class="hotel_search" id="myform">
+                                              {% csrf_token %}
+                                              <span class="opensans size18">Choose your destination</span>
+                                              <!-- <input type="text" class="form-control" placeholder="Greece"> -->
+                                              <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
+                                              <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>      
+                                              <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filterkeyword" value="" name="filterkeyword" />          
+                                              <br/>
+                                              
+                                              <div class="col-md-6">
+                                                <div class="textleft">
+                                                  <span class="opensans size13"><b>Check in date</b></span>
+                                                  <input type="text" name="start" class="startdate form-control mySelectCalendar2" id="datepicker7" placeholder="yyyy/mm/dd"/>
+                                                  <div class="error_mgs" style="display:none; color:red;">Please Select the Check In-Date</div>
+                                                </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                                <div class="textleft right">
+                                                  <span class="opensans size13"><b>Check out date</b></span>
+                                                  <input type="text" name="end" class="enddate form-control mySelectCalendar2" id="datepicker8" placeholder="yyyy/mm/dd"/>          
+                                                  <div class="error_mgs" style="display:none; color:red;">Please Select the Check Out-Date</div>
+                                                </div>
+
+                                              </div>
+                                              
+                                              <div class="clearfix"></div>
+                                              
+                                              <div class="room1 rooms marginbottom10" >
+                                                <div class="add_room_holder">
+                                                  <div class="textleft">
+                                                    <span class="opensans size13 pull-left"><b>ROOM 1</b></span>
+                                                    
+                                                    <div class="addroom1 block pull-left"><a href="#room2" onclick="addroom2()" class="grey">+ Add room</a>| <a href="#" onclick="removeroom2()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
+                                                    <div class="clear_both"></div>
+                                                  </div>
+                                                </div><!-- add_room_holder -->
+
+                                                <div class="w50percentlast">  
+                                                  
+                                                    <div class="col-md-3">
+                                                      <div class="wh90percent textleft left">
+                                                        <span class="opensans size13"><b>Adult</b></span>
+                                                        <select class="form-control mySelectBoxClass">
+                                                          <option>1</option>
+                                                          <option selected>2</option>
+                                                          <option>3</option>
+                                                          <option>4</option>
+                                                        </select>
+                                                      </div>
+                                                    </div>              
+                                                    <div class="col-md-3">
+                                                      <div class="wh90percent textleft right">
+                                                      <span class="opensans size13"><b>Child</b></span>
+                                                        <select class="form-control mySelectBoxClass child_act">
+                                                          <option selected>0</option>
+                                                          <option>1</option>
+                                                          <option>2</option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                  
+                                                
+                                                    <div class="col-md-3 child1 none">
+                                                      <div class="wh90percent textleft left">
+                                                        <span class="opensans size13"><b>Child 1</b></span>
+                                                        <select class="form-control mySelectBoxClass">
+                                                          <option>1</option>
+                                                          <option>2</option>
+                                                          <option>3</option>
+                                                          <option>4</option>
+                                                                          <option>5</option>
+                                                          <option>6</option>
+                                                          <option>7</option>
+                                                          <option>8</option>
+                                                                          <option>9</option>
+                                                          <option>10</option>
+                                                          <option>11</option>
+                                                          <option>12</option>                                  
+                                                        </select>
+                                                      </div>
+                                                    </div>              
+                                                    <div class="col-md-3 child2 none">
+                                                      <div class="wh90percent textleft right">
+                                                      <span class="opensans size13"><b>Child 2</b></span>
+                                                        <select class="form-control mySelectBoxClass">
+                                                          <option>1</option>
+                                                          <option>2</option>
+                                                          <option>3</option>
+                                                          <option>4</option>
+                                                                          <option>5</option>
+                                                          <option>6</option>
+                                                          <option>7</option>
+                                                          <option>8</option>
+                                                                          <option>9</option>
+                                                          <option>10</option>
+                                                          <option>11</option>
+                                                          <option>12</option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                  <div class="clearfix"></div> 
+                                                </div>
+                                                 <div class="clearfix"></div>       
+                                              </div>
+                                                
+                                              <button type="submit" class="btn-search2 btn btn-primary">Search</button>   
+                                              
+                                          </form>
+                                    </div>
+                                </div>
+                                <div class="panel-footer bg-white">
+                                    <p>Don't have an account? <a href="#">Sign up</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" /></div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+</div><!-- bg-lightgrey bus-payment -->
+ {% endblock %}

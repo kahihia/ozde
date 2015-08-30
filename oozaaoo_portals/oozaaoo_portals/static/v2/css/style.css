@@ -414,6 +414,7 @@
   height:450px;
   position:relative;
 }
+.hotelbg_overlay { position:absolute; width:100%; height:100%; top:0px; left:0px; background:#000; opacity:0.5;  z-index:1100;}
 .detail_banner_images {
   position:absolute;
   width:100%;
@@ -685,27 +686,27 @@
 }
 .available-seat
 {
-  background:url('../img/bus-seat-layout.png') 0 0;
+  background:url('../img/bus-seat-layout.png') -67px -54px;
   padding:3px 15px; 
 }
 .booked-seat
 {
-  background:url('../img/bus-seat-layout.png') -30px 0;
+  background:url('../img/bus-seat-layout.png') -67px -204px;
   padding:3px 15px; 
 }
 .ladies-seat
 {
-  background:url('../img/bus-seat-layout.png') 60px 0;
+  background:url('../img/bus-seat-layout.png') -67px -154px;
   padding:3px 15px; 
 }
 .ladies-reserved-seat
 {
-  background:url('../img/bus-seat-layout.png') -123px 0;
+  background:url('../img/bus-seat-layout.png') -67px -103px;
   padding:3px 15px; 
 }
 .selected-seat
 {
-  background:url('../img/bus-seat-layout.png') -65px 0;
+  background:url('../img/bus-seat-layout.png') -67px -3px;
   padding:3px 15px; 
 }
 .busseat-layout ul
@@ -797,4 +798,181 @@ textarea.form-control
 .underline
 {
   text-decoration:underline;  
+}
+.booking_details_append {
+  background: #fced9e;
+  border: 1px solid #f2df79;
+  padding: 20px 0px 20px 0px;
+}
+.dooted_border {
+  border-left:1px dashed #d7bf41;
+  border-right:1px dashed #d7bf41;
+}
+
+/*** Profile Page **/
+
+.blue 
+{
+  color:#2196f3 !important; 
+}
+.bus-profile
+{
+  margin:3px !important;
+  padding:15px 20px !important;
+}
+.noborder
+{
+  border-width:0 !important;  
+}
+
+/*  Left side tab */
+
+
+.tabs-left, .tabs-right {
+  border-bottom: none;
+  /*padding-top: 2px;*/
+  margin-top:40px;
+}
+.tabs-left {
+ /* border-right: 1px solid #ddd;*/
+}
+.tabs-right {
+  border-left: 1px solid #ddd;
+}
+.tabs-left>li, .tabs-right>li {
+  float: none;
+  margin-bottom: 2px;
+}
+.tabs-left>li {
+  margin-right: -1px;
+}
+.tabs-right>li {
+  margin-left: -1px;
+}
+.tabs-left>li.active>a,
+.tabs-left>li.active>a:hover,
+.tabs-left>li.active>a:focus {
+  border:0px solid !important;
+  /*border-bottom-color: #ddd;
+  border-right-color: transparent;*/
+}
+
+.tabs-right>li.active>a,
+.tabs-right>li.active>a:hover,
+.tabs-right>li.active>a:focus {
+  border-bottom: 1px solid #ddd;
+  border-left-color: transparent;
+}
+.tabs-left>li>a {
+  border-radius: 4px 0 0 4px;
+  margin-right: 0;
+  display:block;
+}
+.tabs-right>li>a {
+  border-radius: 0 4px 4px 0;
+  margin-right: 0;
+}
+.sideways {
+  margin-top:50px;
+  border: none;
+  position: relative;
+}
+.sideways>li {
+  height: 20px;
+  width: 120px;
+  margin-bottom: 100px;
+}
+.sideways>li>a {
+  border-bottom: 1px solid #ddd;
+  border-right-color: transparent;
+  text-align: center;
+  border-radius: 4px 4px 0px 0px;
+}
+.sideways>li.active>a,
+.sideways>li.active>a:hover,
+.sideways>li.active>a:focus {
+  border-bottom-color: transparent;
+  border-right-color: #ddd;
+  border-left-color: #ddd;
+}
+.sideways.tabs-left {
+  left: -50px;
+}
+.sideways.tabs-right {
+  right: -50px;
+}
+.sideways.tabs-right>li {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.sideways.tabs-left>li {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+/** Signin-page **/
+.sign-in
+{
+  margin-top:1%;
+  position:relative;  
+}
+.sign-in .logo-span-txt
+{
+  position: absolute;
+    left: auto !important;
+    font-size: 14px !important;
+    color: #999;
+    font-weight: 500;
+  margin-bottom:20px;
+}
+.sign-in-form
+{
+  margin:10px 20px; 
+  z-index:1;
+}
+.sign-in-form input
+{
+  margin-bottom:15px; 
+}
+.sign-in-form input[type=checkbox]
+{
+  margin-bottom: 0 ;
+  margin-top:10px;  
+}
+.left-img
+{
+  position:relative;
+  right:40%; 
+  z-index:0;
+  width: 250px;
+    margin-top: 20%;
+}
+.right-img
+{
+  position:relative;
+  left:-40%;  
+  z-index:0;
+  width: 250px;
+    margin-top: 20%;
+}
+.z-index1
+{
+  z-index:1;
+}
+.padding5-40
+{
+    padding: 5px 40px;  
+}
+.clear_both { clear:both; }
+.add_room_holder span {
+  margin:0px 10px 0px 0px;
+}
+.search_form_home {
+  margin:10px 0px 10px 0px !important;
 }
