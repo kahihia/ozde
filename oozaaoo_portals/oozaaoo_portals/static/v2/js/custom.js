@@ -187,25 +187,25 @@ $('.form-group').each(function() {
 //     }
 // });
 
-// console.log('here-datepicker');
-// $('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
-//     todayHighlight: true,
-//     format: 'yyyy/mm/dd'
-// });
+console.log('here-datepicker');
+$('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
+    todayHighlight: true,
+    format: 'yyyy/mm/dd'
+});
 
 
 
-// $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
-// $('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
+$('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
+$('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
 
-// $('input.time-pick').timepicker({
-//     minuteStep: 15,
-//     showInpunts: false
-// })
+$('input.time-pick').timepicker({
+    minuteStep: 15,
+    showInpunts: false
+})
 
-// $('input.date-pick-years').datepicker({
-//     startView: 2
-// });
+$('input.date-pick-years').datepicker({
+    startView: 2
+});
 
 // $( ".mySelectCalendar2" ).datepicker({
 //         dateFormat: "yy/mm/dd",
@@ -1142,7 +1142,6 @@ $(add_room).on("click",".remove_field", function(e){ //user click on remove text
 // code by priya
 // hotels //
 $('#searchBtn').click(function(){ 
-    alert('here');
     if($('.typeahead').val() == '') {
         // alert("enter the destination");
         $('.error_mgs').show();
@@ -1306,4 +1305,14 @@ $('.close_btn').click(function(){
 
 $('.go_payment').click(function(){
   $('.payment').show();
+});
+
+$('.hotel').click(function(){
+  $('#tab-1').addClass('active in');
+  $('#tab-3').removeClass('active in');
+});
+
+$('.bus').click(function(){
+  $('#tab-3').addClass('active in');
+  $('#tab-1').removeClass('active in');
 });
