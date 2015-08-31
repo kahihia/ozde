@@ -489,7 +489,13 @@ $( "#slider-range" ).slider({
         else{
             var star=stars;
         }
-        var location=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        var loc=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        if (loc==''){
+            var location= 'test';
+        }
+        else{
+            var location=loc
+        }
 
         $.ajax({
             type: 'POST',
@@ -569,7 +575,7 @@ $( "#slider-range" ).slider({
                             </a>\
                         </form>";        
                         // alert("elements8" +elements);                                                                     
-                }     
+             }     
             });
             elements += "</li>";
             // alert("elements9" +elements);
@@ -582,8 +588,20 @@ $( '.star' ).click(
     function( ) {
         var amount_min= $( "#amount_min" ).val();
         var amount_max= $( "#amount_max" ).val();
-        var star=($('input[name="star[]"]:checked').map(function() { return this.value; }).get().join(', '))== null ? '5' :($('input[name="star[]"]:checked').map(function() { return this.value; }).get().join(', '));
-        var location=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        var stars=($('input[name="star[]"]:checked').map(function() { return this.value; }).get().join(', ')) ;
+        if (stars==''){
+            var star=[5,4,3,2,1];
+        }
+        else{
+            var star=stars;
+        }
+        var loc=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        if (loc==''){
+            var location= 'test';
+        }
+        else{
+            var location=loc
+        }
         $.ajax({
             type: 'POST',
             url:'/get_results_by_price/',
@@ -597,7 +615,7 @@ $( '.star' ).click(
                 // alert(i+"--"+JSON.stringify(val.hotelname));
                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
                 
-            if (val.ibp){
+           if (val.ibp){
                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
                     <a class='booking-item' href='#'>\
@@ -662,7 +680,7 @@ $( '.star' ).click(
                             </a>\
                         </form>";        
                         // alert("elements8" +elements);                                                                     
-             }     
+         }     
             });
             elements += "</li>";
             // alert("elements9" +elements);
@@ -682,7 +700,13 @@ $( '.location' ).click(
         else{
             var star=stars;
         }
-        var location=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        var loc=($('input[name="location[]"]:checked').map(function() { return this.value; }).get().join(', '));
+        if (loc==''){
+            var location= 'test';
+        }
+        else{
+            var location=loc
+        }
         $.ajax({
             type: 'POST',
             url:'/get_results_by_price/',
@@ -761,7 +785,7 @@ $( '.location' ).click(
                             </a>\
                         </form>";        
                         // alert("elements8" +elements);                                                                     
-                }     
+              }     
             });
             elements += "</li>";
             // alert("elements9" +elements);

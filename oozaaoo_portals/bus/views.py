@@ -144,7 +144,26 @@ def search_bus_v2(request):
 					reviews_return.append(_rbuslist)
 				else:
 					reviews_return.append(_rbuslist)
-
+			travel_fields=['TravelsName']
+			travels=set()
+			boardingpoint=set()
+			depturepoint=set()
+			for travel in getbusresponse['data']['onwardflights']:
+				for k,v in travel.iteritems():
+					if k in travel_fields:
+						travels.add(v)
+				if travel.get('BPPrims'):
+					for k,v in travel.get('BPPrims').iteritems():
+						for s in v:
+							boardingpoint.add(s['BPLocation'])
+				if travel.get('DPPrims'):
+					for k,v in travel.get('DPPrims').iteritems():
+						for s in v:
+							depturepoint.add(s['DPLocation'])
+			filtered_travels=list(travels)
+			filtered_bpoint=list(boardingpoint)
+			filtered_dpoint=list(depturepoint)
+			cache.set('getbusresponse', getbusresponse)
 		except:
 			messages.add_message(request, messages.INFO,'API not responding for one way trip')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
@@ -157,9 +176,9 @@ def search_bus_v2(request):
 	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
 	#return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
 	if trip=='oneway':	
-		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,}, context_instance=RequestContext(request))
+		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,'filtered_travels':filtered_travels,'filtered_bpoint':filtered_bpoint,'filtered_dpoint':filtered_dpoint}, context_instance=RequestContext(request))
 	else:
-		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'reviews_return':reviews_return,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,}, context_instance=RequestContext(request))
+		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'reviews_return':reviews_return,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,'filtered_travels':filtered_travels,'filtered_bpoint':filtered_bpoint,'filtered_dpoint':filtered_dpoint}, context_instance=RequestContext(request))
 
 	response.set_cookie( 'source', source)
 	response.set_cookie( 'trip', trip)
@@ -224,6 +243,8 @@ def search_bus(request):
 					reviews.append(_rbuslist)
 				else:
 					reviews.append(_rbuslist)
+
+			
 			reviews_return = []
 			for bussearchlist in getbusresponse['data']['returnflights']:	
 				_rbuslist	= {}
@@ -334,24 +355,34 @@ def seat_v2(request):
 		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
 			results.append(i)
 	if 'sleeper' in name and 'semi'in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'seater' in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'airbus' in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'semisleeper' in name and number=='(2+2)':
+		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'sleeper' in name and number=='(2+1)':
+		print 'sleeper(2+1)'
 		response= render_to_response('v2/bus/sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'sleeper' in name and number=='(1+1)':
+		print 'sleeper(1+1)'
 		response= render_to_response('v2/bus/sleeper(1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	elif 'seater/sleeper' in name and number=='(2+1)' or 'seater' in name and'sleeper' in name and number=='(2+1)':
+		print 'seater_sleeper(2+1)'
 		response= render_to_response('v2/bus/seater_sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
+		print 'seater(1+1+1)'
 		response= render_to_response('v2/bus/seater(1+1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name and number=='(2+3)':
+		print 'seater(2+3)'
 		response= render_to_response('v2/bus/seater(2+3).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	else:
+		print 'default seat'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request)) 
 	
 	response.set_cookie('skey',skey)
@@ -1157,3 +1188,4 @@ def confirm_v2(request):
 				)
 	return response
 	#return render_to_response("v2/bus/busconfirmation_v2.html",context_instance=RequestContext(request))
+

@@ -1,6 +1,6 @@
 {% load static from staticfiles %}
 {% load i18n %}
-<div class="panel panel-default seatLayoutHolder">
+<div class="panel padding20 panel-default seatLayoutHolder">
 <p>	
 <span></span>
 <span><i class="available-seat"></i> Available Seat</span>
@@ -33,7 +33,9 @@
                 </div>
                 <div class="seats">
                 </div>
+                <div class="clear_both"></div>
             </div>
+            <div class="clear_both"></div>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -170,7 +172,7 @@ $('.onward_book').click(function(){
 			}
 			else
 			{	
-				alert('return');
+				//alert('return');
 				$('.travels_return').html(travels);
 				$('input[name=travels_return]').val(travels);
 				$('.source_return').html(source);
@@ -316,7 +318,7 @@ $.each(bus,function(index,v)
 		console.log(status);
 		if(status=='availableSeat')
 		{
-			return 'seat_available';
+			return 'available';
 		}
 		else if(status=='bookedSeat')
 		{
@@ -356,9 +358,9 @@ $.each(bus,function(index,v)
 	{
 	$(".seats td").click(function(e) {
 		
-		if($(this).children("div").hasClass("seat_selected"))
+		if($(this).children("div").hasClass("selected"))
 		{
-        	$(this).children(".seat").removeClass("seat_selected");
+        	$(this).children(".seat").removeClass("selected");
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
@@ -433,7 +435,7 @@ $.each(bus,function(index,v)
 		{
 		if(clicked.length<max_no_of_seat){
 			
-			$(this).children(".seat").addClass("seat_selected");	
+			$(this).children(".seat").addClass("selected");	
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
@@ -501,9 +503,9 @@ $.each(bus,function(index,v)
 	$(".lower td,.upper td").click(function(e) {
 		
 		
-		if($(this).children("div").hasClass("sleeper_selected"))
+		if($(this).children("div").hasClass("selected"))
 		{
-        	$(this).children(".sleeper").removeClass("sleeper_selected");
+        	$(this).children(".sleeper").removeClass("selected");
 			var seatno=$(this).children(".sleeper").data("seatno");
 			var seatfare=$(this).children(".sleeper").data("seatfare");
 			var seattypeid=$(this).children(".sleeper").data("seattypeid");
@@ -563,9 +565,9 @@ $.each(bus,function(index,v)
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
-		else if($(this).children("div").hasClass("seat_selected"))
+		else if($(this).children("div").hasClass("selected"))
 		{
-        	$(this).children(".seat").removeClass("seat_selected");
+        	$(this).children(".seat").removeClass("selected");
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
@@ -635,10 +637,10 @@ $.each(bus,function(index,v)
 		else if(!$(this).children("div").hasClass("sleeper")&&!$(this).children("div").hasClass("seat")){
 			e.preventDefault();
 		}
-		else if($(this).children("div").hasClass("seat_available")||$(this).children("div").hasClass("seat_ladies"))
+		else if($(this).children("div").hasClass("available")||$(this).children("div").hasClass("seat_ladies"))
 		{
 			if(clicked.length<max_no_of_seat){
-			$(this).children(".seat").addClass("seat_selected");	
+			$(this).children(".seat").addClass("selected");	
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
@@ -687,7 +689,7 @@ $.each(bus,function(index,v)
 		else
 		{
 		if(clicked.length<max_no_of_seat){
-			$(this).children(".sleeper").addClass("sleeper_selected");	
+			$(this).children(".sleeper").addClass("selected");	
 			var seatno=$(this).children(".sleeper").data("seatno");
 			var seatfare=$(this).children(".sleeper").data("seatfare");
 			var seattypeid=$(this).children(".sleeper").data("seattypeid");

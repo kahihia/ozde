@@ -1020,17 +1020,27 @@ def get_results_by_price(request):
 	star=request.POST.get('star',5)
 	stars=star.split(',')
 	locations=location.split(',')
+	city_response = cache.get('getcityresponse')
 	print 'locations',locations
 	print 'stars',stars
 	print 'val_max',val_max
 	print 'val_min',val_min
-	city_response = cache.get('getcityresponse')
+	
 	morevalue = []
-	for values in city_response['data']['city_hotel_info']:
-		if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star) and unicode(values['l']) in unicode(locations) :#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
-			print'all'
-			finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
-			morevalue.append(finallist)
+	if location== 'test': 
+		print "test11111111"
+		print city_response
+		for values in city_response['data']['city_hotel_info']:
+			print'test2222222222222'
+			if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star) :#and unicode(values['l']) in unicode(locations) :#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
+				finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
+				morevalue.append(finallist)
+	else:
+		for values in city_response['data']['city_hotel_info']:
+			if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star) :#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
+				if unicode(values['l']) in unicode(locations):
+					finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
+					morevalue.append(finallist)
 		# elif int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star):#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
 		# 	print'not'
 		# 	finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
