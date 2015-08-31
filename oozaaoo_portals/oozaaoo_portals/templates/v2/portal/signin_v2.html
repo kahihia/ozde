@@ -22,6 +22,7 @@
                                         Access your account information and manage your bookings.
                                     </p>
                                     <div class="sign-in-form">
+                                        {% if msg %}<h5>{{msg}}</h5>{% endif %}
                                         <form action="{% url "hotels.views.login_user_v2" %}" method="post">
                                         {% csrf_token %}
                                             <input type="text" class="form-control" name="username" placeholder="Email*" />

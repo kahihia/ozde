@@ -3,13 +3,7 @@
 {% load i18n %}
 {% block content %}
 
-<<<<<<< HEAD
-<div class="bg-lightgrey bus-payment">
-=======
-
-
 <div class="bg-lightgrey bus-payment ">
->>>>>>> 594989788bdc1d651ea31defabb78a789a7b3c3e
     <div class="bg-white">
         <div class="container">
             <div class="row">
@@ -23,13 +17,13 @@
                     {% if request.user.is_authenticated %}
                         <div class="top-user-area clearfix">
                             <a href="/">{{request.user.first_name}}</a>
-                            <a href="/logout/">Logout</a>
+                            <a href="v2/logout/">Logout</a>
                             <a href="/myprofile/">Myprofile</a>
                             <a href="/mybooking/">MyBooking</a>
                         </div>
                     {% else %}
                         <div class="top-user-area clearfix">
-                            <a href="/register/">Login</a>
+                            <a href="v2/register">Login</a>
                         </div>
                     {% endif %}
                 </div>
@@ -76,14 +70,8 @@
                         <h2 class="panel-title"> 1. Trip Details</h2>
                     </div>
                     <div class="panel-body">
-<<<<<<< HEAD
                         <h4 class="size18"><strong>{{request.COOKIES.hn}}</strong> <span class="text-muted">({{request.COOKIES.no_night}} nights)</span>
-                        <span class="text-muted pull-right size17 underline">Cancellation policy</span>
-=======
-                        <h4 class="size18"><strong>Villa Shanti</strong> <span class="text-muted">(2 nights)</span>
-                       
                         <span class="text-muted pull-right size17 underline toggleModal">Cancellation policy</span>
->>>>>>> 594989788bdc1d651ea31defabb78a789a7b3c3e
                         <div class="clearfix"></div>
                         </h4>
                         <h5 class="size17"><i class="fa fa-map-marker"></i>{{request.COOKIES.l}}&nbsp;&nbsp;{{request.COOKIES.c}}.<a href="#">Show map</a></h5>
@@ -200,7 +188,8 @@
                     </div>
                 </div>
                 <div class="padding10"></div>
-                
+
+                {% if not request.user.is_authenticated %}
                 <div class="panel panel-lightpurple">
                     <div class="panel-heading">
                         <h4 class="panel-title"> 2. Guest details</h4>
@@ -231,7 +220,7 @@
                                         </div>
                                      </div>   
                                   <div class="padding10"></div>
-                                  <input type="hidden" name="next" value="http://localhost:8000/v2/bookhotel/" />
+                                  <input type="hidden" name="next" value="{{request.path}}" />
                                 </form>
                             </div>
                             <div class="col-md-6">
@@ -240,11 +229,20 @@
                         </div>        
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="panel panel-lightpurple">
+                    
+                    {% if request.user.is_authenticated %}
                     <div class="panel-heading">
+                        <h4 class="panel-title"> 2. Payment</h4>
+                    </div>
+                    {% else %}
+                        <div class="panel-heading">
                         <h4 class="panel-title"> 3. Payment</h4>
                     </div>
+                    {% endif %}
+
                     {% if request.user.is_authenticated %}
                     <div class="panel-body">
                         <div class="row">

@@ -160,7 +160,7 @@ def login_user_v2(request):
 	logout(request)
 	username = password = ''
 	if request.method == "POST" :
-		if request.POST["next"] != "http://localhost:8001/v2/register/" :
+		if request.POST["next"] != "http://localhost:8000/v2/register/" :
 			print 'request.POST["next"]', request.POST["next"]
 			username = request.POST['username']
 			password = request.POST['password']
@@ -170,6 +170,8 @@ def login_user_v2(request):
 					login(request, user)
 					print 'login(request, user)', login(request, user)
 					return HttpResponseRedirect(request.POST["next"])
+			else:
+				return render_to_response('v2/portal/signin_v2.html', {'msg': 'Invalid login username&password'}, context_instance=RequestContext(request))					
 
 		else:
 			username = request.POST['username']
@@ -212,6 +214,10 @@ def login_user(request):
 def logout_view(request):
 	logout(request)
 	return HttpResponseRedirect('/')
+
+def logout_view_v2(request):
+	logout(request)
+	return HttpResponseRedirect('/v2')	
 
 def myprofile(request):
 	user = request.user
@@ -606,7 +612,7 @@ def gethoteldetails_v2(request):
 	hotelroominfos = []
 	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
 		# print "hotelroominfo", hotelroominfo
-		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'rmt':hotelroominfo['rmt'], 'mp':hotelroominfo['mp'], 'ttc':hotelroominfo['ttc'], 'tp':hotelroominfo['tp'], 'tp_alltax':hotelroominfo['tp_alltax']}
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'mp':hotelroominfo['mp'], 'ttc':hotelroominfo['ttc'], 'tp':hotelroominfo['tp'], 'tp_alltax':hotelroominfo['tp_alltax']}
 		hotelroominfos.append(_rhotelinfo)	
 	print "hotelroominfos", hotelroominfos
 
