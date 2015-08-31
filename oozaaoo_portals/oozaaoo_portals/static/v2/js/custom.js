@@ -1262,3 +1262,24 @@ $('.onward_book').click(function(){
     alert(skey);
 });
 
+
+$('.toggleModal').on('click', function (e) {
+  
+  $('.modal').show();
+  $('.bus-payment ').hide();
+});
+$('.close').click(function(){
+  $('.modal').hide();
+
+  $('.bus-payment ').show();
+})
+$('.refund').click(function(){
+  
+  $('.modal_refund').show();
+  $('.bus-payment ').hide();
+});
+$('.close_btn').click(function(){
+  
+  $('.modal_refund').hide();
+  $('.bus-payment ').show();
+});

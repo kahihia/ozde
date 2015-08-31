@@ -969,10 +969,48 @@ textarea.form-control
 {
     padding: 5px 40px;  
 }
+.wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.modal {
+   
+  display: none;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 600px;
+  height: auto;
+  overflow-y: scroll;
+  background-color: $white;
+  padding: 25px;
+  border-radius: 5px;
+  z-index: 10;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+}
+.modal_refund{
+   
+  display: none;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 400px;
+  height: auto;
+ 
+  background-color: $white;
+  padding: 25px;
+  border-radius: 5px;
+  z-index: 10;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+}
+.close_btn{
+  float: right;
+}
 .clear_both { clear:both; }
 .add_room_holder span {
   margin:0px 10px 0px 0px;
 }
 .search_form_home {
   margin:10px 0px 10px 0px !important;
+
 }
