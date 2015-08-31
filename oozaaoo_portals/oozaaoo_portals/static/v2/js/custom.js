@@ -838,6 +838,26 @@ $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
 // }
 // });
 
+$('.travele').click(function(){
+  $('.need_round').hide();
+  var tra=$(this).text();
+  $('.need_round:contains("'+tra+'")').show();
+});
+$('.bustype_sort').click(function(){
+  $('.need_round').hide();
+  var bus_type=$(this).text();
+  $('.need_round:contains("'+bus_type+'")').show();
+});
+$('.bpoint').click(function(){
+  $('.need_round').hide();
+  var bpoint=$(this).text();
+  $('.need_round:contains("'+bpoint+'")').show();
+});
+$('.dpoint').click(function(){
+  $('.need_round').hide();
+  var dpoint=$(this).text();
+  $('.need_round:contains("'+dpoint+'")').show();
+});
 $('.i-check, .i-radio').iCheck({
     checkboxClass: 'i-check',
     radioClass: 'i-radio'
@@ -1282,4 +1302,8 @@ $('.close_btn').click(function(){
   
   $('.modal_refund').hide();
   $('.bus-payment ').show();
+});
+
+$('.go_payment').click(function(){
+  $('.payment').show();
 });
