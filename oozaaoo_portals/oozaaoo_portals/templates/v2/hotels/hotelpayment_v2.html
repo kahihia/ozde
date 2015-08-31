@@ -3,8 +3,6 @@
 {% load i18n %}
 {% block content %}
 
-
-
 <div class="bg-lightgrey bus-payment">
     <div class="bg-white">
         <div class="container">
@@ -15,9 +13,24 @@
                 <div class="col-md-4 pull-right">
                     <h4 class="size17 padding20">Need Help? <strong class="marginleft10"> Call us:</strong> (0452) 394 12345 </h4>
                 </div>
+                <div class="col-md-4">
+                    {% if request.user.is_authenticated %}
+                        <div class="top-user-area clearfix">
+                            <a href="/">{{request.user.first_name}}</a>
+                            <a href="/logout/">Logout</a>
+                            <a href="/myprofile/">Myprofile</a>
+                            <a href="/mybooking/">MyBooking</a>
+                        </div>
+                    {% else %}
+                        <div class="top-user-area clearfix">
+                            <a href="/register/">Login</a>
+                        </div>
+                    {% endif %}
+                </div>
+
             </div>
         </div>
-    </div>    
+    </div>       
  <header class="navbar bg-lightgrey1">
   <div class="container">
     <div class="navbar-header">
@@ -57,25 +70,25 @@
                         <h2 class="panel-title"> 1. Trip Details</h2>
                     </div>
                     <div class="panel-body">
-                        <h4 class="size18"><strong>Villa Shanti</strong> <span class="text-muted">(2 nights)</span>
+                        <h4 class="size18"><strong>{{request.COOKIES.hn}}</strong> <span class="text-muted">({{request.COOKIES.no_night}} nights)</span>
                         <span class="text-muted pull-right size17 underline">Cancellation policy</span>
                         <div class="clearfix"></div>
                         </h4>
-                        <h5 class="size17"><i class="fa fa-map-marker"></i> 14, Suffren Street, 605001 Pondicherry, India. <a href="#">Show map</a></h5>
+                        <h5 class="size17"><i class="fa fa-map-marker"></i>{{request.COOKIES.l}}&nbsp;&nbsp;{{request.COOKIES.c}}.<a href="#">Show map</a></h5>
                         <div class="padding10"></div>
                         <div class="padding10 well-yellow">
                         <div class="row">
                             <div class="col-md-3">
-                                <p class="nomargin"> Check-in: <strong>29-08-2015</strong></p>
+                                <p class="nomargin"> Check-in: <strong>{{request.COOKIES.checkin}}</strong></p>
                             </div>
                             <div class="col-md-3">
-                                <p class="nomargin"> Check-out: <strong>31-08-2015</strong></p>
+                                <p class="nomargin"> Check-out: <strong>{{request.COOKIES.checkout}}</strong></p>
                             </div>
                              <div class="col-md-3">
-                                <p class="nomargin"> Guests: <strong>2 Adults 1 Children</strong></p>
+                                <p class="nomargin"> Guests: <strong>{{request.COOKIES.guest}}</strong></p>
                             </div>
                             <div class="col-md-3">
-                                <p class="nomargin"> Rooms: <strong>1 </strong><button class="btn btn-link pull-right nopadding"><i class="mdi mdi-pencil"></i></button></p>
+                                <p class="nomargin"> Rooms: <strong>{{request.COOKIES.guest}} </strong><button class="btn btn-link pull-right nopadding"><i class="mdi mdi-pencil"></i></button></p>
                             </div>
                         </div>
                         </div>
@@ -87,12 +100,12 @@
                                     <div class="col-md-9 nomargin nopadding">
                                         <div class="panel panel-default min-height120">
                                             <div class="panel-body">
-                                                <div class="room-img">
+                                                <!--div class="room-img">
                                                     <img src="images/deluxe-double.jpg" alt="deluxe double" />
-                                                </div>
+                                                </div-->
                                                 <div class="room-details">
                                                     <h4 class="nomargin"><a href="#">Deluxe Double Room <span class="text-muted size12 red bold">1 Rooms left</span></a></h4>
-                                                    <p class="room-price"><i class="fa fa-rupee"></i> 3500 per room per night</p>
+                                                    <p class="room-price"><i class="fa fa-rupee"></i> {{request.COOKIES.smp}} per room per night</p>
                                                     <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
                                                 </div>
                                             </div>
@@ -102,9 +115,8 @@
                                         <div class="panel panel-default pull-left min-height120">
                                             <div class="panel-body nopadding margintop15">
                                                 <div class="room-price-bg">
-                                                        <h3 class="nomargin"><i class="fa fa-rupee"></i> 7500*</h3>
-                                                        <span class="size12">Prices for 2 nights</span>                                                        <button class="btn btn-primary padding515 margintop5">Change</button>
-                                     
+                                                        <h3 class="nomargin"><i class="fa fa-rupee"></i> {{request.COOKIES.stp}} *</h3>
+                                                        <span class="size12">Prices for {{request.COOKIES.no_night}} nights</span>                                                    <button class="btn btn-primary padding515 margintop5">Change</button>                                     
                                                 </div>
                                              </div>
                                         </div> 
@@ -161,16 +173,16 @@
                         <div class="row">
                         <div class="col-md-1 pull-right"></div>
                             <div class="col-md-4 pull-right">
-                                <p>Price 2x night: <span class="pull-right"><i class="fa fa-rupee"></i> 7000</span></p>
-                                <p>TAX (8.40 %): <span class="pull-right"><i class="fa fa-rupee"></i> 850</span></p>
-                                <p>Service charge (2%): <span class="pull-right"><i class="fa fa-rupee"></i> 300</span></p>
+                                <p>Price {{request.COOKIES.no_night}} night: <span class="pull-right"><i class="fa fa-rupee"></i> {{request.COOKIES.stp}}</span></p>
+                                <p>TAX : <span class="pull-right"><i class="fa fa-rupee"></i>{{request.COOKIES.sttc}}</span></p>
+                                <!--p>Service charge (2%): <span class="pull-right"><i class="fa fa-rupee"></i> 300</span></p!-->
                                 <hr/>
                           </div>   
                         </div>
                         <div class="row">
                       
                             <div class="col-md-5 pull-right">
-                                <p class="size17"> <strong>To be paid:</strong> <span class="light-purple size30 text-right pull-right bottom15"><i class="fa fa-rupee"></i> 8150.00 <span class="size14 text-muted">(2 nights)</span></span></p>
+                                <p class="size17"> <strong>To be paid:</strong> <span class="light-purple size30 text-right pull-right bottom15"><i class="fa fa-rupee"></i> {{request.COOKIES.stpcwt}} <span class="size14 text-muted">({{request.COOKIES.no_night}} nights)</span></span></p>
                          </div>   
                         </div>
                     </div>
@@ -185,26 +197,29 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h5>Log in to speed up your booking</h5>
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" action="{% url "hotels.views.login_user_v2" %}" 
+                                method="POST" >
+                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Email<span class="red">*</span></label>
-                                            <input type="text" class="form-control" />
+                                            <input class="form-control" placeholder="e.g. johndoe" type="text" name="username" />
                                         </div>
                                         <div class="col-md-6">
                                             <label>Password<span class="red">*</span></label>
-                                            <input type="password" class="form-control" />
+                                            <input class="form-control" type="password" placeholder="my secret password" name="password" />
                                         </div>
                                     </div><br>
                                      <div class="row">
                                         <div class="col-md-4">
-                                            <button class="btn btn-primary">Login</button>
+                                            <button type="submit" class="btn btn-primary">Login</button>
                                         </div>
                                         <div class="col-md-8">
-                                            <h5 class="text-right">Not Registered? <a href="#"> Create New Account</a></h5>
+                                            <h5 class="text-right">Not Registered? <a href="{% url "hotels.views.registration_v2" %}"> Create New Account</a></h5>
                                         </div>
                                      </div>   
                                   <div class="padding10"></div>
+                                  <input type="hidden" name="next" value="http://localhost:8000/v2/bookhotel/" />
                                 </form>
                             </div>
                             <div class="col-md-6">
@@ -212,12 +227,74 @@
                             </div>
                         </div>        
                     </div>
-                </div> 
-                <div class="panel panel-lightpurple opacitydot5">
+                </div>
+
+                <div class="panel panel-lightpurple">
                     <div class="panel-heading">
                         <h4 class="panel-title"> 3. Payment</h4>
                     </div>
-                </div>    
+                    {% if request.user.is_authenticated %}
+                    <div class="panel-body">
+                        <div class="row">
+                            <form method="post" action="{% url "payu.views.buy_order" %}">{% csrf_token %}
+                                <div class="col-md-8">
+                                    <h5><strong>PayU Money</strong></h5>
+                                    <h5>Amount Payable : <i class="fa fa-rupee"></i> {{request.COOKIES.stpcwt}}</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <select name="initial">
+                                                <option value="mr">Mr</option>
+                                                <option value="mr">Mrs</option>
+                                                <option value="mr">Miss</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input id="fname" class="form-control fname" type="text" name="fname">
+                                            <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Lastname</label>
+                                            <input id="lname" class="form-control lname" type="text" name="lname" />
+                                            <span class="errormgs" style="display:none; color:red;">please enter the last name</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input id="mobileno"class="form-control mobileno" type="text" name="pnumber" />
+                                            <span class="errormgs" style="display:none; color:red;">please enter the mobile number</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input id="email" class="form-control email" type="text" name="email" />
+                                            <span class="errormgs" style="display:none; color:red;">please enter the email</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success margintop15" type="submit">Make payment</button>
+                                    <p class="margintop5">By Clicking on Make payment, you agree to all the <a href="#">Terms and Conditions</a></p>
+                            </form>
+                            <!--div class="col-md-4 text-right">
+                                <img src="images/payment-gateway.jpg" alt="Payment Gateway" />
+                            </div-->
+                        </div>
+                    </div>
+                    {% endif %}
+                </div> 
+              <!--   <div class="panel panel-lightpurple opacitydot5">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"> 3. Payment</h4>
+                    </div>
+                </div> -->    
             </div>
             <div class="col-md-1"></div>
             

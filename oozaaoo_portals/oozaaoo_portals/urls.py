@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^bookinginfo/', 'hotels.views.bookinginfo', name='bookinginfo'),
     url(r'^cancelhotel/', 'hotels.views.cancelhotel', name='cancelhotel'),
     url(r'^payment/', 'payu.views.buy_order', name='payment'),
+    url(r'^v2/bookhotel/', 'hotels.views.userdetails_v2', name='userdetails_v2'),
     url(r'^bookhotel/', 'hotels.views.userdetails', name='userdetails'),
     url(r'^get_results_by_price/', 'hotels.views.get_results_by_price', name='get_results_by_price'),
         

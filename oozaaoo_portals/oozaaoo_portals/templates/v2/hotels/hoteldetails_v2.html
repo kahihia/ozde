@@ -194,9 +194,8 @@ jQuery(function(){
                    		</div>
                         {% endfor %}                  
                 	</div>
-                    <h4>Things to know</h4>
+                    <h4>Things to know</h4>                   
 
-                    hotelroominfos : {{hotelroominfos}}
                     <table class="table bg-white">
                     	<tr>
                         	<td>Check-in</td>
@@ -286,14 +285,13 @@ jQuery(function(){
                         <div class="panel-body">
 
                             
-                        <form name="probook" id="probook" class="form-horizontal" action="{% url "hotels.views.userdetails" %}" method="post">
+                        <form name="probook" id="probook123" class="form-horizontal" 
+                        action="{% url "hotels.views.userdetails_v2" %}" method="post">
                             {% csrf_token %}
-                        	<div class="row">
+                        	<div class="row">                              
 
                                 <p class="booking-item-header-price">                                
-                                    <span class="text-lg">&#8377;
-                                    {{hotels.mp|floatformat}}
-                                    </span>
+                                    <span class="text-lg mp"></span>
                                     <small>Per Room Per Night</small>                                   
                                 </p>
 
@@ -324,7 +322,7 @@ jQuery(function(){
                                 <div class="col-md-5">
                                         <p>
                                             <span class="text-lg">Sub Total</span>
-                                            <span class="text-lg">{{ request.COOKIES.rmt}}</span>
+                                            <span class="text-lg"></span>
                                             <span class="text-lg">Excludes Taxes</span>
                                         </p>
                                     
@@ -336,7 +334,7 @@ jQuery(function(){
                                 </div-->
                             </div>
 
-                        {% if hotelroominfos|length == 1 %}
+                        <!-- {% if hotelroominfos|length == 1 %}
                             {% for hotelroominfo in hotelroominfos %}
                             <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
                             <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
@@ -348,7 +346,26 @@ jQuery(function(){
                             {% endfor %}     
                         {% else %}  
                              <a href="#">Booking Not Available</a>
-                        {% endif %}                      
+                        {% endif %}  -->
+
+                           
+                        <select class="selectroomtypes">
+                            {% for room in hotels.rooms_data %}
+                                {% if room.rtc and room.rpc %}
+                                    <option data-rpc="{{room.rpc}}" data-rtc="{{room.rtc}}" data-mp="{{room.mp}}" data-tp="{{room.tp}}" data-ttc="{{room.ttc}}" data-tp_alltax="{{room.tp_alltax}}">{{room.room_info.type_name}}</option>
+                                {% endif %}
+                            {% endfor %}                            
+                        </select>
+
+                        <span class="text-lg subtotal"></span>                        
+
+                        <input type="hidden" name="selectedrpc" id="selectedrpc" value="" />
+                        <input type="hidden" name="selectedrtc" id="selectedrtc" value="" />
+                        <input type="hidden" name="mp" id="mp" value="" />
+                        <input type="hidden" name="totalprice" id="totalprice" value="" />
+                        <input type="hidden" name="totaltax" id="totaltax" value="" />
+                        <input type="hidden" name="totalprice_wt" id="totalprice_wt" value="" />
+
                         <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
                         <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
                         <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
@@ -356,14 +373,13 @@ jQuery(function(){
 
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-primary">Select room</button>
+                                <!--button type="submit" class="btn btn-primary">Book Now</button-->
+                                 <input type="submit" class="btn btn-primary" value="Buynow"/>
                             </div>    
                         </div>
-
-                            </form>
+                        </form>
                         </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
             <img id="imagelightbox" src="" alt=""/>
