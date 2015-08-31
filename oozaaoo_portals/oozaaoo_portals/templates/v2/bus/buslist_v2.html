@@ -170,54 +170,42 @@
 <section class="sorting-bar">
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-bus"></i> Travels <span class="mdi mdi-chevron-down pull-right"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="#">KPN Travels</a></li>
-                  <li><a href="#">Universal Travels</a></li>
+                {%for travels in filtered_travels %}
+                <li class="travele"><a>{{travels}}</a></li>
+                  
+                {%endfor%}
                  </ul>
-
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-window-open"></i> Bus type <span class="mdi mdi-chevron-down pull-right"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="#">2+1 Seater</a></li>
-                  <li><a href="#">2+1 Sleeper</a></li>
+                  <li class="bustype_sort"><a>Sleeper</a></li>
+                  <li class="bustype_sort"><a>A/C</a></li>
+                  <li class="bustype_sort"><a>Non A/C</a></li>
+                  <li class="bustype_sort"><a>Volvo</a></li>
+                  <li class="bustype_sort"><a>Mercedes</a></li>
+                  <li class="bustype_sort"><a>Others</a></li>
                  </ul>
 
             </div>
-            <div class="col-md-2">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-image-filter-vintage"></i> Amenities<span class="mdi mdi-chevron-down pull-right"></span></a>
-                <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="#">Water Battle</a></li>
-                  <li><a href="#">Snacks</a></li>
-                 </ul>
-
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-map-marker"></i> Boarding<span class="mdi mdi-chevron-down pull-right"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="#">Pondicherry Bustand</a></li>
-                  <li><a href="#">Indira Ghandhi Statue</a></li>
+                {%for bpoint in filtered_bpoint%}
+                  <li class="bpoint"><a>{{bpoint}}</a></li>
+                {%endfor%}
                  </ul>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-map-marker"></i> Dropping<span class="mdi mdi-chevron-down pull-right"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="#">Bangalore Bustand</a></li>
-                  <li><a href="#">Mahatma Ghandhi Road</a></li>
-                 </ul>
-
-            </div>
-            <div class="col-md-2">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="mdi mdi-star"></i> Rating<span class="mdi mdi-chevron-down pull-right"></span></a>
-                <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="#">5 Star</a></li>
-                  <li><a href="#">4 Star</a></li>
-                  <li><a href="#">3 Star</a></li>
-                  <li><a href="#">2 Star</a></li>
-                  <li><a href="#">1 Star</a></li>
+                  {%for dpoint in filtered_dpoint%}
+                  <li class="dpoint"><a>{{dpoint}}</a></li>
+                {%endfor%}
                  </ul>
 
             </div>
@@ -241,6 +229,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <h3 class="nomargin">{{values.businfos.DepartureTime}}</h3>
+                                                        <p class="dn">{{values.boardingpoints.BPLocation}}{{values.depturepoints.DPLocation}}</p>
                                                     </div>
                                                     <div class="col-md-1">
                                                         <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
@@ -391,6 +380,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <h3 class="nomargin">{{values_return.businfos.DepartureTime}}</h3>
+                                                        <p class="dn">{{values_return.boardingpoints.BPLocation}}{{values_return.depturepoints.DPLocation}}</p>
                                                     </div>
                                                     <div class="col-md-1">
                                                         <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>
@@ -537,7 +527,6 @@
                 <div class="row">
                     {% for values in reviews %}
                         <div class="col-md-12 need_round">
-                            
                                 <div class="panel panel-default nomargin">
                                     <div class="panel-body">
                                         <div class="row">
@@ -545,6 +534,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <h3 class="nomargin">{{values.businfos.DepartureTime}}</h3>
+                                                        <p class="dn">{{values.boardingpoints.BPLocation}}{{values.depturepoints.DPLocation}}</p>
                                                     </div>
                                                     <div class="col-md-1">
                                                         <h3 class="nomargin"><i class="ion ion-arrow-right-c"></i></h3>

@@ -32,7 +32,7 @@
 		display:none;
 	}
 </style>
-<div class="panel panel-default seatLayoutHolder">
+<div class="panel padding20 panel-default seatLayoutHolder">
 <p>	
 <span></span>
 <span><i class="available-seat"></i> Available Seat</span>
@@ -63,7 +63,7 @@
             </div>
             <div class="lowerDeck">
             	<div class="deckLabel">
-                	<div class="steeringWheel"></div>
+                	<div class="bus-stearing"></div>
                     <div class="label"></div>
                 </div>
                 <div class="seats">
@@ -259,6 +259,7 @@ function getJson(url) {
                  async:false,
                  success: function(data) {
                      return data;
+    
                  },
                  contentType: "application/json",
              }).responseText);
@@ -627,9 +628,9 @@ $.each(bus,function(index,v)
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
-		else if($(this).children("div").hasClass("seat_selected"))
+		else if($(this).children("div").hasClass("sleeper_selected"))
 		{
-        	$(this).children(".seat").removeClass("seat_selected");
+        	$(this).children(".seat").removeClass("sleeper_selected");
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
@@ -867,9 +868,9 @@ $.each(bus,function(index,v)
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
-		else if($(this).children("div").hasClass("seat_selected"))
+		else if($(this).children("div").hasClass("selected"))
 		{
-        	$(this).children(".seat").removeClass("seat_selected");
+        	$(this).children(".seat").removeClass("selected");
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");

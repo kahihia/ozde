@@ -42,8 +42,8 @@ from django.core.cache import cache
 
 
 class mydict(dict):
-    def __str__(self):
-        return json.dumps(self)
+	def __str__(self):
+		return json.dumps(self)
 
 def log_function(query, response):
 	logging.basicConfig(filename='mysite.log', level=logging.INFO)
@@ -54,7 +54,53 @@ def log_function(query, response):
 	logging.info("******************************************************************************************************")
 
 def registration_v2(request):
-	return render_to_response("v2/portal/signup_v2.html", context_instance=RequestContext(request))
+	"""
+	User Registration
+	"""
+	
+	try:
+		logout(request)
+		message = None
+		user=User()
+		userprofile=UserProfile()
+		email=request.POST['email']
+		if User.objects.filter(email=email).exists():
+			messages.add_message(request, messages.INFO,'Email already exists')
+			return HttpResponseRedirect(format_redirect_url("/register", 'error=57'))
+		elif request.method == 'POST':
+			
+			username=request.POST['username']
+			print 'username', username
+			email=request.POST['email']
+			password=request.POST['password']
+			phone=request.POST['phone']
+			dob=request.POST['dob']    
+			user.is_active = True
+			user.username=username
+			user.email=email
+			user.password=password
+			user.set_password(user.password)
+			user.first_name=username
+			user.save()
+			userprofile.user=user       
+			userprofile.phone=phone
+			userprofile.dateofbirth=dob
+			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
+			p.save()
+			message = "You have successfully completed registration."
+			send_templated_mail(
+					template_name='welcome',
+					from_email='testmail123sample@gmail.com',
+					recipient_list=user.email,
+					context={
+						'username': user.email,
+						'name': user.first_name,})
+		return render_to_response('v2/portal/signup_v2.html', {'message': "You have successfully completed registration."},
+							  context_instance=RequestContext(request))
+	except:
+		return render_to_response('v2/portal/signup_v2.html',
+								  context_instance=RequestContext(request))
+	# return render_to_response("v2/portal/signup_v2.html", context_instance=RequestContext(request))
 
 def registration(request):
 	"""
@@ -73,6 +119,7 @@ def registration(request):
 		elif request.method == 'POST':
 			
 			username=request.POST['username']
+			print 'username', username
 			email=request.POST['email']
 			password=request.POST['password']
 			phone=request.POST['phone']
@@ -106,7 +153,38 @@ def registration(request):
 from django.contrib.auth import authenticate, login, logout
 
 def login_user_v2(request):
-	return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
+	print 'login_user_v2'
+	"""
+	Login User
+	"""
+	logout(request)
+	username = password = ''
+	if request.method == "POST" :
+		if request.POST["next"] != "http://localhost:8000/v2/register/" :
+			print 'request.POST["next"]', request.POST["next"]
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				if user.is_active:
+					login(request, user)
+					print 'login(request, user)', login(request, user)
+					return HttpResponseRedirect(request.POST["next"])
+			else:
+				return render_to_response('v2/portal/signin_v2.html', {'msg': 'Invalid login username&password'}, context_instance=RequestContext(request))					
+
+		else:
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username=username, password=password)
+			user.backend = 'django.contrib.auth.backends.ModelBackend'
+			if user is not None:
+				print 'user', user
+				# if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/v2/')
+	else:				
+		return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
 
 def login_user(request):
 	"""
@@ -116,13 +194,13 @@ def login_user(request):
 	username = password = ''
 	print "request.POST['next']", request.POST['next']
 	if request.POST["next"] != "http://localhost:8000/register/" :
-	    username = request.POST['username']
-	    password = request.POST['password']
-	    user = authenticate(username=username, password=password)
-	    if user is not None:
-	        if user.is_active:
-	            login(request, user)
-	            return HttpResponseRedirect(request.POST["next"])
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect(request.POST["next"])
 	else:
 		username = request.POST['username']
 		password = request.POST['password']
@@ -134,8 +212,12 @@ def login_user(request):
 	return render_to_response('login-register.html', context_instance=RequestContext(request))
 
 def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect('/')
+	logout(request)
+	return HttpResponseRedirect('/')
+
+def logout_view_v2(request):
+	logout(request)
+	return HttpResponseRedirect('/v2')	
 
 def myprofile(request):
 	user = request.user
@@ -324,7 +406,7 @@ def gethotellist(request):
 				# if 'fm' in hotels:
 				# 	hotel_fm=hotels.fm
 				
-		  	if rooms4=='4':
+			if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
 				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)+int(nochildrens4)
@@ -342,12 +424,12 @@ def gethotellist(request):
 				child=int(nochildrens1)
 			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata,'location':filtered_location}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
-		  	response.set_cookie( 'checkin', checkin )
-		  	response.set_cookie( 'checkout', checkout )
-		  	response.set_cookie('filterkeyword',unicode(cityid))
-		  	response.set_cookie('rooms',rooms)
-		  	response.set_cookie('guest',unicode(guest))
-		  	response.set_cookie('child',unicode(child))
+			response.set_cookie( 'checkin', checkin )
+			response.set_cookie( 'checkout', checkout )
+			response.set_cookie('filterkeyword',unicode(cityid))
+			response.set_cookie('rooms',rooms)
+			response.set_cookie('guest',unicode(guest))
+			response.set_cookie('child',unicode(child))
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=57'))
@@ -360,7 +442,7 @@ def gethotellist(request):
 
 # def gethotellist_v2(request):
 #     return render_to_response("v2/hotels/hotelsearch_v2.html", context_instance=RequestContext(request))
-      
+	  
 
 def gethotellist_v2(request):
 	print "gethotellist_v2"
@@ -431,6 +513,18 @@ def gethotellist_v2(request):
 						_hotel[k] = v
 				hotels.append(_hotel)
 			print "hotels", hotels
+			
+			##################---Added by muthu---#####################
+			loc_fields=['l']
+			locations=set()
+			for location in getcityresponse['data']['city_hotel_info']:
+				for k,v in location.iteritems():
+					if k in loc_fields:
+						locations.add(v)
+
+			filtered_location=list(locations)
+			###########################################################
+
 			# return HttpResponse(simplejson.dumps(hotels), mimetype='application/json')
 			hotel_price = [ hotels1['mp'] for hotels1 in hotels]
 			cache.set('getcityresponse', getcityresponse)
@@ -442,7 +536,7 @@ def gethotellist_v2(request):
 				# if 'fm' in hotels:
 				# 	hotel_fm=hotels.fm
 				
-		  	if rooms4=='4':
+			if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
 				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)+int(nochildrens4)
@@ -460,14 +554,14 @@ def gethotellist_v2(request):
 				child=int(nochildrens1)
 			response = render_to_response("v2/hotels/hotelsearch_v2.html", {'city':city, 'hotels':hotels, 'joindata':joindata}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
-		  	response.set_cookie( 'checkin', checkin )
-		  	response.set_cookie( 'checkinvalue', checkinvalue )
-		  	response.set_cookie( 'checkout', checkout )
-		  	response.set_cookie( 'checkoutvalue', checkoutvalue )
-		  	response.set_cookie('filterkeyword',unicode(cityid))
-		  	response.set_cookie('rooms',rooms)
-		  	response.set_cookie('guest',unicode(guest))
-		  	response.set_cookie('child',unicode(child))
+			response.set_cookie( 'checkin', checkin )
+			response.set_cookie( 'checkinvalue', checkinvalue )
+			response.set_cookie( 'checkout', checkout )
+			response.set_cookie( 'checkoutvalue', checkoutvalue )
+			response.set_cookie('filterkeyword',unicode(cityid))
+			response.set_cookie('rooms',rooms)
+			response.set_cookie('guest',unicode(guest))
+			response.set_cookie('child',unicode(child))
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
 			return HttpResponseRedirect(format_redirect_url("/v2", 'error=57'))
@@ -518,7 +612,7 @@ def gethoteldetails_v2(request):
 	hotelroominfos = []
 	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
 		# print "hotelroominfo", hotelroominfo
-		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'rmt':hotelroominfo['rmt']}
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'mp':hotelroominfo['mp'], 'ttc':hotelroominfo['ttc'], 'tp':hotelroominfo['tp'], 'tp_alltax':hotelroominfo['tp_alltax']}
 		hotelroominfos.append(_rhotelinfo)	
 	print "hotelroominfos", hotelroominfos
 
@@ -526,16 +620,16 @@ def gethoteldetails_v2(request):
 	# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
 	# reviews = []
 	# for hotelreview in gethotelreviewresponse['data']:
-	# 	print "hotelreview", hotelreview
+	# 	print "hotelreview", hotelreviewt
 	# 	review = {}
 	# 	for f in hotelreviewsFields:
-	# 		if f in hotelreview:
+	# 		if f in hotelreview, 'mp'::t
 	# 		 		review[f] = hotelreview[f]
 	# 		else:
 	# 				review[f] = None
 	# 	reviews.append(review)
 	# print "reviews","***************", reviews
-	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
+	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}
 	# except:
 	# 	messages.add_message(request, messages.INFO,'API not responding')
 	# 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
@@ -544,7 +638,6 @@ def gethoteldetails_v2(request):
 	# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
 	# 	reviews.append(_rhotel)
 	# return HttpResponse(simplejson.dumps(hotelroominfos), mimetype='application/json')
-
 	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
 	response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
 	response.set_cookie('hc',hc)
@@ -552,8 +645,7 @@ def gethoteldetails_v2(request):
 	response.set_cookie('fwdp',fwdp)
 	for hotelroominfo in hotelroominfos:
 		response.set_cookie('rtc',hotelroominfo['rtc'])
-		response.set_cookie('rpc',hotelroominfo['rpc'])
-		response.set_cookie('rmt',hotelroominfo['rmt'])
+		response.set_cookie('rpc',hotelroominfo['rpc'])		
 	response.set_cookie('hn',_hotel['hn'])
 	response.set_cookie('prc',_hotel['prc'])
 	response.set_cookie('c',_hotel['c'])
@@ -644,6 +736,41 @@ def gethoteldetails(request):
 	# 	messages.add_message(request, messages.INFO,'User entered data incorrect')
 	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
 	return response
+
+
+# @login_required(login_url='/register/')
+def userdetails_v2(request):
+	"""
+	UserDetails for PayU Methods with Amount for Hotel.
+	"""	
+	try:		
+		print 'Inside Post'
+		srtc = request.POST.get('selectedrtc',request.COOKIES.get('srtc'))
+		srpc = request.POST.get('selectedrpc',request.COOKIES.get('srpc'))
+		smp = request.POST.get('mp','11')
+		stp = request.POST.get('totalprice','12')
+		sttc = request.POST.get('totaltax','13')
+		stpcwt = request.POST.get('totalprice_wt','14')
+		print 'stpcwt===========>',stpcwt 
+		from datetime import datetime
+		fmt = '%Y/%m/%d'
+		d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+		d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+		result=str((d1-d0).days)
+		print "results============", result
+		response= render_to_response("v2/hotels/hotelpayment_v2.html",{'results':result}, context_instance=RequestContext(request))		
+		response.set_cookie('srtc',srtc)
+		response.set_cookie('srpc',srpc)
+		response.set_cookie('smp',smp)
+		response.set_cookie('stp',stp)
+		response.set_cookie('sttc',sttc)
+		response.set_cookie('stpcwt',stpcwt)
+		return response
+	except:
+		messages.add_message(request, messages.INFO,'Some thing went to wrong')
+		print '---------', request.META.get('HTTP_REFERER','/')
+		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=53'))
+		
 	
 @login_required(login_url='/register/')
 def userdetails(request):
@@ -668,8 +795,103 @@ def userdetails(request):
 		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=53'))
 	return response
 
-def setprovisionalbooking_v2(request):	
-	return render_to_response("v2/hotels/hotelpayment_v2.html", context_instance=RequestContext(request))
+@csrf_exempt
+def setprovisionalbooking_v2(request):
+	from django.utils import simplejson
+	import urllib
+	import requests
+	url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/"
+	joindata={}
+	joindata['query']= "hotels-"+request.COOKIES.get('joindata')
+	joindata['hc']=request.COOKIES.get('hc')
+	joindata['ibp']=request.COOKIES.get('ibp')
+	joindata['rtc']=request.COOKIES.get('rtc')
+	joindata['rpc']=request.COOKIES.get('rpc')
+	joindata['c']=request.COOKIES.get('c')
+	joindata['l']=request.COOKIES.get('l')
+	joindata['hr']=request.COOKIES.get('hr')
+	print "joindata", joindata
+
+	customer = [['firstname', request.COOKIES.get('fname')], 
+			   ['lastname', request.COOKIES.get('lname')], 
+			   ['email',request.COOKIES.get('email')], 
+			   ['mobile', request.COOKIES.get('pnumber')],
+			   ['country_phone_code', '+91'],
+			   ['title',request.COOKIES.get('initial')],
+			   ]
+	customer_details=mydict(customer)
+	payload={'fwdp':'{}','customer_details':'%s'%customer_details}
+	print "payload", payload
+	headers = {
+	'content-type': "application/x-www-form-urlencoded"
+	}
+	# try:
+	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
+	print "res", response.json()	
+	#print response
+	#return HttpResponse(response)
+	from datetime import datetime
+	fmt = '%Y/%m/%d'
+	print "respons", response
+	print "response.json", response.json()['success']
+	# response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+	# response1.set_cookie('provisionalbooking_status',response.json()['success'])
+	response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
+	return HttpResponseRedirect(response1)
+	# Code for storing Order Details
+	order=Order()	
+	order.userprofile =UserProfile.objects.get(user=request.user)
+	order.hotelcode=request.COOKIES.get('hc')
+	order.hotelname=request.COOKIES.get('hn')
+	order.hotelcity=request.COOKIES.get('c')
+	order.checkin=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+	order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+	order.rooms=request.COOKIES.get('rooms')
+	order.guest=request.COOKIES.get('guest')
+	order.amount=request.COOKIES.get('stpcwt')
+	order.category_type="hotel"
+	order.save()
+	response1.set_cookie('orderdetails',order.id)
+
+	#Code for storing OrderList Details
+	joindata=request.COOKIES.get('joindata')
+	joindata_split=joindata.split('-')
+	print "joindata_split",joindata_split
+	for i in range(4,len(joindata_split)):
+		print "joindata_split", joindata_split[i]
+		data = joindata_split[i].split('_')
+		orderlist=OrderList()
+		orderlist.order=order
+		if i==4:
+			orderlist.room=1
+		elif i==5:
+			orderlist.room=2
+		elif i==6:
+			orderlist.room=3
+		elif i==7:
+			orderlist.room=4
+		elif i==8:
+			orderlist.room=5	
+		elif i==9:
+			orderlist.room=6	
+		orderlist.adults=data[0]
+		orderlist.children=data[1]
+		orderlist.child1_age=data[2]
+		orderlist.child2_age=data[3]
+		orderlist.save()
+
+	#Code for storing PayU Details	
+	payid, paystatus=store_payudetails(request)
+	print "payid", payid
+	print "paystatus", paystatus
+	response1.set_cookie('payudetails',payid)
+	response1.set_cookie('payustatus',paystatus)
+	# except:
+	# 	messages.add_message(request, messages.INFO,'You cannot refresh again')
+	# 	return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
+	# response1 = render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))	
+	return response1
+	# return render_to_response("v2/hotels/hotelpayment_v3.html", context_instance=RequestContext(request))	
 	
 @csrf_exempt
 def setprovisionalbooking(request):
@@ -689,12 +911,12 @@ def setprovisionalbooking(request):
 	print "joindata", joindata
 
 	customer = [['firstname', request.COOKIES.get('fname')], 
-               ['lastname', request.COOKIES.get('lname')], 
-               ['email',request.COOKIES.get('email')], 
-               ['mobile', request.COOKIES.get('pnumber')],
-               ['country_phone_code', '+91'],
-               ['title',request.COOKIES.get('initial')],
-               ]
+			   ['lastname', request.COOKIES.get('lname')], 
+			   ['email',request.COOKIES.get('email')], 
+			   ['mobile', request.COOKIES.get('pnumber')],
+			   ['country_phone_code', '+91'],
+			   ['title',request.COOKIES.get('initial')],
+			   ]
 	customer_details=mydict(customer)
 	payload={'fwdp':'{}','customer_details':'%s'%customer_details}
 	print "payload", payload
@@ -778,7 +1000,7 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 	
 	guest = request.COOKIES.get('guest')
 	firstname = request.COOKIES.get('fname')
-	amount = request.COOKIES.get('prc')
+	amount = request.COOKIES.get('stpcwt')
 	# gobookingid = request.POST.get('gobookingid')
 	# udf1 = request.POST.get('udf1')
 	# productinfo = request.POST.get('productinfo')
@@ -839,7 +1061,7 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 						'c':request.COOKIES.get('c'),
 						'hn':request.COOKIES.get('hn'),
 						'l':request.COOKIES.get('l'),
-						'prc':request.COOKIES.get('prc'),
+						'prc':request.COOKIES.get('stpcwt'),
 						'rooms':request.COOKIES.get('rooms'),
 						'guest':request.COOKIES.get('guest'),
 						'child':request.COOKIES.get('child'),
@@ -854,6 +1076,10 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 
 def bookingstatus(request):
 	return render_to_response("hotels/bookingstatus.html",context_instance=RequestContext(request))
+
+def bookingstatus_v2(request):
+	return render_to_response("v2/hotels/bookingstatus_v2.html",context_instance=RequestContext(request))
+
 
 def bookinginfo(request):
 	return render_to_response("hotels/bookinfo.html",context_instance=RequestContext(request))
@@ -942,17 +1168,27 @@ def get_results_by_price(request):
 	star=request.POST.get('star',5)
 	stars=star.split(',')
 	locations=location.split(',')
+	city_response = cache.get('getcityresponse')
 	print 'locations',locations
 	print 'stars',stars
 	print 'val_max',val_max
 	print 'val_min',val_min
-	city_response = cache.get('getcityresponse')
+	
 	morevalue = []
-	for values in city_response['data']['city_hotel_info']:
-		if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star) and unicode(values['l']) in unicode(locations) :#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
-			print'all'
-			finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
-			morevalue.append(finallist)
+	if location== 'test': 
+		print "test11111111"
+		print city_response
+		for values in city_response['data']['city_hotel_info']:
+			print'test2222222222222'
+			if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star) :#and unicode(values['l']) in unicode(locations) :#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
+				finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
+				morevalue.append(finallist)
+	else:
+		for values in city_response['data']['city_hotel_info']:
+			if int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star) :#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
+				if unicode(values['l']) in unicode(locations):
+					finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
+					morevalue.append(finallist)
 		# elif int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star):#or int(values['prc']) >= int(val_min) and int(values['prc']) <= int(val_max) and unicode(values['hr']) in unicode(star): #and unicode(values['fm']) in unicode(rooms):
 		# 	print'not'
 		# 	finallist = {'hotelname': values['hn'], 'hotelcode':values['hc'] ,'price': values['prc'], 'goibiborating': values['gr'], 'location': values['l'],'ibp':values['ibp'],'hotelimage':values['t'],'hotelrating':values['hr'],'fm':values['fm'],'fwdp':values['fwdp']}
