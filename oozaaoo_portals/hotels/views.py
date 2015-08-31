@@ -170,6 +170,7 @@ def login_user_v2(request):
 					login(request, user)
 					print 'login(request, user)', login(request, user)
 					return HttpResponseRedirect(request.POST["next"])
+
 		else:
 			username = request.POST['username']
 			password = request.POST['password']
@@ -506,6 +507,18 @@ def gethotellist_v2(request):
 						_hotel[k] = v
 				hotels.append(_hotel)
 			print "hotels", hotels
+			
+			##################---Added by muthu---#####################
+			loc_fields=['l']
+			locations=set()
+			for location in getcityresponse['data']['city_hotel_info']:
+				for k,v in location.iteritems():
+					if k in loc_fields:
+						locations.add(v)
+
+			filtered_location=list(locations)
+			###########################################################
+
 			# return HttpResponse(simplejson.dumps(hotels), mimetype='application/json')
 			hotel_price = [ hotels1['mp'] for hotels1 in hotels]
 			cache.set('getcityresponse', getcityresponse)
@@ -593,7 +606,7 @@ def gethoteldetails_v2(request):
 	hotelroominfos = []
 	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
 		# print "hotelroominfo", hotelroominfo
-		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'rmt':hotelroominfo['rmt']}
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'rmt':hotelroominfo['rmt'], 'mp':hotelroominfo['mp'], 'ttc':hotelroominfo['ttc'], 'tp':hotelroominfo['tp'], 'tp_alltax':hotelroominfo['tp_alltax']}
 		hotelroominfos.append(_rhotelinfo)	
 	print "hotelroominfos", hotelroominfos
 
@@ -626,8 +639,7 @@ def gethoteldetails_v2(request):
 	response.set_cookie('fwdp',fwdp)
 	for hotelroominfo in hotelroominfos:
 		response.set_cookie('rtc',hotelroominfo['rtc'])
-		response.set_cookie('rpc',hotelroominfo['rpc'])
-		response.set_cookie('rmt',hotelroominfo['rmt'])
+		response.set_cookie('rpc',hotelroominfo['rpc'])		
 	response.set_cookie('hn',_hotel['hn'])
 	response.set_cookie('prc',_hotel['prc'])
 	response.set_cookie('c',_hotel['c'])
@@ -718,6 +730,41 @@ def gethoteldetails(request):
 	# 	messages.add_message(request, messages.INFO,'User entered data incorrect')
 	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
 	return response
+
+
+# @login_required(login_url='/register/')
+def userdetails_v2(request):
+	"""
+	UserDetails for PayU Methods with Amount for Hotel.
+	"""	
+	try:		
+		print 'Inside Post'
+		srtc = request.POST.get('selectedrtc',request.COOKIES.get('srtc'))
+		srpc = request.POST.get('selectedrpc',request.COOKIES.get('srpc'))
+		smp = request.POST.get('mp','11')
+		stp = request.POST.get('totalprice','12')
+		sttc = request.POST.get('totaltax','13')
+		stpcwt = request.POST.get('totalprice_wt','14')
+		print 'stpcwt===========>',stpcwt 
+		from datetime import datetime
+		fmt = '%Y/%m/%d'
+		d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+		d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+		result=str((d1-d0).days)
+		print "results============", result
+		response= render_to_response("v2/hotels/hotelpayment_v2.html",{'results':result}, context_instance=RequestContext(request))		
+		response.set_cookie('srtc',srtc)
+		response.set_cookie('srpc',srpc)
+		response.set_cookie('smp',smp)
+		response.set_cookie('stp',stp)
+		response.set_cookie('sttc',sttc)
+		response.set_cookie('stpcwt',stpcwt)
+		return response
+	except:
+		messages.add_message(request, messages.INFO,'Some thing went to wrong')
+		print '---------', request.META.get('HTTP_REFERER','/')
+		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=53'))
+		
 	
 @login_required(login_url='/register/')
 def userdetails(request):
@@ -742,8 +789,103 @@ def userdetails(request):
 		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=53'))
 	return response
 
-def setprovisionalbooking_v2(request):	
-	return render_to_response("v2/hotels/hotelpayment_v2.html", context_instance=RequestContext(request))
+@csrf_exempt
+def setprovisionalbooking_v2(request):
+	from django.utils import simplejson
+	import urllib
+	import requests
+	url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/"
+	joindata={}
+	joindata['query']= "hotels-"+request.COOKIES.get('joindata')
+	joindata['hc']=request.COOKIES.get('hc')
+	joindata['ibp']=request.COOKIES.get('ibp')
+	joindata['rtc']=request.COOKIES.get('rtc')
+	joindata['rpc']=request.COOKIES.get('rpc')
+	joindata['c']=request.COOKIES.get('c')
+	joindata['l']=request.COOKIES.get('l')
+	joindata['hr']=request.COOKIES.get('hr')
+	print "joindata", joindata
+
+	customer = [['firstname', request.COOKIES.get('fname')], 
+			   ['lastname', request.COOKIES.get('lname')], 
+			   ['email',request.COOKIES.get('email')], 
+			   ['mobile', request.COOKIES.get('pnumber')],
+			   ['country_phone_code', '+91'],
+			   ['title',request.COOKIES.get('initial')],
+			   ]
+	customer_details=mydict(customer)
+	payload={'fwdp':'{}','customer_details':'%s'%customer_details}
+	print "payload", payload
+	headers = {
+	'content-type': "application/x-www-form-urlencoded"
+	}
+	# try:
+	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
+	print "res", response.json()	
+	#print response
+	#return HttpResponse(response)
+	from datetime import datetime
+	fmt = '%Y/%m/%d'
+	print "respons", response
+	print "response.json", response.json()['success']
+	# response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+	# response1.set_cookie('provisionalbooking_status',response.json()['success'])
+	response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
+	return HttpResponseRedirect(response1)
+	# Code for storing Order Details
+	order=Order()	
+	order.userprofile =UserProfile.objects.get(user=request.user)
+	order.hotelcode=request.COOKIES.get('hc')
+	order.hotelname=request.COOKIES.get('hn')
+	order.hotelcity=request.COOKIES.get('c')
+	order.checkin=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+	order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+	order.rooms=request.COOKIES.get('rooms')
+	order.guest=request.COOKIES.get('guest')
+	order.amount=request.COOKIES.get('stpcwt')
+	order.category_type="hotel"
+	order.save()
+	response1.set_cookie('orderdetails',order.id)
+
+	#Code for storing OrderList Details
+	joindata=request.COOKIES.get('joindata')
+	joindata_split=joindata.split('-')
+	print "joindata_split",joindata_split
+	for i in range(4,len(joindata_split)):
+		print "joindata_split", joindata_split[i]
+		data = joindata_split[i].split('_')
+		orderlist=OrderList()
+		orderlist.order=order
+		if i==4:
+			orderlist.room=1
+		elif i==5:
+			orderlist.room=2
+		elif i==6:
+			orderlist.room=3
+		elif i==7:
+			orderlist.room=4
+		elif i==8:
+			orderlist.room=5	
+		elif i==9:
+			orderlist.room=6	
+		orderlist.adults=data[0]
+		orderlist.children=data[1]
+		orderlist.child1_age=data[2]
+		orderlist.child2_age=data[3]
+		orderlist.save()
+
+	#Code for storing PayU Details	
+	payid, paystatus=store_payudetails(request)
+	print "payid", payid
+	print "paystatus", paystatus
+	response1.set_cookie('payudetails',payid)
+	response1.set_cookie('payustatus',paystatus)
+	# except:
+	# 	messages.add_message(request, messages.INFO,'You cannot refresh again')
+	# 	return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
+	# response1 = render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))	
+	return response1
+	# return render_to_response("v2/hotels/hotelpayment_v3.html", context_instance=RequestContext(request))	
 	
 @csrf_exempt
 def setprovisionalbooking(request):
@@ -852,7 +994,7 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 	
 	guest = request.COOKIES.get('guest')
 	firstname = request.COOKIES.get('fname')
-	amount = request.COOKIES.get('prc')
+	amount = request.COOKIES.get('stpcwt')
 	# gobookingid = request.POST.get('gobookingid')
 	# udf1 = request.POST.get('udf1')
 	# productinfo = request.POST.get('productinfo')
@@ -913,7 +1055,7 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 						'c':request.COOKIES.get('c'),
 						'hn':request.COOKIES.get('hn'),
 						'l':request.COOKIES.get('l'),
-						'prc':request.COOKIES.get('prc'),
+						'prc':request.COOKIES.get('stpcwt'),
 						'rooms':request.COOKIES.get('rooms'),
 						'guest':request.COOKIES.get('guest'),
 						'child':request.COOKIES.get('child'),

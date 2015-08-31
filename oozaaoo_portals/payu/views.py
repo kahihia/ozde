@@ -21,7 +21,7 @@ def buy_order(request):
     email=request.POST.get('email',request.COOKIES.get('email'))
     txnid=my_random_string(8)
     cleaned_data = {'key': settings.PAYU_INFO['merchant_key'], 
-                    'txnid':txnid,'amount': request.COOKIES.get('prc'), 
+                    'txnid':txnid,'amount': request.COOKIES.get('stpcwt'), 
                     'productinfo':request.COOKIES.get('hn'),
                     'firstname':fname,
                     'email': email, 
@@ -60,7 +60,7 @@ def buy_order(request):
                          settings.PAYU_INFO['furl'],
                          txnid,
                          request.COOKIES.get('hn'),
-                         request.COOKIES.get('prc'),
+                         request.COOKIES.get('stpcwt'),
                          email,
                          ))
     response.set_cookie('initial',initial)
