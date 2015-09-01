@@ -249,7 +249,7 @@ def home_v2(request):
 	"""
 	from hotels.models import citylist	
 	log_function('Homepage','Homepage')
-	return render_to_response("v2/portal/homenew_v2.html", context_instance=RequestContext(request))
+	return render_to_response("v2/portal/home_v2.html", context_instance=RequestContext(request))
 
 
 
