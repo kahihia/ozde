@@ -53,7 +53,7 @@ class goibiboAPI(object):
 		else:
 			query = self.BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1) 
 			print "query", query
-		print "response", requests.get(query, auth=(self.username, self.password)).json()	
+		# print "response", requests.get(query, auth=(self.username, self.password)).json()	
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelDetailsByCity(self, joindata, hc, ibp, fwdp):

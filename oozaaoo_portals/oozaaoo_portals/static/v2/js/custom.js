@@ -321,7 +321,7 @@ $(document).ready(
       $('#totaltax').val($(this).find(':selected').data('ttc'));
       $('#totalprice_wt').val($(this).find(':selected').data('tp_alltax'));
 
-      $('.mp').html($('#mp').val());
+      $('.mp').html($('#mp').val());      
       $('.subtotal').html($('#totalprice').val()); 
     })
 
@@ -473,6 +473,38 @@ $(document).ready(
         $(this).closest(".clone_add_room_act").remove();
         e.preventDefault();   
     });
+
+
+    /************************ Hotel Sort ********************/
+    var $divs = $("form.sorthotellist");    
+    $('#sprice').on('click', function () {
+      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {            
+        return $(a).find(".sort_price").text() > $(b).find(".sort_price").text();
+      });
+      $("#price > .hotel-list-vertical").html(alphabeticallyOrderedDivs);
+    });
+
+    $('#sstar').on('click', function () {
+      var numericallyOrderedDivs = $divs.sort(function (a, b) {
+        return $(a).find(".sort_star").text() > $(b).find(".sort_star").text();
+      });
+      $("#stars > .hotel-list-vertical").html(numericallyOrderedDivs);
+    });
+
+    $('#sratings').on('click', function () {
+      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
+        return $(a).find(".sort_rating").text() > $(b).find(".sort_rating").text();
+      });
+      $("#rating > .hotel-list-vertical").html(alphabeticallyOrderedDivs);
+    });
+
+    $('#srecommended').on('click', function () {
+      var numericallyOrderedDivs = $divs.sort(function (a, b) {
+        return $(a).find(".sort_recommended").text() > $(b).find(".sort_recommended").text();
+      });
+      $("#recommended > .hotel-list-vertical").html(numericallyOrderedDivs);
+    });
+
    
 
 }); 
@@ -521,7 +553,7 @@ $( "#slider-range" ).slider({
                 // alert(i+"--"+JSON.stringify(val.hotelname));
                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
                 
-        if (val.ibp){
+        // if (val.ibp){
                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
                     <a class='booking-item' href='#'>\
@@ -586,11 +618,11 @@ $( "#slider-range" ).slider({
                             </a>\
                         </form>";        
                         // alert("elements8" +elements);                                                                     
-                }     
+               // }     
             });
             elements += "</li>";
             // alert("elements9" +elements);
-            $(".booking-list").html(elements);
+            $(".hotel-list-vertical").html(elements);
             }
         });
 }
@@ -958,40 +990,6 @@ $('.form-group-select-plus').each(function() {
         select.removeClass('hidden');
     });
 });
-// Responsive videos
-// $(document).ready(function() {
-//     $("body").fitVids();
-// });
-
-// $(function($) {
-//     $("#twitter").tweet({
-//         username: "remtsoy", //!paste here your twitter username!
-//         count: 3
-//     });
-// });
-
-// $(function($) {
-//     $("#twitter-ticker").tweet({
-//         username: "remtsoy", //!paste here your twitter username!
-//         page: 1,
-//         count: 20
-//     });
-// });
-
-// $(document).ready(function() {
-//     var ul = $('#twitter-ticker').find(".tweet-list");
-//     var ticker = function() {
-//         setTimeout(function() {
-//             ul.find('li:first').animate({
-//                 marginTop: '-4.7em'
-//             }, 850, function() {
-//                 $(this).detach().appendTo(ul).removeAttr('style');
-//             });
-//             ticker();
-//         }, 5000);
-//     };
-//     ticker();
-// });
 
 
 var tid = setInterval(tagline_vertical_slide, 2500);
@@ -1283,3 +1281,5 @@ $('.bus').click(function(){
   $('#tab-3').addClass('active in');
   $('#tab-1').removeClass('active in');
 });
+
+

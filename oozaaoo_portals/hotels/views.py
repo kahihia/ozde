@@ -416,7 +416,7 @@ def gethotellist(request):
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
 				guest=int(adults1)
 				child=int(nochildrens1)
-			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata,'location':filtered_location}, context_instance=RequestContext(request))
+			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata,'locations':filtered_location}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
 			response.set_cookie( 'checkin', checkin )
 			response.set_cookie( 'checkout', checkout )
@@ -546,7 +546,21 @@ def gethotellist_v2(request):
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
 				guest=int(adults1)
 				child=int(nochildrens1)
-			response = render_to_response("v2/hotels/hotelsearch_v2.html", {'city':city, 'hotels':hotels, 'joindata':joindata}, context_instance=RequestContext(request))
+
+			from datetime import datetime
+			fmt = '%Y/%m/%d'
+			d0=datetime.strptime(checkin, fmt)
+			d1=datetime.strptime(checkout, fmt)
+			no_night=str((d1-d0).days)
+	
+			date_object_checkin= datetime.strptime(checkin, '%Y/%m/%d') 			
+ 			change_datefmt_checkin=(date_object_checkin.strftime('%B %d, %Y')) 			
+ 						
+			date_object_checkout= datetime.strptime(checkout, '%Y/%m/%d')
+ 			change_datefmt_checkout=(date_object_checkout.strftime('%B %d, %Y'))
+ 				
+		
+			response = render_to_response("v2/hotels/hotelsearch_v2.html", {'change_datefmt_checkin': change_datefmt_checkin, 'change_datefmt_checkout': change_datefmt_checkout, 'no_night':no_night, 'city':city, 'hotels':hotels, 'guest':guest, 'joindata':joindata, 'locations':filtered_location}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
 			response.set_cookie( 'checkin', checkin )
 			response.set_cookie( 'checkinvalue', checkinvalue )
@@ -556,6 +570,8 @@ def gethotellist_v2(request):
 			response.set_cookie('rooms',rooms)
 			response.set_cookie('guest',unicode(guest))
 			response.set_cookie('child',unicode(child))
+
+
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
 			return HttpResponseRedirect(format_redirect_url("/v2", 'error=57'))
@@ -583,7 +599,7 @@ def gethoteldetails_v2(request):
 	fmt = '%Y/%m/%d'
 	d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
 	d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
-	no_nightbook=str((d1-d0).days)	
+	no_night=str((d1-d0).days)	
 
 	# try:
 	query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
@@ -633,7 +649,7 @@ def gethoteldetails_v2(request):
 	# 	reviews.append(_rhotel)
 	# return HttpResponse(simplejson.dumps(hotelroominfos), mimetype='application/json')
 	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
-	response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
+	response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos,  'no_night': no_night}, context_instance=RequestContext(request))
 	response.set_cookie('hc',hc)
 	response.set_cookie('ibp',ibp)
 	response.set_cookie('fwdp',fwdp)
@@ -647,7 +663,7 @@ def gethoteldetails_v2(request):
 	response.set_cookie('hr',_hotel['hr'])
 	response.set_cookie('la',_hotel['la'])
 	response.set_cookie('lo',_hotel['lo'])
-	response.set_cookie('no_night', no_nightbook)
+	response.set_cookie('no_night', no_night)
 	# except:
 	# 	messages.add_message(request, messages.INFO,'User entered data incorrect')
 	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
@@ -684,7 +700,7 @@ def gethoteldetails(request):
 	hotelroominfos = []
 	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
 		# print "hotelroominfo", hotelroominfo
-		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc']}
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'checkintime':hotelroominfo['checkintime'], 'checkouttime':hotelroominfo['checkouttime']}
 		hotelroominfos.append(_rhotelinfo)	
 	print "hotelroominfos", hotelroominfos
 
@@ -741,10 +757,10 @@ def userdetails_v2(request):
 		print 'Inside Post'
 		srtc = request.POST.get('selectedrtc',request.COOKIES.get('srtc'))
 		srpc = request.POST.get('selectedrpc',request.COOKIES.get('srpc'))
-		smp = request.POST.get('mp','11')
-		stp = request.POST.get('totalprice','12')
-		sttc = request.POST.get('totaltax','13')
-		stpcwt = request.POST.get('totalprice_wt','14')
+		smp = request.POST.get('mp',request.COOKIES.get('smp'))
+		stp = request.POST.get('totalprice',request.COOKIES.get('stp'))
+		sttc = request.POST.get('totaltax',request.COOKIES.get('sttc'))
+		stpcwt = request.POST.get('totalprice_wt',request.COOKIES.get('stpcwt'))
 		print 'stpcwt===========>',stpcwt 
 		from datetime import datetime
 		fmt = '%Y/%m/%d'
@@ -752,7 +768,7 @@ def userdetails_v2(request):
 		d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
 		result=str((d1-d0).days)
 		print "results============", result
-		response= render_to_response("v2/hotels/hotelpayment_v2.html",{'results':result}, context_instance=RequestContext(request))		
+		response= render_to_response("v2/hotels/hotelpayment_v2.html",{'results':result, 'srtc':srtc, 'srpc':srpc, 'smp':smp, 'stp':stp, 'sttc':sttc, 'stpcwt': stpcwt}, context_instance=RequestContext(request))		
 		response.set_cookie('srtc',srtc)
 		response.set_cookie('srpc',srpc)
 		response.set_cookie('smp',smp)
