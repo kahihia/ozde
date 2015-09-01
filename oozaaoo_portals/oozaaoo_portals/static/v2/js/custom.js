@@ -14,8 +14,8 @@ $('#round').click(function(){
 $('.slide').click(function(){
         var par = $(this).parent().parent().parent().parent().parent();
         $(".seatLayoutHolder").remove();
-        $(par).find('.seat_map').html("Loading");
         $(par).find('.seat_map').slideDown("slow");
+        $(par).find('.seat_map').html("Loading");
         var pare = $(this).parent();
         var skey= $('input[name=skey]',pare).val();
         var arri_time= $('input[name=dept_time]',pare).val();
@@ -29,8 +29,10 @@ $('.slide').click(function(){
         url: '/seat_v2/',
         dataType: 'html',
         data: {"skey":skey,"bus_type":bus_type,"route_type":route_type,"arri_time":arri_time,"dept_time":dept_time,"travels_name":travels_name}, // or JSON.stringify ({name: 'jonas'}),
-        success: function(data) { 
+        success: function(data) {
+
             $(par).find('.seat_map').html(data);
+
         },
         //contentType: "application/json",
        
