@@ -118,11 +118,12 @@
                             <div class="well borderradious5">
                             	<h5 class="nomargin marginbottom10 bold">Your Search</h5>
                                 <p><i class="fa fa-check"></i> {{hotels.0.c}} </p>
-                                <p><i class="fa fa-check"></i> {{request.COOKIES.guest}} Guest</p>
-                                <p><i class="fa fa-check"></i> 1 night<br/><span class="left10">                                
-                                ({{request.COOKIES.checkinvalue}} - {{request.COOKIES.checkoutvalue}})</span>
-                                </p>
-                                <button class="btn btn-primary borderradious3">Change Search</button>
+                                <p><i class="fa fa-check"></i> {{no_night}} Guest</p>
+                                <p><i class="fa fa-check"></i> {{no_night}} nights<br/><span class="left10">                                
+                                ({{change_datefmt_checkin}} - {{change_datefmt_checkout}})</span>
+                            </p>
+                            <a href="{% url "hotels.views.home_v3" %}"><button class="btn btn-primary borderradious3">Change Search</button>
+                            </a>
                             </div>
                             
                             <a role="button" data-toggle="collapse" href="#collapse-price-range" aria-expanded="true" aria-controls="collapseOne">
@@ -132,7 +133,17 @@
                             <div id="collapse-price-range" class="panel-collapse collapse in" role="tabpanel">
                             	<label class="pull-left">Rs. 1,300</label><label class="pull-right">Rs. 32,000</label>
                                 <div class="clearfix"></div>
-                                <input id="price-range" type="text" class="span2" value="" data-slider-min="1300" data-slider-max="32000" data-slider-step="100" data-slider-value="[1300,32000]"/> 
+                                
+                                <!--input id="price-range" type="text" class="span2" value="" data-slider-min="1300" data-slider-max="32000" data-slider-step="100" data-slider-value="[1300,32000]"/--> 
+                                
+                                <p>                                 
+                                  <input type="hiiden" id="amount" style="border:0; color:#f6931f; font-weight:bold;background:none;" />
+                                  <input type="hidden" id="amount_min" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="500" name="amount_min" />
+                                  <input type="hidden" id="amount_max" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="10000" name="amount_max" />
+                                </p>
+
+                                <div id="slider-range" style="width:220px"></div>
+
                                 <ul>
                                     <li>
                                         <div class="checkbox"><label><input type="checkbox" class="checkbox"> Hotel with deals</label></div>
@@ -173,8 +184,22 @@
                             <a role="button" data-toggle="collapse" href="#location" aria-expanded="true" aria-controls="collapseOne">
                                 <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Location</h5>
                                 <div class="clearfix"></div>
-                            </a>
-                            <div id="location" class="panel-collapse collapse in" role="tabpanel"></div>
+                            </a>                            
+                            <div id="location" class="panel-collapse collapse in" role="tabpanel">
+                              <ul>
+                              {% for location in locations %}
+                                  <li class="location">
+                                        <div class="checkbox">
+                                          <label>
+                                                <input type="checkbox" class="checkbox" name="location[]" value="{{location}}" />
+                                          {{location}}
+                                          </label>
+                                        </div>
+                                  </li>
+
+                              {% endfor %}
+                              </ul>
+                            </div>
                           
                            <!-- <hr />	
                             <a role="button" data-toggle="collapse" href="#property_type" aria-expanded="true" aria-controls="collapseOne">
@@ -190,21 +215,25 @@
                             </a>
                             <div id="facility" class="panel-collapse collapse in" role="tabpanel"></div>
                           
-                           <hr />	 -->
-                          
+                           <hr />	 -->                          
                         </div>
                     </div>
                 </div>
             	<div class="col-md-9"><br>
-                	<p class="marginbottom10"><strong>{{hotels.0.c}} :</strong> 63 Hotels available</p>
+                	<p class="marginbottom10"><strong>{{hotels.0.c}} :</strong> List of available Hotels </p>
                 	<div class="sort-tabs">
                     	<ul class="nav nav-tabs" role="tablist">
                             <li><span class="top10">Sort By: </span></li>
-                            <li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab">Price</a></li>
-                            <li role="presentation"><a href="#stars" aria-controls="stars" role="tab" data-toggle="tab">Stars</a></li>
-                            <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab">Recommended</a></li>
-                            <li role="presentation"><a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">Popularity</a></li>
-                            <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab">Ratings</a></li>
+                            <li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab" id="sprice">Price</a>
+                            </li>
+                            <li role="presentation"><a href="#stars" aria-controls="stars" role="tab" data-toggle="tab" id="sstar">Stars</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab" id="srecommended">Recommended</a>
+                            </li>
+                            <!--li role="presentation"><a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab" id="spopularity">Popularity</a>
+                            </li-->
+                            <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab" id="sratings">Ratings</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -226,7 +255,8 @@
                                               <p><a href="#">Good! 3.8/5</a> <span class="text-muted">(13 reviews)</span></p>
 	                                  </div>
                                       <div class="col-md-2">
-                                         <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i> 1,040</h3>
+                                         <h3 class="text-left bold nomargin pull-right sort_price">
+                                         <i class="fa fa-rupee"></i> 1,040</h3>
                                          <span class="pull-right text-muted span12"> avg/night</span>
                                          <div class="clearfix"></div><br>
                                          <div class="text-right">
@@ -402,21 +432,22 @@
                                       </div>
                                     </div>
                                 </div> -->
+                                
                                 {%for hotel in hotels %} 
                                 {% if hotel.ibp %}
-                                    <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails">
+                                    <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails" class="sorthotellist">
                                     {% csrf_token %}                        
                                     <div class="panel panel-default">
                                       <div class="panel-body">
                                         <div class="row">
                                           <div class="col-md-3">                                                       
-                                          <a href=""><img src="{{hotel.t}}" alt="Image Alternative text" title="{{hotel.hn}}" />
-                                          </a>
+                                          <img src="{{hotel.t}}" alt="Image Alternative text" title="{{hotel.hn}}" />
                                           </div>
                                           
                                           <div class="col-md-7 nopaddingleft">
                                             <a href="#">
-                                            <h4 class="text-left nomargin">{{hotel.hn}}&nbsp;
+                                            <span class="sort_star">{{hotel.hr}}</span>
+                                            <h4 class="text-left nomargin sort_recommended">{{hotel.hn}}&nbsp;
                                             {% if hotel.hr == 1 %}
                                                 <i class="fa fa-star star-yellow"></i>
                                             {% elif hotel.hr == 2 %}
@@ -457,13 +488,15 @@
                                               {% endif %}
                                             {% endfor %}
                                             </p>
-                                            <p>
-                                              <a href="#">{{hotel.gr}}/5</a><span class="text-muted">&nbsp;&nbsp;Rating</span>
+                                            <p class="sort_rating">
+                                              {{hotel.gr}}
+                                              <span class="text-muted">&nbsp;&nbsp;Rating</span>
                                             </p>
                                           </div>
 
                                           <div class="col-md-2">
-                                            <h3 class="text-left bold nomargin pull-right"><i class="fa fa-rupee"></i>
+                                            <i class="fa fa-rupee"></i>
+                                            <h3 class="text-left bold nomargin pull-right sort_price">
                                             {{hotel.mp|floatformat}}
                                             </h3>
                                             <span class="pull-right text-muted span12"> avg/night</span>
@@ -488,7 +521,7 @@
                                 </div>
                             </div>
                        
-                        <div role="tabpanel" class="tab-pane fade" id="popularity">
+                        <!--div role="tabpanel" class="tab-pane fade" id="popularity">
                         	<div class="hotel-list-vertical">
                                  <div class="panel panel-default top10">
                                  	<div class="panel-body">
@@ -624,7 +657,7 @@
                                     </div>
                                 </div>
                                 </div>
-                        </div>
+                        </div!-->
                         <div role="tabpanel" class="tab-pane fade" id="rating">
                         	<div class="hotel-list-vertical">
                                  <div class="panel panel-default top10">
