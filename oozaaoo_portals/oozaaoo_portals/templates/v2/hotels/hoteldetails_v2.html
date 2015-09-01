@@ -2,7 +2,6 @@
 {% load static from staticfiles %}
 {% load i18n %}
 {% block content %}
-
 <script type="text/javascript" src="{% static "v2/js/imagelightbox.js" %}"></script>
 <script>
 jQuery(function(){
@@ -69,7 +68,7 @@ jQuery(function(){
                     </div>
                  	<div class="col-md-7">
                          <div class="input-group">
-                             <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                             <input type="text" class="form-control paddingleftright10" value="{{request.COOKIES.c}}" placeholder="Search here" /> 
                         </div>
                		</div>
                 </div>
@@ -297,7 +296,6 @@ jQuery(function(){
                             </h5>
                         </div>
                         <div class="panel-body">
-
                             
                         <form name="probook" id="probook123" class="form-horizontal" 
                         action="{% url "hotels.views.userdetails_v2" %}" method="post">
@@ -319,14 +317,14 @@ jQuery(function(){
                                 </div>
                                 <div class="col-md-2">
                                 	<label>Nights</label>
-                                    <input type="text" class="form-control text-center" value="{{ request.COOKIES.no_night}}" readonly />
+                                    <input type="text" class="form-control text-center" value="{{no_night}}" readonly />
                                 </div>
                             </div>
                             <div class="row">
                             	<div class="col-md-2">
                                 	<label>Rooms</label>
                                     <input type="text" class="form-control text-center" 
-                                    value="{{ request.COOKIES.rooms}}" readonly />
+                                    value="{{request.COOKIES.rooms}}" readonly />
                                 </div>
                                 <div class="col-md-5">
                                 	<label>Guests</label>
@@ -341,7 +339,6 @@ jQuery(function(){
                                         </p>
                                     
                                 </div>
-
                                 <!--div class="col-md-5">
                                 	<label>Nights</label>
                                     <input type="text" class="form-control" value="1 Children" />
@@ -372,6 +369,7 @@ jQuery(function(){
                         </select>
 
                         <span class="text-lg subtotal"></span>                        
+                        <span class="text-lg totalprice"></span>
 
                         <input type="hidden" name="selectedrpc" id="selectedrpc" value="" />
                         <input type="hidden" name="selectedrtc" id="selectedrtc" value="" />
@@ -380,7 +378,7 @@ jQuery(function(){
                         <input type="hidden" name="totaltax" id="totaltax" value="" />
                         <input type="hidden" name="totalprice_wt" id="totalprice_wt" value="" />
 
-                        <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
+                    <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
                         <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
                         <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
                         <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
@@ -388,7 +386,7 @@ jQuery(function(){
                         <div class="row">
                             <div class="col-md-12">
                                 <!--button type="submit" class="btn btn-primary">Book Now</button-->
-                                 <input type="submit" class="btn btn-primary" value="Buynow"/>
+                                <input type="submit" class="btn btn-primary" value="Buynow"/>
                             </div>    
                         </div>
                         </form>
@@ -397,8 +395,5 @@ jQuery(function(){
                 </div>
             </div>
             <img id="imagelightbox" src="" alt=""/>
-
-
-
  {% endblock %}        
          
