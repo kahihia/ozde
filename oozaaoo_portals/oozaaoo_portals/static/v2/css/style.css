@@ -686,27 +686,27 @@
 }
 .available-seat
 {
-  background:url('../img/bus-seat-layout.png') -67px -54px;
+  background:url('../img/seatlayout.png') -67px -54px;
   padding:3px 15px; 
 }
 .booked-seat
 {
-  background:url('../img/bus-seat-layout.png') -67px -204px;
+  background:url('../img/seatlayout.png') -67px -204px;
   padding:3px 15px; 
 }
 .ladies-seat
 {
-  background:url('../img/bus-seat-layout.png') -67px -154px;
+  background:url('../img/seatlayout.png') -67px -154px;
   padding:3px 15px; 
 }
 .ladies-reserved-seat
 {
-  background:url('../img/bus-seat-layout.png') -67px -103px;
+  background:url('../img/seatlayout.png') -67px -103px;
   padding:3px 15px; 
 }
 .selected-seat
 {
-  background:url('../img/bus-seat-layout.png') -67px -3px;
+  background:url('../img/seatlayout.png') -67px -3px;
   padding:3px 15px; 
 }
 .busseat-layout ul

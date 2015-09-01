@@ -114,13 +114,7 @@ $(function() {
 });
 
 
-$('ul.slimmenu').slimmenu({
-    resizeWidth: '992',
-    collapserTitle: 'Main Menu',
-    animSpeed: 250,
-    indentChildren: true,
-    childrenIndenter: ''
-});
+
 
 
 // Countdown
@@ -187,7 +181,7 @@ $('.form-group').each(function() {
 //     }
 // });
 
-console.log('here-datepicker');
+
 $('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
     todayHighlight: true,
     format: 'yyyy/mm/dd'
@@ -430,29 +424,6 @@ $(document).ready(
     });
 
 
-        // Owl Carousel
-        var owlCarousel = $('#owl-carousel'),
-            owlItems = owlCarousel.attr('data-items'),
-            owlCarouselSlider = $('#owl-carousel-slider'),
-            owlNav = owlCarouselSlider.attr('data-nav');
-        // owlSliderPagination = owlCarouselSlider.attr('data-pagination');
-
-        owlCarousel.owlCarousel({
-            items: owlItems,
-            navigation: true,
-            navigationText: ['', '']
-        });
-
-        owlCarouselSlider.owlCarousel({
-            slideSpeed: 300,
-            paginationSpeed: 400,
-            // pagination: owlSliderPagination,
-            singleItem: true,
-            navigation: true,
-            navigationText: ['', ''],
-            transitionStyle: 'fade',
-            autoPlay: 4500
-        });
 
 
    //  // footer always on bottom
@@ -507,7 +478,6 @@ $(document).ready(
 }); 
 // end of document ready
 
-$('.nav-drop').dropit();
 
 
 // $("#price-slider").ionRangeSlider({
@@ -858,10 +828,7 @@ $('.dpoint').click(function(){
   var dpoint=$(this).text();
   $('.need_round:contains("'+dpoint+'")').show();
 });
-$('.i-check, .i-radio').iCheck({
-    checkboxClass: 'i-check',
-    radioClass: 'i-radio'
-});
+
 
 
 
