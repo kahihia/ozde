@@ -183,7 +183,10 @@ $('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').da
     format: 'yyyy/mm/dd'
 });
 
-
+$( "#datepicker3" ).datepicker({ minDate: 0});
+$( "#datepicker4" ).datepicker({ minDate: 0});
+$( "#datepicker7" ).datepicker({ minDate: 0});
+$( "#datepicker8" ).datepicker({ minDate: 0});
 
 $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
 $('.input-daterange input[name="end"]').datepicker('setDate', '+7d');

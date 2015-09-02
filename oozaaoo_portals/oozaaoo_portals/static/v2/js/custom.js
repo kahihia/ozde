@@ -183,10 +183,13 @@ $('.form-group').each(function() {
 //     }
 // });
 
-
+// for date pic
+var date = new Date();
+var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 $('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
     todayHighlight: true,
-    format: 'yyyy/mm/dd'
+    format: 'yyyy/mm/dd',
+    startDate: today
 });
 
 
@@ -197,6 +200,7 @@ $('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
 $('input.time-pick').timepicker({
     minuteStep: 15,
     showInpunts: false
+
 })
 
 $('input.date-pick-years').datepicker({
