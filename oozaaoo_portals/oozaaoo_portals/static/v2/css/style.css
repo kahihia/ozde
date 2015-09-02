@@ -969,26 +969,14 @@ textarea.form-control
 {
     padding: 5px 40px;  
 }
+/*pop up for booking status,refund,refund status,cancel policy for hotel and bus by priya*/
 .wrapper {
     max-width: 500px;
     margin: 0 auto;
 }
-.modal {
-   
-  display: none;
-  position: fixed;
-  top: 25%;
-  left: 25%;
-  width: 600px;
-  height: auto;
-  overflow-y: scroll;
-  background-color: $white;
-  padding: 25px;
-  border-radius: 5px;
-  z-index: 10;
-  box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
-}
-.modal_refund{
+
+
+.modal,.modal_refund,.modal_refundbus,.modal_refundstatus{
    
   display: none;
   position: fixed;
@@ -1017,3 +1005,11 @@ textarea.form-control
 .home_form_bus label{
   margin:0px 0px 0px 10px !important;
 }
+/*end of popup*/
+/*for map*/
+#map_canvas {
+            width:600px;
+            height: 600px;
+            z-index: 9999;
+        }
+/*end map*/

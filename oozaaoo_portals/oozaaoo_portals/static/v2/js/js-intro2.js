@@ -182,18 +182,23 @@ $(document).ready(function($){
 	var $iw = $(window).innerWidth();
 	var $ih = $(window).innerHeight();	
 	
+	var $iwi = $(window).width();
+	var $ihi = $(window).height();
+
+
 	$('.loader').animate({'opacity': 1},{ duration: 200, queue: false });
 	$('.bluediv').css({'width': $iw +'px', 'height': $ih +'px'});
  
  
 	//loader position
-	$('.loader').css({'left': $iw/2-50 +'px', 'top': $ih/2-50 +'px'});
+	$('.loader').css({'left':$iwi/2.5+'px', 'top':'10%'});
 
 });
 	
 $(function(){
 "use strict";
 	//PRELOAD IMAGES
+	var $iwi = $(window).width();
 	var images = [
 		'../static/v2/img/palmbg.jpg',
 		'../static/v2/img/parisbg.jpg',
@@ -265,7 +270,7 @@ $(function(){
 									$('#tab1,#tab2,#tab3,#tab4,#tab5,#tab6').css({'width': $tw/2 +'px' });							
 									
 									//loader position
-									$('.loader').css({'left': $iw/2-50 +'px', 'top': $ih/2-50 +'px'});
+									$('.loader').css({'left':$iwi/2.5+'px', 'top':'10%'});
 								
 									setTimeout(function (){
 										$('.loader').animate({'opacity': 0},{ duration: 200, queue: false });			
@@ -304,7 +309,8 @@ $(function(){
 									setTimeout(function (){			$('.b3').animate({'opacity': 1},{ duration: 400, queue: false });			}, 3700);			
 									setTimeout(function (){			$('.b4').animate({'opacity': 1},{ duration: 400, queue: false });			}, 3800);			
 									setTimeout(function (){			$('.b5').animate({'opacity': 1},{ duration: 400, queue: false });			}, 3900);
-									setTimeout(function (){			$('.b6').animate({'opacity': 1},{ duration: 400, queue: false });			}, 4000);		
+									setTimeout(function (){			$('.b6').animate({'opacity': 1},{ duration: 400, queue: false });			}, 4000);
+									setTimeout(function (){			$('.b7').animate({'opacity': 1},{ duration: 400, queue: false });			}, 4100);		
 									
 									
 									setTimeout(function (){
@@ -357,7 +363,7 @@ $(function(){
 
 									
 									//loader position
-									$('.loader').css({'left': $iw/2-50 +'px', 'top': $ih/2-50 +'px'});
+									$('.loader').css({'left':$iwi/2.5+'px', 'top':'10%'});
 								
 									setTimeout(function (){
 										$('.loader').animate({'opacity': 0},{ duration: 200, queue: false });			
@@ -472,7 +478,8 @@ function changeAnimation1(){
 	$('.dubai').animate({'opacity': 0,'left': -200 +'px'});	
 	$('.plane').animate({'opacity': 0,'left': -100 +'px'});		
 	$('.dubai').animate({'opacity': 0,'left': -200 +'px'});	
-	$('.girl-car').animate({'opacity': 0,'left': -420 +'px'});					
+	// $('.girl-car').animate({'opacity': 0,'left': -420 +'px'});	
+	$('.girl-car').css({'display':'none'});				
 	$('.road').animate({'opacity': 0,'right': -400 +'px'});			
 	$('.car').animate({'opacity': 0,'left': -45 +'%'});	
 	$('.girl-cruise').animate({'opacity': 0,'left': -420 +'px'});					
@@ -495,7 +502,7 @@ function changeAnimation2(){
 	$('.cruise').animate({'opacity': 0,'right': -100 +'px'});			
 	
 	var $gg2w = $('.girl2').width();
-	$('.girl2').animate({'opacity': 1,'left': -$gg2w/6 +'px'});		
+	$('.girl2').animate({'opacity': 1,'left': 0 +'px'});		
 	var $gdw = $('.dubai').width();
 	$('.dubai').animate({'opacity': 1,'left': -$gdw/6 +'px'},{ duration: 200, queue: false });	
 	
@@ -513,7 +520,7 @@ function changeAnimation3(){
 	$('.cruise').animate({'opacity': 0,'right': -100 +'px'});			
 
 	var $ggw = $('.girl').width();
-	$('.girl').animate({'opacity': 1,'left': -$ggw/3.3 +'px'});						
+	$('.girl').animate({'opacity': 1,'left': 0+'px'});						
 	$('.plane').animate({'opacity': 1,'left': 0 +'px'},{ duration: 1000, queue: false });			
 }	
 function changeAnimation4(){
@@ -530,7 +537,7 @@ function changeAnimation4(){
 	var $gc2w = $('.girl-car').width();
 	$('.girl-car').animate({'opacity': 1,'left': -$gc2w/3.7 +'px'});	
 	
-	$('.car').animate({'opacity': 1,'left': -35 +'%'});						
+	$('.car').animate({'opacity': 1,'left': 0+'%'});						
 	$('.road').animate({'opacity': 1,'right': -200 +'px'},{ duration: 200, queue: false });			
 }			
 function changeAnimation5(){
@@ -546,10 +553,44 @@ function changeAnimation5(){
 	$('.car').animate({'opacity': 0,'left': -45 +'%'});							
 
 	var $gcw = $('.girl-cruise').width();
-	$('.girl-cruise').animate({'opacity': 1,'left': -$gcw/2.9 +'px'});						
+	$('.girl-cruise').animate({'opacity': 1,'left': 0 +'px'});						
 	$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
+}
+function changeAnimation6(){
+"use strict";
+	$('.couple').animate({'opacity': 0,'left': -220 +'px'});
+	$('.girl').animate({'opacity': 0,'left': -400 +'px'});			
+	$('.girl2').animate({'opacity': 0,'left': -400 +'px'});				
+	$('.palmbgcontainer').animate({'opacity': 0,'left': -750 +'px'});		
+	$('.dubai').animate({'opacity': 0,'left': -200 +'px'});	
+	$('.plane').animate({'opacity': 0,'left': -100 +'px'});	
+	$('.girl-car').animate({'opacity': 0,'left': -420 +'px'});					
+	$('.road').animate({'opacity': 0,'right': -400 +'px'});				
+	$('.car').animate({'opacity': 0,'left': -45 +'%'});							
+	$('.girl-cruise').animate({'opacity': 0,'left': -420 +'px'});
+	var $gcw = $('.some').width();
+	$('.some1').animate({'opacity': 1,'left': 0 +'px'});
+	$('.some2').animate({'opacity': 0,'left': 0 +'px'});						
+	//$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
 }	
 
+function changeAnimation7(){
+"use strict";
+	$('.couple').animate({'opacity': 0,'left': -220 +'px'});
+	$('.girl').animate({'opacity': 0,'left': -400 +'px'});			
+	$('.girl2').animate({'opacity': 0,'left': -400 +'px'});				
+	$('.palmbgcontainer').animate({'opacity': 0,'left': -750 +'px'});		
+	$('.dubai').animate({'opacity': 0,'left': -200 +'px'});	
+	$('.plane').animate({'opacity': 0,'left': -100 +'px'});	
+	$('.girl-car').animate({'opacity': 0,'left': -420 +'px'});					
+	$('.road').animate({'opacity': 0,'right': -400 +'px'});				
+	$('.car').animate({'opacity': 0,'left': -45 +'%'});							
+	$('.girl-cruise').animate({'opacity': 0,'left': -420 +'px'});
+	var $gcw = $('.some2').width();
+	$('.some2').animate({'opacity': 1,'left': 0 +'px'});
+	$('.some1').animate({'opacity': 0,'left': 0 +'px'});						
+	//$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
+}
 /** Home Page Hotel Child Age **/
 $(document).on('change', '.child_act', function() {     
          if($(this).val() == 0 ) {

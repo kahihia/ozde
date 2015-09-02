@@ -1248,6 +1248,7 @@ $('.onward_book').click(function(){
     alert(skey);
 });
 
+//********* popup for cancel policy,refund,booking status,refund status hotel and bus**********//
 
 $('.toggleModal').on('click', function (e) {
   
@@ -1285,3 +1286,21 @@ $('.bus').click(function(){
 });
 
 
+$('#refund_hotel').click(function(){
+  
+  $('.modal_refundstatus').show();
+  $('.bus-payment ').hide();
+  $('.modal_refund').hide();
+});
+
+//******************end of popup******************//
+//map for hotels//
+$("#map_canvas").hide();
+$(".map").click(function(){
+  
+  initialize();
+  $("#map_canvas").toggle();
+});
+
+
+// end map

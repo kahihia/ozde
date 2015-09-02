@@ -36,19 +36,19 @@ jQuery(function(){
 
     
 </script>
- <script src="https://maps.googleapis.com/maps/api/js"></script>
-         <script>
-             function initialize() {
-                   var mapCanvas = document.getElementById('map-canvas');
-                   var mapOptions = {
-                   center: new google.maps.LatLng(44.5403, -78.5463),
-                   zoom: 8,
-                   mapTypeId: google.maps.MapTypeId.ROADMAP
-                   }
-                var map = new google.maps.Map(mapCanvas, mapOptions)
-                }
-             google.maps.event.addDomListener(window, 'load', initialize);
-         </script>
+ <script>
+        function initialize() {
+            var myLatlng = new google.maps.LatLng({{request.COOKIES.la}},{{request.COOKIES.lo}});
+            var myOptions = {
+                zoom: 15,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map( document.getElementById( "map_canvas" ), myOptions );
+        }
+    </script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
 <section class="search-section">
     <div class="container">
     	<div class="row padding20">
@@ -89,7 +89,9 @@ jQuery(function(){
                     <h1 class="text-center">{{hotels.hn}}</h1>
                     <p><i class="fa fa-map-marker"></i> &nbsp; {{hotels.l}},  &nbsp;&nbsp;{{hotels.c}}
 
-                        <a href="#">Show Map</a>
+                    <a href="#" class="map">show map
+                        <div id="map_canvas"></div>
+                    </a>
                     </p>
                     <br>
                    	<p>
