@@ -268,19 +268,19 @@ li
     margin-right: 10px
 }
  .seat.available {
-    background-position: 0 0
+    background-position: -67px -53px;
 }
- .seat.booked {
-    background-position: 0 -40px
+ .seat.seat_booked {
+    background-position: -67px -203px;
 }
  .seat.ladiesbooked {
-    background-position: 0 -80px
+    background-position: -67px 153px;
 }
  .seat.ladies {
-    background-position: 0 -20px
+    background-position: -67px -203px;
 }
  .seat.selected {
-    background-position: 0 -60px
+    background-position: -67px -3px;
 }
 .sleeper .seat {
     width: 40px
@@ -294,20 +294,20 @@ li
     background-repeat: no-repeat;
     margin-right: 10px
 }
-.sleeper.available {
-    background-position: -40px 0;
+.sleeper.available, .sleeper.sleeper_available {
+    background-position: 0px -61px;
 }
-.sleeper.booked {
-    background-position: -40px -40px
+.sleeper.booked, .sleeper.sleeper_booked {
+    background-position: 0px -211px;
 }
-.sleeper.ladiesbooked {
-    background-position: -40px -80px
+.sleeper.ladiesbooked, .sleeper.sleeper_ladiesbooked {
+    background-position: 0px -161px;
 }
-.sleeper.ladies {
-    background-position: -40px -20px
+.sleeper.ladies, .sleeper.sleeper_ladies {
+    background-position: 0px -110px;
 }
-.sleeper.selected {
-    background-position: -40px -60px
+.sleeper.selected, .sleeper.sleeper_selected {
+    background-position: 0px -10px;
 }
 .fare {
     margin-top: 15px;
@@ -411,5 +411,9 @@ li
 }
 
 .seat{
-	display:block;float:left;width:20px;height:20px;background-image:url(../img/seatlayout.png);background-repeat:no-repeat;margin:3px;
+	display:block;float:left;width:20px;height:24px;background-image:url(../img/seatlayout.png);background-repeat:no-repeat;margin:3px;
 }
+
+.deck370 {  min-width:370px !important;}
+.deck430 { min-width:430px !important; }
+.deck410 { min-width:410px !important; min-height:105px !important;}
