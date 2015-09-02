@@ -184,14 +184,9 @@ $('.form-group').each(function() {
 // });
 
 // for date pic
-var date = new Date();
-var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 $('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
-    todayHighlight: true,
-    format: 'yyyy/mm/dd',
-    startDate: today
+     todayHighlight: true,
 });
-
 
 
 $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');

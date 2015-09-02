@@ -3,31 +3,33 @@
 //------------------------------
 jQuery(function($) {
 "use strict";
+var nowDate = new Date();
+var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0)
 	$( "#datepicker" ).datepicker();
 	$( "#datepicker2" ).datepicker();
 	$( "#datepicker3" ).datepicker(
 		{
 		todayHighlight: true,
-	    format: 'yyyy/mm/dd',
-	    minDate:0
+		startDate: today,
+	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker4" ).datepicker(
 		{
 		todayHighlight: true,
-	    format: 'yyyy/mm/dd',
-	    minDate:0
+		startDate: today,
+	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker5" ).datepicker();
 	$( "#datepicker6" ).datepicker();
 	$( "#datepicker7" ).datepicker({
 		todayHighlight: true,
-	    format: 'yyyy/mm/dd',
-	    minDate:0
+		startDate: today,
+	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker8" ).datepicker({
 		todayHighlight: true,
-	    format: 'yyyy/mm/dd',
-	    minDate:0
+		startDate: today,
+	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker9" ).datepicker();
 	$( "#datepicker10" ).datepicker();
