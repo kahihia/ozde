@@ -619,6 +619,10 @@ def gethoteldetails_v2(request):
 			# /** Hotel  Gallery Image */		
 			_hotel['gallery']= gethoteldetailresponse['data']['gallery']
 
+			# /** Am */		
+			for k, v in gethoteldetailresponse['data']['am'].iteritems():						
+				_hotel[k] = v
+
 			hotelroominfos = []
 			for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
 				# print "hotelroominfo", hotelroominfo
