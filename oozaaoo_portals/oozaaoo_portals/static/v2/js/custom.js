@@ -1296,11 +1296,9 @@ $('#refund_hotel').click(function(){
 //******************end of popup******************//
 //map for hotels//
 $("#map_canvas").hide();
-$(".map").click(function(){
-  
+$(".map").click(function(){  
   initialize();
+  addMarker();
   $("#map_canvas").toggle();
 });
-
-
 // end map

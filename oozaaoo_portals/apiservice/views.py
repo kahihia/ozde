@@ -36,7 +36,15 @@ class goibiboAPI(object):
 
 	def __init__(self, username, password):
 		self.username = username
-		self.password = password	
+		self.password = password
+
+	# def log_function(query, response):
+	# 	logging.basicConfig(filename='mysite.log', level=logging.INFO)
+	# 	logging.info("******************************************************************************************************")
+	# 	logging.info(datetime.datetime.now())
+	# 	logging.info(query)
+	# 	logging.info(response)
+	# 	logging.info("******************************************************************************************************")		
 
 	def getHotelsByCity(self):
 		import requests
@@ -57,16 +65,16 @@ class goibiboAPI(object):
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelDetailsByCity(self, joindata, hc, ibp, fwdp):
-		print "hotelcode ======>", hc
+		# print "hotelcode ======>", hc
 		query = self.BASE + "get_hotel_details" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp=v3"+"&fwdp=''"
 		print "search details ======>", query
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelReviewsDetails(self, hc):
-		print "hotelcode ======>", hc
+		# print "hotelcode ======>", hc
 		query = self.BASE + "get_hotel_review" + "?hc="+hc
-		print "HotelReviews ======>", query
-		print "response", requests.get(query, auth=(self.username, self.password)).json()
+		# print "HotelReviews ======>", query
+		# print "response", requests.get(query, auth=(self.username, self.password)).json()
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelCancelPolicy(self):
