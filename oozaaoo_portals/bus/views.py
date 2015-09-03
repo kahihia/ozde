@@ -169,7 +169,7 @@ def search_bus_v2(request):
 			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
 	except:
 		messages.add_message(request, messages.INFO,'User Entering data is wrong')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=1'))
+		return HttpResponseRedirect(format_redirect_url("/v2/", 'error=1'))
 
 	source = unicode(source)
 	destination = unicode(destination)
@@ -282,10 +282,10 @@ def search_bus(request):
 
 		except:
 			messages.add_message(request, messages.INFO,'API not responding for one way trip')
-			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
+			return HttpResponseRedirect(format_redirect_url("/v2/", 'error=2'))
 	except:
 		messages.add_message(request, messages.INFO,'User Entering data is wrong')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=1'))
+		return HttpResponseRedirect(format_redirect_url("/v2/", 'error=1'))
 
 	source = unicode(source)
 	destination = unicode(destination)
@@ -320,7 +320,7 @@ def seat_map(request):
 			log_function(query, "success:False" + str(getbusseat['Error']))
 	except:
 		messages.add_message(request, messages.INFO,'Search key not given by API.skey is %s'%request.POST.get('skey',request.COOKIES.get('skey')))
-		return HttpResponseRedirect(format_redirect_url("/", 'error=4'))
+		return HttpResponseRedirect(format_redirect_url("/v2/", 'error=4'))
 	response = HttpResponse(simplejson.dumps(getbusseat), mimetype='application/json')
 	#response= simplejson.dumps(results)
 	# response= render_to_response('bus/bus-seatmapinfo.html', {'results':results}, context_instance=RequestContext(request)) 
@@ -545,9 +545,9 @@ def bus_booking(request):
 		messages.add_message(request, messages.INFO,'Enter the details correct way')
 		trip = request.COOKIES.get('trip')
 		if trip=='oneway':	
-			return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
+			return HttpResponseRedirect(format_redirect_url("/v2/searchbus", 'error=8'))
 		else:
-			return HttpResponseRedirect(format_redirect_url("/searchbus", 'error=8'))
+			return HttpResponseRedirect(format_redirect_url("/v2/searchbus", 'error=8'))
 
 def tentativebooking_v2(request):
 	#return render_to_response("v2/bus/buspayment_v2.html", context_instance=RequestContext(request))
@@ -933,7 +933,7 @@ def tentativebooking(request):
 			messages.add_message(request, messages.INFO,temp['data']['error']+'.Please Search again')
 		else:
 			messages.add_message(request, messages.INFO,temp['Error']+'.Please Search again')
-		return HttpResponseRedirect(format_redirect_url("/bus_booking", 'error=11'))
+		return HttpResponseRedirect(format_redirect_url("/v2/bus_booking", 'error=11'))
 	response.set_cookie('fname',fname)
 	response.set_cookie('lname',lname)
 	response.set_cookie('age',age)
@@ -1096,11 +1096,11 @@ def busbookingstatus(request):
 			print "getbookingstatus_new", getbookingstatus
 		except:
 			messages.add_message(request, messages.INFO,'Your booking till queued')
-			return HttpResponseRedirect(format_redirect_url("/busbookstatus", 'error=9'))
+			return HttpResponseRedirect(format_redirect_url("/v2/busbookstatus", 'error=9'))
 
 	except:
 		messages.add_message(request, messages.INFO,'Warning message')
-		return HttpResponseRedirect(format_redirect_url("/busbookstatus", 'error=7'))
+		return HttpResponseRedirect(format_redirect_url("/v2/busbookstatus", 'error=7'))
 	if 'data' in getbookingstatus:
 		log_function(query, "success:True")
 	else:
@@ -1126,7 +1126,7 @@ def cancelticket(request):
 			log_function(query, "success:False" + str(getcancelticket['Error']))
 	except:
 		messages.add_message(request, messages.INFO,'Warning message')
-		return HttpResponseRedirect(format_redirect_url("/cancelticket", 'error=12'))
+		return HttpResponseRedirect(format_redirect_url("/v2/cancelticket", 'error=12'))
 	#return HttpResponse(simplejson.dumps(getcancelticket['data']), mimetype='application/json')	
 	return render_to_response("bus/conformcancel.html",{'status':getcancelticket},context_instance=RequestContext(request))
 @csrf_exempt

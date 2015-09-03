@@ -39,21 +39,21 @@
                     <h2 class="bold">Hotel Booking<br/><span class="logo-span-txt">Made easy!</span></h2>         
                 </div>
                 <div class="col-md-4 pull-right">
-                    <h4 class="size17 padding20">Need Help? <strong class="marginleft10"> Call us:</strong> (0452) 394 12345 </h4>
-                </div>
-                <div class="col-md-4">
                     {% if request.user.is_authenticated %}
                         <div class="top-user-area clearfix">
                             <a href="/">{{request.user.first_name}}</a>
-                            <a href="v2/logout/">Logout</a>
-                            <a href="/myprofile/">Myprofile</a>
+                            <a href="/v2/logout/">Logout</a>
+                            <a href="/v2/profile">Myprofile</a>
                             <a href="/mybooking/">MyBooking</a>
                         </div>
                     {% else %}
                         <div class="top-user-area clearfix">
-                            <a href="v2/register">Login</a>
+                            <a href="/v2/login">Login</a>
                         </div>
                     {% endif %}
+                </div>
+                <div class="col-md-4">
+                    
                 </div>
 
             </div>
@@ -237,15 +237,17 @@
                                         <div class="col-md-6">
                                             <label>Email<span class="red">*</span></label>
                                             <input class="form-control" placeholder="e.g. johndoe" type="text" name="username" />
+                                            <span class="errormgs" style="display:none; color:red;">please enter the user name</span>
                                         </div>
                                         <div class="col-md-6">
                                             <label>Password<span class="red">*</span></label>
                                             <input class="form-control" type="password" placeholder="my secret password" name="password" />
+                                            <span class="errormgs" style="display:none; color:red;">please enter the password</span>
                                         </div>
                                     </div><br>
                                      <div class="row">
                                         <div class="col-md-4">
-                                            <button type="submit" class="btn btn-primary">Login</button>
+                                            <button type="submit" class="btn btn-primary login">Login</button>
                                         </div>
                                         <div class="col-md-8">
                                             <h5 class="text-right">Not Registered? <a href="{% url "hotels.views.registration_v2" %}"> Create New Account</a></h5>
@@ -270,9 +272,9 @@
                         <h4 class="panel-title"> 2. Payment</h4>
                     </div>
                     {% else %}
-                        <div class="panel-heading">
+                        <!-- <div class="panel-heading">
                         <h4 class="panel-title"> 3. Payment</h4>
-                    </div>
+                    </div> -->
                     {% endif %}
 
                     {% if request.user.is_authenticated %}

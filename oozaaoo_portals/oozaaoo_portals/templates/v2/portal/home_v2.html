@@ -61,7 +61,7 @@
       <span class="opensans size18">Choose your destination</span>
       <!-- <input type="text" class="form-control" placeholder="Greece"> -->
       <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
-      <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>      
+      <div class="error_mgs_city" style="display:none; color:red;">Enter the Destination</div>      
       <input class="typeahead form-control" placeholder="Select your city" type="hidden" id="filterkeyword" value="" name="filterkeyword" />
           <div class="error_mgs" style="display:none; color:red;">Please Select the Check Out-Date</div>
 
@@ -71,7 +71,7 @@
         <div class="wh90percent textleft">
           <span class="opensans size13"><b>Check in date</b></span>
           <input type="text" name="start" class="startdate form-control mySelectCalendar2" id="datepicker7" placeholder="yyyy/mm/dd"/>
-          <div class="error_mgs" style="display:none; color:red;">Please Select the Check In-Date</div>
+          <div class="error_mgs_start_date" style="display:none; color:red;">Please Select the Check In-Date</div>
         </div>
       </div>
 
@@ -79,7 +79,7 @@
         <div class="wh90percent textleft right">
           <span class="opensans size13"><b>Check out date</b></span>
           <input type="text" name="end" class="enddate form-control mySelectCalendar2" id="datepicker8" placeholder="yyyy/mm/dd"/>          
-          <div class="error_mgs" style="display:none; color:red;">Please Select the Check Out-Date</div>
+          <div class="error_mgs_end_date " style="display:none; color:red;">Please Select the Check Out-Date</div>
         </div>
 
       </div>
@@ -100,22 +100,24 @@
               <div class="w50percent">
                 <div class="wh90percent textleft left">
                   <span class="opensans size13"><b>Adult</b></span>
-                  <select class="form-control mySelectBoxClass" name="adults1">
-                    <option>1</option>
-                    <option selected>2</option>
+                  <select class="form-control mySelectBoxClass adults" name="adults1">
+                    <option selected>1</option>
+                    <option>2</option>
                     <option>3</option>
                     <option>4</option>
                   </select>
+                  <div class="error_mgs_adults" style="display:none; color:red;">Please Select the Adults</div>
                 </div>
               </div>              
               <div class="w50percentlast">
                 <div class="wh90percent textleft right">
                 <span class="opensans size13"><b>Child</b></span>
-                  <select class="form-control mySelectBoxClass child_act" name="childs1">
+                  <select class="form-control mySelectBoxClass child_act child" name="childs1">
                     <option selected>0</option>
                     <option>1</option>
                     <option>2</option>
                   </select>
+                  <div class="error_mgs_child" style="display:none; color:red;">Please Select child</div>
                 </div>
               </div>
             </div>
@@ -123,7 +125,8 @@
               <div class="w50percent child1 none">
                 <div class="wh90percent textleft left">
                   <span class="opensans size13"><b>Child 1</b></span>
-                  <select class="form-control mySelectBoxClass" name="childage1_1">
+                  <select class="form-control mySelectBoxClass child_age_1" name="childage1_1">
+                    <option>0</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -137,12 +140,14 @@
                     <option>11</option>
                     <option>12</option>                                  
                   </select>
+                  <div class="error_mgs_child_age1" style="display:none; color:red;">Please Select childage1</div>
                 </div>
               </div>              
               <div class="w50percentlast child2 none">
                 <div class="wh90percent textleft right">
                 <span class="opensans size13"><b>Child 2</b></span>
-                  <select class="form-control mySelectBoxClass" name="childage2_1">
+                  <select class="form-control mySelectBoxClass child_age_2" name="childage2_1">
+                    <option>0</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -156,6 +161,7 @@
                     <option>11</option>
                     <option>12</option>
                   </select>
+                  <div class="error_mgs_child_age2" style="display:none; color:red;">Please Select child age2</div>
                 </div>
               </div>
             </div>

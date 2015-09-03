@@ -13,11 +13,11 @@
                 </div>
                  <div class="col-md-4">
                  <ul class="nav navbar-nav bus-profile">
-                     <li><a href="#" class="blue"><i class="fa fa-heart"></i> My Lists</a></li>
-                     <li><a href="#" class="blue dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="ion ion-log-in"></i> Suresh <span class="ion mdi ion-chevron-down"></span></a>
+                    
+                     <li><a href="#" class="blue dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="ion ion-log-in"></i> {{request.user.first_name}}<span class="ion mdi ion-chevron-down"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="#">Edit Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <!-- <li><a href="#">Edit Profile</a></li> -->
+                            <li><a href="{%url "hotels.views.logout_view_v2"%}">Logout</a></li>
                           </ul>  
                      </li>
             </ul>
@@ -29,7 +29,7 @@
     </div>    
  <section class="middle-bar">
   <div class="container">
-      <h3 class="white-color nomargin padding10">Welcome Suresh</h3>
+      <h3 class="white-color nomargin padding10">Welcome {{request.user.first_name}}</h3>
     </div>
  </section>
 
@@ -41,10 +41,10 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs tabs-left">
                     <li class="active"><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-view-dashboard"></i> Dashboard</a></li>
-                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-map-marker"></i> Trips</a></li>
-                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-account-multiple"></i> Travellers</a></li>
-                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-account-box"></i> Profile</a></li>
-                    <li><a href="#dashboard" data-toggle="tab"><i class="mdi mdi-settings"></i> Settings</a></li>
+                    <li><a href="#trips" data-toggle="tab"><i class="mdi mdi-map-marker"></i> Trips</a></li>
+                    <li><a href="#travellers" data-toggle="tab"><i class="mdi mdi-account-multiple"></i> Travellers</a></li>
+                    <li><a href="#profile" data-toggle="tab"><i class="mdi mdi-account-box"></i> Profile</a></li>
+                    <li><a href="#settings" data-toggle="tab"><i class="mdi mdi-settings"></i> Settings</a></li>
                   </ul>
                 </div>
 
@@ -106,10 +106,103 @@
                         </div>
                         
                     </div>
-                    <div class="tab-pane" id="trips"></div>
-                    <div class="tab-pane" id="travellers"></div>
-                    <div class="tab-pane" id="profile"></div>
-                    <div class="tab-pane" id="settings"></div>
+                    <div class="tab-pane active fade in" id="trips">
+                      <h4 class="nomargin light-purple"><i class="mdi mdi-check"></i> Recently completed trips</h4>  <hr/>
+                      {% for details in trans_details %}
+                      {% if details.category_type == "bus" %}
+                          <div class="trip-container">
+                                <p class="text-muted pull-left size22 marginright5"><i class="mdi mdi-bus"></i></p>
+                                <div class="pull-left">
+                                    <h4 class="size17 pull-left margintop5"><strong>{{details.source}}</strong> <i class="fa ion-arrow-right-c margin020"></i> <strong>{{details.destination}}</strong>
+                                    </h4>
+                                    <p class="size17">{{details.start_date}}</p>
+                               </div>     
+                               <div class="clearfix"></div>
+                                    <!--  <span class="well padding515 marginleft20px" style="width:auto">Travellers:{{details.firstname}} </span> -->    
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                    </div>
+                    <div class="tab-pane active fade in" id="travellers">
+                      <div class="panel panel-default noborder">
+                          <div class="panel-body">
+                              <h4 class="nomargin light-purple"><i class="fa fa-bookmark"></i> Travellers</h4>
+                                <hr/>
+                                {% for details in trans_details %}
+                                {% if details.category_type == "hotel" %}
+                               <div class="trip-container">
+                                <p class="text-muted pull-left size22 marginright5"><i class="fa fa-bed"></i></p>
+                                <div class="pull-left">
+                                    <h4 class="size17 margintop5"><strong>{{details.hotelname}}</strong> 
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star star-yellow"></i>
+                                    <i class="fa fa-star grey"></i>
+                                    <!-- <span class="text-muted"> (2 nights)</span> -->
+                                    </h4>
+                                    <p class="size17"><i class="fa fa-map-marker"></i> {{details.hotelcity}}</p>
+                                    <p>Check-in: {{details.checkin}}| Check-out: {{details.checkout}}| Guests: {{details.guest}}Adults | Rooms:{{details.rooms}}</p>
+                               </div>     
+                               <div class="clearfix"></div>
+                                     <!-- <span class="well padding515 marginleft20px" style="width:auto">Guest: Suresh, Amala</span>  -->   
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                          </div>
+                      </div>
+                    </div>
+                       <div class="tab-pane active fade in" id="profile">
+                      <div class="panel panel-default noborder">
+                          <div class="panel-body">
+                              <h4 class="nomargin light-purple"><i class="fa fa-bookmark"></i> Profile</h4>
+                                <hr/>
+                                <h5 class="fl">Profile Name<span style="color:red">*</span></h5>
+                                <input type="text" name="name" class="fl" ><div class="clearfix"></div>
+                                <h5 class="fl">DOB<span style="color:red">*</span></h5>
+                                <input type="text" name="dateofbirth" class="fl" ><div class="clearfix"></div>
+                                <h5 class="fl">Gender<span style="color:red">*</span></h5>
+                                <input type="text" name="Gender" class="fl" >
+                                <div class="clearfix"></div>
+                                <h5 class="fl">Email<span style="color:red">*</span></h5>
+                                <input type="text" name="email" class="fl" >
+                                <div class="clearfix"></div>
+                                <h5 class="fl">Mobile No<span style="color:red">*</span></h5>
+                                <input type="text" name="mobile"  class="fl"><br/>
+                                <div class="clearfix"></div>
+                                <input type="submit" value="Update" class="btn btn-primary">
+                          </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane active fade in" id="settings">
+                       <div class="panel panel-default noborder">
+                          <div class="panel-body">
+                              <h4 class="nomargin light-purple"><i class="fa fa-bookmark"></i> Settings</h4>
+                                <hr/>
+                                <h5>User Name</h5> <input type="text" name="name" >
+                                <p>change username</p><div class="clearfix"></div>
+                                 <h5>Password</h5> <input type="password" name="password" >
+                                <p>change password</p><br/>
+                                <h5>Country<span style="color:red">*</span></h5>
+                                <select>
+                                  <option value="1">India</option>
+                                  <option value="2">America</option>
+                                </select>
+                                <h5>Preferred Currency</h5>
+                                <select>
+                                  <option value="1">INR</option>
+                                  <option value="2">Dollar</option>
+                                </select>
+                                <h5>Email Newsletter</h5>
+                                <select>
+                                  <option value="1"> Send Weekly once</option>
+                                  <option value="2"> Send Week end</option>
+                                </select>
+                                <div class="clearfix"></div>
+                                
+                          </div>
+                        </div>
+                    </div>
                   </div>
                 </div>
        </div>    

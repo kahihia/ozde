@@ -66,15 +66,14 @@ def registration_v2(request):
 		email=request.POST['email']
 		if User.objects.filter(email=email).exists():
 			messages.add_message(request, messages.INFO,'Email already exists')
-			return HttpResponseRedirect(format_redirect_url("/register", 'error=57'))
+			return HttpResponseRedirect(format_redirect_url("/v2/register", 'error=57'))
 		elif request.method == 'POST':
-			
 			username=request.POST['username']
-			print 'username', username
 			email=request.POST['email']
 			password=request.POST['password']
 			phone=request.POST['phone']
-			dob=request.POST['dob']    
+			dob=request.POST['dob']
+			next_path=request.POST['next']    
 			user.is_active = True
 			user.username=username
 			user.email=email
@@ -91,12 +90,18 @@ def registration_v2(request):
 			send_templated_mail(
 					template_name='welcome',
 					from_email='testmail123sample@gmail.com',
-					recipient_list=user.email,
-					context={
-						'username': user.email,
-						'name': user.first_name,})
-		return render_to_response('v2/portal/signup_v2.html', {'message': "You have successfully completed registration."},
-							  context_instance=RequestContext(request))
+					recipient_list=[user.email],
+					context=({
+						'username': user.username,
+						'name': user.username}))
+			if request.POST['next']:
+				messages.add_message(request, messages.INFO,message)
+				return HttpResponseRedirect(request.POST["next"])
+			
+			return render_to_response('v2/portal/signup_v2.html', {'message':message},context_instance=RequestContext(request))
+		else:
+			return render_to_response('v2/portal/signup_v2.html',context_instance=RequestContext(request))
+
 	except:
 		return render_to_response('v2/portal/signup_v2.html',
 								  context_instance=RequestContext(request))
@@ -121,12 +126,14 @@ def registration(request):
 			username=request.POST['username']
 			print 'username', username
 			email=request.POST['email']
+			print email
 			password=request.POST['password']
 			phone=request.POST['phone']
 			dob=request.POST['dob']    
 			user.is_active = True
 			user.username=username
 			user.email=email
+
 			user.password=password
 			user.set_password(user.password)
 			user.first_name=username
@@ -144,6 +151,8 @@ def registration(request):
 					context={
 						'username': user.email,
 						'name': user.first_name,})
+			
+
 		return render_to_response('login-register.html', {'message': "You have successfully completed registration."},
 							  context_instance=RequestContext(request))
 	except:
@@ -180,9 +189,9 @@ def login_user_v2(request):
 			user.backend = 'django.contrib.auth.backends.ModelBackend'
 			if user is not None:
 				print 'user', user
-				# if user.is_active:
-				login(request, user)
-				return HttpResponseRedirect('/v2/')
+				if user.is_active:
+					login(request, user)
+					return HttpResponseRedirect('/v2/')
 	else:				
 		return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
 
@@ -254,7 +263,10 @@ def home_v2(request):
 
 
 def profile_v2(request):
-	return render_to_response("v2/portal/profile_v2.html", context_instance=RequestContext(request))	
+	user = request.user
+	userprofile=UserProfile.objects.get(user_id=user.id)
+	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
+	return render_to_response("v2/portal/profile_v2.html",{'trans_details':trans_details}, context_instance=RequestContext(request))
 
 def getcitylist(request):
 	"""
