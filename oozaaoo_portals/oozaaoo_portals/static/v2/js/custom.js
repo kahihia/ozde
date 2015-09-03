@@ -95,7 +95,6 @@ function getCookie(name) {
 
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
-      $('.ui-widget-content').css({'background':'#fff !important'});
     source: function (request, response) {
         $.getJSON("/getcity?term=" + request.term, function (data) {             
             response($.map(data, function (value, key) {                            

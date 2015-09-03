@@ -125,12 +125,19 @@ EMAIL_PORT = 587
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-PAYU_INFO = {'merchant_key': "gtKFFx",
+PAYU_INFO = {
+             'merchant_key': "gtKFFx",
              'merchant_salt': "eCwWELxi",
              # for production environment use 'https://secure.payu.in/_payment'
              'payment_url': 'https://test.payu.in/_payment',
+             #success url for hotel
              'surl':'http://localhost:8000/v2/setprovisionalbooking/',
+             #success url for bus
              'surl1':'http://localhost:8000/v2/confirm/',
              'furl':'http://localhost:8000/failure/',
              'curl':'http://localhost:8000/cancel/',
             }
+
+BUS_BASE="http://pp.goibibobusiness.com/api/bus/"
+
+HOTEL_BASE="http://pp.goibibobusiness.com/api/hotels/b2b/"
