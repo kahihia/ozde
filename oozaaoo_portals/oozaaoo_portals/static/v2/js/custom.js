@@ -95,6 +95,7 @@ function getCookie(name) {
 
 $(function() {    
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
+      $('.ui-widget-content').css({'background':'#fff !important'});
     source: function (request, response) {
         $.getJSON("/getcity?term=" + request.term, function (data) {             
             response($.map(data, function (value, key) {                            
@@ -437,43 +438,43 @@ $(document).ready(
    // }
 
   
-   $(document).on('change', '.child_age_act', function() {     
-          if($(this).val() == 0 ) {
-               $(this).parent().siblings(".child-1-act").hide();
-               $(this).parent().parent().siblings(".child-2-act").hide();
-         }
+   // $(document).on('change', '.child_age_act', function() {     
+   //        if($(this).val() == 0 ) {
+   //             $(this).parent().siblings(".child-1-act").hide();
+   //             $(this).parent().parent().siblings(".child-2-act").hide();
+   //       }
 
-         if($(this).val() == 1 ) {
-               $(this).parent().parent().siblings(".child-1-act").show();
-               $(this).parent().parent().siblings(".child-2-act").hide();
-         }
-         if($(this).val() == 2 ) {
-               $(this).parent().parent().siblings(".child-1-act").show();
-               $(this).parent().parent().siblings(".child-2-act").show();
-         }
-         if($(this).val() == 3 ) {
-               $(this).parent().parent().siblings(".child-1-act").show();
-               $(this).parent().parent().siblings(".child-2-act").show();
-         }
-    });
+   //       if($(this).val() == 1 ) {
+   //             $(this).parent().parent().siblings(".child-1-act").show();
+   //             $(this).parent().parent().siblings(".child-2-act").hide();
+   //       }
+   //       if($(this).val() == 2 ) {
+   //             $(this).parent().parent().siblings(".child-1-act").show();
+   //             $(this).parent().parent().siblings(".child-2-act").show();
+   //       }
+   //       if($(this).val() == 3 ) {
+   //             $(this).parent().parent().siblings(".child-1-act").show();
+   //             $(this).parent().parent().siblings(".child-2-act").show();
+   //       }
+   //  });
 
-    var count = 0;
-    $(document).on('click', '.add_room_act', function() {
-        // count++; 
-        // $(".clone_add_room_act").clone().appendTo(".add_room_holder"); 
-        // $(".clone_add_room_act").filter('[class]').each(function() { // For each new item with an ID
-        //     this.class = this.class + '_' + count; // Append the counter to the ID
-        // }); 
+    // var count = 0;
+    // $(document).on('click', '.add_room_act', function() {
+    //     // count++; 
+    //     // $(".clone_add_room_act").clone().appendTo(".add_room_holder"); 
+    //     // $(".clone_add_room_act").filter('[class]').each(function() { // For each new item with an ID
+    //     //     this.class = this.class + '_' + count; // Append the counter to the ID
+    //     // }); 
 
-        // $(".clone_add_room_act").clone().attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) ).appendTo('.add_room_holder')
-        var html_1 = $(".clone_add_room_act").attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) )
-        $(".add_room_holder").append(html_1)
-    });
+    //     // $(".clone_add_room_act").clone().attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) ).appendTo('.add_room_holder')
+    //     var html_1 = $(".clone_add_room_act").attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) )
+    //     $(".add_room_holder").append(html_1)
+    // });
 
-    $(document).on('click', '.remove_room_act', function() {        
-        $(this).closest(".clone_add_room_act").remove();
-        e.preventDefault();   
-    });
+    // $(document).on('click', '.remove_room_act', function() {        
+    //     $(this).closest(".clone_add_room_act").remove();
+    //     e.preventDefault();   
+    // });
 
 
     /************************ Hotel Sort ********************/
@@ -1043,67 +1044,65 @@ function abortTimer() { // to be called when you want to stop the timer
 
  //    $(".remove_room_act").on("click", remove);
     
- var max_fields      = 4;
-    var i = 1;
-    var add_room = $('.add_room_holder');
-    $('.add_room_act').click(function (e) {
-        e.preventDefault();
-        if(i < max_fields){
-            i++;
-    $(add_room).append("<div class='clonedInput' id='clonedInput0'><div class='col-md-3'><div class='form-group form-group-lg form-group-select-plus'><label>Rooms</label>"
-        +"<input class='form-control hidden_input room_"+i+"' name='room"+i+"' type='text' value="+i+" readonly='readonly' />"
-        +"</div></div><div class='col-md-2'><div class='form-group form-group-lg form-group-select-plus'>"
-        +"<label>Adults</label><select class='form-control adults_"+i+"' name='adults"+i+"'>"
-        +"<option selected='selected' value='0' >0</option><option value='1' >1</option><option value='2' >2</option><option value='3' >3</option><option value='4' >4</option>"
-        +"</select></div></div><div class='col-md-2'><div class='form-group form-group-lg form-group-select-plus'>"
-        +"<label>Children</label><select class='form-control child_age_act childs_"+i+"' name='childs"+i+"'><option selected='selected' value='0' >0</option>"
-        +"<option value='1' >1</option><option value='2' >2</option></select></div></div>"
-        +"<div class='col-md-2 child-1-act dn' id='test1'><div class='form-group form-group-lg form-group-select-plus'>"
-        +"<label>Child-1 age</label><select class='form-control child1_"+i+"' name='childage1_"+i+"'>"
-        +"<option selected='selected' value='0' >0</option>"
-        +"<option value='1' >1</option>"
-        +"<option value='2' >2</option>"
-        +"<option value='3' >3</option>"
-        +"<option value='4' >4</option>"
-        +"<option value='5' >5</option>"
-        +"<option value='6' >6</option>"
-        +"<option value='7' >7</option>"
-        +"<option value='8' >8</option>"
-        +"<option value='9' >9</option>"
-        +"<option value='10' >10</option>"
-        +"<option value='11' >11</option>"
-        +"<option value='12' >12</option>"
-        +"</select>"
-        +"</div>"
-        +"</div>"
-        +"<div class='col-md-2 child-2-act dn'>"
-        +"<div class='form-group form-group-lg form-group-select-plus'>"
-        +"<label>Child-2 age</label>"     
-        +"<select class='form-control child2_"+i+"' name='childage2_"+i+"'>"
-        +"<option selected='selected' value='0' >0</option>"
-        +"<option value='1' >1</option>"
-        +"<option value='2' >2</option>"
-        +"<option value='3' >3</option>"
-        +"<option value='4' >4</option>"
-        +"<option value='5' >5</option>"
-        +"<option value='6' >6</option>"
-        +"<option value='7' >7</option>"
-        +"<option value='8' >8</option>"
-        +"<option value='9' >9</option>"
-        +"<option value='10' >10</option>"
-        +"<option value='11' >11</option>"
-        +"<option value='12' >12</option>"
-        +"</select>"
-        +"</div>"
-        +"</div>"
-        +"<div class='col-md-1'>"
-        +"<span class='remove remove_field'>Remove</span>"
-        +"</div>");
-}
-    });
-$(add_room).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parents('.clonedInput').remove(); i--;
-    });
+//  var max_fields= 4;
+//     var i = 1;
+//     var add_room = $('.add_room_holder');
+//     $('.add_room_act').click(function (e) {
+//         e.preventDefault();
+//         if(i < max_fields){
+//             i++;
+//     $(add_room).append("<div class='clonedInput' id='clonedInput0'><div class='col-md-3'><div class='form-group form-group-lg form-group-select-plus'><label>Rooms</label>"
+//         +"<input class='form-control hidden_input room_"+i+"' name='room"+i+"' type='text' value="+i+" readonly='readonly' />"
+//         +"</div></div><div class='col-md-2'><div class='form-group form-group-lg form-group-select-plus'>"
+//         +"<label>Adults</label><select class='form-control adults_"+i+"' name='adults"+i+"'>"
+//         +"<option selected='selected' value='0' >0</option><option value='1' >1</option><option value='2' >2</option><option value='3' >3</option><option value='4' >4</option>"
+//         +"</select></div></div><div class='col-md-2'><div class='form-group form-group-lg form-group-select-plus'>"
+//         +"<label>Children</label><select class='form-control child_age_act childs_"+i+"' name='childs"+i+"'><option selected='selected' value='0' >0</option>"
+//         +"<option value='1' >1</option><option value='2' >2</option></select></div></div>"
+//         +"<div class='col-md-2 child-1-act dn' id='test1'><div class='form-group form-group-lg form-group-select-plus'>"
+//         +"<label>Child-1 age</label><select class='form-control child1_"+i+"' name='childage1_"+i+"'>"
+//         +"<option selected='selected' value='0' >0</option>"
+//         +"<option value='1' >1</option>"
+//         +"<option value='2' >2</option>"
+//         +"<option value='3' >3</option>"
+//         +"<option value='4' >4</option>"
+//         +"<option value='5' >5</option>"
+//         +"<option value='6' >6</option>"
+//         +"<option value='7' >7</option>"
+//         +"<option value='8' >8</option>"
+//         +"<option value='9' >9</option>"
+//         +"<option value='10' >10</option>"
+//         +"<option value='11' >11</option>"
+//         +"<option value='12' >12</option>"
+//         +"</select>"
+//         +"</div>"
+//         +"</div>"
+//         +"<div class='col-md-2 child-2-act dn'>"
+//         +"<div class='form-group form-group-lg form-group-select-plus'>"
+//         +"<label>Child-2 age</label>"     
+//         +"<select class='form-control child2_"+i+"' name='childage2_"+i+"'>"
+//         +"<option selected='selected' value='0' >0</option>"
+//         +"<option value='1' >1</option>"
+//         +"<option value='2' >2</option>"
+//         +"<option value='3' >3</option>"
+//         +"<option value='4' >4</option>"
+//         +"<option value='5' >5</option>"
+//         +"<option value='6' >6</option>"
+//         +"<option value='7' >7</option>"
+//         +"<option value='8' >8</option>"
+//         +"<option value='9' >9</option>"
+//         +"<option value='10' >10</option>"
+//         +"<option value='11' >11</option>"
+//         +"<option value='12' >12</option>"
+//         +"</select>"
+//         +"</div>"
+//         +"</div>"
+//         +"<div class='col-md-1'>"
+//         +"<span class='remove remove_field'>Remove</span>"
+//         +"</div>");
+// }
+//     });
+
 
 // code by priya
 // hotels //
@@ -1190,7 +1189,6 @@ $('#searchbus_return').click(function(){
 $('#payment').click(function(){
     
         if($('.fname').val() == ''){
-            
             $('.errormgs').show();
              return false;
         if($('.lname').val() == ''){
@@ -1206,14 +1204,15 @@ $('#payment').click(function(){
              $('.errormgs').show();
               return false;
              if($('.email').val() == ''){
-           
-             $('.errormgs').show();
-            return false;
+                $('.errormgs').show();
+              return false;
                 }
             }
          }
     }}
     else{
+            
+      $('.payment').show();
        return true; 
     }
 });
@@ -1270,9 +1269,6 @@ $('.close_btn').click(function(){
   $('.bus-payment ').show();
 });
 
-$('.go_payment').click(function(){
-  $('.payment').show();
-});
 
 $('.hotel').click(function(){
   $('#tab-1').addClass('active in');

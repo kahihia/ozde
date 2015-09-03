@@ -206,7 +206,6 @@ $(function(){
 	//PRELOAD IMAGES
 	var $iwi = $(window).width();
 	var images = [
-		'../static/v2/img/palmbg.jpg',
 		'../static/v2/img/parisbg.jpg',
 		'../static/v2/img/couple.png',
 
@@ -601,11 +600,96 @@ $(document).on('change', '.child_act', function() {
          }
     });
 
-	
-	
-	
-	
-	
+$(document).ready(function($){	
+	var max_fields= 4;
+var i = 1;
+var add_room = $('.add_room_holder');
+$('.add_room_act').click(function (e) {
+    e.preventDefault();
+    if(i < max_fields){
+        i++;
+$(add_room).append("<div class='room"+i+" rooms' >"
+        +"<div class='w50percent'>"
+          +"<div class='wh90percent textleft'>"
+            +"<span class='opensans size13'><b>ROOM "+i+"</b></span><br/>"
+            +"<input class='form-control hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' /> " 
+          +"</div>"
+        +"</div>"
+
+        +"<div class='w50percentlast'>"  
+          +"<div class='wh90percent textleft right'>"
+           +"<div class='w50percent'>"
+             +" <div class='wh90percent textleft left'>"
+               +" <span class='opensans size13'><b>Adult</b></span>"
+                +"<select class='form-control mySelectBoxClass' name='adults"+i+"'>"
+                 +"<option>1</option>"
+                  +"<option selected>2</option>"
+                  +"<option>3</option>"
+                  +"<option>4</option>"
+                +"</select>"
+              +"</div>"
+            +"</div>"              
+            +"<div class='w50percentlast'>"
+              +"<div class='wh90percent textleft right'>"
+              +"<span class='opensans size13'><b>Child</b></span>"
+                +"<select class='form-control mySelectBoxClass child_act' name='childs"+i+"'>"
+                  +"<option selected>0</option>"
+                  +"<option>1</option>"
+                 +" <option>2</option>"
+                +"</select>"
+              +"</div>"
+            +"</div>"
+          +"</div>"
+            +"<div class='wh90percent textleft right'>"
+            +"<div class='w50percent child1 none'>"
+             +" <div class='wh90percent textleft left'>"
+               +" <span class='opensans size13'><b>Child 1</b></span>"
+                +"<select class='form-control mySelectBoxClass' name='childage1_"+i+"'>"
+                  +"<option>1</option>"
+                  +"<option>2</option>"
+                  +"<option>3</option>"
+                  +"<option>4</option>"
+                  +"<option>5</option>"
+                  +"<option>6</option>"
+                  +"<option>7</option>"
+                  +"<option>8</option>"
+                  +"<option>9</option>"
+                 +" <option>10</option>"
+                  +"<option>11</option>"
+                 +" <option>12</option>  "                            
+               +" </select>"
+              +"</div>"
+            +"</div>   "           
+            +"<div class='w50percentlast child2 none'>"
+              +"<div class='wh90percent textleft right'>"
+              +"<span class='opensans size13'><b>Child 2</b></span>"
+                +"<select class='form-control mySelectBoxClass' name='childage2_"+i+"'>"
+                  +"<option>1</option>"
+                  +"<option>2</option>"
+                  +"<option>3</option>"
+                  +"<option>4</option>"
+                  +"<option>5</option>"
+                  +"<option>6</option>"
+                  +"<option>7</option>"
+                  +"<option>8</option>"
+                  +"<option>9</option>"
+                  +"<option>10</option>"
+                  +"<option>11</option>"
+                  +"<option>12</option>"
+                +"</select>"
+              +"</div>"
+            +"</div>"
+          +" </div>"
+        +" </div>"
+          +"<span class='orange remove_field'>Delete</span><div class='clearfix'></div><br/>   "   
+       +"</div>");
+}
+    });
+$(add_room).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parents('.rooms').remove(); i--;
+    });
+
+    });	
 	
 	
 		
