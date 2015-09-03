@@ -3,29 +3,32 @@
 {% block content %}
 <section class="search-section">
     <div class="container">
-    	<div class="row padding20">
-        	<div class="col-md-2"></div>
-            <div class="col-md-6">
-            	<div class="row">
-                	<div class="col-md-3 marginbottom10">
-                          <ul class="nav navbar-nav pull-right">
-                            <li class="dropdown">
-                                <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
-                                <ul class="dropdown-menu" aria-labelledby="themes">
-                                  <li><a href="#">Flights</a></li>
-                                  <li><a href="#">Cars</a></li>
-                                 </ul>
-                            </li>
-                          </ul>
-                    </div>
-                 	<div class="col-md-7">
-                         <div class="input-group">
-                             <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
-                        </div>
-               		</div>
-                </div>
+    	<div class="row position_r">
+        	<div class="col-md-3">
+                <a class="logo" href="/v2" title="="oozaaoo></a>
+                <div class="clear_both"></div>
             </div>
-            <div class="col-md-4 top10">
+             <div class="col-md-5">
+                <!--	<div class="row">
+                    	<div class="col-md-3 marginbottom10">
+                              <ul class="nav navbar-nav pull-right">
+                                <li class="dropdown">
+                                    <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
+                                    <ul class="dropdown-menu" aria-labelledby="themes">
+                                      <li><a href="#">Flights</a></li>
+                                      <li><a href="#">Cars</a></li>
+                                     </ul>
+                                </li>
+                              </ul>
+                        </div>
+                     	<div class="col-md-7">
+                             <div class="input-group">
+                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                            </div>
+                   		</div>
+                    </div>-->
+            </div> 
+            <div class="col-md-4 bottom10 right0">
             	<a href="#" class="paddingleft20"><i class="fa fa-heart"></i> My Lists</a>
                 <a href="#" class="paddingleft20"><i class="ion ion-log-in"></i> Manage Booking</a>
             </div>
@@ -441,7 +444,9 @@
                                       <div class="panel-body">
                                         <div class="row">
                                           <div class="col-md-3">                                                       
-                                          <img src="{{hotel.t}}" alt="Image Alternative text" title="{{hotel.hn}}" />
+                                            <div class="list_hotel_img_holder">
+                                                <img src="{{hotel.t}}" alt="Image Alternative text" title="{{hotel.hn}}" /><!-- list_hotel_img_holder -->
+                                            </div>
                                           </div>
                                           
                                           <div class="col-md-7 nopaddingleft">
