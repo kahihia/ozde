@@ -30,9 +30,9 @@ from payu.models import *
 
 class goibiboAPI(object):
 
-	''' Goibibo Py Client'''
-	BASE = "http://pp.goibibobusiness.com/api/hotels/b2b/"
-	BASE_BUS = "http://pp.goibibobusiness.com/api/bus/"
+	# ''' Goibibo Py Client'''
+	# BASE = "http://pp.goibibobusiness.com/api/hotels/b2b/"
+	# BASE_BUS = "http://pp.goibibobusiness.com/api/bus/"
 
 	def __init__(self, username, password):
 		self.username = username
@@ -48,57 +48,47 @@ class goibiboAPI(object):
 
 	def getHotelsByCity(self):
 		import requests
-		return (requests.get(self.BASE + "get_city_list", auth=(self.username, self.password)).json())
+		return (requests.get(settings.HOTEL_BASE + "get_city_list", auth=(self.username, self.password)).json())
 
 	def SearchHotelsByCity(self, cityid, checkin, checkout,rooms,adults1=0, nochildrens1=0,childage1_1=0,childage2_1=0, adults2=0, nochildrens2=0,childage1_2=0,childage2_2=0, adults3=0, nochildrens3=0,childage1_3=0,childage2_3=0, adults4=0, nochildrens4=0,childage1_4=0,childage2_4=0):
 		if rooms=='4':
-			query = self.BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4) 
+			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4) 
 			
 		elif rooms=='3':
-			query = self.BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3) 
+			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3) 
 		elif rooms=='2':
-			query = self.BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2) 
+			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2) 
 		else:
-			query = self.BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1) 
-			print "query", query
-		# print "response", requests.get(query, auth=(self.username, self.password)).json()	
+			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelDetailsByCity(self, joindata, hc, ibp, fwdp):
-		# print "hotelcode ======>", hc
-		query = self.BASE + "get_hotel_details" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp=v3"+"&fwdp=''"
-		print "search details ======>", query
+		query = settings.HOTEL_BASE + "get_hotel_details" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp=v3"+"&fwdp=''"
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelReviewsDetails(self, hc):
-		# print "hotelcode ======>", hc
-		query = self.BASE + "get_hotel_review" + "?hc="+hc
-		# print "HotelReviews ======>", query
-		# print "response", requests.get(query, auth=(self.username, self.password)).json()
+		query = settings.HOTEL_BASE + "get_hotel_review" + "?hc="+hc
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def getHotelCancelPolicy(self):
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def provisionalbooking(self, joindata, hc, ibp, fwdp, rtc, rpc):
-		print "hotelcode ======>", hc
-		query = self.BASE + "provisional_booking" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp="+ibp+"&rtc="+rtc+"&rpc="+rpc
+		query = settings.HOTEL_BASE + "provisional_booking" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp="+ibp+"&rtc="+rtc+"&rpc="+rpc
 		prbook = {'fwdp':{ }, 'customer_details':{"firstname" : "abc", "lastname" : "xyz", "email" : "xyz@abc.com", "mobile": "1234567891", "country_phone_code" : "+91", "title" : "Mr"}}
-		print "provisionalbooking ======>", query           
-		print "prbook ======>", prbook
 		return (requests.post(query, data=prbook, auth=(self.username, self.password)).json())
 		
 	def BookingStatus(self, gobookingid):
-		query = self.BASE + "get_booking_status?gobookingid="+gobookingid
+		query = settings.HOTEL_BASE + "get_booking_status?gobookingid="+gobookingid
 		print "response",requests.get(query, auth=(self.username, self.password)).json() 
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def BookingDetails(self, gobookingid):
-		query = self.BASE + "get_booking_details?gobookingid="+gobookingid
+		query = settings.HOTEL_BASE + "get_booking_details?gobookingid="+gobookingid
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def RefundDetails(self, gobookingid):
-		query = self.BASE + "get_refund_details?gobookingid="+gobookingid
+		query = settings.HOTEL_BASE + "get_refund_details?gobookingid="+gobookingid
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 
@@ -107,29 +97,29 @@ class goibiboAPI(object):
 		#=========================BUS API===============================#
 	def Searchbus(self,source,destination,dateofdeparture,dateofarrival,trip):
 		if trip == 'oneway':
-			query = self.BASE_BUS+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)
+			query = settings.BUS_BASE+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)
 		else:
-			query = self.BASE_BUS+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)+"&dateofarrival="+str(dateofarrival)
+			query = settings.BUS_BASE+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)+"&dateofarrival="+str(dateofarrival)
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def Busseat(self,skey):
-		query = self.BASE_BUS+"seatmap/?skey="+skey
+		query = settings.BUS_BASE+"seatmap/?skey="+skey
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
 
 	def CancelPolicy(self,skey):
-		query=self.BASE_BUS+"cp/?skey="+skey
+		query=settings.BUS_BASE+"cp/?skey="+skey
 		return query,(requests.get(query, auth=(self.username, self.password)).json()) 
 
 	def CancelTicket(self,pid):
-		query=self.BASE_BUS+"cancel/?pid="+pid+"skey=asd"
+		query=settings.BUS_BASE+"cancel/?pid="+pid+"skey=asd"
 		return query,(requests.get(query, auth=(self.username, self.password)).json())
 
 	def BookConform(self,secret,bookingid,clientkey):
-		query=self.BASE_BUS+"bookticket/?bookingid="+bookingid+"&secret="+secret+"&clientkey="+clientkey
+		query=settings.BUS_BASE+"bookticket/?bookingid="+bookingid+"&secret="+secret+"&clientkey="+clientkey
 		return query,(requests.get(query, auth=(self.username, self.password)).json())
 		
 	def BookStatus(self,pid):
-		query=self.BASE_BUS+"status/?pid="+pid
+		query=settings.BUS_BASE+"status/?pid="+pid
 		return query,(requests.get(query, auth=(self.username, self.password)).json())
 
 			#=========================Flight API===============================#	

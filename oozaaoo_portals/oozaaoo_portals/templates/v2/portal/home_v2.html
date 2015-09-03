@@ -1,7 +1,7 @@
 {% extends 'v2/base_v2.html' %}
 {% load i18n %}
 {% block content %}
- 
+
  <div class="bluediv">
         <div class="loader"><a href="/"><img class="logo" src="{{ STATIC_URL }}v2/img/logo.png" alt="" /></a><br>
         <img src="{{ STATIC_URL }}v2/img/loading.gif" alt="" /></div>
@@ -12,11 +12,12 @@
             <ul class='tabs'>
                 <li class="b1" onclick='mySelectUpdate(); changeAnimation1();'><a href='#tab1'><div class="anihome"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Home</div></a></li>
                 <li class="b2" onclick='mySelectUpdate(); changeAnimation2();'><a href='#tab2'><div class="anihotels"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Hotels</div></a></li>
-                <li class="b3" onclick='mySelectUpdate(); changeAnimation3();'><a href='#tab3'><div class="aniflights"><img src="{{ STATIC_URL }}img/spacer.png" alt=""/>Flights</div></a></li>
+                <li class="b3" onclick='mySelectUpdate(); changeAnimation3();'><a href='#tab3'><div class="aniflights"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Flights</div></a></li>
                 <li class="b4" onclick='mySelectUpdate(); changeAnimation4();'><a href='#tab4'><div class="anibuses"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Buses</div></a></li>
-               <li class="b5" onclick='mySelectUpdate(); changeAnimation5();'><a href='#tab5'><div class="anicars"><img src="{{ STATIC_URL }}img/spacer.png" alt=""/>Cars</div></a></li>
-                <li class="b6" onclick='mySelectUpdate(); changeAnimation6();'><a href='#tab6'><div class="anicruises"><img src="{{ STATIC_URL }}img/spacer.png" alt=""/>Cruises</div></a></li>
-                <li class="b7" onclick='mySelectUpdate(); changeAnimation7();'><a href='#tab7'><div class="anicruises"><img src="{{ STATIC_URL }}img/spacer.png" alt=""/>Cruises</div></a></li>
+               <li class="b5" onclick='mySelectUpdate(); changeAnimation5();'><a href='#tab5'><div class="anicruises"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Cruises</div></a></li>
+               <li class="b7"><a href='#tab5'><div class="anicars"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Tour packages</div></a></li>
+                <!-- <li class="b6" onclick='mySelectUpdate(); changeAnimation6();'><a href='#tab6'><div class="anicruises"><img src="{{ STATIC_URL }}v2/img/spacer.png" alt=""/>Tour Packages</div></a></li> -->
+              
             </ul>
         </div>
         
@@ -34,10 +35,10 @@
         <img class="girl" src="{{ STATIC_URL }}v2/img/flight.jpg" alt="" />
         <img class="girl2" src="{{ STATIC_URL }}v2/img/hotel.jpg" alt="" />
         <img class="girl-car" src="{{ STATIC_URL }}v2/img/bus.jpg" alt="" />
-        <img class="car" src="{{ STATIC_URL }}v2/img/car.jpg" alt="" />
+        <!-- <img class="car" src="{{ STATIC_URL }}v2/img/car.jpg" alt="" /> -->
         <img class="girl-cruise" src="{{ STATIC_URL }}v2/img/ship.jpg" alt="" />
-        <img class="some1" src="{{ STATIC_URL }}v2/img/some1.jpg" alt="" />
-        <img class="some2" src="{{ STATIC_URL }}v2/img/some2.jpg" alt="" />
+        <!-- <img class="some1" src="{{ STATIC_URL }}v2/img/some1.jpg" alt="" /> -->
+       <!--  <img class="some2" src="{{ STATIC_URL }}v2/img/some2.jpg" alt="" /> -->
         <div class="palmbgcontainer"></div>
         <img class="dubai" src="{{ STATIC_URL }}v2/img/flight.jpg" alt="" />
         <img class="plane" src="{{ STATIC_URL }}v2/img/some1.jpg" alt="" />
@@ -61,7 +62,9 @@
       <!-- <input type="text" class="form-control" placeholder="Greece"> -->
       <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
       <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>      
-      <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filterkeyword" value="" name="filterkeyword" />          
+      <input class="typeahead form-control" placeholder="Select your city" type="hidden" id="filterkeyword" value="" name="filterkeyword" />
+          <div class="error_mgs" style="display:none; color:red;">Please Select the Check Out-Date</div>
+
       <br/>
       
       <div class="w50percent">
@@ -82,313 +85,86 @@
       </div>
       
       <div class="clearfix"></div>
-      
-      <div class="room1 rooms" >
-        <div class="w50percent">
-          <div class="wh90percent textleft">
-            <span class="opensans size13"><b>ROOM 1</b></span><br/>
-            
-            <div class="addroom1 block"><a href="#room2" onclick="addroom2()" class="grey">+ Add room</a></div>
+      <div class="add_room_holder">
+          <div class="room1 rooms" >
+          <div class="w50percent">
+            <div class="wh90percent textleft">
+              <span class="opensans size13"><b>ROOM 1</b></span><br/>
+              
+              <input class="form-control hidden_input" name="room1" type="hidden" value="1" readonly="readonly" /> 
+            </div>
           </div>
-        </div>
 
-        <div class="w50percentlast">  
-          <div class="wh90percent textleft right">
-            <div class="w50percent">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Adult</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option selected>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child</b></span>
-                <select class="form-control mySelectBoxClass child_act">
-                  <option selected>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                </select>
-              </div>
-            </div>
-          </div>
-                    <div class="wh90percent textleft right">
-            <div class="w50percent child1 none">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Child 1</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>                                  
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast child2 none">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child 2</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                </select>
+          <div class="w50percentlast">  
+            <div class="wh90percent textleft right">
+              <div class="w50percent">
+                <div class="wh90percent textleft left">
+                  <span class="opensans size13"><b>Adult</b></span>
+                  <select class="form-control mySelectBoxClass" name="adults1">
+                    <option>1</option>
+                    <option selected>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
+                </div>
+              </div>              
+              <div class="w50percentlast">
+                <div class="wh90percent textleft right">
+                <span class="opensans size13"><b>Child</b></span>
+                  <select class="form-control mySelectBoxClass child_act" name="childs1">
+                    <option selected>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-                
+              <div class="wh90percent textleft right">
+              <div class="w50percent child1 none">
+                <div class="wh90percent textleft left">
+                  <span class="opensans size13"><b>Child 1</b></span>
+                  <select class="form-control mySelectBoxClass" name="childage1_1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>                                  
+                  </select>
+                </div>
+              </div>              
+              <div class="w50percentlast child2 none">
+                <div class="wh90percent textleft right">
+                <span class="opensans size13"><b>Child 2</b></span>
+                  <select class="form-control mySelectBoxClass" name="childage2_1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>         
+          </div><div class="clearfix"></div><br/>
       </div>
-      
-      <div class="room2 none rooms">
-        <div class="clearfix"></div><div class="line1"></div>
-        <div class="w50percent">
-          <div class="wh90percent textleft">
-            <span class="opensans size13"><b>ROOM 2</b></span><br/>
-            <div class="addroom2 block grey"><a href="#" onclick="addroom3()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom2()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
-          </div>
-        </div>
-
-        <div class="w50percentlast">  
-          <div class="wh90percent textleft right">
-            <div class="w50percent">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Adult</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option selected>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child</b></span>
-                <select class="form-control mySelectBoxClass child_act">
-                  <option selected>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                </select>
-              </div>
-            </div>
-          </div>
-                    <div class="wh90percent textleft right">
-            <div class="w50percent child1 none">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Child 1</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>                                  
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast child2 none">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child 2</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>    
-
-      <div class="room3 none rooms">
-        <div class="clearfix"></div><div class="line1"></div>
-        <div class="w50percent">
-          <div class="wh90percent textleft">
-            <span class="opensans size13"><b>ROOM 3</b></span><br/>
-            <div class="addroom3 block grey"><a href="#" onclick="addroom4()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom3()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
-          </div>
-        </div>
-
-        <div class="w50percentlast">  
-          <div class="wh90percent textleft right">
-            <div class="w50percent">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Adult</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option selected>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child</b></span>
-                <select class="form-control mySelectBoxClass child_act">
-                  <option selected>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                </select>
-              </div>
-            </div>
-          </div>
-                    <div class="wh90percent textleft right">
-            <div class="w50percent child1 none">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Child 1</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>                                  
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast child2 none">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child 2</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-            
-            <div class="room4 none rooms">
-        <div class="clearfix"></div><div class="line1"></div>
-        <div class="w50percent">
-          <div class="wh90percent textleft">
-            <span class="opensans size13"><b>ROOM 4</b></span><br/>
-            <div class="addroom4 block grey"><a href="#" onclick="addroom4()" class="grey">+ Add room</a> | <a href="#" onclick="removeroom4()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
-          </div>
-        </div>
-
-        <div class="w50percentlast">  
-          <div class="wh90percent textleft right">
-            <div class="w50percent">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Adult</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option selected>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child</b></span>
-                <select class="form-control mySelectBoxClass child_act">
-                  <option selected>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                </select>
-              </div>
-            </div>
-          </div>
-                    <div class="wh90percent textleft right">
-            <div class="w50percent child1 none">
-              <div class="wh90percent textleft left">
-                <span class="opensans size13"><b>Child 1</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>                                  
-                </select>
-              </div>
-            </div>              
-            <div class="w50percentlast child2 none">
-              <div class="wh90percent textleft right">
-              <span class="opensans size13"><b>Child 2</b></span>
-                <select class="form-control mySelectBoxClass">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="btn-search2">Search</button> 
-      </form>
+           <div class='addroom2 block'><span class='add_room_act'>+ Add room</span></div>
+          <button type="submit" class="btn-search2" id="searchBtn">Search</button> 
+          </form>
     </div>
     <div id="tab4">
         <form action="{% url "bus.views.search_bus_v2" %}" method="post" name="bus_search" class="bus_search" id="myform">
@@ -404,7 +180,7 @@
                 <div class="wh90percent textleft">
                     <span class="opensans size13"><b>From</b></span>
                    <!--  <input type="text" class="form-control" placeholder="City"> -->
-                    <input class="typeahead source form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus" name="source"/>
+                    <input class="typeahead source form-control" placeholder="Select your source city" type="text" id="filter_bus" name="source"/>
                     <span class="error" style="display:none; color:red;">please enter the source</span>
                 </div>
             </div>
@@ -413,7 +189,7 @@
                 <div class="wh90percent textleft right">
                     <span class="opensans size13"><b>To</b></span>
                    <!--  <input type="text" class="form-control" placeholder="City"> -->
-                   <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des" name="destination" />
+                   <input class="typeahead destination form-control" placeholder="Select your destination city" type="text" id="filter_bus_des" name="destination" />
                   <span class="error" style="display:none; color:red;">please enter the destination</span>
                 </div>
             </div>
@@ -423,14 +199,16 @@
             <div class="w50percent">
                 <div class="wh90percent textleft">
                     <span class="opensans size13"><b>Departure</b></span>
-                    <input type="text" class="form-control mySelectCalendar2" id="datepicker3" placeholder="mm/dd/yyyy" name="start" />
+                    <input type="text" class="form-control mySelectCalendar2" id="datepicker3" placeholder="yyyy/mm/dd" name="start" />
+                    <span class="error" style="display:none; color:red;">please enter the Departure date</span>
                 </div>
             </div>
 
             <div class="w50percentlast return_date">
                 <div class="wh90percent textleft right ">
                     <span class="opensans size13"><b>Return</b></span>
-                    <input type="text" class="form-control mySelectCalendar2" id="datepicker4" placeholder="mm/dd/yyyy" name="end" />
+                    <input type="text" class="form-control mySelectCalendar2" id="datepicker4" placeholder="yyyy/mm/dd" name="end" />
+                    please enter return date
                 </div>
             </div>
             
@@ -438,7 +216,7 @@
             
             
 
-                <button type="submit" class="btn-search2">Search</button>   
+                <button type="submit" class="btn-search2" id="searchbus_return">Search</button>   
             </form> 
         </div>  
         

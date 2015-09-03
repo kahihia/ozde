@@ -3,26 +3,32 @@
 //------------------------------
 jQuery(function($) {
 "use strict";
+var nowDate = new Date();
+var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0)
 	$( "#datepicker" ).datepicker();
 	$( "#datepicker2" ).datepicker();
 	$( "#datepicker3" ).datepicker(
 		{
 		todayHighlight: true,
+		startDate: today,
 	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker4" ).datepicker(
 		{
 		todayHighlight: true,
+		startDate: today,
 	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker5" ).datepicker();
 	$( "#datepicker6" ).datepicker();
 	$( "#datepicker7" ).datepicker({
 		todayHighlight: true,
+		startDate: today,
 	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker8" ).datepicker({
 		todayHighlight: true,
+		startDate: today,
 	    format: 'yyyy/mm/dd'
 	});
 	$( "#datepicker9" ).datepicker();
@@ -200,7 +206,6 @@ $(function(){
 	//PRELOAD IMAGES
 	var $iwi = $(window).width();
 	var images = [
-		'../static/v2/img/palmbg.jpg',
 		'../static/v2/img/parisbg.jpg',
 		'../static/v2/img/couple.png',
 
@@ -284,7 +289,7 @@ $(function(){
 									//couple & bg animation
 									setTimeout(function (){
 										var $cw = $('.couple').width();
-										$('.couple').animate({'opacity': 1,'left': -$cw/5.6 +'px'},{ duration: 4000, queue: false });
+										$('.couple').animate({'opacity': 1,'left': -$cw/5.6 +'px','width':'100%'},{ duration: 8000, queue: false });
 										$('.leaf').animate({'opacity': 1,'left': 0 +'px'},{ duration: 4000, queue: false });
 
 										$('.palmbgcontainer').animate({
@@ -377,7 +382,7 @@ $(function(){
 									//couple & bg animation
 									setTimeout(function (){
 										var $cw = $('.couple').width();
-										$('.couple').animate({'opacity': 1,'left': -$cw/5.6 +'px'},{ duration: 4000, queue: false });
+										$('.couple').animate({'opacity': 1,'left': -$cw/5.6 +'px'},{ duration: 8000, queue: false });
 										$('.leaf').animate({'opacity': 1,'left': 0 +'px'},{ duration: 4000, queue: false });
 
 										$('.palmbgcontainer').animate({
@@ -553,7 +558,7 @@ function changeAnimation5(){
 	$('.car').animate({'opacity': 0,'left': -45 +'%'});							
 
 	var $gcw = $('.girl-cruise').width();
-	$('.girl-cruise').animate({'opacity': 1,'left': 0 +'px'});						
+	$('.girl-cruise').animate({'opacity': 1,'left': 0 +'px','width':'100%'});						
 	$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
 }
 function changeAnimation6(){
@@ -567,30 +572,13 @@ function changeAnimation6(){
 	$('.girl-car').animate({'opacity': 0,'left': -420 +'px'});					
 	$('.road').animate({'opacity': 0,'right': -400 +'px'});				
 	$('.car').animate({'opacity': 0,'left': -45 +'%'});							
-	$('.girl-cruise').animate({'opacity': 0,'left': -420 +'px'});
-	var $gcw = $('.some').width();
-	$('.some1').animate({'opacity': 1,'left': 0 +'px'});
-	$('.some2').animate({'opacity': 0,'left': 0 +'px'});						
-	//$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
-}	
 
-function changeAnimation7(){
-"use strict";
-	$('.couple').animate({'opacity': 0,'left': -220 +'px'});
-	$('.girl').animate({'opacity': 0,'left': -400 +'px'});			
-	$('.girl2').animate({'opacity': 0,'left': -400 +'px'});				
-	$('.palmbgcontainer').animate({'opacity': 0,'left': -750 +'px'});		
-	$('.dubai').animate({'opacity': 0,'left': -200 +'px'});	
-	$('.plane').animate({'opacity': 0,'left': -100 +'px'});	
-	$('.girl-car').animate({'opacity': 0,'left': -420 +'px'});					
-	$('.road').animate({'opacity': 0,'right': -400 +'px'});				
-	$('.car').animate({'opacity': 0,'left': -45 +'%'});							
-	$('.girl-cruise').animate({'opacity': 0,'left': -420 +'px'});
-	var $gcw = $('.some2').width();
-	$('.some2').animate({'opacity': 1,'left': 0 +'px'});
-	$('.some1').animate({'opacity': 0,'left': 0 +'px'});						
-	//$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
+	var $gcw = $('.some1').width();
+	$('.some1').animate({'opacity': 1,'left': 0 +'px','width':'100%'});						
+	$('.cruise').animate({'opacity': 1,'right': -200 +'px'},{ duration: 1000, queue: false });			
 }
+
+
 /** Home Page Hotel Child Age **/
 $(document).on('change', '.child_act', function() {     
          if($(this).val() == 0 ) {
@@ -612,11 +600,96 @@ $(document).on('change', '.child_act', function() {
          }
     });
 
-	
-	
-	
-	
-	
+$(document).ready(function($){	
+	var max_fields= 4;
+var i = 1;
+var add_room = $('.add_room_holder');
+$('.add_room_act').click(function (e) {
+    e.preventDefault();
+    if(i < max_fields){
+        i++;
+$(add_room).append("<div class='room"+i+" rooms' >"
+        +"<div class='w50percent'>"
+          +"<div class='wh90percent textleft'>"
+            +"<span class='opensans size13'><b>ROOM "+i+"</b></span><br/>"
+            +"<input class='form-control hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' /> " 
+          +"</div>"
+        +"</div>"
+
+        +"<div class='w50percentlast'>"  
+          +"<div class='wh90percent textleft right'>"
+           +"<div class='w50percent'>"
+             +" <div class='wh90percent textleft left'>"
+               +" <span class='opensans size13'><b>Adult</b></span>"
+                +"<select class='form-control mySelectBoxClass' name='adults"+i+"'>"
+                 +"<option>1</option>"
+                  +"<option selected>2</option>"
+                  +"<option>3</option>"
+                  +"<option>4</option>"
+                +"</select>"
+              +"</div>"
+            +"</div>"              
+            +"<div class='w50percentlast'>"
+              +"<div class='wh90percent textleft right'>"
+              +"<span class='opensans size13'><b>Child</b></span>"
+                +"<select class='form-control mySelectBoxClass child_act' name='childs"+i+"'>"
+                  +"<option selected>0</option>"
+                  +"<option>1</option>"
+                 +" <option>2</option>"
+                +"</select>"
+              +"</div>"
+            +"</div>"
+          +"</div>"
+            +"<div class='wh90percent textleft right'>"
+            +"<div class='w50percent child1 none'>"
+             +" <div class='wh90percent textleft left'>"
+               +" <span class='opensans size13'><b>Child 1</b></span>"
+                +"<select class='form-control mySelectBoxClass' name='childage1_"+i+"'>"
+                  +"<option>1</option>"
+                  +"<option>2</option>"
+                  +"<option>3</option>"
+                  +"<option>4</option>"
+                  +"<option>5</option>"
+                  +"<option>6</option>"
+                  +"<option>7</option>"
+                  +"<option>8</option>"
+                  +"<option>9</option>"
+                 +" <option>10</option>"
+                  +"<option>11</option>"
+                 +" <option>12</option>  "                            
+               +" </select>"
+              +"</div>"
+            +"</div>   "           
+            +"<div class='w50percentlast child2 none'>"
+              +"<div class='wh90percent textleft right'>"
+              +"<span class='opensans size13'><b>Child 2</b></span>"
+                +"<select class='form-control mySelectBoxClass' name='childage2_"+i+"'>"
+                  +"<option>1</option>"
+                  +"<option>2</option>"
+                  +"<option>3</option>"
+                  +"<option>4</option>"
+                  +"<option>5</option>"
+                  +"<option>6</option>"
+                  +"<option>7</option>"
+                  +"<option>8</option>"
+                  +"<option>9</option>"
+                  +"<option>10</option>"
+                  +"<option>11</option>"
+                  +"<option>12</option>"
+                +"</select>"
+              +"</div>"
+            +"</div>"
+          +" </div>"
+        +" </div>"
+          +"<span class='orange remove_field'>Delete</span><div class='clearfix'></div><br/>   "   
+       +"</div>");
+}
+    });
+$(add_room).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parents('.rooms').remove(); i--;
+    });
+
+    });	
 	
 	
 		
