@@ -20,6 +20,18 @@
                                     <p class="padding20 text-center bold">
                                         Sign up now and receive exclusive offers with huge discounts from us!
                                     </p>
+                                    <p>
+                                        {% if request.REQUEST.error %}
+                                            {%for message in messages%}
+                                                <h4 class="text-center text-danger">{{message}}</h4>
+                                            {%endfor%}
+                                        {%endif%}
+                                    </p>
+                                    <p>
+                                        <h4 class="text-center text-info">
+                                        {{message}}
+                                        </h4>
+                                    </p>
                                     <div class="sign-in-form">
                                         <form action="{% url "hotels.views.registration_v2" %}" method="post">
                                             {% csrf_token %}
@@ -29,6 +41,7 @@
                                             <input class="form-control" placeholder="phone no" type="text" name="phone" />                                          
                                             <input class="form-control" placeholder="e.g.2015-08-19" type="text" name="dob" />
                                             <br>
+                                            <input type="hidden" value="{% if request.REQUEST.next %}{{ request.REQUEST.next }}{% else %}{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}{% else %}/{% endif %}{% endif %}" name="next" />
                                             <button class="btn btn-primary width100" type="submit">Create new account</button> 
                                             <p><input type="checkbox" /> By clicking you agree to <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy.</a></p>
                                             

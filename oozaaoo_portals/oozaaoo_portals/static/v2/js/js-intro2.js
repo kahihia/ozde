@@ -688,8 +688,73 @@ $(add_room).append("<div class='room"+i+" rooms' >"
 $(add_room).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parents('.rooms').remove(); i--;
     });
+$('#searchBtn').click(function(){ 
+    if($('.typeahead').val() == '') {
+        $('.error_mgs_city').show();
+        return false;
+    }
+    else if($('.startdate').val() == ''){
+        $('.error_mgs_start_date').show();
+        return false;
+    }
+    else if($('.enddate').val() == ''){
+        $('.error_mgs_end_date').show();
+        return false;
+    }
+    else if($('.adults').val() == ''){
+        $('.error_mgs_adult').show();
+        return false;
+    }
+    else if($('.child').val() == ''){
+        $('.error_mgs_child').show();
+        return false;
+    }
+    else if($('.child_age_1').val() == ''){
+        $('.error_mgs_child_age1').show();
+        return false;
+    }
+    else if($('.child_age_2').val() == ''){
+        $('.error_mgs_child_age2').show();
+        return false;
+    }
+    else{
+        return true;
+    }
+});
+$('#searchbus_return').click(function(){
+
+            if($('.return').val() == '') {
+                
+                $('.error').show();
+                return false;
+              }    
+            else{
+                return true;
+             }
+             if($('.source').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }   
+             if($('.destination').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }
+             if($('.depart').val() == '') {
+                $('.error').show();
+                return false;
+              }  
+              else{
+                return true;
+             }
+});
+
+
 
     });	
 	
-	
-		

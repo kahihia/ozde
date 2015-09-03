@@ -29,8 +29,18 @@
                     </div>-->
             </div> 
             <div class="col-md-4 bottom10 right0">
-            	<a href="#" class="paddingleft20"><i class="fa fa-heart"></i> My Lists</a>
-                <a href="#" class="paddingleft20"><i class="ion ion-log-in"></i> Manage Booking</a>
+            {% if request.user.is_authenticated %}
+                        <div class="top-user-area clearfix">
+                            <a href="/">{{request.user.first_name}}</a>
+                            <a href="/v2/logout/">Logout</a>
+                            <a href="/v2/profile">Myprofile</a>
+                            <a href="/mybooking/">MyBooking</a>
+                        </div>
+                    {% else %}
+                        <div class="top-user-area clearfix">
+                            <a href="/v2/login">Login</a>
+                        </div>
+                    {% endif %}
             </div>
         </div>
     </div>

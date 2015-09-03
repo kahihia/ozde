@@ -1105,28 +1105,28 @@ function abortTimer() { // to be called when you want to stop the timer
 
 // code by priya
 // hotels //
-$('#searchBtn').click(function(){ 
-    if($('.typeahead').val() == '') {
-        // alert("enter the destination");
-        $('.error_mgs').show();
-        return false;
-        if($('.startdate').val() == ''){
-            $('.error_mgs').show();
-                return false;
-            if($('.enddate').val() == ''){
-                $('.error_mgs').show();
-                return false;
-                if($('.child_age').val() == ''){
-                    $('.error_mgs').show();
-                    return false;
-                }
-            }
-        }
-    }
-    else{
-        return true;
-    }
-});
+// $('#searchBtn').click(function(){ 
+//     if($('.typeahead').val() == '') {
+//         // alert("enter the destination");
+//         $('.error_mgs').show();
+//         return false;
+//         if($('.startdate').val() == ''){
+//             $('.error_mgs').show();
+//                 return false;
+//             if($('.enddate').val() == ''){
+//                 $('.error_mgs').show();
+//                 return false;
+//                 if($('.child_age').val() == ''){
+//                     $('.error_mgs').show();
+//                     return false;
+//                 }
+//             }
+//         }
+//     }
+//     else{
+//         return true;
+//     }
+// });
 $('#paynow').click(function(){
     if($('.fname').val() == ''){
             // alert("please enter the first name");
@@ -1150,38 +1150,7 @@ $('#paynow').click(function(){
     }
 });
 
-$('#searchbus_return').click(function(){
 
-            if($('.return').val() == '') {
-                
-                $('.error').show();
-                return false;
-              }    
-            else{
-                return true;
-             }
-             if($('.source').val() == '') {
-                $('.error').show();
-                return false;
-              }  
-              else{
-                return true;
-             }   
-             if($('.destination').val() == '') {
-                $('.error').show();
-                return false;
-              }  
-              else{
-                return true;
-             }
-             if($('.depart').val() == '') {
-                $('.error').show();
-                return false;
-              }  
-              else{
-                return true;
-             }
-});
 
 
 
@@ -1215,7 +1184,21 @@ $('#payment').click(function(){
        return true; 
     }
 });
-
+$('.login').click(function(){
+    if($('input[name="username"]').val() == ''){
+            // alert("please enter the first name");
+            $('.errormgs').show();
+            return false;
+        if($('input[name="password"]').val() == ''){
+            // alert("please enter the last name");
+             $('.errormgs').show();
+             return false;
+         }
+    }
+    else{
+       return true; 
+    }
+});
 //  var CheckinDate=new Date();
 //  var CheckoutDate=new Date(); 
 //  var diff=new Date();
