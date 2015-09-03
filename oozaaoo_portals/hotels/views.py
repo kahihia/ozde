@@ -57,7 +57,7 @@ def registration_v2(request):
 	"""
 	User Registration
 	"""
-	
+		
 	try:
 		logout(request)
 		message = None
@@ -499,7 +499,7 @@ def gethotellist_v2(request):
 		else:		
 			rooms=1
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
-		print "getcityresponse", getcityresponse
+		# print "getcityresponse", getcityresponse
 		try:
 			cityFields = ['country']
 			city = {}
@@ -518,7 +518,7 @@ def gethotellist_v2(request):
 					if k in hotelFields:
 						_hotel[k] = v
 				hotels.append(_hotel)
-			print "hotels", hotels
+			# print "hotels", hotels
 			
 			##################---Added by muthu---#####################
 			loc_fields=['l']
@@ -613,72 +613,73 @@ def gethoteldetails_v2(request):
 	d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
 	no_night=str((d1-d0).days)	
 
-	# try:
-	query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
-	print "gethoteldetailresponse",gethoteldetailresponse
-	gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
-	# print "gethotelreviewresponse", gethotelreviewresponse
+	try:
+		query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
+		# print "gethoteldetailresponse",gethoteldetailresponse
+		gethotelreviewresponse = GO.getHotelReviewsDetails(hc)
+		# print "gethotelreviewresponse", gethotelreviewresponse
 
-	# # /** Hotel  Details */
-	# try:
-	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data']
-	_hotel = {}
-	for k, v in gethoteldetailresponse['data'].iteritems():		
-		# _hotel = {'hn':hotel['hn']}		
-		if k in hoteldetails:
-			_hotel[k] = v
+		# # /** Hotel  Details */
+		try:
+			hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data']
+			_hotel = {}
+			for k, v in gethoteldetailresponse['data'].iteritems():		
+				# _hotel = {'hn':hotel['hn']}		
+				if k in hoteldetails:
+					_hotel[k] = v
 
-	# /** Hotel  Gallery Image */		
-	_hotel['gallery']= gethoteldetailresponse['data']['gallery']
+			# /** Hotel  Gallery Image */		
+			_hotel['gallery']= gethoteldetailresponse['data']['gallery']
 
-	hotelroominfos = []
-	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
-		# print "hotelroominfo", hotelroominfo
-		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'mp':hotelroominfo['mp'], 'ttc':hotelroominfo['ttc'], 'tp':hotelroominfo['tp'], 'tp_alltax':hotelroominfo['tp_alltax']}
-		hotelroominfos.append(_rhotelinfo)	
-	print "hotelroominfos", hotelroominfos
+			hotelroominfos = []
+			for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
+				# print "hotelroominfo", hotelroominfo
+				_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'mp':hotelroominfo['mp'], 'ttc':hotelroominfo['ttc'], 'tp':hotelroominfo['tp'], 'tp_alltax':hotelroominfo['tp_alltax'], 'checkintime':hotelroominfo['checkintime'], 'checkouttime':hotelroominfo['checkouttime']}
+				hotelroominfos.append(_rhotelinfo)	
+			# print "hotelroominfos", hotelroominfos
 
-	# /** Hotel  Reviews Details */		
-	# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
-	# reviews = []
-	# for hotelreview in gethotelreviewresponse['data']:
-	# 	print "hotelreview", hotelreviewt
-	# 	review = {}
-	# 	for f in hotelreviewsFields:
-	# 		if f in hotelreview, 'mp'::t
-	# 		 		review[f] = hotelreview[f]
-	# 		else:
-	# 				review[f] = None
-	# 	reviews.append(review)
-	# print "reviews","***************", reviews
-	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}
-	# except:
-	# 	messages.add_message(request, messages.INFO,'API not responding')
-	# 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
-	# reviews = []
-	# for hotelreview in gethotelreviewresponse['data']:
-	# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
-	# 	reviews.append(_rhotel)
-	# return HttpResponse(simplejson.dumps(hotelroominfos), mimetype='application/json')
-	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
-	response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos,  'no_night': no_night}, context_instance=RequestContext(request))
-	response.set_cookie('hc',hc)
-	response.set_cookie('ibp',ibp)
-	response.set_cookie('fwdp',fwdp)
-	for hotelroominfo in hotelroominfos:
-		response.set_cookie('rtc',hotelroominfo['rtc'])
-		response.set_cookie('rpc',hotelroominfo['rpc'])		
-	response.set_cookie('hn',_hotel['hn'])
-	response.set_cookie('prc',_hotel['prc'])
-	response.set_cookie('c',_hotel['c'])
-	response.set_cookie('l',_hotel['l'])
-	response.set_cookie('hr',_hotel['hr'])
-	response.set_cookie('la',_hotel['la'])
-	response.set_cookie('lo',_hotel['lo'])
-	response.set_cookie('no_night', no_night)
-	# except:
-	# 	messages.add_message(request, messages.INFO,'User entered data incorrect')
-	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
+			# /** Hotel  Reviews Details */		
+			# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
+			# reviews = []
+			# for hotelreview in gethotelreviewresponse['data']:
+			# 	print "hotelreview", hotelreviewt
+			# 	review = {}
+			# 	for f in hotelreviewsFields:
+			# 		if f in hotelreview, 'mp'::t
+			# 		 		review[f] = hotelreview[f]
+			# 		else:
+			# 				review[f] = None
+			# 	reviews.append(review)
+			# print "reviews","***************", reviews
+			morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}
+		except:
+		 	messages.add_message(request, messages.INFO,'API not responding')
+		 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
+		
+		# reviews = []
+		# for hotelreview in gethotelreviewresponse['data']:
+		# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
+		# 	reviews.append(_rhotel)		
+		# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
+		
+		response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos,  'no_night': no_night}, context_instance=RequestContext(request))
+		response.set_cookie('hc',hc)
+		response.set_cookie('ibp',ibp)
+		response.set_cookie('fwdp',fwdp)
+		for hotelroominfo in hotelroominfos:
+			response.set_cookie('rtc',hotelroominfo['rtc'])
+			response.set_cookie('rpc',hotelroominfo['rpc'])		
+		response.set_cookie('hn',_hotel['hn'])
+		response.set_cookie('prc',_hotel['prc'])
+		response.set_cookie('c',_hotel['c'])
+		response.set_cookie('l',_hotel['l'])
+		response.set_cookie('hr',_hotel['hr'])
+		response.set_cookie('la',_hotel['la'])
+		response.set_cookie('lo',_hotel['lo'])
+		response.set_cookie('no_night', no_night)
+	except:
+		messages.add_message(request, messages.INFO,'User entered data incorrect')
+	 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
 	return response
 	
 
@@ -712,7 +713,7 @@ def gethoteldetails(request):
 	hotelroominfos = []
 	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
 		# print "hotelroominfo", hotelroominfo
-		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'checkintime':hotelroominfo['checkintime'], 'checkouttime':hotelroominfo['checkouttime']}
+		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc']}
 		hotelroominfos.append(_rhotelinfo)	
 	print "hotelroominfos", hotelroominfos
 

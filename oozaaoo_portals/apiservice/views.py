@@ -36,7 +36,15 @@ class goibiboAPI(object):
 
 	def __init__(self, username, password):
 		self.username = username
-		self.password = password	
+		self.password = password
+
+	# def log_function(query, response):
+	# 	logging.basicConfig(filename='mysite.log', level=logging.INFO)
+	# 	logging.info("******************************************************************************************************")
+	# 	logging.info(datetime.datetime.now())
+	# 	logging.info(query)
+	# 	logging.info(response)
+	# 	logging.info("******************************************************************************************************")		
 
 	def getHotelsByCity(self):
 		import requests
