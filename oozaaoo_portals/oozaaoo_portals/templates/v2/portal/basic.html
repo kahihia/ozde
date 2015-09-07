@@ -1,0 +1,115 @@
+{% load static from staticfiles %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static "v2/css/jquery-ui-1.10.2.custom.min.css" %}">
+    <link rel="stylesheet" href="{% static "v2/css/style_basic.css" %}">
+    
+    <script src="{% static "v2/js/jquery-1.9.1.js" %}"></script>
+    <script src="{% static "v2/js/jquery-ui.min.js" %}"></script>
+    <script src="{% static "v2/js/jquery.ui.slider.js" %}"></script>  
+    <script src="{% static "v2/js/filter.js" %}"></script>
+    <script src="{% static "v2/js/basic.js" %}"></script>
+
+  </head>
+  <body>
+    <div><h1 class="header_name">Filter.js</h1></div>
+    <div class="container">
+      <div class="sidebar_bar">
+        <div class="sidebar_left_find">
+          <div class="sidebar_list">
+            <h3>Search</h3>
+            <input type="text" id="search_box" class="searchbox" placeholder="Type here &hellip;" />
+          </div>
+        </div>
+        <div class="sidebar_left_find">
+          <div class="sidebar_list">
+            <h3>Filter by Price</h3>
+            <span id="price_range_label" style="margin:50px;">$0-$50000</span>
+            <div id="price_slider"></div>
+            <input type="hidden" id="price_filter" value="100-50000" />
+          </div>
+        </div>
+        <div class="sidebar_left_find">
+          <div class="sidebar_list">
+            <h3>Filter by Status</h3>
+            <ul id="status">
+              <li>
+                <input id="active" value="1" type="checkbox">
+                <span >1</span>
+              </li>
+              <li>
+                <input id="active" value="2" type="checkbox">
+                <span >2</span>
+              </li>
+              <li>
+                <input id="active" value="3" type="checkbox">
+                <span >3</span>
+              </li>
+              <li>
+                <input id="active" value="4" type="checkbox">
+                <span >4</span>
+              </li>
+              <li>
+                <input id="active" value="5" type="checkbox">
+                <span >5</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <ul id="location">
+              {% for location in locations %}
+                   <li>
+                    <input id="active" value="{{location}}" type="checkbox">
+                    <span>{{location}}</span>
+                  </li>
+              {% endfor %}
+              </ul>
+          </div>
+        </div>
+      </div>
+      <div class="featured_services_find">
+        <h1 class="result_count"></h1>
+        <div class="featured_list_find" id="service_list"></div>
+      </div>
+      <script>
+        //<![CDATA[
+        var services = [
+        {% for hotel in hotels%} 
+         {
+            "permalink": "{{hotel.hn}}",
+            "title": "{{hotel.hn}}",
+            "amount": "{{hotel.mp}}",
+            "status": "{{hotel.hr}}",
+            "location": "{{hotel.l}}",
+            "is_public": true,
+            "id": 1,
+            "nonprofit": "Eldon Zulauf"
+        },
+       
+        
+        {% endfor %}
+        ];        
+        //]]>
+      </script>
+      <div class="clear"></div>
+    </div>
+
+    <script id="template" type="text/html">
+        <a title="<%= title %>" href="/demo/<%= permalink %>">
+         <div class="fs_box">
+           <div class="fs_left">
+             <span class="fs_head"><%= title %></span>
+             <span class="fs_head"><%= location %></span>
+             <span class="fs_for">for</span>
+             <span class="fs_disc"><%= nonprofit %></span>
+           </div>
+           <div class="fs_price">$<%= amount %></div>
+           <div class="clear"></div>
+        </div>
+      </a>
+    </script>
+  </body>
+</html>

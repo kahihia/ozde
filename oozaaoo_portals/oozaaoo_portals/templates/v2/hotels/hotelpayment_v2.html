@@ -119,9 +119,9 @@
                              <div class="col-md-3">
                                 <p class="nomargin"> Guests: <strong>{{request.COOKIES.guest}}</strong></p>
                             </div>
-                            <div class="col-md-3">
+                            <!--div class="col-md-3">
                                 <p class="nomargin"> Rooms: <strong>{{request.COOKIES.guest}} </strong><button class="btn btn-link pull-right nopadding"><i class="mdi mdi-pencil"></i></button></p>
-                            </div>
+                            </div-->
                         </div>
                         </div>
                         <h5>Selected room</h5>
@@ -136,9 +136,18 @@
                                                     <img src="images/deluxe-double.jpg" alt="deluxe double" />
                                                 </div-->
                                                 <div class="room-details">
-                                                    <h4 class="nomargin"><a href="#">Deluxe Double Room <span class="text-muted size12 red bold">1 Rooms left</span></a></h4>
+                                                    <h4 class="nomargin">
+                                                    <a href="#">{{request.COOKIES.sroomname}}
+                                                    <!--span class="text-muted size12 red bold">1 Rooms left</span-->
+                                                    </a>
+                                                    </h4>
                                                     <p class="room-price"><i class="fa fa-rupee"></i> {{smp}} per room per night</p>
-                                                    <p class="light-purple nomargin"><i class="ion ion-ios-snowy size30 bold"></i> <span class="top-6 marginright20">Air Conditioner</span> <i class="ion ion-wifi size30 bold"></i> <span class="top-6"> Free wifi</span></p>
+                                                    <!--p class="light-purple nomargin">
+                                                        <i class="ion ion-ios-snowy size30 bold"></i>
+                                                        <span class="top-6 marginright20">Air Conditioner</span>
+                                                        <i class="ion ion-wifi size30 bold"></i>
+                                                        <span class="top-6"> Free wifi</span>
+                                                    </p-->
                                                 </div>
                                             </div>
                                         </div>   
@@ -148,7 +157,7 @@
                                             <div class="panel-body nopadding margintop15">
                                                 <div class="room-price-bg">
                                                         <h3 class="nomargin"><i class="fa fa-rupee"></i> {{stp}} *</h3>
-                                                        <span class="size12">Prices for {{request.COOKIES.no_night}} nights</span>                                                    <button class="btn btn-primary padding515 margintop5">Change</button>                                     
+                                                        <span class="size12">Prices for {{request.COOKIES.no_night}} nights</span>                                                    <!-- <button class="btn btn-primary padding515 margintop5">Change</button> -->                                     
                                                 </div>
                                              </div>
                                         </div> 
@@ -157,7 +166,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hotel-facilities">
+                        <!--div class="hotel-facilities">
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="checkbox" class="pull-left" />
@@ -167,16 +176,16 @@
                                     <p class="pull-left marginleft10 size17"><strong>Car rental</strong><br/>Interested in renting a car for your trip?</p>
                                 </div>
                             </div>
-                        </div>
-                       <div class="row">
-                        <div class="col-md-9">
-                            <div class="well">
-                                <i class="fa fa-smile-o size30 pull-left padding10"></i>
-                                <p class="size17 nomargin bold">Your stay includes: <br/><span class="size14">Breakfast, Air conditioning, Flat-screen TV, City view, Outdoor Pool, Free WiFi</span></p>
+                        </div-->
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="well">
+                                    <i class="fa fa-smile-o size30 pull-left padding10"></i>
+                                    <p class="size17 nomargin bold">Your stay includes: <br/><span class="size14">Breakfast, Air conditioning, Flat-screen TV, City view, Outdoor Pool, Free WiFi</span></p>
+                                </div>
                             </div>
-                        </div>
-                      </div>  
-                        <section class="special-request">
+                        </div>  
+                      <!--section class="special-request">
                             <div class="row">
                                 <div class="col-md-8">
                                     <form>
@@ -199,7 +208,7 @@
                                     </form>
                                 </div>
                             </div>        
-                        </section>
+                        </section-->
                         <hr/>
                     
                         <div class="row">

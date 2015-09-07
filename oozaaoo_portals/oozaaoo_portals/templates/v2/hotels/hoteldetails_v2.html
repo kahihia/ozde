@@ -178,7 +178,7 @@ jQuery(function(){
                     	<div class="size30 pull-left margin020"><i class="ion ion-ios-locked light-purple"></i></div>
                         <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p></div>
                     <h4>Select your room</h4>
-                    <div class="rooms-list">
+                    <div class="rooms-list">                       
                         {% for room in hotels.rooms_data %}                        
                     	<div class="row nomargin">
                         	<div class="col-md-9 nomargin nopadding">
@@ -221,6 +221,7 @@ jQuery(function(){
 
                                             </p>
                                             <p>{{room.room_info.description}}</p>
+
                                         </div>
                                     </div>
                                 </div>   
@@ -233,6 +234,10 @@ jQuery(function(){
                                                 <span class="size12">Prices for per nights</span>
                                                 <!--button class="btn btn-success padding515">Reserve</button-->
                                                 <p class="size11 grey">Fare Policy</p>
+                                                CheckIn: {{room.checkintime}} hrs
+                                                CheckOut: {{room.checkouttime}} hrs
+                                                Free Cancellation upto : {{room.fcdt}}
+
                                         </div>
                                      </div>
                                 </div> 
@@ -423,8 +428,9 @@ jQuery(function(){
                         <input type="hidden" name="totalprice" id="totalprice" value="" />
                         <input type="hidden" name="totaltax" id="totaltax" value="" />
                         <input type="hidden" name="totalprice_wt" id="totalprice_wt" value="" />
+                        <input type="hidden" name="roomname" id="roomname" value="" />
 
-                    <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
+                        <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
                         <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
                         <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
                         <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />

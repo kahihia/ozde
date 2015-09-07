@@ -121,7 +121,6 @@
             </div>
         </div>	
     </section>
-    
     <section class="search-result-section">
     	<div class="container">
         	<div class="row">
@@ -144,20 +143,20 @@
                                 <div class="clearfix"></div>
                             </a>
                             <div id="collapse-price-range" class="panel-collapse collapse in" role="tabpanel">
-                            	<label class="pull-left">Rs. 1,300</label><label class="pull-right">Rs. 32,000</label>
+                            	<label class="pull-left price_range_label_min">Rs. 0</label><label class="pull-right price_range_label_max">Rs. 9999</label>
                                 <div class="clearfix"></div>
                                 
                                 <!--input id="price-range" type="text" class="span2" value="" data-slider-min="1300" data-slider-max="32000" data-slider-step="100" data-slider-value="[1300,32000]"/--> 
                                 
                                 <p>                                 
-                                  <input type="hiiden" id="amount" style="border:0; color:#f6931f; font-weight:bold;background:none;" />
+                                  <input type="hidden" id="amount" style="border:0; color:#f6931f; font-weight:bold;background:none;" />
                                   <input type="hidden" id="amount_min" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="500" name="amount_min" />
                                   <input type="hidden" id="amount_max" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="10000" name="amount_max" />
                                 </p>
 
-                                <div id="slider-range" style="width:220px"></div>
-
-                                <ul>
+                                <div id="price_slider" style="width:220px"></div>
+                                <input type="hidden" id="price_filter" value="0-9999" />
+                                <!-- <ul>
                                     <li>
                                         <div class="checkbox"><label><input type="checkbox" class="checkbox"> Hotel with deals</label></div>
                                     </li>
@@ -167,7 +166,7 @@
                                     <li>
                                         <div class="checkbox"><label><input type="checkbox" class="checkbox"> Pay at hotel</label></div>
                                     </li>
-                            	</ul>
+                            	</ul> -->
                             </div>
                             <hr />	
                             <a role="button" data-toggle="collapse" href="#collapse-star-rating" aria-expanded="true" aria-controls="collapseOne">
@@ -175,31 +174,31 @@
                                 <div class="clearfix"></div>
                             </a>
                             <div id="collapse-star-rating" class="panel-collapse collapse in" role="tabpanel">
-                            	 <ul>
+                            	 <ul id="starcount">
                                     <li>
-                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 5 Stars</label></div>
+                                        <div class="checkbox"><label><input type="checkbox" id="5" class="checkbox" value="5"> 5 Stars</label></div>
                                     </li>
                                     <li>
-                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 4 Stars</label></div>
+                                        <div class="checkbox"><label><input type="checkbox"  id="4" class="checkbox" value="4"> 4 Stars</label></div>
                                     </li>
                                     <li>
-                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 3 Stars</label></div>
+                                        <div class="checkbox"><label><input type="checkbox"  id="3" class="checkbox" value="3"> 3 Stars</label></div>
                                     </li>
                                     <li>
-                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 2 Stars</label></div>
+                                        <div class="checkbox"><label><input type="checkbox"  id="2" class="checkbox" value="2"> 2 Stars</label></div>
                                     </li>
                                     <li>
-                                        <div class="checkbox"><label><input type="checkbox" class="checkbox"> 1 Stars</label></div>
+                                        <div class="checkbox"><label><input type="checkbox"  id="1" class="checkbox"  value="1"> 1 Stars</label></div>
                                     </li>
                             	</ul>
                             </div>
                             <hr />	
-                            <a role="button" data-toggle="collapse" href="#location" aria-expanded="true" aria-controls="collapseOne">
+                            <a role="button" data-toggle="collapse" href="#location_collapse" aria-expanded="true" aria-controls="collapseOne">
                                 <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Location</h5>
                                 <div class="clearfix"></div>
                             </a>                            
-                            <div id="location" class="panel-collapse collapse in" role="tabpanel">
-                              <ul>
+                            <div id="location_collapse" class="panel-collapse collapse in" role="tabpanel">
+                              <ul id="location" >
                               {% for location in locations %}
                                   <li class="location">
                                         <div class="checkbox">
@@ -445,8 +444,8 @@
                                       </div>
                                     </div>
                                 </div> -->
-                                
-                                {%for hotel in hotels %} 
+                                <div class="featured_list_find" id="service_list"></div>
+                                <!-- {%for hotel in hotels %} 
                                 {% if hotel.ibp %}
                                     <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails" class="sorthotellist">
                                     {% csrf_token %}                        
@@ -455,7 +454,7 @@
                                         <div class="row">
                                           <div class="col-md-3">                                                       
                                             <div class="list_hotel_img_holder">
-                                                <img src="{{hotel.t}}" alt="Image Alternative text" title="{{hotel.hn}}" /><!-- list_hotel_img_holder -->
+                                                <img src="{{hotel.t}}" alt="Image Alternative text" title="{{hotel.hn}}" /><!- list_hotel_img_holder ->
                                             </div>
                                           </div>
                                           
@@ -532,7 +531,7 @@
                                     <input type="hidden" name="fwdp" id="fwdp" value="{{hotel.fwdp}}" />
                                     </form>
                                   {% endif %}    
-                                {% endfor %}
+                                {% endfor %} -->
                                 </div>
                             </div>
                        
@@ -820,5 +819,95 @@
                 </div>
             </div>
          </div>
+      
+    </div>
+<script>
+        var services = [
+        {% for hotel in hotels%}
+        {%if hotel.ibp%} 
+          {
+            "image":"{{hotel.t}}",
+            "hotelname": "{{hotel.hn}}",
+            "starcount":"{{hotel.hr}}",
+            {% if hotel.hr == 1 %}
+             "star":"<i class='fa fa-star star-yellow'></i>",
+            {% elif hotel.hr == 2 %}
+             "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+            {% elif hotel.hr == 3 %}
+             "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+            {% elif hotel.hr == 4 %}
+             "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+            {% elif hotel.hr == 5 %}
+             "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+            {% endif %}
+            "title": "{{hotel.hn}}",
+            "amount": "{{hotel.mp}}",
+                                                          
+            "facility":"{% for fm1 in hotel.fm %}{% if fm1 == 'Free Internet' %}<i class='wifi'></i>{% elif fm1 == 'Laundry Service' %}<i class='room-serve'></i>{% elif fm1 == 'Room Service' %}<i class='room-serve'></i>{% elif fm1 == 'Swimming Pool' %}<i class='swimming'></i>{% elif fm1 == 'Restaurant/Coffee Shop' %}<i class='rest-chair'></i>{% endif %}{% endfor %}",
+            "location": "{{hotel.l}}",
+            "goibiborating":"{{hotel.gr}}",
+            "joindata":"{{joindata}}",
+            "hotelcode":"{{hotel.hc}}",
+            "ibp":"{{hotel.ibp}}",
+            "fwdp":"{{hotel.fwdp}}"
+        },
+       {%endif%}
+        {% endfor %}
+        ];        
+      </script>
+      <div class="clear"></div>
+    <script id="template" type="text/html">
+        <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails" class="sorthotellist">
+                                    {% csrf_token %}                        
+                                    <div class="panel panel-default">
+                                      <div class="panel-body">
+                                        <div class="row">
+                                          <div class="col-md-3">                                                       
+                                            <div class="list_hotel_img_holder">
+                                                <img src="<%= image %>" alt="Image Alternative text" title="<%= hotelname %>" />
+                                            </div>
+                                          </div>
+                                          
+                                          <div class="col-md-7 nopaddingleft">
+                                            <a href="#">
+                                            <span class="sort_star"><%= starcount %></span>
+                                            <h4 class="text-left nomargin sort_recommended"><%=hotelname%>&nbsp;
+                                                <%= star %>
+                                            </h4>
+                                            </a>
+                                            <p class="text-muted"><%= location %></p>
+
+                                            <p class="text-muted hotel-features-list">
+                                            <%= facility %>
+                                            </p>
+                                            <p class="sort_rating">
+                                              <%= goibiborating %>                                             
+                                              <span class="text-muted">&nbsp;&nbsp;Rating</span>
+                                            </p>
+                                          </div>
+
+                                          <div class="col-md-2">
+                                            <i class="fa fa-rupee"></i>
+                                            <h3 class="text-left bold nomargin pull-right sort_price">
+                                            <%= amount %>
+                                            </h3>
+                                            <span class="pull-right text-muted span12"> avg/night</span>
+                                            <div class="clearfix"></div><br>
+                                            
+                                            <div class="text-right">                                              
+                                            <input type="submit" name="moredetails" value="Reserve"
+                                               class="btn btn-warning" id="more"/>          
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <input type="hidden" name="joindata" id="joindata" value="<%= joindata %>     " />
+                                    <input type="hidden" name="hc" id="hc" value="<%= hotelcode %>" />
+                                    <input type="hidden" name="ibp" id="ibp" value="<%= ibp %>" />
+                                    <input type="hidden" name="fwdp" id="fwdp" value="<%= fwdp %>" />
+                                    </form>
+    </script>
  {% endblock %}        
          

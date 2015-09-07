@@ -311,6 +311,11 @@ $(document).ready(
 
     $('.mp').html($('#mp').val());
     $('.subtotal').html($('#totalprice').val()); 
+    $('#roomname').val($(this).find(':selected').text());
+    // $("#yourdropdownid option:selected").text();
+
+
+    
   
 
     // OnChange the Value assigned //
@@ -323,7 +328,8 @@ $(document).ready(
       $('#totalprice_wt').val($(this).find(':selected').data('tp_alltax'));
 
       $('.mp').html($('#mp').val());      
-      $('.subtotal').html($('#totalprice').val()); 
+      $('.subtotal').html($('#totalprice').val());
+      $('#roomname').val($(this).find(':selected').text()); 
     })
 
    
