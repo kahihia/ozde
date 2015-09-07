@@ -166,7 +166,7 @@ def search_bus_v2(request):
 			cache.set('getbusresponse', getbusresponse)
 		except:
 			messages.add_message(request, messages.INFO,'API not responding for one way trip')
-			return HttpResponseRedirect(format_redirect_url("/", 'error=2'))
+			return HttpResponseRedirect(format_redirect_url("/v2/", 'error=2'))
 	except:
 		messages.add_message(request, messages.INFO,'User Entering data is wrong')
 		return HttpResponseRedirect(format_redirect_url("/v2/", 'error=1'))

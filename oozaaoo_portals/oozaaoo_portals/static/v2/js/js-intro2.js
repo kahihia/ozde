@@ -600,8 +600,10 @@ $(document).on('change', '.child_act', function() {
          }
     });
 
-$(document).ready(function($){	
-	var max_fields= 4;
+$(document).ready(function($){
+/////////////////////////---hotel---///////////////////////////
+//**********************Child append for hotel homepage**************************//	
+var max_fields= 4;
 var i = 1;
 var add_room = $('.add_room_holder');
 $('.add_room_act').click(function (e) {
@@ -688,6 +690,7 @@ $(add_room).append("<div class='room"+i+" rooms' >"
 $(add_room).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parents('.rooms').remove(); i--;
     });
+//********************************hotel home page validation***********************************//
 $('#searchBtn').click(function(){ 
     if($('.typeahead').val() == '') {
         $('.error_mgs_city').show();
@@ -721,38 +724,76 @@ $('#searchBtn').click(function(){
         return true;
     }
 });
+/////////////////////////////---bus---//////////////////////////////
+//**************************for bus validation*******************************//
 $('#searchbus_return').click(function(){
 
-            if($('.return').val() == '') {
-                
-                $('.error').show();
-                return false;
-              }    
-            else{
-                return true;
-             }
-             if($('.source').val() == '') {
-                $('.error').show();
-                return false;
-              }  
-              else{
-                return true;
-             }   
-             if($('.destination').val() == '') {
-                $('.error').show();
-                return false;
-              }  
-              else{
-                return true;
-             }
-             if($('.depart').val() == '') {
-                $('.error').show();
-                return false;
-              }  
-              else{
-                return true;
-             }
+    if($('.source').val() == '') {
+        $('.error_source').show();
+        return false;
+    }
+    else if($('.destination').val() == ''){
+        $('.error_destination').show();
+        return false;
+    }
+    else if($('.source').val() == $('.destination').val()){
+        $('.error_same').show();
+        return false;
+    }
+    else if($('.start_date').val() == ''){
+        $('.error_start').show();
+        return false;
+    }
+    else if($('#round').is(':checked')) {
+    	if($('.end_date').val() == ''){
+        	$('.error_end').show();
+        return false;
+     	}
+    }
+    else{
+        return true;
+    }
 });
+
+$('#oneway').click(function(){
+    $('#oneway').attr('checked',true);
+    $('#round').removeattr('checked');
+});
+
+$('#round').click(function(){
+    $('#round').attr('checked',true);
+    $('#oneway').removeattr('checked');
+});
+
+$('.end_date').hide();
+$('input:radio[name=trip]').change(function() {
+    if (this.value == 'oneway') {
+        $('.end_date').hide();
+    }
+    else if (this.value == 'round') {
+        $('.end_date').show();
+    }
+});
+
+// for ajax loading image //
+
+
+// $(document).ajaxStart(function(){
+        
+//     });
+// $(document).ajaxComplete(function(){
+//     $("#wait").css("display", "none");
+// });
+
+
+
+
+
+
+
+
+
+
 
 
 
