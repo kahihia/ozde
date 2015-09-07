@@ -211,13 +211,14 @@ $('.onward_book').click(function(){
 
 
 
-
 var max_no_of_seat;
 function getJson(url) {
+
     return JSON.parse($.ajax({
                  type: 'GET',
                  url: /seat_map/,
                  dataType: 'json',
+
                  data: {"skey":"{{skey}}"},
                  global: false,
                  async:false,
