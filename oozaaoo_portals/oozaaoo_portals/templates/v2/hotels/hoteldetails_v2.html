@@ -243,29 +243,42 @@ jQuery(function(){
                    		</div>
                         {% endfor %}                  
                 	</div>
-                    <h4>Things to know</h4>                   
-
+                    <h4>Things to know</h4>                                       
                     <table class="table bg-white">
                     	<tr>
-                        	<td>Check-in</td>
-                            <td>From </td>
+                        	<td>Rooms</td>
+                            <td>
+                                {% for am in hotels.Room %}
+                                    {{am}}
+                                {% endfor %}
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td>Services</td>
+                            <td>
+                                {% for service in hotels.Services %}
+                                    {{service}}
+                                {% endfor %}
+                            </td>
                         </tr>
                         <tr>
-                        	<td>Check-out</td>
-                            <td>Until 12:00</td>
+                            <td>Important</td>
+                            <td>
+                                {% for import in hotels.important %}
+                                    {{import}}
+                                {% endfor %}
+                            </td>
                         </tr>
+
                         <tr>
-                        	<td>Cancellations</td>
-                            <td>Cancellation and prepayment policies vary according to room type.</td>
+                            <td>General</td>
+                            <td>
+                                {% for general in hotels.General %}
+                                    {{general}}
+                                {% endfor %}
+                            </td>
                         </tr>
-                        <tr>
-                        	<td>Children and Extra Beds</td>
-                            <td>Free! One child under 5 years stays free of charge when using existing beds</td>
-                        </tr>
-                        <tr>
-                        	<td>Pets</td>
-                            <td>Pets are not allowed</td>
-                        </tr>
+
                     </table>
                     <h4>Reviews and Rating</h4>
                     <table class="table bg-white">
