@@ -230,6 +230,7 @@ function getJson(url) {
             }
  
 var bus_seat = getJson();
+alert(bus_seat);
 var bus=[{"seatlayout":bus_seat.data.onwardSeats,"onwardflightsMaxC":bus_seat.data.onwardflightsMaxC,"onwardflightsMaxR":bus_seat.data.onwardflightsMaxR}];
 var max_no_of_seat;
 var u_rows,rows;

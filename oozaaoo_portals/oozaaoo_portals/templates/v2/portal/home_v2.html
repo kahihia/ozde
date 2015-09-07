@@ -177,9 +177,9 @@
                                             {% csrf_token %}
             <div class="row">
                 <div class="col-md-12">
-                    <label class="control-label"><input type="radio" value="oneway" checked name="trip" /> One Way</label>
-                    <label class="control-label"><input type="radio" value="round" name="trip" /> Round Trip</label>
-                    <label class="control-label"><input type="checkbox" value="Bus Hotel" name="bus" /> Bus + Hotel</label>
+                    <label class="control-label"><input type="radio" value="oneway" checked name="trip" id="oneway" /> One Way</label>
+                    <label class="control-label"><input type="radio" value="round" name="trip" id="round" /> Round Trip</label>
+                    <!-- <label class="control-label"><input type="checkbox" value="Bus Hotel" name="bus" /> Bus + Hotel</label> -->
                 </div>
             </div>
             <div class="w50percent">
@@ -187,7 +187,7 @@
                     <span class="opensans size13"><b>From</b></span>
                    <!--  <input type="text" class="form-control" placeholder="City"> -->
                     <input class="typeahead source form-control" placeholder="Select your source city" type="text" id="filter_bus" name="source"/>
-                    <span class="error" style="display:none; color:red;">please enter the source</span>
+                    <span class="error_source" style="display:none; color:red;">please enter the source</span>
                 </div>
             </div>
 
@@ -196,7 +196,8 @@
                     <span class="opensans size13"><b>To</b></span>
                    <!--  <input type="text" class="form-control" placeholder="City"> -->
                    <input class="typeahead destination form-control" placeholder="Select your destination city" type="text" id="filter_bus_des" name="destination" />
-                  <span class="error" style="display:none; color:red;">please enter the destination</span>
+                  <span class="error_destination" style="display:none; color:red;">please enter the destination</span>
+                  <span class="error_same" style="display:none; color:red;">please enter different the destination</span>
                 </div>
             </div>
             
@@ -205,16 +206,16 @@
             <div class="w50percent">
                 <div class="wh90percent textleft">
                     <span class="opensans size13"><b>Departure</b></span>
-                    <input type="text" class="form-control mySelectCalendar2" id="datepicker3" placeholder="yyyy/mm/dd" name="start" />
-                    <span class="error" style="display:none; color:red;">please enter the Departure date</span>
+                    <input type="text" class="form-control mySelectCalendar2 start_date" id="datepicker3" placeholder="yyyy/mm/dd" name="start" value="" />
+                    <span class="error_start" style="display:none; color:red;">please enter the Departure date</span>
                 </div>
             </div>
 
             <div class="w50percentlast return_date">
                 <div class="wh90percent textleft right ">
                     <span class="opensans size13"><b>Return</b></span>
-                    <input type="text" class="form-control mySelectCalendar2" id="datepicker4" placeholder="yyyy/mm/dd" name="end" />
-                    please enter return date
+                    <input type="text" class="form-control mySelectCalendar2 end_date" id="datepicker4" placeholder="yyyy/mm/dd" name="end" value="" />
+                    <span class="error_end" style="display:none; color:red;">please enter the Departure date</span>
                 </div>
             </div>
             
