@@ -65,12 +65,12 @@
     border-left-color: initial;
   margin-bottom:0;  
 }
-.form-control
+/*.form-control
 {
     height: 40px !important;
     padding: 5px !important;  
   margin-bottom:3px;
-}
+}*/
 .control-label
 {
   margin-bottom:10px; 
@@ -919,7 +919,6 @@ textarea.form-control
 /** Signin-page **/
 .sign-in
 {
-  margin-top:1%;
   position:relative;  
 }
 .sign-in .logo-span-txt
@@ -938,7 +937,7 @@ textarea.form-control
 }
 .sign-in-form input
 {
-  margin-bottom:15px; 
+  margin-bottom:0px; 
 }
 .sign-in-form input[type=checkbox]
 {
@@ -948,18 +947,25 @@ textarea.form-control
 .left-img
 {
   position:relative;
-  right:40%; 
-  z-index:0;
+  right:-47%; 
+  z-index:1000;
   width: 250px;
-    margin-top: 20%;
+  top: 161px;
 }
 .right-img
 {
   position:relative;
-  left:-40%;  
+  left:-103%;  
   z-index:0;
   width: 250px;
     margin-top: 20%;
+}
+.right-img2 {
+  left: -54%;
+  position: absolute;
+  top: 191px;
+  width: 250px;
+  z-index: 1000;
 }
 .z-index1
 {
@@ -1043,7 +1049,7 @@ textarea.form-control
 .bottom10r { position:relative; bottom:10px; }
 .right0 { right:0px;}
 .home_bg { 
-  background:url('../img/home_page_bg.jpg') 0px 0px no-repeat; 
+  background:url('../img/home_page_bg.jpg') 0px 0px repeat-y; 
   background-size:cover;*/
   width:100%;
   height:auto;
@@ -1052,8 +1058,30 @@ textarea.form-control
 .logo_home {
   background:url('../img/home_logo.png') 0px 0px no-repeat; 
   display:block;
-  height:111px;
+  height:132px;
   width:293px;
-  margin:10px auto;
+  margin:10px auto 10px auto;
 
+}
+.padding-r_l60{ padding:15px 60px 15px 60px; }
+.hotel_search label {
+  font-size: 14px;
+}
+.hotel_search {
+  max-height:400px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:0px 10px 0px 0px;
+}
+.bus_search {
+  min-height:308px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:0px 10px 0px 0px;
+}
+#searchbus_return { margin:10px 0px 0px 0px; }
+.bus_search select.form-control, .hotel_search select.form-control { padding:0px !important;}
+.footer { text-align: center; }
+.footer span {
+  color: #fff;
 }

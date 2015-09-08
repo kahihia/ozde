@@ -1,9 +1,9 @@
-{% extends 'v2/base_inner_v2.html' %}
+{% extends 'v2/home_base_v2.html' %}
 {% load static from staticfiles %}
 {% load i18n %}
 {% block content %}
 <link rel="stylesheet" href="{% static "v2/css/jquery-ui.css" %}">
-<div class="bg-lightgrey bus-payment home_bg">
+<div class="bus-payment">
 <div class="container sign-in">
             <div class="row">
                 <div class="col-md-1"></div>
@@ -145,12 +145,12 @@
                                     </h3>
                                     <div class="clear_both"></div>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body padding-r_l60">
                                     <div class="tab-content sign-in-form search_form_home">
                                     <div class="tab-pane fade in active" id="tab-1">
                                         <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" class="hotel_search" id="myform">
                                             {% csrf_token %}
-                                            <div class="form-group form-group-lg form-group-icon-left">
+                                            <div class="form-group form-group-md form-group-icon-left nomargin">
                                                 <label>Where are you going?</label>
                                                 <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
                                                 <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>
@@ -159,14 +159,14 @@
                                             <div class="input-daterange" data-date-format="M d, D">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group form-group-lg form-group-icon-left">
+                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
                                                             <label>Check-in</label>
                                                             <input class="form-control startdate" name="start" type="text" />
                                                             <div class="error_mgs" style="display:none; color:red;">Enter the Check in date</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group form-group-lg form-group-icon-left">
+                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
                                                             <label>Check-out</label>
                                                             <input class="form-control enddate" name="end" type="text" />
                                                             <div class="error_mgs" style="display:none; color:red;">Enter the Check out date</div>
@@ -177,13 +177,13 @@
                                                       <div class="clonedInput" id="clonedInput0">
                                                           
                                                             <div class="col-md-3">
-                                                                <div class="form-group form-group-lg form-group-select-plus">
+                                                                <div class="form-group form-group-md form-group-select-plus">
                                                                     <label>Rooms</label>
                                                                     <input class="form-control hidden_input" name="room1" type="text" value="1" readonly="readonly" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <div class="form-group form-group-lg form-group-select-plus">
+                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
                                                                     <label>Adults</label>                                       
                                                                     <select class="form-control" name="adults1">  
                                                                         <option selected="selected" value="1" >1</option>
@@ -195,7 +195,7 @@
                                                             </div>
                                                             <!--- Childs -->
                                                             <div class="col-md-2">
-                                                                <div class="form-group form-group-lg form-group-select-plus">
+                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
                                                                     <label>Children</label>                                     
                                                                     <select class="form-control child_age_act" name="childs1"> 
                                                                         <option selected="selected" value="0" >0</option>
@@ -208,7 +208,7 @@
                                                             </div>
 
                                                             <div class="col-md-2 child-1-act dn" id="test1">
-                                                                <div class="form-group form-group-lg form-group-select-plus">
+                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
                                                                     <label>Child-1 age</label>                              
                                                                     <select class="form-control child_age" name="childage1_1">   
                                                                         <option selected="selected" value="0" >0</option>
@@ -230,7 +230,7 @@
                                                             </div>
 
                                                             <div class="col-md-2 child-2-act dn">
-                                                                <div class="form-group form-group-lg form-group-select-plus">
+                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
                                                                     <label>Child-2 age</label>                                     
                                                                     <select class="form-control child_age" name="childage2_1 "> 
                                                                         <option selected="selected" value="0" >0</option>
@@ -269,7 +269,7 @@
                                                                     <span class='remove remove_field'>Remove</span>
                                                                 
                                                 </div>
-                                             <button id="searchBtn"  class="btn btn-primary btn-lg hotel" >Search for Hotels</button>
+                                             <button id="searchBtn"  class="btn btn-primary btn-sm hotel" >Search for Hotels</button>
                                         </form>
                                     </div>
                                     <div class="tab-pane fade" id="tab-2">
@@ -286,13 +286,13 @@
                                                     <div class="tab-pane fade in active" id="flight-search-1">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="form-group form-group-lg form-group-icon-left">
+                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
                                                                     <label>From</label>
                                                                     <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <div class="form-group form-group-lg form-group-icon-left">
+                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
                                                                     <label>To</label>
                                                                     <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
                                                                 </div>
@@ -301,19 +301,19 @@
                                                         <div class="input-daterange" data-date-format="M d, D">
                                                             <div class="row">
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group form-group-lg form-group-icon-left">
+                                                                    <div class="form-group form-group-md form-group-icon-left nomargin">
                                                                         <label>Departing</label>
                                                                         <input class="form-control" name="start" type="text" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group form-group-lg form-group-icon-left">
+                                                                    <div class="form-group form-group-md form-group-icon-left nomargin">
                                                                         <label>Returning</label>
                                                                         <input class="form-control" name="end" type="text" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <div class="form-group form-group-lg form-group-select-plus">
+                                                                    <div class="form-group form-group-md form-group-select-plus nomargin">
                                                                         <label>Passngers</label>
                                                                         <div class="btn-group btn-group-select-num" data-toggle="buttons">
                                                                             <label class="btn btn-primary active">
@@ -349,13 +349,13 @@
                                                     <div class="tab-pane fade" id="flight-search-2">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="form-group form-group-lg form-group-icon-left">
+                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
                                                                     <label>From</label>
                                                                     <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <div class="form-group form-group-lg form-group-icon-left">
+                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
                                                                     <label>To</label>
                                                                     <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
                                                                 </div>
@@ -363,13 +363,13 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-3">
-                                                                <div class="form-group form-group-lg form-group-icon-left">
+                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
                                                                     <label>Departing</label>
                                                                     <input class="date-pick form-control" data-date-format="M d, D" type="text" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <div class="form-group form-group-lg form-group-select-plus">
+                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
                                                                     <label>Passngers</label>
                                                                     <div class="btn-group btn-group-select-num" data-toggle="buttons">
                                                                         <label class="btn btn-primary active">
@@ -423,7 +423,7 @@
                                             </div>
                                             <div class="row return_div">
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-lg form-group-icon-left">
+                                            <div class="form-group form-group-md form-group-icon-left nomargin">
                                             <label>Source</label>
                                             <input class="typeahead source_return form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus" name="source"/>
                                             <span class="error" style="display:none; color:red;">please enter the source</span>
@@ -431,7 +431,7 @@
                                             </div>
                                             </div>
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-lg form-group-icon-left">
+                                            <div class="form-group form-group-md form-group-icon-left nomargin">
                                             <label>Destination</label>
                                             <input class="typeahead destination form-control" placeholder="City, Airport, U.S. Zip" type="text" id="filter_bus_des" name="destination" />
                                             <span class="error" style="display:none; color:red;">please enter the destination</span>
@@ -442,7 +442,7 @@
                                             <div class="input-daterange return_div" data-date-format="M d, D">
                                             <div class="row">
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-lg form-group-icon-left">
+                                            <div class="form-group form-group-md form-group-icon-left nomargin">
                                             <label> Depart  </label>
                                             <input class="form-control depart" name="start" type="text" />
                                             <span class="error" style="display:none; color:red;">please enter the depart date</span>
@@ -450,7 +450,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-lg form-group-icon-left return_date">
+                                            <div class="form-group form-group-md form-group-icon-left return_date nomargin">
                                             <label>Return</label>
                                             <input class="form-control return" name="end" type="text"/>
                                             <span class="error" style="display:none; color:red;">please enter the return date</span>
@@ -459,7 +459,7 @@
 
                                             </div>
                                             </div>
-                                            <button class="btn btn-primary btn-lg return_div" type="submit" id="searchbus_return">Search for Bus</button>
+                                            <button class="btn btn-primary btn-sm return_div" type="submit" id="searchbus_return">Search for Bus</button>
                                             </form>
                                     </div>
                                     <div class="tab-pane fade" id="tab-5">
@@ -468,19 +468,19 @@
                                             <div class="input-daterange" data-date-format="M d, D">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group form-group-lg form-group-icon-left">
+                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
                                                             <label>Where are you going?</label>
                                                             <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="text" />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="form-group form-group-lg form-group-icon-left">
+                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
                                                             <label>From</label>
                                                             <input class="form-control" name="start" type="text" />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="form-group form-group-lg form-group-icon-left">
+                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
                                                             <label>To</label>
                                                             <input class="form-control" name="end" type="text" />
                                                         </div>
@@ -494,7 +494,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" /></div>
+                        <div class="col-md-2 hidden-xs">
+                          <img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" />
+                          <img src="{{ STATIC_URL }}v2/img/login-right2.png" class="right-img2" />
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-1"></div>
