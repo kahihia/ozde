@@ -1410,3 +1410,8 @@ def test_view_v2(request):
 	return response
 
 	
+def terms_and_condition(request):
+	return render_to_response('v2/portal/terms_and_conditions.html',context_instance=RequestContext(request))
+
+def privacy(request):
+	return render_to_response('v2/portal/privacy.html',context_instance=RequestContext(request))

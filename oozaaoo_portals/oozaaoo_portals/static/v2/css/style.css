@@ -1043,3 +1043,70 @@ textarea.form-control
 .bottom10r { position:relative; bottom:10px; }
 .right0 { right:0px;}
 
+#menu {
+  width: 100%;
+  height: 35px;
+  font-size: 13px;
+  font-family: Tahoma, Geneva, sans-serif;
+  text-align: center;
+  border-radius: 8px;
+ /* font-weight: bold;*/
+}
+
+#menu ul {
+  height: auto;
+  padding: 8px 0px;
+  margin: 0px;
+}
+
+#menu ul li {
+    display: inline !important;
+    float: left !important;
+    margin-left: 4px;
+    margin-top: 70px;
+    padding: 4px !important;
+}
+
+#menu1 {
+  width: 100%;
+  height: 35px;
+  font-size: 13px;
+  font-family: Tahoma, Geneva, sans-serif;
+  text-align: center;
+  border-radius: 8px;
+ /* font-weight: bold;*/
+}
+
+#menu1 ul {
+  height: auto;
+  padding: 8px 0px;
+ /* margin: 0px;*/
+  margin-left: 60px;
+}
+
+#menu1 ul li {
+  display: inline !important;
+  float: left !important;
+  margin-left: 4px;
+  margin-top: 73px;
+  padding: 4px !important;   
+}
+
+#menu ul li i:first-child {
+  display: inline;
+  float: right !important;
+  margin-left: 60px !important;
+  padding: 13px;
+  margin-top: -20px;
+}
+
+/*#menu1 ul li p {
+  margin: 0 0 -12px !important;
+}*/
+.fl { float:left;}
+.fr { float:right; }
+
+.sociallinks li {
+  margin-top: 58px !important;
+  width: 53px;
+}
