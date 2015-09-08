@@ -1287,3 +1287,9 @@ $(".map").click(function(){
   $("#map_canvas").toggle();
 });
 // end map
+
+  if($('.selectroomtypes option').length==0){
+   
+    $('.for_soldout').show();
+    $('.for_buynow').hide();
+  }

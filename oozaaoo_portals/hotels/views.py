@@ -66,7 +66,7 @@ def registration_v2(request):
 		email=request.POST['email']
 		if User.objects.filter(email=email).exists():
 			messages.add_message(request, messages.INFO,'Email already exists')
-			return HttpResponseRedirect(format_redirect_url("/v2/register", 'error=57'))
+			return HttpResponseRedirect(format_redirect_url("/v2/register", 'error=1'))
 		elif request.method == 'POST':
 			username=request.POST['username']
 			email=request.POST['email']
@@ -359,7 +359,7 @@ def gethotellist(request):
 		childage2_4 = request.POST.get('childage2_4', '0')
 	except:
 		messages.add_message(request, messages.INFO,'You cannot directly move to page')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=57'))
+		return HttpResponseRedirect(format_redirect_url("/v2", 'error=11'))
 	try:
 		if rooms4=='4':
 			rooms=4
@@ -438,11 +438,11 @@ def gethotellist(request):
 			response.set_cookie('child',unicode(child))
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
-			return HttpResponseRedirect(format_redirect_url("/", 'error=57'))
+			return HttpResponseRedirect(format_redirect_url("/v2", 'error=57'))
 
 	except:
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=56'))
+		return HttpResponseRedirect(format_redirect_url("/v2", 'error=56'))
 	log_function(query, "success:" + str(getcityresponse['success']))	
 	return response
 
@@ -485,7 +485,7 @@ def gethotellist_v2(request):
 		childage2_4 = request.POST.get('childage2_4', '0')
 	except:
 		messages.add_message(request, messages.INFO,'You cannot directly move to page')
-		return HttpResponseRedirect(format_redirect_url("/v2", 'error=57'))
+		return HttpResponseRedirect(format_redirect_url("/v2", 'error=11'))
 	try:
 		if rooms4=='4':
 			rooms=4
@@ -586,11 +586,11 @@ def gethotellist_v2(request):
 
 		except:
 			messages.add_message(request, messages.INFO,'API not responding')
-			return HttpResponseRedirect(format_redirect_url("/v2", 'error=57'))
+			return HttpResponseRedirect(format_redirect_url("/v2", 'error=12'))
 
 	except:
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
-		return HttpResponseRedirect(format_redirect_url("/v2", 'error=56'))
+		return HttpResponseRedirect(format_redirect_url("/v2", 'error=13'))
 	log_function(query, "success:" + str(getcityresponse['success']))	
 	return response
 
@@ -658,7 +658,7 @@ def gethoteldetails_v2(request):
 			morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}
 		except:
 		 	messages.add_message(request, messages.INFO,'API not responding')
-		 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
+		 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=14'))
 		
 		# reviews = []
 		# for hotelreview in gethotelreviewresponse['data']:
@@ -683,7 +683,7 @@ def gethoteldetails_v2(request):
 		response.set_cookie('no_night', no_night)
 	except:
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
-	 	return HttpResponseRedirect(format_redirect_url("/", 'error=55'))
+	 	return HttpResponseRedirect(format_redirect_url("/", 'error=15'))
 	return response
 	
 
@@ -821,7 +821,7 @@ def userdetails(request):
 	except:
 		messages.add_message(request, messages.INFO,'Some thing went to wrong')
 		print request.META.get('HTTP_REFERER','/')
-		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=53'))
+		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=16'))
 	return response
 
 @csrf_exempt
@@ -829,95 +829,86 @@ def setprovisionalbooking_v2(request):
 	from django.utils import simplejson
 	import urllib
 	import requests
-	url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/"
-	joindata={}
-	joindata['query']= "hotels-"+request.COOKIES.get('joindata')
-	joindata['hc']=request.COOKIES.get('hc')
-	joindata['ibp']=request.COOKIES.get('ibp')
-	joindata['rtc']=request.COOKIES.get('rtc')
-	joindata['rpc']=request.COOKIES.get('rpc')
-	joindata['c']=request.COOKIES.get('c')
-	joindata['l']=request.COOKIES.get('l')
-	joindata['hr']=request.COOKIES.get('hr')
-	print "joindata", joindata
+	try:
+		url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/?query=hotels-"+request.COOKIES.get('joindata')+"&hc="+request.COOKIES.get('hc')+"&ibp="+request.COOKIES.get('ibp')+"&rtc="+request.COOKIES.get('rtc')+"&rpc="+request.COOKIES.get('rpc')
+		print 'url', url
+		customer = [['firstname', request.COOKIES.get('fname')], 
+				   ['lastname', request.COOKIES.get('lname')], 
+				   ['email',request.COOKIES.get('email')], 
+				   ['mobile', request.COOKIES.get('pnumber')],
+				   ['country_phone_code', '+91'],
+				   ['title',request.COOKIES.get('initial')],
+				   ]
+		customer_details=mydict(customer)
+		payload={'fwdp':'{}','customer_details':'%s'%customer_details}
+		print "payload", payload
+		headers = {
+		'content-type': "application/x-www-form-urlencoded"
+		}
+		# try:
+		response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+		print "res", response.json()	
+		#print response
+		#return HttpResponse(response)
+		from datetime import datetime
+		fmt = '%Y/%m/%d'
+		print "respons", response
+		print "response.json", response.json()
+		response1 = render_to_response("v2/hotels/hotelprovisional_v2.html",{'response':response.json()}, context_instance=RequestContext(request))	
+		# response1.set_cookie('provisionalbooking_status',response.json()['success'])
+		#response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
+		#return HttpResponseRedirect(response1)
+		# Code for storing Order Details
+		order=Order()	
+		order.userprofile =UserProfile.objects.get(user=request.user)
+		order.hotelcode=request.COOKIES.get('hc')
+		order.hotelname=request.COOKIES.get('hn')
+		order.hotelcity=request.COOKIES.get('c')
+		order.checkin=datetime.strptime(request.COOKIES.get('checkin'), fmt)
+		order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
+		order.rooms=request.COOKIES.get('rooms')
+		order.guest=request.COOKIES.get('guest')
+		order.amount=request.COOKIES.get('stpcwt')
+		order.category_type="hotel"
+		order.save()
+		response1.set_cookie('orderdetails',order.id)
 
-	customer = [['firstname', request.COOKIES.get('fname')], 
-			   ['lastname', request.COOKIES.get('lname')], 
-			   ['email',request.COOKIES.get('email')], 
-			   ['mobile', request.COOKIES.get('pnumber')],
-			   ['country_phone_code', '+91'],
-			   ['title',request.COOKIES.get('initial')],
-			   ]
-	customer_details=mydict(customer)
-	payload={'fwdp':'{}','customer_details':'%s'%customer_details}
-	print "payload", payload
-	headers = {
-	'content-type': "application/x-www-form-urlencoded"
-	}
-	# try:
-	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
-	print "res", response.json()	
-	#print response
-	#return HttpResponse(response)
-	from datetime import datetime
-	fmt = '%Y/%m/%d'
-	print "respons", response
-	print "response.json", response.json()['success']
-	# response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
-	# response1.set_cookie('provisionalbooking_status',response.json()['success'])
-	response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
-	return HttpResponseRedirect(response1)
-	# Code for storing Order Details
-	order=Order()	
-	order.userprofile =UserProfile.objects.get(user=request.user)
-	order.hotelcode=request.COOKIES.get('hc')
-	order.hotelname=request.COOKIES.get('hn')
-	order.hotelcity=request.COOKIES.get('c')
-	order.checkin=datetime.strptime(request.COOKIES.get('checkin'), fmt)
-	order.checkout=datetime.strptime(request.COOKIES.get('checkout'), fmt)
-	order.rooms=request.COOKIES.get('rooms')
-	order.guest=request.COOKIES.get('guest')
-	order.amount=request.COOKIES.get('stpcwt')
-	order.category_type="hotel"
-	order.save()
-	response1.set_cookie('orderdetails',order.id)
+		#Code for storing OrderList Details
+		joindata=request.COOKIES.get('joindata')
+		joindata_split=joindata.split('-')
+		print "joindata_split",joindata_split
+		for i in range(4,len(joindata_split)):
+			print "joindata_split", joindata_split[i]
+			data = joindata_split[i].split('_')
+			orderlist=OrderList()
+			orderlist.order=order
+			if i==4:
+				orderlist.room=1
+			elif i==5:
+				orderlist.room=2
+			elif i==6:
+				orderlist.room=3
+			elif i==7:
+				orderlist.room=4
+			elif i==8:
+				orderlist.room=5	
+			elif i==9:
+				orderlist.room=6	
+			orderlist.adults=data[0]
+			orderlist.children=data[1]
+			orderlist.child1_age=data[2]
+			orderlist.child2_age=data[3]
+			orderlist.save()
 
-	#Code for storing OrderList Details
-	joindata=request.COOKIES.get('joindata')
-	joindata_split=joindata.split('-')
-	print "joindata_split",joindata_split
-	for i in range(4,len(joindata_split)):
-		print "joindata_split", joindata_split[i]
-		data = joindata_split[i].split('_')
-		orderlist=OrderList()
-		orderlist.order=order
-		if i==4:
-			orderlist.room=1
-		elif i==5:
-			orderlist.room=2
-		elif i==6:
-			orderlist.room=3
-		elif i==7:
-			orderlist.room=4
-		elif i==8:
-			orderlist.room=5	
-		elif i==9:
-			orderlist.room=6	
-		orderlist.adults=data[0]
-		orderlist.children=data[1]
-		orderlist.child1_age=data[2]
-		orderlist.child2_age=data[3]
-		orderlist.save()
-
-	#Code for storing PayU Details	
-	payid, paystatus=store_payudetails(request)
-	print "payid", payid
-	print "paystatus", paystatus
-	response1.set_cookie('payudetails',payid)
-	response1.set_cookie('payustatus',paystatus)
-	# except:
-	# 	messages.add_message(request, messages.INFO,'You cannot refresh again')
-	# 	return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=52'))
+		#Code for storing PayU Details	
+		payid, paystatus=store_payudetails(request)
+		print "payid", payid
+		print "paystatus", paystatus
+		response1.set_cookie('payudetails',payid)
+		response1.set_cookie('payustatus',paystatus)
+	except:
+		messages.add_message(request, messages.INFO,'You cannot refresh again')
+		return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=17'))
 	# response1 = render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))	
 	return response1
 	# return render_to_response("v2/hotels/hotelpayment_v3.html", context_instance=RequestContext(request))	
@@ -963,8 +954,8 @@ def setprovisionalbooking(request):
 	print "response.json", response.json()['success']
 	# response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
 	# response1.set_cookie('provisionalbooking_status',response.json()['success'])
-	response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
-	return HttpResponseRedirect(response1)
+	#response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
+	#return HttpResponseRedirect(response1)
 	# Code for storing Order Details
 	order=Order()	
 	order.userprofile =UserProfile.objects.get(user=request.user)
@@ -1019,17 +1010,83 @@ def setprovisionalbooking(request):
 	# response1 = render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))
 	return response1
 
+def confirmbooking_v2(request):
+	from django.utils import simplejson
+	import urllib
+	import requests
+	from hashlib import md5, sha512
+	try:	
+		guest = request.POST.get('guest')
+		firstname = request.POST.get('firstname',request.COOKIES.get('fname'))
+		amount = request.POST.get('amount')
+		gobookingid = request.POST.get('gobookingid')
+		udf1 = request.POST.get('udf1')
+		productinfo = request.POST.get('productinfo')
+		email = request.POST.get('email')
+		createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
+		createhash = sha512(createhash).hexdigest()
+		url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
+		payload = {'secretkey':createhash, 'gobookingid':gobookingid}
+		headers = {
+		'content-type': "application/x-www-form-urlencoded"
+		}
+		response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+		#Code for storing Transaction Details
+		if 'data' in response.json():
+			response_json=response.json()['data']
+			transaction=Transaction()
+			transaction.order=Order.objects.get(id=request.COOKIES.get('orderdetails'))
+			transaction.payu_details=PayuDetails.objects.get(id=request.COOKIES.get('payudetails'))
+			transaction.provisionalbooking_id=gobookingid
+			if 'bookingid' in response_json:
+				transaction.confirmationbooking_id=response_json['bookingid']
+			else:
+				transaction.confirmationbooking_id=''
+			transaction.productinfo=productinfo
+			transaction.payu_status=request.COOKIES.get('payustatus')
+			transaction.provisionalbooking_status=request.COOKIES.get('provisionalbooking_status')
+			transaction.confirmationbooking_status=response_json['status']
+			transaction.save()
+			send_templated_mail(
+						template_name='payment_hotel',
+						from_email='testmail123sample@gmail.com',
+						recipient_list=[request.COOKIES.get('email')],
+						context={
+							'user':request.COOKIES.get('fname'),
+							'bookingid':transaction.confirmationbooking_id,
+							'guests':request.COOKIES.get('guest'),
+							# 'amount':request.COOKIES.get('guest'),
+							'checkin':request.COOKIES.get('checkin'),
+							'checkout':request.COOKIES.get('checkout'),
+							'c':request.COOKIES.get('c'),
+							'hn':request.COOKIES.get('hn'),
+							'l':request.COOKIES.get('l'),
+							'prc':request.COOKIES.get('stpcwt'),
+							'rooms':request.COOKIES.get('rooms'),
+							'guest':request.COOKIES.get('guest'),
+							'child':request.COOKIES.get('child'),
+						},
+					)
+	except:
+		messages.add_message(request, messages.INFO,'You cannot make again')
+		return HttpResponseRedirect(format_redirect_url("/v2", 'error=18'))
 
-def confirmbooking(request, pid, udf1, pinfo, email):
+	return render_to_response("v2/hotels/hotelconfirmation_v2.html",{'response':response.json()}, context_instance=RequestContext(request))
+
+
+def confirmbooking(request):
 	from django.utils import simplejson
 	import urllib
 	import requests
 	from hashlib import md5, sha512
 	# try:
 	
-	guest = request.COOKIES.get('guest')
-	firstname = request.COOKIES.get('fname')
-	amount = request.COOKIES.get('stpcwt')
+	guest = request.POST.get('guest')
+	print "guest",guest
+	firstname = request.POST.get('firstname',request.COOKIES.get('fname'))
+	print "firstName",firstname
+	amount = request.POST.get('amount')
+	print "amount",amount
 	# gobookingid = request.POST.get('gobookingid')
 	# udf1 = request.POST.get('udf1')
 	# productinfo = request.POST.get('productinfo')
@@ -1040,15 +1097,16 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 	# print "firstname", firstname
 	# amount = request.COOKIES.get('prc')
 	# print "amount", amount
-	gobookingid = pid
+	gobookingid = request.POST.get('gobookingid')
 	print "gobookingid", gobookingid
-	udf1 = udf1
+	udf1 = request.POST.get('udf1')
 	print "udf1", udf1
-	productinfo = pinfo
+	productinfo = request.POST.get('productinfo')
 	print "productinfo", productinfo
-	email = email
+	email = request.POST.get('email')
 	print "email", email
 	createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
+	print createhash
 	createhash = sha512(createhash).hexdigest()
 	print createhash
 	print gobookingid
@@ -1100,7 +1158,7 @@ def confirmbooking(request, pid, udf1, pinfo, email):
 	# 	messages.add_message(request, messages.INFO,'You cannot make again')
 	# 	return HttpResponseRedirect(format_redirect_url("/", 'error=51'))
 
-	return render_to_response("hotels/hotel-book-successfull.html",{'response':response.json()}, context_instance=RequestContext(request))
+	return render_to_response("v2/hotels/hotelconfirmation_v2.html",{'response':response.json()}, context_instance=RequestContext(request))
 	# return render_to_response("hotels/hotel-book-successfull.html", context_instance=RequestContext(request))
 
 def bookingstatus(request):
@@ -1155,7 +1213,7 @@ def getbookingdetails(request):
 		status['noofAdults']=bookingstatus['data']['noofAdults']
 	except:
 		messages.add_message(request, messages.INFO,'Your Booking Not Conformed')
-		return HttpResponseRedirect(format_redirect_url("/", 'error=60'))
+		return HttpResponseRedirect(format_redirect_url("/v2", 'error=60'))
 
 	# print status
 	#return HttpResponse(simplejson.dumps(status), mimetype='application/json')
