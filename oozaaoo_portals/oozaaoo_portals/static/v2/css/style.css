@@ -1042,6 +1042,19 @@ textarea.form-control
 .position_r { position:relative; }
 .bottom10r { position:relative; bottom:10px; }
 .right0 { right:0px;}
+.home_bg { 
+  background:url('../img/home_page_bg.jpg') 0px 0px no-repeat; 
+  background-size:cover;*/
+  width:100%;
+  height:auto;
+  position:relative;
+}
+.logo_home {
+  background:url('../img/home_logo.png') 0px 0px no-repeat; 
+  display:block;
+  height:111px;
+  width:293px;
+  margin:10px auto;
 
 #menu {
   width: 100%;
