@@ -724,6 +724,8 @@ $('#searchBtn').click(function(){
         return true;
     }
 });
+
+    
 /////////////////////////////---bus---//////////////////////////////
 //**************************for bus validation*******************************//
 $('#searchbus_return').click(function(){
@@ -774,23 +776,95 @@ $('input:radio[name=trip]').change(function() {
         $('.end_date').show();
     }
 });
-
-// for ajax loading image //
-
-
-// $(document).ajaxStart(function(){
-        
-//     });
-// $(document).ajaxComplete(function(){
-//     $("#wait").css("display", "none");
-// });
-
+$(document).load(function(){
+    if($('.selectroomtypes').length == '') {
+        $('.for_soldout').hide();
+        $('.for_buynow').show();
+    }
+    else{
+      alert($('.selectroomtypes option').length);
+    }
+ });
 
 
 
 
 
 
+/////////////////////////for payment validation////////////////////////
+$('#paynow').click(function(){
+    if($('.fname').val() == ''){
+            // alert("please enter the first name");
+            $('.errormgs').show();
+        if($('.lname').val() == ''){
+            // alert("please enter the last name");
+             $('.errormgs').show();
+         if($('.mobileno').val() == ''){
+            // alert("please enter the mobile number");
+             $('.errormgs').show();
+             if($('.email').val() == ''){
+            // alert("please enter the email");
+             $('.errormgs').show();
+            return false;
+                }
+            }
+         }
+    }
+    else{
+       return true; 
+    }
+});
+
+
+
+
+
+$('#payment').click(function(){
+    
+        if($('.fname').val() == ''){
+            $('.errormgs').show();
+             return false;
+        if($('.lname').val() == ''){
+           
+             $('.errormgs').show();
+              return false;
+        if($('.age').val() == ''){
+           
+             $('.errormgs').show();
+              return false;
+         if($('.mobileno').val() == ''){
+            
+             $('.errormgs').show();
+              return false;
+             if($('.email').val() == ''){
+                $('.errormgs').show();
+              return false;
+                }
+            }
+         }
+    }}
+    else{
+            
+      $('.payment').show();
+       return true; 
+    }
+});
+////////////////////////login validation////////////////
+$('.login').click(function(){
+    if($('input[name="username"]').val() == ''){
+            // alert("please enter the first name");
+            $('.errormgs').show();
+            return false;
+        if($('input[name="password"]').val() == ''){
+            // alert("please enter the last name");
+             $('.errormgs').show();
+             return false;
+         }
+    }
+    else{
+       return true; 
+    }
+});
 
 
 

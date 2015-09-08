@@ -7,6 +7,7 @@
 jQuery(function(){
     jQuery( 'a' ).imageLightbox();
 });
+
 </script>
 
 <script>
@@ -441,7 +442,11 @@ jQuery(function(){
                         <div class="row">
                             <div class="col-md-12">
                                 <!--button type="submit" class="btn btn-primary">Book Now</button-->
-                                <input type="submit" class="btn btn-primary" value="Buynow"/>
+    
+                                        <input type="submit" class="btn btn-primary for_buynow" value="Buynow"/>
+                                  
+                                        <label class="btn btn-info for_soldout" style="display:none" />We are Sold out</label>
+                                    
                             </div>    
                         </div>
                         </form>
@@ -450,5 +455,18 @@ jQuery(function(){
                 </div>
             </div>
             <img id="imagelightbox" src="" alt=""/>
+ //            <!--script type="text/javascript">
+ //            $(document).ready(function(){
+ //    // if($('.selectroomtypes').length == '') {
+ //    //     $('.for_soldout').hide();
+ //    //     $('.for_buynow').show();
+ //    // }
+ //    // else{
+ //    //   alert($('.selectroomtypes option').length);
+ //    // }
+ //    alert('welcome');
+ // });
+ //            </script-->
+            
  {% endblock %}        
          

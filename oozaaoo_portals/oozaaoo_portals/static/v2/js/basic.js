@@ -1,10 +1,10 @@
 jQuery(document).ready(function($) {
-  $('#price_filter').val('0-9999');
+  $('#price_filter').val('1000-9999');
   $("#price_slider").slider({
     range:true,
-    min: 0,
+    min: 1000,
     max: 9999,
-    values:[0, 9999],
+    values:[1000, 9999],
     step: 5,
     slide: function(event, ui) {
       $(".price_range_label_min").html('Rs. ' + ui.values[ 0 ]);
