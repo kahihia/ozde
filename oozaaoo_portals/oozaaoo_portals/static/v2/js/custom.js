@@ -11,6 +11,9 @@
 //     $('#oneway').removeattr('checked');
 // });
 //*************
+ var win_height = $(window).height();
+        $('.home_bg').height(win_height);
+
 $('.slide').click(function(){
         var par = $(this).parent().parent().parent().parent().parent();
         $(".seatLayoutHolder").remove();
