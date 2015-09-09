@@ -188,30 +188,24 @@ $('.form-group').each(function() {
 // });
 
 // for date pic
-$('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
-     todayHighlight: true,
-});
+  // $('input.date-pick, .input-daterange, .date-pick-inline, .mySelectCalendar2').datepicker({
+ //       todayHighlight: true,
+  // });
 
 
-$('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
-$('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
+  // $('input.date-pick, .input-daterange input[name="start"],.input-daterange .depart').datepicker('setDate', 'today');
 
-$('input.time-pick').timepicker({
-    minuteStep: 15,
-    showInpunts: false
+  // $('.input-daterange input[name="end"]','.input-daterange .return').datepicker('setDate', '+7d');
 
-})
+  // $('input.time-pick').timepicker({
+ //     minuteStep: 15,
+ //     showInpunts: false
+  // });
 
-$('input.date-pick-years').datepicker({
-    startView: 2
-});
+  // $('input.date-pick-years').datepicker({
+ //    startView: 2
+  // });
 
-// $( ".mySelectCalendar2" ).datepicker({
-//         dateFormat: "yy/mm/dd",
-//       changeDate:true,  
-//       changeMonth: true,//this option for allowing user to select month
-//       changeYear: true //this option for allowing user to select from year range
-//     });
 
 
 
@@ -1052,7 +1046,93 @@ function abortTimer() { // to be called when you want to stop the timer
  //    $(".add_room_act").on("click", clone);
 
  //    $(".remove_room_act").on("click", remove);
-    
+//    var max_fields= 4;
+// var i = 1;
+// var add_room = $('.add_room_holder');
+// $('.add_room_act').click(function (e) {
+//     e.preventDefault();
+//     if(i < max_fields){
+//         i++;
+// $(add_room).append("<div class='room"+i+" rooms' >"
+//         +"<div class='w50percent'>"
+//           +"<div class='wh90percent textleft'>"
+//             +"<span class='opensans size13'><b>ROOM "+i+"</b></span><br/>"
+//             +"<input class='form-control hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' /> " 
+//           +"</div>"
+//         +"</div>"
+
+//         +"<div class='w50percentlast'>"  
+//           +"<div class='wh90percent textleft right'>"
+//            +"<div class='w50percent'>"
+//              +" <div class='wh90percent textleft left'>"
+//                +" <span class='opensans size13'><b>Adult</b></span>"
+//                 +"<select class='form-control mySelectBoxClass' name='adults"+i+"'>"
+//                  +"<option>1</option>"
+//                   +"<option selected>2</option>"
+//                   +"<option>3</option>"
+//                   +"<option>4</option>"
+//                 +"</select>"
+//               +"</div>"
+//             +"</div>"              
+//             +"<div class='w50percentlast'>"
+//               +"<div class='wh90percent textleft right'>"
+//               +"<span class='opensans size13'><b>Child</b></span>"
+//                 +"<select class='form-control mySelectBoxClass child_act' name='childs"+i+"'>"
+//                   +"<option selected>0</option>"
+//                   +"<option>1</option>"
+//                  +" <option>2</option>"
+//                 +"</select>"
+//               +"</div>"
+//             +"</div>"
+//           +"</div>"
+//             +"<div class='wh90percent textleft right'>"
+//             +"<div class='w50percent child1 none'>"
+//              +" <div class='wh90percent textleft left'>"
+//                +" <span class='opensans size13'><b>Child 1</b></span>"
+//                 +"<select class='form-control mySelectBoxClass' name='childage1_"+i+"'>"
+//                   +"<option>1</option>"
+//                   +"<option>2</option>"
+//                   +"<option>3</option>"
+//                   +"<option>4</option>"
+//                   +"<option>5</option>"
+//                   +"<option>6</option>"
+//                   +"<option>7</option>"
+//                   +"<option>8</option>"
+//                   +"<option>9</option>"
+//                  +" <option>10</option>"
+//                   +"<option>11</option>"
+//                  +" <option>12</option>  "                            
+//                +" </select>"
+//               +"</div>"
+//             +"</div>   "           
+//             +"<div class='w50percentlast child2 none'>"
+//               +"<div class='wh90percent textleft right'>"
+//               +"<span class='opensans size13'><b>Child 2</b></span>"
+//                 +"<select class='form-control mySelectBoxClass' name='childage2_"+i+"'>"
+//                   +"<option>1</option>"
+//                   +"<option>2</option>"
+//                   +"<option>3</option>"
+//                   +"<option>4</option>"
+//                   +"<option>5</option>"
+//                   +"<option>6</option>"
+//                   +"<option>7</option>"
+//                   +"<option>8</option>"
+//                   +"<option>9</option>"
+//                   +"<option>10</option>"
+//                   +"<option>11</option>"
+//                   +"<option>12</option>"
+//                 +"</select>"
+//               +"</div>"
+//             +"</div>"
+//           +" </div>"
+//         +" </div>"
+//           +"<span class='orange remove_field'>Delete</span><div class='clearfix'></div><br/>   "   
+//        +"</div>");
+// }
+//     });
+// $(add_room).on("click",".remove_field", function(e){ //user click on remove text
+//         e.preventDefault(); $(this).parents('.rooms').remove(); i--;
+//     }); 
 //  var max_fields= 4;
 //     var i = 1;
 //     var add_room = $('.add_room_holder');
@@ -1262,15 +1342,7 @@ $('.close_btn').click(function(){
 });
 
 
-$('.hotel').click(function(){
-  $('#tab-1').addClass('active in');
-  $('#tab-3').removeClass('active in');
-});
 
-$('.bus').click(function(){
-  $('#tab-3').addClass('active in');
-  $('#tab-1').removeClass('active in');
-});
 
 
 $('#refund_hotel').click(function(){

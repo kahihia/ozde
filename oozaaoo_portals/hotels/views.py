@@ -226,7 +226,7 @@ def logout_view(request):
 
 def logout_view_v2(request):
 	logout(request)
-	return HttpResponseRedirect('/v2')	
+	return HttpResponseRedirect('/')	
 
 def myprofile(request):
 	user = request.user
