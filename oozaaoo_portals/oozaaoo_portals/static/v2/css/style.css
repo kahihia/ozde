@@ -556,6 +556,10 @@
   background-color:#a490da;
   border-color:#a490da;
 }
+.panel-white { background:#fff; }
+.panel-without_bg>.panel-heading, .panel-without_bg {
+  background:none !important;
+}
 .margintop-50
 {
   margin-top:-60px; 
@@ -1060,7 +1064,7 @@ textarea.form-control
   display:block;
   height:132px;
   width:293px;
-  margin:10px auto 10px auto;
+  margin:10px auto 80px auto;
 }
 #menu {
   width: 100%;
@@ -1151,12 +1155,13 @@ textarea.form-control
 }
 .hotel_search {
   max-height:400px;
+  min-height:308px;s
   overflow-y:auto;
   overflow-x:hidden;
   padding:0px 10px 0px 0px;
 }
 .bus_search {
-  min-height:308px;
+  min-height:339px;
   overflow-y:auto;
   overflow-x:hidden;
   padding:0px 10px 0px 0px;
@@ -1171,7 +1176,8 @@ textarea.form-control
 .add_room_holder { margin:0px 0px 10px 0px; }
 .add_btn { margin:0px 10px 0px 0px; }
 #searchbus_return { margin:10px 0px 0px 0px; }
-.bus_search select.form-control, .hotel_search select.form-control { padding:0px !important;}
+.bus_search select.form-control, .hotel_search select.form-control { padding:0px !important; height:auto !important;}
+
 .footer { text-align: center; }
 .footer span {
   color: #fff;
@@ -1991,3 +1997,61 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 ui-widget-content{
   background: #fff !important;
 }
+.transparent_bg {
+/* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=30);
+
+  /* Netscape */
+  -moz-opacity: 0.3;
+
+  /* Safari 1.x */
+  -khtml-opacity: 0.3;
+
+  /* Good browsers */
+  opacity: 0.3;
+  color:#000;
+  background:#fff;
+ }
+ .menu_active {
+   background: #ffffff !important;
+    border-color: #ffffff !important;
+    color: #000000 !important;
+    /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=100);
+
+  /* Netscape */
+  -moz-opacity: 1;
+
+  /* Safari 1.x */
+  -khtml-opacity: 1;
+
+  /* Good browsers */
+  opacity: 1;
+ }
+
+ .breadcrumb1 { 
+  list-style: none; 
+  overflow: hidden; 
+  font: 18px Helvetica, Arial, Sans-Serif;
+  padding:0px;
+  margin:0px;
+}
+.breadcrumb1 li { 
+  float: left; 
+}
+.breadcrumb1 li a {
+  color: #000;
+  text-decoration: none; 
+  padding: 10px 35px 10px 35px;
+  background:#fff; 
+  position: relative; 
+  display: block;
+  float: left;
+}
+

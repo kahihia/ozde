@@ -11,145 +11,25 @@
                     <a class="logo_home"></a>                   <div class="row">
                         <div class="col-md-2 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-left.png" class="left-img" /></div>
                         <div class="col-md-8 z-index1 padding5-40">
-                            <!-- <div class="panel panel-lightpurple">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title text-center">
-                                        Sign in to your account
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
-                                    
-                                    <div class="sign-in-form search_form_home">
-                                        <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" class="hotel_search" id="myform">
-                                              {% csrf_token %}
-                                              <span class="opensans size18">Choose your destination</span>
-                                              <!- <input type="text" class="form-control" placeholder="Greece"> ->
-                                              <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
-                                              <div class="error_mgs" style="display:none; color:red;">Enter the Destination</div>      
-                                              <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filterkeyword" value="" name="filterkeyword" />          
-                                              <br/>
-                                              
-                                              <div class="col-md-6">
-                                                <div class="textleft">
-                                                  <span class="opensans size13"><b>Check in date</b></span>
-                                                  <input type="text" name="start" class="startdate form-control mySelectCalendar2" id="datepicker7" placeholder="yyyy/mm/dd"/>
-                                                  <div class="error_mgs" style="display:none; color:red;">Please Select the Check In-Date</div>
-                                                </div>
-                                              </div>
+                           
+                            <div class="panel panel-without_bg">
+                                <div class="panel-heading nopadding noborder">
+                                  <ul class="breadcrumb1">
+                                    <li><a class="hotel_tab_act transparent_bg menu_active"><i class="fa fa-bed"></i>  Hotel</a></li>
+                                    <li><a class="bus_tab_act transparent_bg"><i class="fa fa-bus"></i>
+ Bus</a></li>
 
-                                              <div class="col-md-6">
-                                                <div class="textleft right">
-                                                  <span class="opensans size13"><b>Check out date</b></span>
-                                                  <input type="text" name="end" class="enddate form-control mySelectCalendar2" id="datepicker8" placeholder="yyyy/mm/dd"/>          
-                                                  <div class="error_mgs" style="display:none; color:red;">Please Select the Check Out-Date</div>
-                                                </div>
-
-                                              </div>
-                                              
-                                              <div class="clearfix"></div>
-                                              
-                                              <div class="room1 rooms marginbottom10" >
-                                                <div class="add_room_holder">
-                                                  <div class="textleft">
-                                                    <span class="opensans size13 pull-left"><b>ROOM 1</b></span>
-                                                    
-                                                    <div class="addroom1 block pull-left"><a href="#room2" onclick="addroom2()" class="grey">+ Add room</a>| <a href="#" onclick="removeroom2()" class="orange"><img src="images/delete.png" alt="delete"/></a></div>
-                                                    <div class="clear_both"></div>
-                                                  </div>
-                                                </div><!- add_room_holder ->
-
-                                                <div class="w50percentlast">  
-                                                  
-                                                    <div class="col-md-3">
-                                                      <div class="wh90percent textleft left">
-                                                        <span class="opensans size13"><b>Adult</b></span>
-                                                        <select class="form-control mySelectBoxClass">
-                                                          <option>1</option>
-                                                          <option selected>2</option>
-                                                          <option>3</option>
-                                                          <option>4</option>
-                                                        </select>
-                                                      </div>
-                                                    </div>              
-                                                    <div class="col-md-3">
-                                                      <div class="wh90percent textleft right">
-                                                      <span class="opensans size13"><b>Child</b></span>
-                                                        <select class="form-control mySelectBoxClass child_act">
-                                                          <option selected>0</option>
-                                                          <option>1</option>
-                                                          <option>2</option>
-                                                        </select>
-                                                      </div>
-                                                    </div>
-                                                  
-                                                
-                                                    <div class="col-md-3 child1 none">
-                                                      <div class="wh90percent textleft left">
-                                                        <span class="opensans size13"><b>Child 1</b></span>
-                                                        <select class="form-control mySelectBoxClass">
-                                                          <option>1</option>
-                                                          <option>2</option>
-                                                          <option>3</option>
-                                                          <option>4</option>
-                                                                          <option>5</option>
-                                                          <option>6</option>
-                                                          <option>7</option>
-                                                          <option>8</option>
-                                                                          <option>9</option>
-                                                          <option>10</option>
-                                                          <option>11</option>
-                                                          <option>12</option>                                  
-                                                        </select>
-                                                      </div>
-                                                    </div>              
-                                                    <div class="col-md-3 child2 none">
-                                                      <div class="wh90percent textleft right">
-                                                      <span class="opensans size13"><b>Child 2</b></span>
-                                                        <select class="form-control mySelectBoxClass">
-                                                          <option>1</option>
-                                                          <option>2</option>
-                                                          <option>3</option>
-                                                          <option>4</option>
-                                                                          <option>5</option>
-                                                          <option>6</option>
-                                                          <option>7</option>
-                                                          <option>8</option>
-                                                                          <option>9</option>
-                                                          <option>10</option>
-                                                          <option>11</option>
-                                                          <option>12</option>
-                                                        </select>
-                                                      </div>
-                                                    </div>
-                                                  <div class="clearfix"></div> 
-                                                </div>
-                                                 <div class="clearfix"></div>       
-                                              </div>
-                                                
-                                              <button type="submit" class="btn-search2 btn btn-primary">Search</button>   
-                                              
-                                          </form>
-                                    </div>
+                                  </ul>
+                                  
+                                    <div class="clear_both"> </div>
                                 </div>
-                                <div class="panel-footer bg-white">
-                                    <p>Don't have an account? <a href="#">Sign up</a></p>
-                                </div>
-                            </div> -->
-                            <div class="panel panel-lightpurple">
-                                <div class="panel-heading nopadding">
-                                    <h3 class="panel-title text-center col-md-6 hotel padding10 hotel_tab_act">
-                                        Hotel 
-                                    </h3>
-                                    <h3 class="bus panel-title text-center padding10 bus_tab_act">
-                                        Bus
-                                    </h3>
-                                </div>
-                                <div class="panel-body padding-r_l60">
+                                <div class="panel-body padding-r_l60 panel-white">
                                     <div class="tab-content sign-in-form search_form_home">
                                     <div class="tab-pane fade in active" id="tab-1">
-                                        <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" class="hotel_search" id="myform">
+                                        <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" id="myform">
+                                        <div class="hotel_search">
                                             {% csrf_token %}
-                                            <div class="form-group form-group-md form-group-icon-left nomargin">
+                                            <div class="form-group form-group-md form-group-icon-left">
                                                 <label>Where are you going?</label>
                                                 <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
                                                 <div class="error_mgs_city" style="display:none; color:red;">Enter the Destination</div>
@@ -158,14 +38,14 @@
                                             <div class="input-daterange" data-date-format="M d, D">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
+                                                        <div class="form-group form-group-md form-group-icon-left">
                                                             <label>Check-in</label>
                                                             <input class="form-control startdate mySelectCalendar2" id="datepicker7" name="start" type="text" placeholder="yyyy/mm/dd" value="" />
                                                             <div class="error_mgs_start_date" style="display:none; color:red;">Enter the Check in date</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
+                                                        <div class="form-group form-group-md form-group-icon-left">
                                                             <label>Check-out</label>
                                                             <input class="form-control enddate mySelectCalendar2" id="datepicker8" name="end" type="text" placeholder="yyyy/mm/dd" value="" />
                                                             <div class="error_mgs_end_date" style="display:none; color:red;">Enter the Check out date</div>
@@ -179,7 +59,7 @@
                                                           <input class="form-control hidden_input" name="room1" type="hidden" value="1" readonly="readonly" />
                                                         
                                                             <div class="fl add_room_fields add_room_fields_87 adults">
-                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
+                                                                <div class="form-group form-group-md form-group-select-plus">
                                                                     <label>Adults</label>                                       
                                                                     <select class="form-control adults" name="adults1">  
                                                                         <option value="1" >1</option>
@@ -192,7 +72,7 @@
                                                             </div>
                                                             <!--- Childs -->
                                                             <div class="fl add_room_fields add_room_fields_87 childs">
-                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
+                                                                <div class="form-group form-group-md form-group-select-plus">
                                                                     <label>Children</label>                                     
                                                                     <select class="form-control child_age_act child" name="childs1"> 
                                                                         <option value="0" >0</option>
@@ -206,7 +86,7 @@
                                                             </div>
 
                                                             <div class="fl add_room_fields child-1-act dn" id="test1">
-                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
+                                                                <div class="form-group form-group-md form-group-select-plus">
                                                                     <label>Child-1 age</label>                              
                                                                     <select class="form-control child_age child_age_1" name="childage1_1">   
                                                                         <option value="0" >0</option>
@@ -228,7 +108,7 @@
                                                             </div>
 
                                                             <div class="fl add_room_fields child-2-act dn">
-                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
+                                                                <div class="form-group form-group-md form-group-select-plus">
                                                                     <label>Child-2 age</label>                                     
                                                                     <select class="form-control child_age child_age_2" name="childage2_1 "> 
                                                                         <option value="0" >0</option>
@@ -266,163 +146,33 @@
                                                 </div><!-- add_room_holder -->
                                             </div>
                                             
-                                             <button id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act fl" >ADD ROOMS</button>   
+                                             
+                                        </div><!-- hotel_search -->
+                                        <button id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act fl" >ADD ROOMS</button>   
                                              <button id="searchBtn"  class="btn btn-primary btn-sm hotel fl" >Search for Hotels</button>
-                                             <div class="clear_both"> </div>
+                                             <div class="clear_both"> </div>   
                                         </form>
                                     </div>
-                                    <div class="tab-pane fade" id="tab-2">
-                                        
-                                        <form>
-                                            <div class="tabbable">
-                                                <ul class="nav nav-pills nav-sm nav-no-br mb10" id="flightChooseTab">
-                                                    <li class="active"><a href="#flight-search-1" data-toggle="tab">Round Trip</a>
-                                                    </li>
-                                                    <li><a href="#flight-search-2" data-toggle="tab">One Way</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <div class="tab-pane fade in active" id="flight-search-1">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                                    <label>From</label>
-                                                                    <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                                    <label>To</label>
-                                                                    <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-daterange" data-date-format="M d, D">
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                                        <label>Departing</label>
-                                                                        <input class="form-control" name="start" type="text" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                                        <label>Returning</label>
-                                                                        <input class="form-control" name="end" type="text" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group form-group-md form-group-select-plus nomargin">
-                                                                        <label>Passngers</label>
-                                                                        <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                                            <label class="btn btn-primary active">
-                                                                                <input type="radio" name="options" />1</label>
-                                                                            <label class="btn btn-primary">
-                                                                                <input type="radio" name="options" />2</label>
-                                                                            <label class="btn btn-primary">
-                                                                                <input type="radio" name="options" />3</label>
-                                                                            <label class="btn btn-primary">
-                                                                                <input type="radio" name="options" />3+</label>
-                                                                        </div>
-                                                                        <select class="form-control hidden">
-                                                                            <option>1</option>
-                                                                            <option>2</option>
-                                                                            <option>3</option>
-                                                                            <option selected="selected">4</option>
-                                                                            <option>5</option>
-                                                                            <option>6</option>
-                                                                            <option>7</option>
-                                                                            <option>8</option>
-                                                                            <option>9</option>
-                                                                            <option>10</option>
-                                                                            <option>11</option>
-                                                                            <option>12</option>
-                                                                            <option>13</option>
-                                                                            <option>14</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="flight-search-2">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                                    <label>From</label>
-                                                                    <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                                    <label>To</label>
-                                                                    <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                                    <label>Departing</label>
-                                                                    <input class="date-pick form-control" data-date-format="M d, D" type="text" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group form-group-md form-group-select-plus nomargin">
-                                                                    <label>Passngers</label>
-                                                                    <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                                        <label class="btn btn-primary active">
-                                                                            <input type="radio" name="options" />1</label>
-                                                                        <label class="btn btn-primary">
-                                                                            <input type="radio" name="options" />2</label>
-                                                                        <label class="btn btn-primary">
-                                                                            <input type="radio" name="options" />3</label>
-                                                                        <label class="btn btn-primary">
-                                                                            <input type="radio" name="options" />3+</label>
-                                                                    </div>
-                                                                    <select class="form-control hidden">
-                                                                        <option>1</option>
-                                                                        <option>2</option>
-                                                                        <option>3</option>
-                                                                        <option selected="selected">4</option>
-                                                                        <option>5</option>
-                                                                        <option>6</option>
-                                                                        <option>7</option>
-                                                                        <option>8</option>
-                                                                        <option>9</option>
-                                                                        <option>10</option>
-                                                                        <option>11</option>
-                                                                        <option>12</option>
-                                                                        <option>13</option>
-                                                                        <option>14</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-primary btn-lg" type="submit">Search for Flights</button>
-                                        </form>
-                                    </div>
+                                  
                                     <div class="tab-pane fade" id="tab-3">
-                                            <form action="{% url "bus.views.search_bus_v2" %}" method="post" name="search_bus" class="bus_search">
+                                            <form action="{% url "bus.views.search_bus_v2" %}" method="post" name="search_bus" >
+                                            <div class="bus_search">
                                             {% csrf_token %}
                                             <div>
                                                 <div class="row home_form_bus">
                                                     <div class="col-md-6">
-                                                        <input id="oneway" type="radio" name="trip" value="oneway" checked="checked" class="radio pull-left"/><label class="pull-left nomargin">One way</label>
+                                                        <input id="oneway" type="radio" name="trip" value="oneway" checked="checked" class="radio pull-left"/><label class="pull-left">One way</label>
                                                         <div class="clear_both"></div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input id="round" type="radio" name="trip" value="round" class="radio pull-left" /><label class="pull-left nomargin">Round</label>
+                                                        <input id="round" type="radio" name="trip" value="round" class="radio pull-left" /><label class="pull-left">Round</label>
                                                         <div class="clear_both"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row return_div">
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left nomargin">
+                                            <div class="form-group form-group-md form-group-icon-left">
                                             <label>Source</label>
                                             <input class="typeahead source_return form-control source" placeholder="Bangalore" type="text" id="filter_bus" name="source"/>
                                             <span class="error_source" style="display:none; color:red;">please enter the source</span>
@@ -430,7 +180,7 @@
                                             </div>
                                             </div>
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left nomargin">
+                                            <div class="form-group form-group-md form-group-icon-left">
                                             <label>Destination</label>
                                             <input class="typeahead destination form-control" placeholder="Chennai" type="text" id="filter_bus_des" name="destination" />
                                             <span class="error_destination" style="display:none; color:red;">please enter the destination</span>
@@ -441,7 +191,7 @@
                                             <div class="input-daterange return_div" data-date-format="M d, D">
                                             <div class="row">
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left nomargin">
+                                            <div class="form-group form-group-md form-group-icon-left">
                                             <label> Depart  </label>
                                             <input class="form-control depart mySelectCalendar2 start_date" id="datepicker3" name="start" type="text" placeholder="YYYY/MM/DD" />
                                             <span class="error_start" style="display:none; color:red;">please enter the depart date</span>
@@ -449,7 +199,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left return_date nomargin">
+                                            <div class="form-group form-group-md form-group-icon-left return_date">
                                             <label>Return</label>
                                             <input class="form-control return mySelectCalendar2 end_date" id="datepicker4" name="end" type="text" placeholder="YYYY/MM/DD"/>
                                             <span class="error_end" style="display:none; color:red;">please enter the return date</span>
@@ -458,37 +208,11 @@
                                             </div>
 
                                             </div>
-                                            </div>
+                                            </div><!-- search_bus -->
                                             <button class="btn btn-primary btn-sm return_div" type="submit" id="searchbus_return">Search for Bus</button>
                                             </form>
                                     </div>
-                                    <div class="tab-pane fade" id="tab-5">
-                                        <h2>Search for Activities</h2>
-                                        <form>
-                                            <div class="input-daterange" data-date-format="M d, D">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                            <label>Where are you going?</label>
-                                                            <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="text" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                            <label>From</label>
-                                                            <input class="form-control" name="start" type="text" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group form-group-md form-group-icon-left nomargin">
-                                                            <label>To</label>
-                                                            <input class="form-control" name="end" type="text" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-primary btn-lg" type="submit">Search for Activities</button>
-                                        </form>
+                                   
                                     </div>
                                     </div>
                                 </div>

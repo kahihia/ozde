@@ -55,23 +55,23 @@
     });
     $(document).ready(function() {
 
-    	$('.hotel_tab_act').css({'background-color': '#ffffff','border-color': '#ffffff','color': '#000000'})
- 		$('.bus_tab_act').css({'background-color': '#a490da','border-color': '#a490da','color': '#ffffff'})
+    	
+ 		
 
 
     	$('.hotel_tab_act').click(function(){
   			$('#tab-1').addClass('active in');
  			$('#tab-3').removeClass('active in');
- 			$('.hotel_tab_act').css({'background-color': '#ffffff','border-color': '#ffffff','color': '#000000'})
- 			$('.bus_tab_act').css({'background-color': '#a490da','border-color': '#a490da','color': '#ffffff'})
+ 			$('.hotel_tab_act').addClass("menu_active")
+ 			$('.bus_tab_act').removeClass("menu_active")
  			
 		});
 
 		$('.bus_tab_act').click(function(){
   			$('#tab-3').addClass('active in');
   			$('#tab-1').removeClass('active in');
- 			$('.hotel_tab_act').css({'background-color': '#a490da','border-color': '#a490da','color': '#ffffff'})
- 			$('.bus_tab_act').css({'background-color': '#ffffff','border-color': '#ffffff','color': '#000000'})
+ 			$('.hotel_tab_act').removeClass("menu_active")
+ 			$('.bus_tab_act').addClass("menu_active")
 
 		});
 
