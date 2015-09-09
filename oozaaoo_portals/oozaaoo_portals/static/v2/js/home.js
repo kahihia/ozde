@@ -88,26 +88,26 @@
 					+"<div class='fl add_room_fields add_room_fields_87 adults'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
 					+"<label>Adults</label>"                                       
-					+"<select class='form-control' name='adults"+i+"'>"  
+					+"<select class='form-control adults' name='adults"+i+"'>"  
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >3</option>"
 					+"<option value='4' >4</option>"
-					+"</select></div></div>"
+					+"</select><div class='error_mgs_adult' style='display:none; color:red;'>Enter the no of adults</div></div></div>"
 					+"<div class='fl add_room_fields add_room_fields_87 childs'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
 					+"<label>Children</label>"                                     
-					+"<select class='form-control child_age_act' name='childs"+i+"'> "
+					+"<select class='form-control child_age_act child' name='childs"+i+"'> "
 					+"<option selected='selected' value='0' >0</option>"
 					+"<option value='1' >1</option>"
 					+"<option value='2' >2</option>"
-					+"</select>"
+					+"</select><div class='error_mgs_child' style='display:none; color:red;'>Enter the child age</div>"
 					+"</div>"
 					+"</div>"
 					+"<div class='fl add_room_fields child-1-act dn' id='test1'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
 					+"<label>Child-1 age</label>"                              
-					+"<select class='form-control child_age' name='childage1_"+i+"'> "  
+					+"<select class='form-control child_age child_age_1' name='childage1_"+i+"'> "  
 					+"<option selected='selected' value='0' >0</option>"
 					+"<option value='1' >1</option>"
 					+"<option value='2' >2</option>"
@@ -122,13 +122,13 @@
 					+"<option value='11' >11</option>"
 					+"<option value='12' >12</option>"
 					+"</select>"
-					+"<div class='error_mgs' style='display:none; color:red;'>Enter the child age</div>"
+					+"<div class='error_mgs_child_age1' style='display:none; color:red;''>Enter the child 1 age</div>"
 					+"</div>"
 					+"</div>"
 					+"<div class='fl add_room_fields child-2-act dn'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
 					+"<label>Child-2 age</label>"                                     
-					+"<select class='form-control child_age' name='childage2_"+i+"'> "
+					+"<select class='form-control child_age child_age_2' name='childage2_"+i+"'> "
 					+"<option selected='selected' value='0' >0</option>"
 					+"<option value='1' >1</option>"
 					+"<option value='2' >2</option>"
@@ -143,7 +143,7 @@
 					+"<option value='11' >11</option>"
 					+"<option value='12' >12</option>"
 					+"</select>"
-					+"<div class='error_mgs' style='display:none; color:red;''>Enter the child age</div>"
+					+"<div class='error_mgs_child_age2' style='display:none; color:red;'>Enter the child age</div>"
 					+"</div>"
 					+"</div>"
 					+"<div class='fl add_room_fields remove_room_fields remove_room_fields_act'> </div>"
@@ -181,6 +181,8 @@
 
 //********************************hotel home page validation***********************************//
 		$('#searchBtn').click(function(){ 
+			var startDate = new Date($('.startdate').val());
+			var endDate = new Date($('.enddate').val());
 		    if($('.typeahead').val() == '') {
 		        $('.error_mgs_city').show();
 		        return false;
@@ -201,6 +203,10 @@
 		    }
 		    else{
 		    	$('.error_mgs_end_date').hide();
+		    }
+		    if(startDate>=endDate){
+		    	$('.error_mgs_date').show();
+		        return false;
 		    }
 		    // if($('.adults').val() == ''){
 		    //     $('.error_mgs_adult').show();
@@ -249,7 +255,8 @@
 		});
 	//**************************for bus validation*******************************//
 	$('#searchbus_return').click(function(){
-
+		var startDate = new Date($('.start_date').val());
+		var endDate = new Date($('.end_date').val());
 	    if($('.source').val() == '') {
 	        $('.error_source').show();
 	        return false;
@@ -270,6 +277,9 @@
 	    	if($('.end_date').val() == ''){
 	        	$('.error_end').show();
 	        return false;
+	     	}
+	     	else if(startDate>=endDate){
+	     		$('.error_date').show();
 	     	}
 	    }
 	    else{
