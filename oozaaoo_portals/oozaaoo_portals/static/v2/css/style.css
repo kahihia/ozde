@@ -1064,7 +1064,7 @@ textarea.form-control
   display:block;
   height:132px;
   width:293px;
-  margin:10px auto 80px auto;
+  margin:10px auto 10px auto;
 }
 #menu {
   width: 100%;
@@ -2056,3 +2056,55 @@ ui-widget-content{
   font-size: 18px;
 }
 
+td.today.disabled:hover{
+  background-image: -moz-linear-gradient(center top , #fdd49a, #fdf59a) !important;
+}
+
+.datepicker td{
+  padding: 10px !important;
+  border-radius: 25px !important;
+}
+
+.datepicker {
+  padding: 10px !important;
+}
+.datepicker table tr td.today {
+  background: #fff !important;
+  border: 1px solid grey !important;
+  background-color: #fff !important;
+  background-image: -moz-linear-gradient(center top , #fff, #fff) !important;
+  background-repeat: repeat-x !important;
+  color: #000! important;
+}
+.input-group-addon {
+  display: block;
+  left: 0px;
+  height: 43px;
+  left:0px;
+  padding: 10px 0px !important;
+  position: absolute;
+  width: 39px;
+  z-index: 1000;
+}
+.datepicker-dropdown.datepicker-orient-bottom::after{
+  top:0px !important;  
+}
+.dob{
+  width: 100%;
+}
+/*************************** Tool Tip ***********************************/
+.tooltip {
+ display:block;
+}
+.tipsy { padding: 5px; font-size: 18px; position: absolute; z-index: 100000; line-height:18px; top:20px; }
+.tipsy-inner { padding: 5px 8px 4px 8px; background-color: black; color: white; max-width: 200px; font-family:arial; font-weight: normal; font-size: 14px;text-align: center; }
+/*.tipsy-inner { border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; }*/
+.tipsy-arrow { position: absolute; width: 9px; height: 5px; }
+.tipsy-n .tipsy-arrow { top: 0; left: 50%; margin-left: -4px; }
+.tipsy-nw .tipsy-arrow { top: 0; left: 10px; }
+.tipsy-ne .tipsy-arrow { top: 0; right: 10px; }
+.tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -4px; background-position: bottom left; }
+.tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; background-position: bottom left; }
+.tipsy-se .tipsy-arrow { bottom: 0; right: 10px; background-position: bottom left; }
+.tipsy-e .tipsy-arrow { top: 50%; margin-top: -4px; right: 0; width: 5px; height: 9px; background-position: top right; }
+.tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }

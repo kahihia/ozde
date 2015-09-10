@@ -63,8 +63,10 @@ def search_bus_v2(request):
 	source= request.POST.get('source',request.COOKIES.get('source'))
 	destination=request.POST.get('destination',request.COOKIES.get('destination'))
 	departure=request.POST.get('start',request.COOKIES.get('start'))
+	print departure
 	dateofdeparture = departure.replace('/','')
 	arrival=request.POST.get('end',request.COOKIES.get('end'))
+	print arrival
 	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
 	try:

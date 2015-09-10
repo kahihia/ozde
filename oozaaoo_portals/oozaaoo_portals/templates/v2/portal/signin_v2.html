@@ -1,15 +1,16 @@
-{% extends 'v2/base_inner_v2.html' %}
+{% extends 'v2/home_base_v2.html' %}
 {% load static from staticfiles %}
 {% load i18n %}
 {% block content %}
-<div class="bg-lightgrey bus-payment">
+<div class="bus-payment">
 <div class="container sign-in">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10 marginbottom10">
-                    <h2 class="bold text-center padding20">Bus Booking<br/><span class="logo-span-txt text-center">Made easy!</span></h2>                   
+                <a class="logo_home"></a>   
+                                    
                     <div class="row">
-                        <div class="col-md-3 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-left.png" class="left-img" /></div>
+                        <div class="col-md-3 hidden-xs"></div>
                         <div class="col-md-6 z-index1 padding5-40">
                             <div class="panel panel-lightpurple">
                                 <div class="panel-heading">
@@ -25,7 +26,7 @@
                                         {% if msg %}<h5>{{msg}}</h5>{% endif %}
                                         <form action="{% url "hotels.views.login_user_v2" %}" method="post">
                                         {% csrf_token %}
-                                            <input type="text" class="form-control" name="username" placeholder="Email*" />
+                                            <input type="text" class="form-control marginbottom10" name="username" placeholder="Email*" />
                                             <input type="password" class="form-control" name="password" placeholder="Password*" />
                                             <label class="control-label"><input type="checkbox" /> Keep me logged in</label>
                                             <br>
@@ -41,7 +42,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" /></div>
+                        <div class="col-md-3 hidden-xs"></div>
                     </div>
                 </div>
                 <div class="col-md-1"></div>

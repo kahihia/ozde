@@ -1,14 +1,14 @@
-{% extends 'v2/base_inner_v2.html' %}
+{% extends 'v2/home_base_v2.html' %}
 {% load static from staticfiles %}
 {% load i18n %}
 {% block content %}
-<div class="bg-lightgrey bus-payment">
+<div class="bus-payment">
 <div class="container sign-in">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10 marginbottom10">
-                    <h2 class="bold text-center padding20">Bus Booking<br/><span class="logo-span-txt text-center">Made easy!</span></h2>                   <div class="row">
-                        <div class="col-md-3 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-left.png" class="left-img" /></div>
+                    <a class="logo_home"></a>                      <div class="row">
+                        <div class="col-md-3 hidden-xs"></div>
                         <div class="col-md-6 z-index1 padding5-40">
                             <div class="panel panel-lightpurple">
                                 <div class="panel-heading">
@@ -35,15 +35,27 @@
                                     <div class="sign-in-form">
                                         <form action="{% url "hotels.views.registration_v2" %}" method="post">
                                             {% csrf_token %}
+                                        <div class="marginbottom10">
                                             <input type="text" class="form-control" name="username" placeholder="Name*" />
+                                        </div>
+                                         <div class="marginbottom10">
                                             <input type="email" class="form-control" name="email" placeholder="Email*" />
+                                        </div>
+                                        <div class="marginbottom10">
                                             <input type="password" class="form-control" name="password" placeholder="Create Password*" />
-                                            <input class="form-control" placeholder="phone no" type="text" name="phone" />                                          
-                                            <input class="form-control" placeholder="e.g.2015-08-19" type="text" name="dob" />
-                                            <br>
+                                        </div>
+                                         <div class="marginbottom10">
+                                            <input class="form-control" placeholder="Mobile no" type="text" name="phone" />
+                                        </div>
+                                        <div class="input-group dob marginbottom10">                                          
+                                            <input class="form-control dob text-center" id="datepicker5" name="dob" type="text" placeholder="Date of Birth" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                
                                             <input type="hidden" value="{% if request.REQUEST.next %}{{ request.REQUEST.next }}{% else %}{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}{% else %}/{% endif %}{% endif %}" name="next" />
-                                            <button class="btn btn-primary width100" type="submit">Create new account</button> 
-                                            <p><input type="checkbox" /> By clicking you agree to <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy.</a></p>
+                                        <div>
+                                            <button class="btn btn-primary width100" type="submit">Create new account</button>
+                                        </div> 
+                                            <p><input type="checkbox" /> By clicking you agree to <a href="/v2/terms_and_condition/">Terms &amp; Conditions</a> and <a href="/v2/privacy/">Privacy Policy.</a></p>
                                             
                                         </form>
                                     </div>
@@ -53,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" /></div>
+                        <div class="col-md-3 hidden-xs"></div>
                     </div>
                 </div>
                 <div class="col-md-1"></div>

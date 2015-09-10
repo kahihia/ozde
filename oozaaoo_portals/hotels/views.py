@@ -333,8 +333,10 @@ def gethotellist(request):
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
+		
 		checkinvalue = checkin.replace('/','')
 		checkout = request.POST.get('end',request.COOKIES.get('checkout'))
+		print checkout
 		checkoutvalue = checkout.replace('/','')
 		rooms1 = request.POST.get('room1', '1')
 		adults1 = request.POST.get('adults1', '1')	
@@ -459,9 +461,11 @@ def gethotellist_v2(request):
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
-		checkinvalue = checkin.replace('/','')
+		date,month,year=checkin.split('/')
+		checkinvalue = year+month+date
 		checkout = request.POST.get('end',request.COOKIES.get('checkout'))
-		checkoutvalue = checkout.replace('/','')
+		date,month,year=checkout.split('/') 
+		checkoutvalue = year+month+date
 		rooms1 = request.POST.get('room1', '1')
 		adults1 = request.POST.get('adults1', '1')	
 		nochildrens1 = request.POST.get('childs1', '0')
@@ -560,15 +564,15 @@ def gethotellist_v2(request):
 				child=int(nochildrens1)
 
 			from datetime import datetime
-			fmt = '%Y/%m/%d'
+			fmt = '%d/%m/%Y'
 			d0=datetime.strptime(checkin, fmt)
 			d1=datetime.strptime(checkout, fmt)
 			no_night=str((d1-d0).days)
 	
-			date_object_checkin= datetime.strptime(checkin, '%Y/%m/%d') 			
+			date_object_checkin= datetime.strptime(checkin, '%d/%m/%Y') 			
  			change_datefmt_checkin=(date_object_checkin.strftime('%b %d, %Y')) 			
  						
-			date_object_checkout= datetime.strptime(checkout, '%Y/%m/%d')
+			date_object_checkout= datetime.strptime(checkout, '%d/%m/%Y')
  			change_datefmt_checkout=(date_object_checkout.strftime('%b %d, %Y'))
  				
 		

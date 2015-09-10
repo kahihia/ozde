@@ -1595,9 +1595,9 @@
         },
         headTemplate: '<thead>' +
             '<tr>' +
-            '<th class="prev"></th>' +
+            '<th class="prev"><i class="fa fa-chevron-left"></i></th>' +
             '<th colspan="5" class="datepicker-switch"></th>' +
-            '<th class="next"></th>' +
+            '<th class="next"><i class="fa fa-chevron-right"></i></th>' +
             '</tr>' +
             '</thead>',
         contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',

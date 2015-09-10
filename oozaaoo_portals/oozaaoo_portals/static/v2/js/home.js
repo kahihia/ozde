@@ -1,4 +1,6 @@
 
+
+
 	$( ".mySelectCalendar2" ).datepicker({
       dateFormat: "yy/mm/dd",
       changeDate:true,  
@@ -14,29 +16,48 @@
 				{
 				todayHighlight: true,
 				startDate: today,
-			    format: 'dd/mm/yyyy'
+			    format: 'dd/mm/yyyy',
+			    orientation: "bottom auto",
+			    autoclose: true,
+			    endDate: "+60d"
 			});
 			$( "#datepicker4" ).datepicker(
 				{
 				todayHighlight: true,
 				startDate: today,
-			    format: 'dd/mm/yyyy'
+			    format: 'dd/mm/yyyy',
+			    orientation: "bottom auto",
+			    autoclose: true,
+			    endDate: "+60d"
+			});
+			$( "#datepicker5" ).datepicker(
+				{
+				todayHighlight: true,
+			    format: 'yyyy-mm-dd',
+			    orientation: "bottom auto",
+			    autoclose: true,
 			});
 			$( "#datepicker7" ).datepicker({
 				todayHighlight: true,
 				startDate: today,
-			    format: 'dd/mm/yyyy'
+			    format: 'dd/mm/yyyy',
+			    orientation: "bottom auto",
+			    autoclose: true,
+			    endDate: "+60d"
 			});
 			$( "#datepicker8" ).datepicker({
 				todayHighlight: true,
 				startDate: today,
-			    format: 'dd/mm/yyyy'
+			    format: 'dd/mm/yyyy',
+			    orientation: "bottom auto",
+			    autoclose: true,
+			    endDate: "+60d"
 			});
 	});
 
  	$(document).on('change', '.child_age_act', function() {     
           if($(this).val() == 0 ) {
-               $(this).parent().siblings(".child-1-act").hide();
+               $(this).parent().parent().siblings(".child-1-act").hide();
                $(this).parent().parent().siblings(".child-2-act").hide();
          }
 
@@ -54,10 +75,9 @@
          }
     });
     $(document).ready(function() {
-
     	
- 		
-
+    	$('.hotel_tab_act').tipsy({gravity: 's'});
+		$('.bus_tab_act').tipsy({gravity: 's'});
 
     	$('.hotel_tab_act').click(function(){
   			$('#tab-1').addClass('active in');

@@ -15,8 +15,8 @@
                             <div class="panel panel-without_bg">
                                 <div class="panel-heading nopadding noborder">
                                   <ul class="breadcrumb1">
-                                    <li><span class="tooltip hotel_tab_act transparent_bg menu_active" onmouseover="tooltip.pop(this, '<span class=\'red\'>Hotel Search</span>', {position:0})"><i class="fa fa-bed"></i>  Hotel</span></li>
-                                    <li><span class="tooltip bus_tab_act transparent_bg" onmouseover="tooltip.pop(this, '<span class=\'red\'>Bus Search</span>', {position:0})"><i class="fa fa-bus"></i>Bus</span></li>
+                                    <li><a class="hotel_tab_act transparent_bg menu_active" title="Hotel Search"><i class="fa fa-bed"></i>  Hotel</a></li>
+                                    <li><a class="bus_tab_act transparent_bg" title="Bus search"><i class="fa fa-bus"> Bus</i></a></li>
 
  
                                   </ul>
@@ -38,16 +38,16 @@
                                             <div class="input-daterange" data-date-format="M d, D">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group form-group-md form-group-icon-left">
+                                                        <div class="form-group form-group-md form-group-icon-left input-group">
                                                             <label>Check-in</label>
-                                                            <input class="form-control startdate mySelectCalendar2" id="datepicker7" name="start" type="text" placeholder="yyyy/mm/dd" value="" />
+                                                            <input class="form-control startdate" id="datepicker7" name="start" type="text" placeholder="DD/MM/YYYY" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                             <div class="error_mgs_start_date" style="display:none; color:red;">Enter the Check in date</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group form-group-md form-group-icon-left">
+                                                        <div class="form-group form-group-md form-group-icon-left input-group">
                                                             <label>Check-out</label>
-                                                            <input class="form-control enddate mySelectCalendar2" id="datepicker8" name="end" type="text" placeholder="yyyy/mm/dd" value="" />
+                                                            <input class="form-control enddate " id="datepicker8" name="end" type="text" placeholder="DD/MM/YYYY" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                             <div class="error_mgs_end_date" style="display:none; color:red;">Enter the Check out date</div>
                                                             <div class="error_mgs_date" style="display:none; color:red;">Date format wrong</div>
                                                         </div>
@@ -191,17 +191,17 @@
                                             <div class="input-daterange return_div" data-date-format="M d, D">
                                             <div class="row">
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left">
+                                            <div class="form-group form-group-md form-group-icon-left input-group">
                                             <label> Depart  </label>
-                                            <input class="form-control depart mySelectCalendar2 start_date" id="datepicker3" name="start" type="text" placeholder="YYYY/MM/DD" />
+                                            <input class="form-control depart start_date" id="datepicker3" name="start" type="text" placeholder="DD/MM/YYYY" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             <span class="error_start" style="display:none; color:red;">please enter the depart date</span>
                                             </div>
                                             </div>
 
                                             <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left return_date">
+                                            <div class="form-group form-group-md form-group-icon-left return_date input-group">
                                             <label>Return</label>
-                                            <input class="form-control return mySelectCalendar2 end_date" id="datepicker4" name="end" type="text" placeholder="YYYY/MM/DD"/>
+                                            <input class="form-control return end_date" id="datepicker4" name="end" type="text" placeholder="DD/MM/YYYY"/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             <span class="error_end" style="display:none; color:red;">please enter the return date</span>
                                             <span class="error_date" style="display:none; color:red;">please enter the correct format</span>
                                             </div>
