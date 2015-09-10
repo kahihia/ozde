@@ -1190,7 +1190,7 @@ textarea.form-control
 }
 
 /*********************************** date picker styles ****************************************************/
-
+/*
 .datepicker table tr td.today:active,
 .datepicker table tr td.today:hover:active,
 .datepicker table tr td.today.disabled:active,
@@ -1988,7 +1988,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   .bootstrap-timepicker .dropdown-menu {
     width: 100%;
   }
-}
+}*/
 .loader .logo{
   height: 100px;
   left: 50%;
@@ -2045,7 +2045,7 @@ ui-widget-content{
 .breadcrumb1 li { 
   float: left; 
 }
-.breadcrumb1 li a {
+.breadcrumb1 li a ,.breadcrumb1 li span{
   color: #000;
   text-decoration: none; 
   padding: 10px 35px 10px 35px;
@@ -2053,5 +2053,6 @@ ui-widget-content{
   position: relative; 
   display: block;
   float: left;
+  font-size: 18px;
 }
 

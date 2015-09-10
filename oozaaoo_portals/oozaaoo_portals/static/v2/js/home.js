@@ -14,23 +14,23 @@
 				{
 				todayHighlight: true,
 				startDate: today,
-			    format: 'yyyy/mm/dd'
+			    format: 'dd/mm/yyyy'
 			});
 			$( "#datepicker4" ).datepicker(
 				{
 				todayHighlight: true,
 				startDate: today,
-			    format: 'yyyy/mm/dd'
+			    format: 'dd/mm/yyyy'
 			});
 			$( "#datepicker7" ).datepicker({
 				todayHighlight: true,
 				startDate: today,
-			    format: 'yyyy/mm/dd'
+			    format: 'dd/mm/yyyy'
 			});
 			$( "#datepicker8" ).datepicker({
 				todayHighlight: true,
 				startDate: today,
-			    format: 'yyyy/mm/dd'
+			    format: 'dd/mm/yyyy'
 			});
 	});
 
