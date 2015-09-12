@@ -80,16 +80,16 @@
 		$('.bus_tab_act').tipsy({gravity: 's'});
 
     	$('.hotel_tab_act').click(function(){
-  			$('#tab-1').addClass('active in');
- 			$('#tab-3').removeClass('active in');
+ 			$('#tab-1').addClass('active in').show( "slide", { direction: "left"  }, 200 );
+ 			$('#tab-3').removeClass('active in').hide( "slide", { direction: "right"  }, 200 );
  			$('.hotel_tab_act').addClass("menu_active")
  			$('.bus_tab_act').removeClass("menu_active")
  			
 		});
 
 		$('.bus_tab_act').click(function(){
-  			$('#tab-3').addClass('active in');
-  			$('#tab-1').removeClass('active in');
+  			$('#tab-1').removeClass('active in').hide( "slide", { direction: "right"  }, 200 );
+ 			$('#tab-3').addClass('active in').show( "slide", { direction: "left"  }, 200 );
  			$('.hotel_tab_act').removeClass("menu_active")
  			$('.bus_tab_act').addClass("menu_active")
 

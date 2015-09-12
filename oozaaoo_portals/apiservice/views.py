@@ -95,7 +95,7 @@ class goibiboAPI(object):
 
 
 		#=========================BUS API===============================#
-	def Searchbus(self,source,destination,dateofdeparture,dateofarrival,trip):
+	def Searchbus(self,source,destination,dateofdeparture,trip,dateofarrival='None'):
 		if trip == 'oneway':
 			query = settings.BUS_BASE+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(dateofdeparture)
 		else:

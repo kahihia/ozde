@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	# url(r'', include('social_auth.urls')),
 	url(r'^$', 'hotels.views.home_v2', name='home_v2'),
+
     
     # url(r'^v2/$', 'hotels.views.home_v2', name='home_v2'),
     url(r'^v2/profile$', 'hotels.views.profile_v2', name='profile_v2'),

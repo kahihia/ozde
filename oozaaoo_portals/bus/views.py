@@ -62,123 +62,128 @@ def search_bus_v2(request):
 	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
 	source= request.POST.get('source',request.COOKIES.get('source'))
 	destination=request.POST.get('destination',request.COOKIES.get('destination'))
-	departure=request.POST.get('start',request.COOKIES.get('start'))
-	print departure
-	dateofdeparture = departure.replace('/','')
-	arrival=request.POST.get('end',request.COOKIES.get('end'))
-	print arrival
-	dateofarrival = departure.replace('/','')
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
-	try:
-		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, dateofarrival,trip)
-		if 'data' in getbusresponse:
-			log_function(query, "success:True")
+	departure=request.POST.get('start',request.COOKIES.get('start'))
+	date,month,year=departure.split('/')
+	dateofdeparture = year+month+date
+	if request.POST['trip']=='round':
+		arrival=request.POST.get('end',request.COOKIES.get('end'))
+		date,month,year=arrival.split('/')
+		dateofarrival = year+month+date
+		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, trip,dateofarrival)
+	else:
+		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture,trip)	
+	
+	# try:
+	
+	if 'data' in getbusresponse:
+		log_function(query, "success:True")
+	else:
+		log_function(query, "success:False" + str(getbusresponse['Error']))
+	reviews = []
+	#try:
+	for bussearchlist in getbusresponse['data']['onwardflights']:	
+		_rbuslist	= {}
+		_rbuslist['businfos'] = {
+			'origin':bussearchlist['origin'],
+			'destination':bussearchlist['destination'],
+			'BusType':bussearchlist['BusType'],
+			'DepartureTime':bussearchlist['DepartureTime'],
+			'duration':bussearchlist['duration'],
+			'skey':bussearchlist['skey'],
+			'fare':bussearchlist['fare']['totalfare'],
+			'TravelsName':bussearchlist['TravelsName'],
+			'ArrivalTime':bussearchlist['ArrivalTime'],
+			'depdate':bussearchlist['depdate'],
+			'arrdate':bussearchlist['arrdate'],
+			'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+			'busCondition':bussearchlist.get('busCondition'),
+			'BusType':bussearchlist.get('BusType'),
+		}
+
+		if bussearchlist.get('BPPrims'):
+			for morevalues in bussearchlist['BPPrims']['list']:
+				_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+
+			if bussearchlist.get('DPPrims'):
+				for morevalues in bussearchlist['DPPrims']['list']:
+					_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+			
+
+			if bussearchlist.get('RouteSeatTypeDetail'):
+				for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+					_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+			
+			reviews.append(_rbuslist)
 		else:
-			log_function(query, "success:False" + str(getbusresponse['Error']))
-		reviews = []
-		try:
-			for bussearchlist in getbusresponse['data']['onwardflights']:	
-				_rbuslist	= {}
-				_rbuslist['businfos'] = {
-					'origin':bussearchlist['origin'],
-					'destination':bussearchlist['destination'],
-					'BusType':bussearchlist['BusType'],
-					'DepartureTime':bussearchlist['DepartureTime'],
-					'duration':bussearchlist['duration'],
-					'skey':bussearchlist['skey'],
-					'fare':bussearchlist['fare']['totalfare'],
-					'TravelsName':bussearchlist['TravelsName'],
-					'ArrivalTime':bussearchlist['ArrivalTime'],
-					'depdate':bussearchlist['depdate'],
-					'arrdate':bussearchlist['arrdate'],
-					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
-					'busCondition':bussearchlist.get('busCondition'),
-					'BusType':bussearchlist.get('BusType'),
-				}
+			reviews.append(_rbuslist)
+	reviews_return = []
+	for bussearchlist in getbusresponse['data']['returnflights']:	
+		_rbuslist	= {}
+		_rbuslist['businfos'] = {
+			'origin':bussearchlist['origin'],
+			'destination':bussearchlist['destination'],
+			'BusType':bussearchlist['BusType'],
+			'DepartureTime':bussearchlist['DepartureTime'],
+			'duration':bussearchlist['duration'],
+			'skey':bussearchlist['skey'],
+			'fare':bussearchlist['fare']['totalfare'],
+			'TravelsName':bussearchlist['TravelsName'],
+			'ArrivalTime':bussearchlist['ArrivalTime'],
+			'depdate':bussearchlist['depdate'],
+			'arrdate':bussearchlist['arrdate'],
+			'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
+		}
 
-				if bussearchlist.get('BPPrims'):
-					for morevalues in bussearchlist['BPPrims']['list']:
-						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
+		if bussearchlist.get('BPPrims'):
+			for morevalues in bussearchlist['BPPrims']['list']:
+				_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
 
-					if bussearchlist.get('DPPrims'):
-						for morevalues in bussearchlist['DPPrims']['list']:
-							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
-					
+			if bussearchlist.get('DPPrims'):
+				for morevalues in bussearchlist['DPPrims']['list']:
+					_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
+			
 
-					if bussearchlist.get('RouteSeatTypeDetail'):
-						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
-							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
-					
-					reviews.append(_rbuslist)
-				else:
-					reviews.append(_rbuslist)
-			reviews_return = []
-			for bussearchlist in getbusresponse['data']['returnflights']:	
-				_rbuslist	= {}
-				_rbuslist['businfos'] = {
-					'origin':bussearchlist['origin'],
-					'destination':bussearchlist['destination'],
-					'BusType':bussearchlist['BusType'],
-					'DepartureTime':bussearchlist['DepartureTime'],
-					'duration':bussearchlist['duration'],
-					'skey':bussearchlist['skey'],
-					'fare':bussearchlist['fare']['totalfare'],
-					'TravelsName':bussearchlist['TravelsName'],
-					'ArrivalTime':bussearchlist['ArrivalTime'],
-					'depdate':bussearchlist['depdate'],
-					'arrdate':bussearchlist['arrdate'],
-					'cancellationPolicy':bussearchlist.get('cancellationPolicy'),
-				}
-
-				if bussearchlist.get('BPPrims'):
-					for morevalues in bussearchlist['BPPrims']['list']:
-						_rbuslist['boardingpoints'] = {'BPId':morevalues['BPId'],'BPTime':morevalues['BPTime'], 'BPLocation':morevalues['BPLocation']}
-
-					if bussearchlist.get('DPPrims'):
-						for morevalues in bussearchlist['DPPrims']['list']:
-							_rbuslist['depturepoints'] = {'DPTime':morevalues['DPTime'], 'DPLocation':morevalues['DPLocation']}
-					
-
-					if bussearchlist.get('RouteSeatTypeDetail'):
-						for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
-							_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
-					
-					reviews_return.append(_rbuslist)
-				else:
-					reviews_return.append(_rbuslist)
-			travel_fields=['TravelsName']
-			travels=set()
-			boardingpoint=set()
-			depturepoint=set()
-			for travel in getbusresponse['data']['onwardflights']:
-				for k,v in travel.iteritems():
-					if k in travel_fields:
-						travels.add(v)
-				if travel.get('BPPrims'):
-					for k,v in travel.get('BPPrims').iteritems():
-						for s in v:
-							boardingpoint.add(s['BPLocation'])
-				if travel.get('DPPrims'):
-					for k,v in travel.get('DPPrims').iteritems():
-						for s in v:
-							depturepoint.add(s['DPLocation'])
-			filtered_travels=list(travels)
-			filtered_bpoint=list(boardingpoint)
-			filtered_dpoint=list(depturepoint)
-			cache.set('getbusresponse', getbusresponse)
-		except:
-			messages.add_message(request, messages.INFO,'API not responding for one way trip')
-			return HttpResponseRedirect(format_redirect_url("/v2/", 'error=2'))
-	except:
-		messages.add_message(request, messages.INFO,'User Entering data is wrong')
-		return HttpResponseRedirect(format_redirect_url("/v2/", 'error=1'))
+			if bussearchlist.get('RouteSeatTypeDetail'):
+				for morevalues in bussearchlist['RouteSeatTypeDetail']['list']:
+					_rbuslist['seatinfo'] = {'busCondition':morevalues['busCondition'], 'seatType':morevalues['seatType'], 'SeatsAvailable':morevalues['SeatsAvailable']}
+			
+			reviews_return.append(_rbuslist)
+		else:
+			reviews_return.append(_rbuslist)
+	travel_fields=['TravelsName']
+	travels=set()
+	boardingpoint=set()
+	depturepoint=set()
+	for travel in getbusresponse['data']['onwardflights']:
+		for k,v in travel.iteritems():
+			if k in travel_fields:
+				travels.add(v)
+		if travel.get('BPPrims'):
+			for k,v in travel.get('BPPrims').iteritems():
+				for s in v:
+					boardingpoint.add(s['BPLocation'])
+		if travel.get('DPPrims'):
+			for k,v in travel.get('DPPrims').iteritems():
+				for s in v:
+					depturepoint.add(s['DPLocation'])
+	filtered_travels=list(travels)
+	filtered_bpoint=list(boardingpoint)
+	filtered_dpoint=list(depturepoint)
+	cache.set('getbusresponse', getbusresponse)
+		# except:
+		# 	messages.add_message(request, messages.INFO,'API not responding for one way trip')
+		# 	return HttpResponseRedirect(format_redirect_url("/v2/", 'error=2'))
+	# except:
+	# 	messages.add_message(request, messages.INFO,'User Entering data is wrong')
+	# 	return HttpResponseRedirect(format_redirect_url("/v2/", 'error=1'))
 
 	source = unicode(source)
 	destination = unicode(destination)
 	# joindata_bus = dateofdeparture+"-"+TravelsName+"-"+fare+"-"+source+"-"+destination
 	#return HttpResponse(simplejson.dumps(reviews), mimetype='application/json')
 	if trip=='oneway':	
-		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,'filtered_travels':filtered_travels,'filtered_bpoint':filtered_bpoint,'filtered_dpoint':filtered_dpoint}, context_instance=RequestContext(request))
+		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'source':source,'destination':destination,'dateofdeparture':dateofdeparture,'trip':trip,'filtered_travels':filtered_travels,'filtered_bpoint':filtered_bpoint,'filtered_dpoint':filtered_dpoint}, context_instance=RequestContext(request))
 	else:
 		response = render_to_response('v2/bus/buslist_v2.html', {'reviews':reviews,'reviews_return':reviews_return,'source':source,'destination':destination,'dateofarrival':dateofarrival,'dateofdeparture':dateofdeparture,'trip':trip,'filtered_travels':filtered_travels,'filtered_bpoint':filtered_bpoint,'filtered_dpoint':filtered_dpoint}, context_instance=RequestContext(request))
 
@@ -186,7 +191,8 @@ def search_bus_v2(request):
 	response.set_cookie( 'trip', trip)
 	response.set_cookie( 'destination', destination)
 	response.set_cookie( 'start', departure)
-	response.set_cookie( 'end', arrival)
+	if trip=="round":
+		response.set_cookie( 'end', arrival)
 	return response
 	#return render_to_response("v2/bus/buslist_v2.html", context_instance=RequestContext(request))
 

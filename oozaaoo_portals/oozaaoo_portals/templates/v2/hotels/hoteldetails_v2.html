@@ -2,42 +2,9 @@
 {% load static from staticfiles %}
 {% load i18n %}
 {% block content %}
-<script type="text/javascript" src="{% static "v2/js/imagelightbox.js" %}"></script>
-<script>
-jQuery(function(){
-    jQuery( 'a' ).imageLightbox();
-});
 
-</script>
 
-<script>
-    jQuery( selector ).imageLightbox(
-    {
-        selector:       'id="imagelightbox"',   // string;
-        allowedTypes:   'png|jpg|jpeg|gif',     // string;
-        animationSpeed: 250,                    // integer;
-        preloadNext:    true,                   // bool;            silently preload the next image
-        enableKeyboard: true,                   // bool;            enable keyboard shortcuts (arrows Left/Right and Esc)
-        quitOnEnd:      false,                  // bool;            quit after viewing the last image
-        quitOnImgClick: false,                  // bool;            quit when the viewed image is clicked
-        quitOnDocClick: true,                   // bool;            quit when anything but the viewed image is clicked
-        onStart:        false,                  // function/bool;   calls function when the lightbox starts
-        onEnd:          false,                  // function/bool;   calls function when the lightbox quits
-        onLoadStart:    false,                  // function/bool;   calls function when the image load begins
-        onLoadEnd:      false                   // function/bool;   calls function when the image finishes loading
-    });
-    
-// var $instance = $(".view_act").imageLightbox();
- 
-// $instance.switchImageLightbox( index );
-// // switches to the other image; accepts integer argument (an index of the desired image)
- 
-// $instance.quitImageLightbox();
-// quits the lightbox
-
-    
-</script>
-
+<link rel="stylesheet" href="{% static "v2/css/imagelightbox.min.css" %}">
 <script>
     function initialize() {
          var myLatlng = new google.maps.LatLng({{request.COOKIES.la}},{{request.COOKIES.lo}});
@@ -54,8 +21,8 @@ jQuery(function(){
     function addMarker(location) {
         marker = new google.maps.Marker({
             position: location,
-            map: map
-        });
+            map: map,
+        })
     }
 
     // Testing the addMarker function
@@ -101,13 +68,13 @@ jQuery(function(){
                             <a href="/">{{request.user.first_name}}</a>
                             <a href="/v2/logout/">Logout</a>
                             <a href="/v2/profile">Myprofile</a>
-                            <a href="/mybooking/">MyBooking</a>
+                            <!-- <a href="/mybooking/">MyBooking</a> -->
                         </div>
                     {% else %}
                         <div class="top-user-area clearfix">
                             <a href="/v2/login">Signin</a>/
                             <a href="/v2/register">Signup</a>
-                            <a href="/mybooking/">MyBooking</a>
+                            <!-- <a href="/mybooking/">MyBooking</a> -->
 
                         </div>
                     {% endif %}
@@ -119,7 +86,7 @@ jQuery(function(){
     <img class="detail_banner_images" src="{{hotels.gallery.2.2}}" alt=""/>
     <div class="hotelbg_overlay"></div>
 	    <div class="container detail_banner_content">
-        	<div class="text-center">
+      A  	<div class="text-center">
             	<div class="hotel-address">
                     <h1 class="text-center">{{hotels.hn}}</h1>
                     <p><i class="fa fa-map-marker"></i> &nbsp; {{hotels.l}},  &nbsp;&nbsp;{{hotels.c}}
@@ -136,10 +103,10 @@ jQuery(function(){
                     <span class="rest_chair_white"></span>
                     <span class="room_serve_trans_white"></span></p><br>
 
-                    <a class="view_act btn btn-transpurple" data-imagelightbox="a" href="{{hotels.gallery.2.2}}">View Images</a><br><br>
+                    <a class="view_act btn btn-transpurple" data-imagelightbox="h" href="{{hotels.gallery.2.2}}">View Images</a><br><br>
 
                     {% for image in hotels.gallery %}
-                    <a class="view_act btn btn-transpurple dn" data-imagelightbox="a" href="{{image.2}}">View Images</a>
+                    <a class="view_act btn btn-transpurple dn" data-imagelightbox="h" href="{{image.2}}">View Images</a>
                     {%endfor%} 
                  
                         {% if hotels.hr == 1 %}
@@ -176,8 +143,8 @@ jQuery(function(){
     <section class="hotel-content">
     	<div class="container">
         	<div class="row padding20">
-            	<div class="col-md-8">
-                	<p>{{hotels.des}}</p>
+            	<div class="col-md-8 justify">
+                	{{hotels.des}}
                     <div class="well well-yellow">
                     	<div class="size30 pull-left margin020"><i class="ion ion-ios-locked light-purple"></i></div>
                         <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p></div>
@@ -286,7 +253,7 @@ jQuery(function(){
                         </tr>
 
                     </table>
-                    <h4>Reviews and Rating</h4>
+                    <!-- <h4>Reviews and Rating</h4>
                     <table class="table bg-white">
                     	<tr>
                         	<td>
@@ -312,7 +279,7 @@ jQuery(function(){
                                 <i class="fa fa-star grey"></i>
                             </td>
                             <td>Service very bad, rooms not clean, basic requirements not fulfilled. A/C not working properly, food quality not nice veg & non veg dishes together. Other guest use the same hand they eat to take further food Termite treatment not done please avoid.
-</td>
+                            </td>
                         </tr>
                         <tr>
                         	<td>
@@ -324,7 +291,7 @@ jQuery(function(){
                                 <i class="fa fa-star grey"></i>
                             </td>
                             <td>Had travelled with family and friends. Awesome place. Wonderfully maintained swimming pool. AC not good at activity centre. Food was not much option for a simple vegetarian dinner. Had to go for buffet. Very cordial and friendly staff. Unfortunately nightclub was below our room. So was disturbing till it ended.
-</td>
+                            </td>
                         </tr>
                         <tr>
                         	<td>By Hadley<br/>on 10 July,2015<br/>
@@ -340,7 +307,7 @@ jQuery(function(){
                         	<td></td>
                             <td class="text-right"><a href="#">Show more</a></td>
                         </tr>
-                    </table>
+                    </table> -->
                     
                     </div>
                 <div class="col-md-4">
@@ -454,8 +421,268 @@ jQuery(function(){
                     </div>                    
                 </div>
             </div>
+            <script type="text/javascript" src="{% static "v2/js/imagelightbox.min.js" %}"></script>
+            <script>
+
+    $(function () {
+        var activityIndicatorOn = function () {
+                $('<div id="imagelightbox-loading"><div></div></div>').appendTo('body');
+            },
+            activityIndicatorOff = function () {
+                $('#imagelightbox-loading').remove();
+            },
+
+            overlayOn = function () {
+                $('<div id="imagelightbox-overlay"></div>').appendTo('body');
+            },
+            overlayOff = function () {
+                $('#imagelightbox-overlay').remove();
+            },
+
+            closeButtonOn = function (instance) {
+                $('<a href="#" id="imagelightbox-close"></a>').appendTo('body').on('click', function () {
+                    $(this).remove();
+                    instance.quitImageLightbox();
+                    return false;
+                });
+            },
+            closeButtonOff = function () {
+                $('#imagelightbox-close').remove();
+            },
+
+            captionOn = function () {
+                var description = $('a[href="' + $('#imagelightbox').attr('src') + '"] img').attr('alt');
+                if (description.length > 0)
+                    $('<div id="imagelightbox-caption">' + description + '</div>').appendTo('body');
+            },
+            captionOff = function () {
+                $('#imagelightbox-caption').remove();
+            },
+
+            navigationOn = function (instance, selector) {
+                var images = $(selector);
+                if (images.length) {
+                    var nav = $('<div id="imagelightbox-nav"></div>');
+                    for (var i = 0; i < images.length; i++)
+                        nav.append('<a href="#"></a>');
+
+                    nav.appendTo('body');
+                    nav.on('click touchend', function () {
+                        return false;
+                    });
+
+                    var navItems = nav.find('a');
+                    navItems.on('click touchend', function () {
+                        var $this = $(this);
+                        if (images.eq($this.index()).attr('href') != $('#imagelightbox').attr('src'))
+                            instance.switchImageLightbox($this.index());
+
+                        navItems.removeClass('active');
+                        navItems.eq($this.index()).addClass('active');
+
+                        return false;
+                    })
+                            .on('touchend', function () {
+                                return false;
+                            });
+                }
+            },
+            navigationUpdate = function (selector) {
+                var items = $('#imagelightbox-nav').find('a');
+                items.removeClass('active');
+                items.eq($(selector).filter('[href="' + $('#imagelightbox').attr('src') + '"]').index(selector)).addClass('active');
+            },
+            navigationOff = function () {
+                $('#imagelightbox-nav').remove();
+            },
+            arrowsOn = function( instance, selector ) {
+                var $arrows = $( '<button type="button" class="imagelightbox-arrow imagelightbox-arrow-left"></button>' +
+                                 '<button type="button" class="imagelightbox-arrow imagelightbox-arrow-right"></button>' );
+                $arrows.appendTo( 'body' );
+                $arrows.on( 'click touchend', function( e ) {
+                    e.preventDefault();
+
+                    var $this = $( this );
+
+                    if( $this.hasClass('imagelightbox-arrow-left')) {
+                        instance.loadPreviousImage();
+                    } else {
+                        instance.loadNextImage();
+                    }
+
+                    return false;
+                });
+            },
+            arrowsOff = function() {
+                $('.imagelightbox-arrow').remove();
+            };
+
+        //  WITH ACTIVITY INDICATION
+
+        $('a[data-imagelightbox="a"]').imageLightbox(
+            {
+                onLoadStart: function () {
+                    activityIndicatorOn();
+                },
+                onLoadEnd: function () {
+                    activityIndicatorOff();
+                },
+                onEnd: function () {
+                    activityIndicatorOff();
+                }
+            });
+
+
+        //  WITH OVERLAY & ACTIVITY INDICATION
+
+        $('a[data-imagelightbox="b"]').imageLightbox(
+            {
+                onStart: function () {
+                    overlayOn();
+                },
+                onEnd: function () {
+                    overlayOff();
+                    activityIndicatorOff();
+                },
+                onLoadStart: function () {
+                    activityIndicatorOn();
+                },
+                onLoadEnd: function () {
+                    activityIndicatorOff();
+                }
+            });
+
+
+        //  WITH "CLOSE" BUTTON & ACTIVITY INDICATION
+
+        var instanceC = $('a[data-imagelightbox="c"]').imageLightbox(
+            {
+                quitOnDocClick: false,
+                onStart: function () {
+                    closeButtonOn(instanceC);
+                },
+                onEnd: function () {
+                    closeButtonOff();
+                    activityIndicatorOff();
+                },
+                onLoadStart: function () {
+                    activityIndicatorOn();
+                },
+                onLoadEnd: function () {
+                    activityIndicatorOff();
+                }
+            });
+
+
+        //  WITH CAPTION & ACTIVITY INDICATION
+
+        $('a[data-imagelightbox="d"]').imageLightbox(
+            {
+                onLoadStart: function () {
+                    captionOff();
+                    activityIndicatorOn();
+                },
+                onLoadEnd: function () {
+                    captionOn();
+                    activityIndicatorOff();
+                },
+                onEnd: function () {
+                    captionOff();
+                    activityIndicatorOff();
+                }
+            });
+
+
+        //  WITH DIRECTION REFERENCE
+
+        var selectorE = 'a[data-imagelightbox="e"]';
+        var instanceE = $(selectorE).imageLightbox(
+            {
+                onStart: function () {
+                    navigationOn(instanceE, selectorE);
+                },
+                onEnd: function () {
+                    navigationOff();
+                    activityIndicatorOff();
+                },
+                onLoadStart: function () {
+                    activityIndicatorOn();
+                },
+                onLoadEnd: function () {
+                    navigationUpdate(selectorE);
+                    activityIndicatorOff();
+                }
+            });
+
+
+        //  ALL COMBINED
+
+        var instanceF = $('a[data-imagelightbox="f"]').imageLightbox(
+            {
+                onStart: function () {
+                    overlayOn();
+                    closeButtonOn(instanceF);
+                },
+                onEnd: function () {
+                    overlayOff();
+                    captionOff();
+                    closeButtonOff();
+                    activityIndicatorOff();
+                },
+                onLoadStart: function () {
+                    captionOff();
+                    activityIndicatorOn();
+                },
+                onLoadEnd: function () {
+                    captionOn();
+                    activityIndicatorOff();
+                }
+            });
+
+
+        //  WITH MANUAL TRIGGER
+
+        var gallery = $('a[data-imagelightbox="g"]').imageLightbox();
+        $('.trigger-button').on('click', function () {
+            gallery.startImageLightbox();
+        });
+
+        //  WITH ARROWS & ACTIVITY INDICATION
+
+        var selectorG = 'a[data-imagelightbox="h"]';
+        var instanceG = $( selectorG ).imageLightbox(
+            {
+                onStart:        function(){ arrowsOn( instanceG, selectorG ); },
+                onEnd:          function(){ arrowsOff(); activityIndicatorOff(); },
+                onLoadStart:    function(){ activityIndicatorOn(); },
+                onLoadEnd:      function(){ $( '.imagelightbox-arrow' ).css( 'display', 'block' ); activityIndicatorOff(); }
+            });
+        
+        var selectorI = 'a[data-imagelightbox="i"]';
+        var instanceI = $( selectorI ).imageLightbox(
+        {
+                quitOnDocClick: false,
+                onStart: function () {
+                    closeButtonOn(instanceI);
+                },
+                onEnd: function () {
+                    closeButtonOff();
+                    activityIndicatorOff();
+                },
+                onLoadStart: function () {
+                    activityIndicatorOn();
+                },
+                onLoadEnd: function () {
+                    activityIndicatorOff();
+                }
+        });
+
+      
+
+    });
+</script>
             <img id="imagelightbox" src="" alt=""/>
- //            <!--script type="text/javascript">
+            <!--script type="text/javascript">
  //            $(document).ready(function(){
  //    // if($('.selectroomtypes').length == '') {
  //    //     $('.for_soldout').hide();

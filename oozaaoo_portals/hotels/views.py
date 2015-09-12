@@ -260,6 +260,13 @@ def home_v2(request):
 	log_function('Homepage','Homepage')
 	return render_to_response("v2/portal/homenew_v2.html", context_instance=RequestContext(request))
 
+def home_v3(request):
+	"""
+	Home Page for Travel Portal
+	"""
+	from hotels.models import citylist	
+	return render_to_response("v2/portal/home_test.html", context_instance=RequestContext(request))
+
 
 
 def profile_v2(request):
@@ -532,7 +539,9 @@ def gethotellist_v2(request):
 					if k in loc_fields:
 						locations.add(v)
 
-			filtered_location=list(locations)
+			
+			filtering=list(locations)
+			filtered_location=filter(None,filtering)
 			###########################################################
 
 			# return HttpResponse(simplejson.dumps(hotels), mimetype='application/json')
@@ -612,7 +621,7 @@ def gethoteldetails_v2(request):
 	fwdp =request.POST.get('fwdp',request.COOKIES.get('fwdp'))
 
 	from datetime import datetime
-	fmt = '%Y/%m/%d'
+	fmt = '%d/%m/%Y'
 	d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
 	d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
 	no_night=str((d1-d0).days)	
@@ -785,7 +794,7 @@ def userdetails_v2(request):
 		sroomname = request.POST.get('roomname',request.COOKIES.get('sroomname'))
 		print 'stpcwt===========>',stpcwt 
 		from datetime import datetime
-		fmt = '%Y/%m/%d'
+		fmt = '%d/%m/%Y'
 		d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
 		d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
 		result=str((d1-d0).days)
