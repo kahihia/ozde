@@ -1,4 +1,4 @@
-{% extends 'v2/base_inner_v2.html' %}
+{% extends 'v2/home_base_v2.html' %}
 {% load static from staticfiles %}
 {% load i18n %}
 {% block content %}
@@ -86,22 +86,39 @@
     <img class="detail_banner_images" src="{{hotels.gallery.2.2}}" alt=""/>
     <div class="hotelbg_overlay"></div>
 	    <div class="container detail_banner_content">
-      A  	<div class="text-center">
+       	<div class="text-center">
             	<div class="hotel-address">
                     <h1 class="text-center">{{hotels.hn}}</h1>
                     <p><i class="fa fa-map-marker"></i> &nbsp; {{hotels.l}},  &nbsp;&nbsp;{{hotels.c}}
 
-                    <a href="#" class="map">show map
-                        <div id="map_canvas"></div>
+                    <a class="map">show map
+                        <div id="map_canvas" style="display:none"></div>
                     </a>
                     </p>
                     <br>
                    	<p>
+                    <!-- <span class="wifi_white"></span>
+                    
+                    <span class="cutlury_white"></span> -->
+                    
+                    
+                    <!-- {{hotels.facilities}} -->
+                    {% for fm1 in hotels.facilities %}
+                    {% if fm1 == 'Free Internet' %}
                     <span class="wifi_white"></span>
+                    {% elif fm1 == 'Internet Access - Surcharge' %}
+                    <span class="wifi_white"></span>
+                    {% elif fm1 == 'Swimming Pool' %}
                     <span class="swimming_white"></span>
-                    <span class="cutlury_white"></span>
+                    {% elif fm1 == 'Restaurant/Coffee Shop' %}
                     <span class="rest_chair_white"></span>
-                    <span class="room_serve_trans_white"></span></p><br>
+                    {% elif fm1 == 'Multi Cuisine Restaurant ' %}
+                    <span class="rest_chair_white"></span>
+                    {% elif fm1 == 'Room Service (24 Hours)' %}
+                    <span class="room_serve_white"></span>
+                    {% elif fm1 == 'Coffee Shop / Cafe' %}
+                    {% endif %}{% endfor %}
+                    </p><br>
 
                     <a class="view_act btn btn-transpurple" data-imagelightbox="h" href="{{hotels.gallery.2.2}}">View Images</a><br><br>
 
@@ -329,14 +346,123 @@
                                     <small>Per Room Per Night</small>                                   
                                 </p>
 
-                            	<div class="col-md-5">
-                                	<label>Check-in</label>
-                                    <input type="text" class="form-control" value="{{request.COOKIES.checkin}}" readonly />
+                            	<div class="col-md-12">
+                                    <input class="form-control startdate" id="datepicker1" name="start" type="text" placeholder="DD/MM/YYYY" value="{{request.COOKIES.checkin}}" />
+                                    
                                 </div>
-                                <div class="col-md-5">
-                                	<label>Check-out</label>
-                                    <input type="text" class="form-control" value="{{ request.COOKIES.checkout}}" readonly/>
+                                <div class="col-md-12">
+                                    <input class="form-control startdate" id="datepicker2" name="start" type="text" placeholder="DD/MM/YYYY" value="{{ request.COOKIES.checkout}}" />
                                 </div>
+                                <div class="col-md-12">
+                                    <label class="details_rooms">
+                                        {{request.COOKIES.rooms}}Room/{{ request.COOKIES.guest}}Guest
+                                    </label>
+                                </div>
+                                <div class="col-md-12">
+                                    <select class="selectroomtypes">
+                                        {% for room in hotels.rooms_data %}
+                                            {% if room.rtc and room.rpc %}
+                                                <option data-rpc="{{room.rpc}}" data-rtc="{{room.rtc}}" data-mp="{{room.mp}}" data-tp="{{room.tp}}" data-ttc="{{room.ttc}}" data-tp_alltax="{{room.tp_alltax}}">{{room.room_info.type_name}}</option>
+                                            {% endif %}
+                                        {% endfor %}                            
+                                    </select>   
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="add_room_holder">
+                                                      <div class="clonedInput" id="clonedInput0">
+                                                      <label>Rooms 1</label>
+                                                          <input class="hidden_input" name="room1" type="hidden" value="1" readonly="readonly" />
+                                                        
+                                                            <div class="fl adults">
+                                                                <div>
+                                                                    <label>Adults</label>                                       
+                                                                    <select id="adults1" class="adults" name="adults1">  
+                                                                        <option value="1" >1</option>
+                                                                        <option value="2" >2</option>
+                                                                        <option value="3" >3</option>
+                                                                        <option value="4" >4</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <!--- Childs -->
+                                                            <div class="fl childs">
+                                                                <div>
+                                                                    <label>Children</label>                                     
+                                                                    <select id="childs" class="child_age_act child" name="childs1"> 
+                                                                        <option value="0" >0</option>
+                                                                        <option value="1" >1</option>
+                                                                        <option value="2" >2</option>
+                                                                        
+                                                                    </select>
+                        
+                                                                    
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="fl add_room_fields child-1-act dn" id="test1">
+                                                                <div>
+                                                                    <label>Child-1 age</label>                              
+                                                                    <select id="childage1_1" class="child_age child_age_1" name="childage1_1">   
+                                                                
+                                                                        <option selected="selected" value="1" >1</option>
+                                                                        <option value="2" >2</option>
+                                                                        <option value="3" >3</option>
+                                                                        <option value="4" >4</option>
+                                                                        <option value="5" >5</option>
+                                                                        <option value="6" >6</option>
+                                                                        <option value="7" >7</option>
+                                                                        <option value="8" >8</option>
+                                                                        <option value="9" >9</option>
+                                                                        <option value="10" >10</option>
+                                                                        <option value="11" >11</option>
+                                                                        <option value="12" >12</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="fl add_room_fields child-2-act dn">
+                                                                <div>
+                                                                    <label>Child-2 age</label>                                     
+                                                                    <select id="childage2_1" class="child_age child_age_2" name="childage2_1 "> 
+                                                                        
+                                                                        <option selected="selected" value="1" >1</option>
+                                                                        <option value="2" >2</option>
+                                                                        <option value="3" >3</option>
+                                                                        <option value="4" >4</option>
+                                                                        <option value="5" >5</option>
+                                                                        <option value="6" >6</option>
+                                                                        <option value="7" >7</option>
+                                                                        <option value="8" >8</option>
+                                                                        <option value="9" >9</option>
+                                                                        <option value="10" >10</option>
+                                                                        <option value="11" >11</option>
+                                                                        <option value="12" >12</option>
+                                                                        
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="fl add_room_fields remove_room_fields" style="display:none;"> </div><!-- remove_room_fields -->
+
+                                                            <div class="clear_both"> </div>
+
+                                                            <!--div class="col-md-1">
+                                                               
+                                                                    <span class="add add_room_act">Add</span>
+                                                                    <span class="remove remove_room_act">Remove</span>
+                                                                
+                                                            </div-->
+                                                            <div class="clear_both"> </div>
+                                                       
+                                                    </div><!-- clone_add_room_act -->
+                                                </div>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <button type="button" id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act fl" >ADD ROOMS</button> 
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" id="done"  class="btn btn-primary fl" >Done</button> 
+                                </div> -->
                                 <div class="col-md-2">
                                 	<label>Nights</label>
                                     <input type="text" class="form-control text-center" value="{{no_night}}" readonly />
@@ -382,13 +508,7 @@
                         {% endif %}  -->
 
                            
-                        <select class="selectroomtypes">
-                            {% for room in hotels.rooms_data %}
-                                {% if room.rtc and room.rpc %}
-                                    <option data-rpc="{{room.rpc}}" data-rtc="{{room.rtc}}" data-mp="{{room.mp}}" data-tp="{{room.tp}}" data-ttc="{{room.ttc}}" data-tp_alltax="{{room.tp_alltax}}">{{room.room_info.type_name}}</option>
-                                {% endif %}
-                            {% endfor %}                            
-                        </select>
+                        
 
                         <span class="text-lg subtotal"></span>                        
                         <span class="text-lg totalprice"></span>

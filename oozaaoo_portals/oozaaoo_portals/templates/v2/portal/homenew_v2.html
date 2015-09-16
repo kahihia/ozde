@@ -2,6 +2,12 @@
 {% load static from staticfiles %}
 {% load i18n %}
 {% block content %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.hotel_tab_act').tipsy({gravity: 's'});
+    $('.bus_tab_act').tipsy({gravity: 's'});
+});
+</script>
 <link rel="stylesheet" href="{% static "v2/css/jquery-ui.css" %}">
 <div class="bus-payment">
 <div class="container sign-in">
@@ -89,8 +95,8 @@
                                                                 <div class="form-group form-group-md form-group-select-plus">
                                                                     <label>Child-1 age</label>                              
                                                                     <select class="form-control child_age child_age_1" name="childage1_1">   
-                                                                        <option value="0" >0</option>
-                                                                        <option value="1" >1</option>
+                                                                
+                                                                        <option selected="selected" value="1" >1</option>
                                                                         <option value="2" >2</option>
                                                                         <option value="3" >3</option>
                                                                         <option value="4" >4</option>
@@ -111,8 +117,8 @@
                                                                 <div class="form-group form-group-md form-group-select-plus">
                                                                     <label>Child-2 age</label>                                     
                                                                     <select class="form-control child_age child_age_2" name="childage2_1 "> 
-                                                                        <option value="0" >0</option>
-                                                                        <option value="1" >1</option>
+                                                                        
+                                                                        <option selected="selected" value="1" >1</option>
                                                                         <option value="2" >2</option>
                                                                         <option value="3" >3</option>
                                                                         <option value="4" >4</option>
@@ -201,7 +207,7 @@
                                             <div class="col-md-6">
                                             <div class="form-group form-group-md form-group-icon-left return_date input-group">
                                             <label>Return</label>
-                                            <input class="form-control return end_date" id="datepicker4" name="end" type="text" placeholder="DD/MM/YYYY"/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input class="form-control return end_date" id="datepicker4" name="end" type="text" placeholder="DD/MM/YYYY" disabled/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             <span class="error_end" style="display:none; color:red;">please enter the return date</span>
                                             <span class="error_date" style="display:none; color:red;">please enter the correct format</span>
                                             </div>
@@ -224,7 +230,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    <img src="{% static "v2/img/247.png" %}" height="75" width="75">
+                    <img src="{% static "v2/img/login.png" %}" height="75" width="75">
+                    <img src="{% static "v2/img/sign_up.png" %}" height="75" width="75">
+                    <!-- <span>Login</span>
+                    <span>Signup</span>
+                    <span>24/7 support</span> -->
+                </div>
             </div>
         </div>
 </div><!-- bg-lightgrey bus-payment -->

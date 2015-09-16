@@ -1,4 +1,5 @@
 jQuery(document).ready(function($) {
+  
   $('#price_filter').val('1000-9999');
   $("#price_slider").slider({
     range:true,

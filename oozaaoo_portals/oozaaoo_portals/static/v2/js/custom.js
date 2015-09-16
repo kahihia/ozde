@@ -276,7 +276,9 @@ $('div.bg-parallax').each(function() {
 
 $(document).ready(
     function() {
-
+      if($('.featured_list_find').text()==""){
+        $('.featured_list_find').html("<h2>Sorry , No Result Found</h2>")
+      }
   //   var mapCanvas = document.getElementById('map_canvas');
      
   //   var mapOptions = {

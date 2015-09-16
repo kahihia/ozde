@@ -1,0 +1,63 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+<section class="search-section">
+    <div class="container">
+        <div class="row position_r">
+            <div class="col-md-3">
+                <a class="logo" href="/v2" title="="oozaaoo></a>
+                <div class="clear_both"></div>
+            </div>
+             <div class="col-md-5">
+                <!--    <div class="row">
+                        <div class="col-md-3 marginbottom10">
+                              <ul class="nav navbar-nav pull-right">
+                                <li class="dropdown">
+                                    <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
+                                    <ul class="dropdown-menu" aria-labelledby="themes">
+                                      <li><a href="#">Flights</a></li>
+                                      <li><a href="#">Cars</a></li>
+                                     </ul>
+                                </li>
+                              </ul>
+                        </div>
+                        <div class="col-md-7">
+                             <div class="input-group">
+                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                            </div>
+                        </div>
+                    </div>-->
+            </div> 
+            <div class="col-md-4 bottom10 right0">
+            {% if request.user.is_authenticated %}
+                        <div class="top-user-area clearfix">
+                            <a href="/">{{request.user.first_name}}</a>
+                            <a href="/v2/logout/">Logout</a>
+                            <a href="/v2/profile">Myprofile</a>
+                            <a href="/mybooking/">MyBooking</a>
+                        </div>
+                    {% else %}
+                        <div class="top-user-area clearfix">
+                            <a href="/v2/login">Signin /</a>
+                            <a href="/v2/register"> Signup</a>
+                            <a href="/mybooking/">MyBooking</a>
+
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+    </div><hr/>
+    <div class="container aboutus">
+        <img src="{% static "v2/img/aboutus.jpg" %}" width="100%">
+       <p>OOZAAOO has created new styles of international and domestic travel, aiming to provide safety and comfort for all occasions. We are committed to serve quality tours, offering responsible tourism to worldwide destinations. We can assist you with all of your travel needs, creating unique itineraries to cool destinations at competitive fares.</p>
+
+
+        <p>At OOZAAOO, We offer a variety of services including corporate or business trip arrangements for all overseas travelers, in addition to planning and organization of events and international conferences. We are associated with highly reputed and reliable DMC’s around the globe to ensure that the clients area taken care well with safety.</p>
+
+        <p>Hence, Oozaaoo Leisures Private limited, caters to more than just the travel need of individuals, groups or institutions. All its services are meticulously conceived and immaculately rendered.</p>
+
+
+        <p>Our Vision to serve, by understanding our clients and thereby redefine the travel experience to a unique one each time you are served by us.</p>
+    </div>
+ {% endblock %}

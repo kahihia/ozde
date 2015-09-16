@@ -78,7 +78,9 @@ urlpatterns = patterns('',
         'django.contrib.auth.views.password_reset_complete'),	
     #==============================other links============================#
     url(r'^v2/terms_and_condition/', 'hotels.views.terms_and_condition', name='terms_and_condition'),
+    url(r'^aboutus/', 'hotels.views.aboutus', name='aboutus'),
     url(r'^v2/privacy/', 'hotels.views.privacy', name='privacy'),
+    url(r'^contactus/', 'hotels.views.contactus', name='contactus'),
 
 
 )

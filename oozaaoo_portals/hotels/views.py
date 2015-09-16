@@ -634,7 +634,7 @@ def gethoteldetails_v2(request):
 
 		# # /** Hotel  Details */
 		try:
-			hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data', 'free_cancel']
+			hoteldetails = ['prc', 'pincode','facilities', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data', 'free_cancel']
 			_hotel = {}
 			for k, v in gethoteldetailresponse['data'].iteritems():		
 				# _hotel = {'hn':hotel['hn']}		
@@ -823,7 +823,7 @@ def userdetails(request):
 		rtc = request.POST.get('rtc',request.COOKIES.get('rtc'))
 		rpc = request.POST.get('rpc',request.COOKIES.get('rpc'))
 		from datetime import datetime
-		fmt = '%Y/%m/%d'
+		fmt = '%d/%m/%Y'
 		d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
 		d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
 		result=str((d1-d0).days)
@@ -1428,3 +1428,9 @@ def terms_and_condition(request):
 
 def privacy(request):
 	return render_to_response('v2/portal/privacy.html',context_instance=RequestContext(request))
+
+def aboutus(request):
+	return render_to_response('v2/portal/aboutus.html',context_instance=RequestContext(request))
+
+def contactus(request):
+	return render_to_response('v2/portal/contactus.html',context_instance=RequestContext(request))

@@ -2117,3 +2117,15 @@ td.today.disabled:hover{
 .bus_tab_act,.hotel_tab_act{
   cursor: pointer;
 }
+.details_rooms{
+  border: 1px solid #b7b7d0;
+  padding: 10px;
+}
+.aboutus p{
+  padding: 10px 10px 0px 10px;
+}
+.content{
+    border: 1px solid;
+    margin: 15px 0 0;
+    padding: 15px;
+}
