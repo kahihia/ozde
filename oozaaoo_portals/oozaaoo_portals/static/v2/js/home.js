@@ -97,16 +97,17 @@
     	
 
     	$('.hotel_tab_act').click(function(){
- 			$('#tab-1').addClass('active in').show( "slide", { direction: "left"  }, 200 );
- 			$('#tab-3').removeClass('active in').hide( "slide", { direction: "right"  }, 200 );
+    		$('#tab-3').hide();
+ 			$('#tab-1').show( "slide", { direction: "left"  }, 400 );
+ 			
  			$('.hotel_tab_act').addClass("menu_active")
  			$('.bus_tab_act').removeClass("menu_active")
  			
 		});
 
 		$('.bus_tab_act').click(function(){
-  			$('#tab-1').removeClass('active in').hide( "slide", { direction: "right"  }, 200 );
- 			$('#tab-3').addClass('active in').show( "slide", { direction: "left"  }, 200 );
+  			$('#tab-1').hide();
+ 			$('#tab-3').show( "slide", { direction: "left"  }, 400 );
  			$('.hotel_tab_act').removeClass("menu_active")
  			$('.bus_tab_act').addClass("menu_active")
 
@@ -193,37 +194,37 @@
         	e.preventDefault(); $(this).parents('.clonedInput').remove(); i--;
     	});
 
-		var add_room_search = $('.add_room_holder_search');
-		$('.add_room_act_search').click(function (e) {
+		var add_room_modify = $('.add_room_holder_modify');
+		$('.add_room_act_modify').click(function (e) {
 			e.preventDefault();
 			if(i < max_fields){
 				i++;
-				$(add_room_search).append("<div class='clonedInput' id='clonedInput0'>"
+				$(add_room_modify).append("<div class='clonedInput' id='clonedInput0'>"
 					+"<label>Rooms "+i+"</label>"
-					+"<input class='form-control hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' />"
-					+"<div class='fl add_room_fields add_room_fields_87 adults'>"
-					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
+					+"<input class='hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' />"
+					+"<div class='fl adults'>"
+					+"<div>"
 					+"<label>Adults</label>"                                       
-					+"<select id='adults"+i+"' class='form-control adults' name='adults"+i+"'>"  
+					+"<select id='adults"+i+"' class='adults' name='adults"+i+"'>"  
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >3</option>"
 					+"<option value='4' >4</option>"
-					+"</select><div class='error_mgs_adult' style='display:none; color:red;'>Enter the no of adults</div></div></div>"
-					+"<div class='fl add_room_fields add_room_fields_87 childs'>"
-					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
+					+"</select></div></div>"
+					+"<div class='fl childs'>"
+					+"<div>"
 					+"<label>Children</label>"                                     
-					+"<select id='childs"+i+"' class='form-control child_age_act child' name='childs"+i+"'> "
+					+"<select id='childs"+i+"' class='child_age_act child' name='childs"+i+"'> "
 					+"<option selected='selected' value='0' >0</option>"
 					+"<option value='1' >1</option>"
 					+"<option value='2' >2</option>"
-					+"</select><div class='error_mgs_child' style='display:none; color:red;'>Enter the child age</div>"
+					+"</select>"
 					+"</div>"
 					+"</div>"
 					+"<div class='fl add_room_fields child-1-act dn' id='test1'>"
-					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
+					+"<div>"
 					+"<label>Child-1 age</label>"                              
-					+"<select id='childage1_"+i+"' class='form-control child_age child_age_1' name='childage1_"+i+"'> "  
+					+"<select id='childage1_"+i+"' class='child_age child_age_1' name='childage1_"+i+"'> "  
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >3</option>"
@@ -237,13 +238,12 @@
 					+"<option value='11' >11</option>"
 					+"<option value='12' >12</option>"
 					+"</select>"
-					+"<div class='error_mgs_child_age1' style='display:none; color:red;''>Enter the child 1 age</div>"
 					+"</div>"
 					+"</div>"
 					+"<div class='fl add_room_fields child-2-act dn'>"
-					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
+					+"<div>"
 					+"<label>Child-2 age</label>"                                     
-					+"<select id='childage2_"+i+"' class='form-control child_age child_age_2' name='childage2_"+i+"'> "
+					+"<select id='childage2_"+i+"' class='child_age child_age_2' name='childage2_"+i+"'> "
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >2</option>"
@@ -257,10 +257,9 @@
 					+"<option value='11' >11</option>"
 					+"<option value='12' >12</option>"
 					+"</select>"
-					+"<div class='error_mgs_child_age2' style='display:none; color:red;'>Enter the child age</div>"
 					+"</div>"
 					+"</div>"
-					+"<div class='fl add_room_fields remove_room_fields remove_room_fields_act'> </div>"
+					+"<div class='fl add_room_fields remove_room_fields remove_room_fields_act_modify'> </div>"
 					+"<div class='clear_both'> </div>"
 					+"<div class='clear_both'> </div>"
 					+"</div>");
@@ -268,7 +267,7 @@
 		});
 
 
-		$(add_room_search).on("click",".remove_room_fields_act", function(e){ //user click on remove text
+		$(add_room_modify).on("click",".remove_room_fields_act_modify", function(e){ //user click on remove text
         	e.preventDefault(); $(this).parents('.clonedInput').remove(); i--;
     	});
 
@@ -417,7 +416,7 @@
 		var adults3=$('#adults3').val()==null?0:$('#adults3').val();
 		var adults4=$('#adults4').val()==null?0:$('#adults4').val();
 		var childs1=$('#childs1').val();
-		var childs2=$('#childs2').val()==null?0:$('#childs1').val();
+		var childs2=$('#childs2').val()==null?0:$('#childs2').val();
 		var childs3=$('#childs3').val()==null?0:$('#childs3').val();
 		var childs4=$('#childs4').val()==null?0:$('#childs4').val();
 		var childage1_1=$('#childage1_1').val();
@@ -431,6 +430,7 @@
 		var no_of_rooms=parseInt(room1)+parseInt(room2)+parseInt(room3)+parseInt(room4);
 		var guest=parseInt(adults1)+parseInt(childs1)+parseInt(adults2)+parseInt(childs2)+parseInt(adults3)+parseInt(childs3)+parseInt(adults4)+parseInt(childs4);	
 		$('.details_rooms').text(no_of_rooms+'Rooms/'+guest+'Guest');
+		
 	});
 
 
