@@ -13,6 +13,25 @@
 //*************
 
 
+$(window).scroll(function() {
+  var test = jQuery(window).scrollTop();
+
+ 
+if (test >= 504) {
+  $('.hotel-details-rightside').addClass("on_scroll_pos");
+}
+else {
+  $('.hotel-details-rightside').removeClass("on_scroll_pos");
+}
+   
+     
+
+ });
+
+
+
+
+
 $('.slide').click(function(){
         var par = $(this).parent().parent().parent().parent().parent();
         $(".seatLayoutHolder").remove();
@@ -309,7 +328,7 @@ $(document).ready(
     $('#totaltax').val($(this).find(':selected').data('ttc'));
     $('#totalprice_wt').val($(this).find(':selected').data('tp_alltax'));  
 
-    $('.mp').html($('#mp').val());
+    $('.mp').append($('#mp').val());
     $('.subtotal').html($('#totalprice').val()); 
     $('#roomname').val($(this).find(':selected').text());
     // $("#yourdropdownid option:selected").text();
@@ -327,7 +346,7 @@ $(document).ready(
       $('#totaltax').val($(this).find(':selected').data('ttc'));
       $('#totalprice_wt').val($(this).find(':selected').data('tp_alltax'));
 
-      $('.mp').html($('#mp').val());      
+      $('.mp').text($('#mp').val());      
       $('.subtotal').html($('#totalprice').val());
       $('#roomname').val($(this).find(':selected').text()); 
     })
@@ -512,6 +531,11 @@ $(document).ready(
       $("#recommended > .hotel-list-vertical").html(numericallyOrderedDivs);
     });
 
+    // Custom Tooltip for Hotelsearch list Page     
+    $('.custom_tooltip').tipsy({gravity: 'n'});     
+      $('.custom_tooltip').click(function(){    
+        $('.custom_tooltip').addClass("menu_active")
+    });
    
 
 }); 

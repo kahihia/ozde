@@ -575,8 +575,18 @@
 }
 .hotel-details-rightside
 {
-  margin-top:-60px; 
+  position:relative;
+  top:-67px;
+  right:0px;
+  z-index: 2000; 
 }
+.on_scroll_pos {
+  position: fixed;
+  right: 202px;
+  top: 20px;
+   width: 375px;
+}
+
 .hotel-details-rightside button
 {
   width:100%; 
@@ -2114,7 +2124,7 @@ td.today.disabled:hover{
 .justify{
   text-align: justify;
 }
-.bus_tab_act,.hotel_tab_act{
+.bus_tab_act,.hotel_tab_act, .custom_tooltip{
   cursor: pointer;
 }
 .details_rooms{
@@ -2128,4 +2138,23 @@ td.today.disabled:hover{
     border: 1px solid;
     margin: 15px 0 0;
     padding: 15px;
+}
+
+.hotel_descriptions {
+  max-height:190px;
+  overflow-y:auto;
+  padding:15px;
+}
+
+.hotel-details-rightside .booking-item-header-price {
+  font-size: 19px;
+  line-height: 1em;
+}
+.hotel-details-rightside .booking-item-header-price .text-lg {
+  font-size: 42px;
+  line-height: 1em;
+}
+.hotel-details-rightside .booking-item-header-price small {
+  font-size: 13px;
+  display:block;
 }

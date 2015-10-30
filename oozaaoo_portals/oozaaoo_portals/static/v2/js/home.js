@@ -55,22 +55,49 @@
 			    orientation: "bottom auto",
 			    autoclose: true,
 			});
-			$( "#datepicker7" ).datepicker({
-				todayHighlight: true,
-				startDate: today,
-			    format: 'dd/mm/yyyy',
-			    orientation: "bottom auto",
-			    autoclose: true,
-			    endDate: "+60d"
-			});
-			$( "#datepicker8" ).datepicker({
-				todayHighlight: true,
-				startDate: today,
-			    format: 'dd/mm/yyyy',
-			    orientation: "bottom auto",
-			    autoclose: true,
-			    endDate: "+60d"
-			});
+			// $( "#datepicker7" ).datepicker({
+			// 	todayHighlight: true,
+			// 	startDate: today,
+			//     format: 'dd/mm/yyyy',
+			//     orientation: "bottom auto",
+			//     autoclose: true,
+			//     endDate: "+60d"
+			// });
+			// $( "#datepicker8" ).datepicker({
+			// 	todayHighlight: true,
+			// 	startDate: today,
+			//     format: 'dd/mm/yyyy',
+			//     orientation: "bottom auto",
+			//     autoclose: true,
+			//     endDate: "+60d"
+			// });
+
+			// EndDate should change to oneday greater than Selected Startdate		
+			var checkin = $('#datepicker7').datepicker({
+				format: 'dd/mm/yyyy',
+				orientation: "bottom auto",
+				onRender: function(date) {
+					return date.valueOf() < today.valueOf() ? 'disabled' : '';
+				}
+				}).on('changeDate', function(ev) {
+					if (ev.date.valueOf() > checkout.date.valueOf() || ev.date.valueOf() < checkout.date.valueOf()) {
+						var newDate = new Date(ev.date)						
+						newDate.setDate(newDate.getDate() + 1);
+						checkout.setValue(newDate);
+					}
+					checkin.hide();
+					$('#datepicker8')[0].focus();
+				}).data('datepicker');
+
+			var checkout = $('#datepicker8').datepicker({
+				format: 'dd/mm/yyyy',
+				orientation: "bottom auto",
+				onRender: function(date) {
+					return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+				}
+				}).on('changeDate', function(ev) {
+					checkout.hide();
+				}).data('datepicker');
 	});
 
  	$(document).on('change', '.child_age_act', function() {     
@@ -93,9 +120,6 @@
          }
     });
     $(document).ready(function() {
-    	
-    	
-
     	$('.hotel_tab_act').click(function(){
  			$('#tab-1').addClass('active in').show( "slide", { direction: "left"  }, 200 );
  			$('#tab-3').removeClass('active in').hide( "slide", { direction: "right"  }, 200 );
