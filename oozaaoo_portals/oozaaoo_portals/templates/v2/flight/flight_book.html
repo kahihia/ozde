@@ -1,0 +1,440 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% load app_filters %}
+{% block content %}
+<script type="text/javascript">
+$(document).ready(function(){
+    var nowDate = new Date();
+    var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0)
+    $( "#datepicker9" ).datepicker({
+        format: 'dd/mm/yyyy',
+        orientation: "bottom auto",
+        autoclose: true,
+    });
+});
+</script>
+<div class="bg-lightgrey bus-payment">
+<div class="bg-white">
+    <div class="container">
+        <div class="row position_r">
+            <div class="col-md-3">
+                <a class="logo" href="/" title="="oozaaoo></a>
+                <div class="clear_both"></div>
+            </div><!-- End of col-md-3 -->
+             <div class="col-md-5">
+            </div><!-- End of col-md-5 -->
+            <div class="col-md-4 bottom10 right0">
+                {% if request.user.is_authenticated %}
+                    <div class="top-user-area clearfix">
+                        <a href="/">{{request.user.first_name}}</a>
+                        <a href="/v2/logout/">Logout</a>
+                        <a href="/v2/profile">Myprofile</a>
+                        <!-- <a href="/mybooking/">MyBooking</a> -->
+                    </div>
+                {% else %}
+                    <div class="top-user-area clearfix">
+                        <a href="/v2/login">Signin /</a>
+                        <a href="/v2/register"> Signup</a>
+                        <!-- <a href="/mybooking/">MyBooking</a> -->
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<header class="navbar bg-lightgrey1">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div><!-- End of navbar-header -->
+        <nav id="bs-navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">Print/SMS Ticket</a>
+                </li>
+                <li>
+                    <a href="#">Easy Cancel/Refund new</a>
+                </li>
+            </ul><!-- End of nav -->
+        </nav><!-- End of bs-navbar -->
+    </div><!-- End of container -->
+</header><!-- End of Hedader -->
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="light-purple text-center">Make your booking in 3 simple steps! </h2>
+            </div>
+        </div>
+        <div class="padding10"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <h2 class="panel-title"> 1. Trip Details</h2>
+                    </div>
+                    {% if request.COOKIES.trip == "round" %}
+                    <div class="panel-body">
+                        <!---########################################## onwardflights for round trip collapse content ###############################################-->
+
+                            <div class="row">
+                                <h4 class="paddingtop">
+                                    <span class="paddingleft"><i class="fa fa-plane padding5"></i> <strong>{{request.COOKIES.s_city}}</strong><i class="ion ion-arrow-right-c padding5"></i> <strong>{{request.COOKIES.d_city}}</strong></span><span class="size14 text-muted padding5">{{request.COOKIES.start}}</span>
+                                    <label class="label label-success pull-right padding515">{{onward.warnings}}</label>
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 paddingleft20">
+                                    <div class="pull-left"> <h4 class="bold">{{onward.airline}}</h4>
+                                        <p>{{onward.carriers}}<br>{{onward.CabinClass}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="bold">{{onward.origin}} {{onward.deptime}}</h4>
+                                    <p>{{onward.depdate|slice:"0:10"}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="bold">{{onward.arrtime}} {% if onward.stops == '0'%}{{request.COOKIES.d_code}}{%else%}{{onward.onwardflights.0.origin}}{% endif %}</h4>
+                                    <p>{{onward.arrdate|slice:"0:10"}}</p>
+                                </div>
+                                {% if onwardflights.stops == '1' %}
+                                    <div class="col-md-4">
+                                        <h4 class="bold">{{onward.onwardflights.0.origin}} {{onward.onwardflights.0.deptime}}</h4>
+                                        <p>{{onward.onwardflights.0.depdate|slice:"0:10"}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="bold">{{onward.onwardflights.0.arrtime}} {{onward.onwardflights.0.destination}}</h4>
+                                        <p>{{onward.onwardflights.0.arrdate|slice:"0:10"}}</p>
+                                    </div>
+                                {% endif %}
+                                {% if onwardflights.stops == '2' %}
+                                    <div class="col-md-4">
+                                        <h4 class="bold">{{onward.onwardflights.0.origin}} {{onward.onwardflights.0.deptime}}</h4>
+                                        <p>{{onward.onwardflights.0.depdate|slice:"0:10"}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="bold">{{onward.onwardflights.0.arrtime}} {{onward.onwardflights.0.destination}}</h4>
+                                        <p>{{onward.onwardflights.0.arrdate|slice:"0:10"}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="bold">{{onward.onwardflights.1.origin}} {{onward.onwardflights.1.deptime}}</h4>
+                                        <p>{{onward.onwardflights.0.depdate|slice:"0:10"}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="bold">{{onward.onwardflights.1.arrtime}} {{onward.onwardflights.1.destination}}</h4>
+                                        <p>{{onward.onwardflights.1.arrdate|slice:"0:10"}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                        <!---########################################## End of onwardflights for round trip collapse content ###############################################-->
+                        <!---########################################## returnflights for round trip collapse content ###############################################-->
+
+                            <div class="row">
+                                <h4 class="paddingtop">
+                                    <span class="paddingleft"><i class="fa fa-plane padding5"></i> <strong>{{request.COOKIES.d_city}}</strong><i class="ion ion-arrow-right-c padding5"></i> <strong>{{request.COOKIES.s_city}}</strong></span><span class="size14 text-muted padding5">{{request.COOKIES.end}}</span>
+                                    <label class="label label-success pull-right padding515">{{return.warnings}}</label>
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 paddingleft20">
+                                    <div class="pull-left"> <h4 class="bold">{{return.airline}}</h4>
+                                        <p>{{return.carriers}}<br>{{return.CabinClass}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="bold">{{return.origin}} {{return.deptime}}</h4>
+                                    <p>{{return.depdate|slice:"0:10"}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="bold">{{return.arrtime}} {% if return.stops == '0'%}{{request.COOKIES.s_code}}{%else%}{{return.onwardflights.0.origin}}{% endif %}</h4>
+                                    <p>{{return.arrdate|slice:"0:10"}}</p>
+                                </div>
+                                {% if returnflights.stops == '1' %}
+                                <div class="col-md-4">
+                                    <h4 class="bold">{{return.onwardflights.0.origin}} {{return.onwardflights.0.deptime}}</h4>
+                                    <p>{{return.onwardflights.0.depdate|slice:"0:10"}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="bold">{{return.onwardflights.0.arrtime}} {{return.onwardflights.0.destination}}</h4>
+                                    <p>{{return.onwardflights.0.arrdate|slice:"0:10"}}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                        <!---########################################## End of returnflights for round trip collapse content ###############################################-->
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-4 pull-right">
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{reprice.data.onwardflights.0.fare.totalfare|add:reprice.data.returnflights.0.fare.totalfare}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    {%else%}
+                    <div class="panel-body">
+                        <div class="row">
+                            <h4 class="paddingtop">
+                                <span class="paddingleft"><i class="fa fa-plane padding5"></i> <strong>{{request.COOKIES.s_city}}</strong><i class="ion ion-arrow-right-c padding5"></i> <strong>{{request.COOKIES.d_city}}</strong></span><span class="size14 text-muted padding5">{{request.COOKIES.start}}</span>
+                                <label class="label label-success pull-right padding515">{{onward.warnings}}</label>
+                            </h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 paddingleft20">
+                                <div class="pull-left"> <h4 class="bold">{{onward.airline}}</h4>
+                                    <p>{{onward.carriers}}<br>{{onward.CabinClass}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h4 class="bold">{{onward.origin}} {{onward.deptime}}</h4>
+                                <p>{{onward.depdate|slice:"0:10"}}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h4 class="bold">{{onward.arrtime}} {% if onward.stops == '0'%}{{request.COOKIES.d_code}}{%else%}{{onward.onwardflights.0.origin}}{% endif %}</h4>
+                                <p>{{onward.arrdate|slice:"0:10"}}</p>
+                            </div>
+                            {% if onward.stops == '1' %}
+                            <div class="col-md-4">
+                                <h4 class="bold">{{onward.onwardflights.0.origin}} {{onward.onwardflights.0.deptime}}</h4>
+                                <p>{{onward.onwardflights.0.depdate|slice:"0:10"}}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h4 class="bold">{{onward.onwardflights.0.arrtime}} {{onward.onwardflights.0.destination}}</h4>
+                                <p>{{onward.onwardflights.0.arrdate|slice:"0:10"}}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-4 pull-right">
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{reprice.data.onwardflights.0.fare.totalfare}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                </div>
+                <div class="padding10"></div>
+            {# {% if not user.is_authenticated %} #}
+                {# <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"> 2. Travellers details</h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Log in to speed up your booking</h5>
+                                <form class="form-horizontal" method="post" action="{%url "hotels.views.login_user_v2"%}">{% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Username<span class="red">*</span></label>
+                                            <input class="form-control" placeholder="e.g. johndoe" type="text" name="username" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Password<span class="red">*</span></label>
+                                            <input class="form-control" type="password" placeholder="my secret password" name="password" />
+                                        </div>
+                                    </div><br>
+                                    <input type="hidden" value="{{ request.path }}" name="next" />
+                                     <div class="row">
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn btn-primary">Login</button>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h5 class="text-right">Not Registered? <a href="#"> Create New Account</a></h5>
+                                        </div>
+                                     </div>
+                                </form>
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>#}
+            {#{%else%}#}
+                <form action="{% url "flight.views.tentativebooking" %}" method="post" class="form-horizontal">{% csrf_token %}
+                    <div class="panel panel-lightpurple">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"> 2. Travellers details</h4>
+                        </div>
+                        <div class="panel-body">
+                            {% for i in request.COOKIES.adults|get_range %}
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Title<span class="red">*</span></label>
+                                        <select class="form-control" name="adult_title_{{forloop.counter}}">
+                                            <option value="1">Mr</option>
+                                            <option value="2">Mrs</option>
+                                            <option value="3">Miss</option>
+                                            <option value="4">Master</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>First name {{forloop.counter}}<span class="red">*</span></label>
+                                        <input id="fname" type="text" class="form-control fname" name="adult_fname_{{forloop.counter}}"/>
+                                        <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Last name<span class="red">*</span></label>
+                                        <input id="lname" type="text" class="form-control lname" name="adult_lname_{{forloop.counter}}"/>
+                                        <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Age</label>
+                                        <input type="text" class="form-control age" name="adult_age_{{forloop.counter}}"/>
+                                        <span class="errormgs" style="display:none; color:red;">please enter the age</span>
+                                    </div>
+                                </div>
+                            {%endfor%}
+                            {% if not '0' in request.COOKIES.childs  %}
+                                {% for i in request.COOKIES.childs|get_range %}
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>Title<span class="red">*</span></label>
+                                            <select class="form-control" name="child_title_{{forloop.counter}}">
+                                                <option value="1">Mr</option>
+                                                <option value="2">Mrs</option>
+                                                <option value="3">Miss</option>
+                                                <option value="4">Master</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Child name {{forloop.counter}}<span class="red">*</span></label>
+                                            <input id="fname" type="text" class="form-control fname" name="child_fname_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Last name<span class="red">*</span></label>
+                                            <input id="lname" type="text" class="form-control lname" name="child_lname_{{forloop.counter}}"/>
+                                            <span class="errormgs" style="display:none; color:red;">please enter the lastname name</span>
+                                        </div>
+                                        <div class="input-daterange" data-date-format="M d, D">
+                                            <div class="col-md-3">
+                                                <label>Date of birth<span class="red">*</span></label>
+                                                <input class="form-control" id="datepicker9" name="child_age_{{forloop.counter}}" type="text" placeholder="DD/MM/YYYY" />
+                                                <span class="errormgs" style="display:none; color:red;">please select date of birth<span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% if not '0' in request.COOKIES.infants  %}
+                                {% for i in request.COOKIES.infants|get_range %}
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Title<span class="red">*</span></label>
+                                        <select class="form-control" name="infant_title_{{forloop.counter}}">
+                                            <option value="1">Mr</option>
+                                            <option value="2">Mrs</option>
+                                            <option value="3">Miss</option>
+                                            <option value="4">Master</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Infatnts name {{forloop.counter}}<span class="red">*</span></label>
+                                        <input id="fname" type="text" class="form-control fname" name="infant_fname_{{forloop.counter}}"/>
+                                        <span class="errormgs" style="display:none; color:red;">please enter the first name</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Last name<span class="red">*</span></label>
+                                        <input id="lname" type="text" class="form-control lname" name="infant_lname_{{forloop.counter}}"/>
+                                        <span class="errormgs" style="display:none; color:red;">please enter the lastname name</span>
+                                    </div>
+                                    <div class="input-daterange" data-date-format="M d, D">
+                                        <div class="col-md-3">
+                                            <label>Date of birth<span class="red">*</span></label>
+                                            <input class="form-control" id="datepicker9" name="infant_age_{{forloop.counter}}" type="text" placeholder="DD/MM/YYYY" />
+                                            <span class="errormgs" style="display:none; color:red;">please select date of birth<span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Address<span class="red">*</span></label>
+                                        <textarea name="address" class="address"></textarea>
+                                        {# <input type="text" class="form-control address" name="address" />#}
+                                        <span class="errormgs" style="display:none; color:red;">Please enter the Address</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>City<span class="red">*</span></label>
+                                        <input type="text" class="form-control city" name="city" />
+                                        <span class="errormgs" style="display:none; color:red;">Please enter the city </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>State<span class="red">*</span></label>
+                                        <input type="text" class="form-control state" name="state" />
+                                        <span class="errormgs" style="display:none; color:red;">Please enter the State </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Pincode<span class="red">*</span></label>
+                                        <input type="text" class="form-control pincode" name="pincode" />
+                                        <span class="errormgs" style="display:none; color:red;">Please enter the city </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Landline<span class="red">*</span></label>
+                                        <input type="text" class="form-control landline" name="landline" />
+                                        <span class="errormgs" style="display:none; color:red;">Please enter the Landline</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email<span class="red">*</span></label>
+                                        <input type="text" class="form-control email" name="email" />
+                                        <span class="errormgs" style="display:none; color:red;">please enter the email</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Mobile<span class="red">*</span></label>
+                                        <input type="text" class="form-control mobileno" name="mobile">
+                                        <span class="errormgs" style="display:none; color:red;">please enter the mobile number</span>
+                                    </div>
+                                </div>
+                                 <div class="help-block">Ticket will be sent to this email only</div>
+                                 <label class="btn btn-primary" id="payment" >Go to payment</label>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                    <div class="panel panel-lightpurple dn payment">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"> 3. Payment</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5><strong>PayU Money</strong></h5>
+                                    <h5>Amount Payable : <i class="fa fa-rupee"></i> {% if 'round' in request.COOKIES.trip %}{{reprice.data.onwardflights.0.fare.totalfare|add:reprice.data.returnflights.0.fare.totalfare}}{% else%}{{reprice.data.onwardflights.0.fare.totalfare}}{% endif %}{{total_amount}}</h5>
+                                    <button class="btn btn-success margintop15" type="submit">Make payment</button>
+                                    <p class="margintop5">By Clicking on Make payment, you agree to all the <a href="#">Terms and Conditions</a></p>
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <img src="images/payment-gateway.jpg" alt="Payment Gateway" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            {# {%endif%}#}
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+    </div>
+</div><!-- bg-lightgrey bus-payment -->
+ {% endblock %}

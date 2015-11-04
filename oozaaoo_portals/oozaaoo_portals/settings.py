@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     'bus',
     'payu',
     'transaction',
+    'flight',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -44,7 +45,7 @@ DATABASES = {
         'NAME': 'travelportal',                        # Or path to database file if using sqlite3.
         'USER': 'root',                          # Not used with sqlite3.
         'PASSWORD': 'root',                      # Not used with sqlite3.
-        'HOST': 'localhost',                     # Set to empty string for localhost. Not used with sqlite3.        
+        'HOST': 'localhost',                     # Set to empty string for localhost. Not used with sqlite3.
     }
 }
 
@@ -134,10 +135,18 @@ PAYU_INFO = {
              'surl':'http://localhost:8000/v2/setprovisionalbooking/',
              #success url for bus
              'surl1':'http://localhost:8000/v2/confirm/',
+             #success url for flight
+             'surl_flight':'http://localhost:8000/v2/FlightConfirm/',
              'furl':'http://localhost:8000/failure/',
              'curl':'http://localhost:8000/cancel/',
             }
 
-BUS_BASE="http://pp.goibibobusiness.com/api/bus/"
+BUS_BASE="https://www.goibibobusiness.com/api/bus/"
 
-HOTEL_BASE="http://pp.goibibobusiness.com/api/hotels/b2b/"
+HOTEL_BASE="https://www.goibibobusiness.com/api/hotels/b2b/"
+
+FLIGHT_BASE="https://www.goibibobusiness.com/api/"
+
+API_USERNAME="itsupport@oozaaoo.com"
+
+API_PASSWORD="test123"

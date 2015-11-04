@@ -3,7 +3,7 @@
 
 	$( ".mySelectCalendar2" ).datepicker({
       dateFormat: "yy/mm/dd",
-      changeDate:true,  
+      changeDate:true,
       changeMonth: true,//this option for allowing user to select month
       changeYear: true //this option for allowing user to select from year range
     });
@@ -71,9 +71,14 @@
 			    autoclose: true,
 			    endDate: "+60d"
 			});
+			$( "#datepicker9" ).datepicker({
+			    format: 'dd/mm/yyyy',
+			    orientation: "bottom auto",
+			    autoclose: true,
+			});
 	});
 
- 	$(document).on('change', '.child_age_act', function() {     
+ 	$(document).on('change', '.child_age_act', function() {
           if($(this).val() == 0 ) {
                $(this).parent().parent().siblings(".child-1-act").hide();
                $(this).parent().parent().siblings(".child-2-act").hide();
@@ -93,23 +98,38 @@
          }
     });
     $(document).ready(function() {
-    	
-    	
+
+
 
     	$('.hotel_tab_act').click(function(){
     		$('#tab-3').hide();
+    		$('#tab-4').hide();
  			$('#tab-1').show( "slide", { direction: "left"  }, 400 );
- 			
- 			$('.hotel_tab_act').addClass("menu_active")
- 			$('.bus_tab_act').removeClass("menu_active")
- 			
+
+ 			$('.hotel_tab_act').addClass("menu_active");
+ 			$('.bus_tab_act').removeClass("menu_active");
+ 			$('.flight_tab_act').removeClass("menu_active");
+
 		});
 
 		$('.bus_tab_act').click(function(){
   			$('#tab-1').hide();
+  			$('#tab-4').hide();
  			$('#tab-3').show( "slide", { direction: "left"  }, 400 );
+
+ 			$('.hotel_tab_act').removeClass("menu_active");
+ 			$('.bus_tab_act').addClass("menu_active");
+ 			$('.flight_tab_act').removeClass("menu_active");
+
+		});
+
+		$('.flight_tab_act').click(function(){
+  			$('#tab-1').hide();
+  			$('#tab-3').hide();
+ 			$('#tab-4').show( "slide", { direction: "left"  }, 400 );
  			$('.hotel_tab_act').removeClass("menu_active")
- 			$('.bus_tab_act').addClass("menu_active")
+ 			$('.bus_tab_act').removeClass("menu_active")
+ 			$('.flight_tab_act').addClass("menu_active");
 
 		});
 
@@ -125,8 +145,8 @@
 					+"<input class='form-control hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' />"
 					+"<div class='fl add_room_fields add_room_fields_87 adults'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
-					+"<label>Adults</label>"                                       
-					+"<select class='form-control adults' name='adults"+i+"'>"  
+					+"<label>Adults</label>"
+					+"<select class='form-control adults' name='adults"+i+"'>"
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >3</option>"
@@ -134,7 +154,7 @@
 					+"</select><div class='error_mgs_adult' style='display:none; color:red;'>Enter the no of adults</div></div></div>"
 					+"<div class='fl add_room_fields add_room_fields_87 childs'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
-					+"<label>Children</label>"                                     
+					+"<label>Children</label>"
 					+"<select class='form-control child_age_act child' name='childs"+i+"'> "
 					+"<option selected='selected' value='0' >0</option>"
 					+"<option value='1' >1</option>"
@@ -144,8 +164,8 @@
 					+"</div>"
 					+"<div class='fl add_room_fields child-1-act dn' id='test1'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
-					+"<label>Child-1 age</label>"                              
-					+"<select class='form-control child_age child_age_1' name='childage1_"+i+"'> "  
+					+"<label>Child-1 age</label>"
+					+"<select class='form-control child_age child_age_1' name='childage1_"+i+"'> "
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >3</option>"
@@ -164,7 +184,7 @@
 					+"</div>"
 					+"<div class='fl add_room_fields child-2-act dn'>"
 					+"<div class='form-group form-group-md form-group-select-plus nomargin'>"
-					+"<label>Child-2 age</label>"                                     
+					+"<label>Child-2 age</label>"
 					+"<select class='form-control child_age child_age_2' name='childage2_"+i+"'> "
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
@@ -204,8 +224,8 @@
 					+"<input class='hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' />"
 					+"<div class='fl adults'>"
 					+"<div>"
-					+"<label>Adults</label>"                                       
-					+"<select id='adults"+i+"' class='adults' name='adults"+i+"'>"  
+					+"<label>Adults</label>"
+					+"<select id='adults"+i+"' class='adults' name='adults"+i+"'>"
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >3</option>"
@@ -213,7 +233,7 @@
 					+"</select></div></div>"
 					+"<div class='fl childs'>"
 					+"<div>"
-					+"<label>Children</label>"                                     
+					+"<label>Children</label>"
 					+"<select id='childs"+i+"' class='child_age_act child' name='childs"+i+"'> "
 					+"<option selected='selected' value='0' >0</option>"
 					+"<option value='1' >1</option>"
@@ -223,8 +243,8 @@
 					+"</div>"
 					+"<div class='fl add_room_fields child-1-act dn' id='test1'>"
 					+"<div>"
-					+"<label>Child-1 age</label>"                              
-					+"<select id='childage1_"+i+"' class='child_age child_age_1' name='childage1_"+i+"'> "  
+					+"<label>Child-1 age</label>"
+					+"<select id='childage1_"+i+"' class='child_age child_age_1' name='childage1_"+i+"'> "
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
 					+"<option value='3' >3</option>"
@@ -242,7 +262,7 @@
 					+"</div>"
 					+"<div class='fl add_room_fields child-2-act dn'>"
 					+"<div>"
-					+"<label>Child-2 age</label>"                                     
+					+"<label>Child-2 age</label>"
 					+"<select id='childage2_"+i+"' class='child_age child_age_2' name='childage2_"+i+"'> "
 					+"<option selected='selected' value='1' >1</option>"
 					+"<option value='2' >2</option>"
@@ -279,25 +299,25 @@
 		$('#round').click(function(){
 	    	$('#round').attr('checked',true);
 	    	$('#oneway').removeAttr('checked');
-		}); 
+		});
 
-		
+
 		$('input:radio[name=trip]').change(function() {
 	    	if (this.value == 'oneway') {
-	        	$('.end_date').attr('disabled',true);
+	        	$('.end_date,.f_end_date').attr('disabled',true);
 	    	}
 	    	else if (this.value == 'round') {
-	        	$('.end_date').removeAttr('disabled');
+	        	$('.end_date,.f_end_date').removeAttr('disabled');
 	    	}
 		});
 
 //********************************hotel home page validation***********************************//
-		$('#searchBtn').click(function(){ 
-			var startdate=$('.startdate').val().split('/');	
+		$('#searchBtn').click(function(){
+			var startdate=$('.startdate').val().split('/');
 			var enddate=$('.enddate').val().split('/');
 			var startDate = new Date(startdate[1] + '/' + startdate[0] + '/' + startdate[2]);
 			var endDate = new Date(enddate[1] + '/' + enddate[0] + '/' + enddate[2]);
-			
+
 		    if($('.typeahead').val() == '') {
 		        $('.error_mgs_city').show();
 		        return false;
@@ -320,7 +340,7 @@
 		    	$('.error_mgs_end_date').hide();
 		    }
 		    if(endDate<=startDate){
-	
+
 		    	$('.error_mgs_date').show();
 		        return false;
 		    }
@@ -344,7 +364,7 @@
 		    	else if ($('.child_age_1').val() > 0){
 		    		$('.error_mgs_child_age1').hide();
 		    		return true;
-		   
+
 		    	}
 		    }
 		   	else if($('.child').val() == 2){
@@ -361,17 +381,17 @@
 		    		}
 		    		else if($('.child_age_2').val() > 0){
 		    			$('.error_mgs_child_age2').hide();
-		    			return true; 
+		    			return true;
 		    		}
-		   
+
 		    	}
 		    }
-		    
-		  
+
+
 		});
 	//**************************for bus validation*******************************//
 	$('#searchbus_return').click(function(){
-		var startdate=$('.start_date').val().split('/');	
+		var startdate=$('.start_date').val().split('/');
 		var enddate=$('.end_date').val().split('/');
 		var startDate = new Date(startdate[1] + '/' + startdate[0] + '/' + startdate[2]);
 		var endDate = new Date(enddate[1] + '/' + enddate[0] + '/' + enddate[2]);
@@ -405,7 +425,7 @@
 	        return true;
 	    }
 	});
-	
+
 	$('#done').click(function(){
 		var room1=$('input[name="room1"]').val();
 		var room2=$('input[name="room2"]').val()==null?0:1;
@@ -428,11 +448,55 @@
 		var childage1_4=$('#childage1_4').val()==null?0:$('#childage1_4').val();
 		var childage2_4=$('#childage2_4').val()==null?0:$('#childage2_4').val();
 		var no_of_rooms=parseInt(room1)+parseInt(room2)+parseInt(room3)+parseInt(room4);
-		var guest=parseInt(adults1)+parseInt(childs1)+parseInt(adults2)+parseInt(childs2)+parseInt(adults3)+parseInt(childs3)+parseInt(adults4)+parseInt(childs4);	
+		var guest=parseInt(adults1)+parseInt(childs1)+parseInt(adults2)+parseInt(childs2)+parseInt(adults3)+parseInt(childs3)+parseInt(adults4)+parseInt(childs4);
 		$('.details_rooms').text(no_of_rooms+'Rooms/'+guest+'Guest');
-		
+
+	});
+	// ============== For flight home page validation ============== //
+	$('#flight_search_act').click(function(){
+		var startdate=$('.f_start_date').val().split('/');
+		var enddate=$('.f_end_date').val().split('/');
+		var startDate = new Date(startdate[1] + '/' + startdate[0] + '/' + startdate[2]);
+		var endDate = new Date(enddate[1] + '/' + enddate[0] + '/' + enddate[2]);
+	    if($('.f_source').val() == '') {
+	        $('.f_error_source').show();
+	        return false;
+	    }
+	    else if($('.f_destination').val() == ''){
+	        $('.f_error_destination').show();
+	        return false;
+	    }
+	    else if($('.f_source').val() == $('.f_destination').val()){
+	        $('.error_same').show();
+	        return false;
+	    }
+	    else if($('.f_start_date').val() == ''){
+	        $('.f_error_start').show();
+	        return false;
+	    }
+	    else if($('#round').is(':checked')) {
+	    	if($('.f_end_date').val() == ''){
+	        	$('.f_error_end').show();
+	        return false;
+	     	}
+	     	else if(startDate>=endDate){
+	     		$('.f_error_date').show();
+	     		return false;
+	     	}
+	    }
+		else if (parseInt($('#flight_adults').val())+parseInt($('#flight_childs').val())+parseInt($('#flight_infants').val()) > 9) {
+			alert(parseInt($('#flight_adults').val())+parseInt($('#flight_childs').val())+parseInt($('#flight_infants').val()));
+			$('.f_traveller').show();
+			return false;
+		}
+		else if (parseInt($('#flight_adults').val())>parseInt($('#flight_infants').val())) {
+			return true;
+		}
+	    else{
+	        $('.f_traveller_max').show();
+			return false;
+	    }
 	});
 
 
-	
 });

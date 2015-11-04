@@ -21,7 +21,7 @@ from apiservice.views import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.core.context_processors import csrf 
+from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -57,7 +57,7 @@ def registration_v2(request):
 	"""
 	User Registration
 	"""
-		
+
 	try:
 		logout(request)
 		message = None
@@ -73,7 +73,7 @@ def registration_v2(request):
 			password=request.POST['password']
 			phone=request.POST['phone']
 			dob=request.POST['dob']
-			next_path=request.POST['next']    
+			next_path=request.POST['next']
 			user.is_active = True
 			user.username=username
 			user.email=email
@@ -81,7 +81,7 @@ def registration_v2(request):
 			user.set_password(user.password)
 			user.first_name=username
 			user.save()
-			userprofile.user=user       
+			userprofile.user=user
 			userprofile.phone=phone
 			userprofile.dateofbirth=dob
 			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
@@ -97,7 +97,7 @@ def registration_v2(request):
 			if request.POST['next']:
 				messages.add_message(request, messages.INFO,message)
 				return HttpResponseRedirect(request.POST["next"])
-			
+
 			return render_to_response('v2/portal/signup_v2.html', {'message':message},context_instance=RequestContext(request))
 		else:
 			return render_to_response('v2/portal/signup_v2.html',context_instance=RequestContext(request))
@@ -111,7 +111,7 @@ def registration(request):
 	"""
 	User Registration
 	"""
-	
+
 	try:
 		logout(request)
 		message = None
@@ -122,14 +122,14 @@ def registration(request):
 			messages.add_message(request, messages.INFO,'Email already exists')
 			return HttpResponseRedirect(format_redirect_url("/register", 'error=57'))
 		elif request.method == 'POST':
-			
+
 			username=request.POST['username']
 			print 'username', username
 			email=request.POST['email']
 			print email
 			password=request.POST['password']
 			phone=request.POST['phone']
-			dob=request.POST['dob']    
+			dob=request.POST['dob']
 			user.is_active = True
 			user.username=username
 			user.email=email
@@ -138,7 +138,7 @@ def registration(request):
 			user.set_password(user.password)
 			user.first_name=username
 			user.save()
-			userprofile.user=user       
+			userprofile.user=user
 			userprofile.phone=phone
 			userprofile.dateofbirth=dob
 			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
@@ -151,14 +151,14 @@ def registration(request):
 					context={
 						'username': user.email,
 						'name': user.first_name,})
-			
+
 
 		return render_to_response('login-register.html', {'message': "You have successfully completed registration."},
 							  context_instance=RequestContext(request))
 	except:
 		return render_to_response('login-register.html',
 								  context_instance=RequestContext(request))
-							  
+
 from django.contrib.auth import authenticate, login, logout
 
 def login_user_v2(request):
@@ -180,7 +180,7 @@ def login_user_v2(request):
 					print 'login(request, user)', login(request, user)
 					return HttpResponseRedirect(request.POST["next"])
 			else:
-				return render_to_response('v2/portal/signin_v2.html', {'msg': 'Invalid login username&password'}, context_instance=RequestContext(request))					
+				return render_to_response('v2/portal/signin_v2.html', {'msg': 'Invalid login username&password'}, context_instance=RequestContext(request))
 
 		else:
 			username = request.POST['username']
@@ -192,7 +192,7 @@ def login_user_v2(request):
 				if user.is_active:
 					login(request, user)
 					return HttpResponseRedirect('/v2/')
-	else:				
+	else:
 		return render_to_response("v2/portal/signin_v2.html", context_instance=RequestContext(request))
 
 def login_user(request):
@@ -226,7 +226,7 @@ def logout_view(request):
 
 def logout_view_v2(request):
 	logout(request)
-	return HttpResponseRedirect('/')	
+	return HttpResponseRedirect('/')
 
 def myprofile(request):
 	user = request.user
@@ -241,14 +241,14 @@ def mybooking(request):
 	userprofile=UserProfile.objects.get(user_id=user.id)
 	print userprofile.id,"userprofile"
 	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
-	
+
 	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
 
 def home(request):
 	"""
 	Home Page for Travel Portal
 	"""
-	from hotels.models import citylist	
+	from hotels.models import citylist
 	log_function('Homepage','Homepage')
 	return render_to_response("hotels/home.html", context_instance=RequestContext(request))
 
@@ -256,7 +256,7 @@ def home_v2(request):
 	"""
 	Home Page for Travel Portal
 	"""
-	from hotels.models import citylist	
+	from hotels.models import citylist
 	log_function('Homepage','Homepage')
 	return render_to_response("v2/portal/homenew_v2.html", context_instance=RequestContext(request))
 
@@ -264,7 +264,7 @@ def home_v3(request):
 	"""
 	Home Page for Travel Portal
 	"""
-	from hotels.models import citylist	
+	from hotels.models import citylist
 	return render_to_response("v2/portal/home_test.html", context_instance=RequestContext(request))
 
 
@@ -292,7 +292,7 @@ def getcitylist(request):
 		unsort_dict[cityname] = {'cityid':cityid, 'label':cityname, 'value':cityname}
 
 	sorted_dic = OrderedDict(sorted(unsort_dict.iteritems(), key=lambda v: v[0]))
-	for k, v in sorted_dic.iteritems():  
+	for k, v in sorted_dic.iteritems():
 		results.append(v)
 
 	return HttpResponse(simplejson.dumps(results), mimetype='application/json')
@@ -300,10 +300,10 @@ def getcitylist(request):
 
 def loadcitylist(request):
 	"""
-	To load the City Name and Id in Database 
+	To load the City Name and Id in Database
 	"""
 	from collections import OrderedDict
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')		
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	getcityresponse = GO.getHotelsByCity()
 
 	results = []
@@ -323,46 +323,44 @@ def loadcitylist(request):
 		obj.save()
 		print "====>>>>", unsort_dict[citylist]
 
-	sorted_dict = OrderedDict(sorted(unsort_dict.iteritems(), key=lambda v:v[0])) 	
+	sorted_dict = OrderedDict(sorted(unsort_dict.iteritems(), key=lambda v:v[0]))
 	for k, v in sorted_dict.iteritems():
 		results.append(v)
 
 	return HttpResponse(simplejson.dumps(results), mimetype='application/json')
-	
+
 
 # /** To get the Search Results based on CityId, ChecIn, Checkout, Adults, Roooms, Children **/
 def gethotellist(request):
-	print "gethotellist"
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
-		
+
 		checkinvalue = checkin.replace('/','')
 		checkout = request.POST.get('end',request.COOKIES.get('checkout'))
-		print checkout
 		checkoutvalue = checkout.replace('/','')
 		rooms1 = request.POST.get('room1', '1')
-		adults1 = request.POST.get('adults1', '1')	
+		adults1 = request.POST.get('adults1', '1')
 		nochildrens1 = request.POST.get('childs1', '0')
 		childage1_1 = request.POST.get('childage1_1', '0')
 		childage2_1 = request.POST.get('childage2_1', '0')
 		rooms2 = request.POST.get('room2', '0')
-		adults2 = request.POST.get('adults2', '0')	
+		adults2 = request.POST.get('adults2', '0')
 		nochildrens2 = request.POST.get('childs2', '0')
 		childage1_2 = request.POST.get('childage1_2', '0')
 		childage2_2 = request.POST.get('childage2_2', '0')
 		rooms3 = request.POST.get('room3', '0')
 
-		adults3 = request.POST.get('adults3', '0')	
+		adults3 = request.POST.get('adults3', '0')
 		nochildrens3 = request.POST.get('childs3', '0')
 		childage1_3= request.POST.get('childage1_3', '0')
 		childage2_3 = request.POST.get('childage2_3', '0')
 		rooms4 = request.POST.get('room4', '0')
-		adults4 = request.POST.get('adults4', '0')	
+		adults4 = request.POST.get('adults4', '0')
 		nochildrens4 = request.POST.get('childs4', '0')
 		childage1_4 = request.POST.get('childage1_4', '0')
 		childage2_4 = request.POST.get('childage2_4', '0')
@@ -372,14 +370,14 @@ def gethotellist(request):
 	try:
 		if rooms4=='4':
 			rooms=4
-			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)	
+			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)
 		elif rooms3=='3':
 			rooms=3
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms3,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3)
 		elif rooms2=='2':
 			rooms=2
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms2,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2)
-		else:		
+		else:
 			rooms=1
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
 		try:
@@ -420,7 +418,7 @@ def gethotellist(request):
 
 				# if 'fm' in hotels:
 				# 	hotel_fm=hotels.fm
-				
+
 			if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
@@ -434,7 +432,7 @@ def gethotellist(request):
 				guest=int(adults1)+int(adults2)
 				child=int(nochildrens1)+int(nochildrens2)
 			else:
-				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
+				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)
 				guest=int(adults1)
 				child=int(nochildrens1)
 			response = render_to_response("hotels/hotels.html", {'city':city, 'hotels':hotels, 'joindata':joindata,'locations':filtered_location}, context_instance=RequestContext(request))
@@ -452,45 +450,45 @@ def gethotellist(request):
 	except:
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
 		return HttpResponseRedirect(format_redirect_url("/v2", 'error=56'))
-	log_function(query, "success:" + str(getcityresponse['success']))	
+	log_function(query, "success:" + str(getcityresponse['success']))
 	return response
 
 # def gethotellist_v2(request):
 #     return render_to_response("v2/hotels/hotelsearch_v2.html", context_instance=RequestContext(request))
-	  
+
 
 def gethotellist_v2(request):
 	print "gethotellist_v2"
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
 		date,month,year=checkin.split('/')
 		checkinvalue = year+month+date
 		checkout = request.POST.get('end',request.COOKIES.get('checkout'))
-		date,month,year=checkout.split('/') 
+		date,month,year=checkout.split('/')
 		checkoutvalue = year+month+date
 		rooms1 = request.POST.get('room1', '1')
-		adults1 = request.POST.get('adults1', '1')	
+		adults1 = request.POST.get('adults1', '1')
 		nochildrens1 = request.POST.get('childs1', '0')
 		childage1_1 = request.POST.get('childage1_1', '0')
 		childage2_1 = request.POST.get('childage2_1', '0')
 		rooms2 = request.POST.get('room2', '0')
-		adults2 = request.POST.get('adults2', '0')	
+		adults2 = request.POST.get('adults2', '0')
 		nochildrens2 = request.POST.get('childs2', '0')
 		childage1_2 = request.POST.get('childage1_2', '0')
 		childage2_2 = request.POST.get('childage2_2', '0')
 		rooms3 = request.POST.get('room3', '0')
 
-		adults3 = request.POST.get('adults3', '0')	
+		adults3 = request.POST.get('adults3', '0')
 		nochildrens3 = request.POST.get('childs3', '0')
 		childage1_3= request.POST.get('childage1_3', '0')
 		childage2_3 = request.POST.get('childage2_3', '0')
 		rooms4 = request.POST.get('room4', '0')
-		adults4 = request.POST.get('adults4', '0')	
+		adults4 = request.POST.get('adults4', '0')
 		nochildrens4 = request.POST.get('childs4', '0')
 		childage1_4 = request.POST.get('childage1_4', '0')
 		childage2_4 = request.POST.get('childage2_4', '0')
@@ -500,17 +498,17 @@ def gethotellist_v2(request):
 	try:
 		if rooms4=='4':
 			rooms=4
-			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)	
+			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)
 		elif rooms3=='3':
 			rooms=3
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms3,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3)
 		elif rooms2=='2':
 			rooms=2
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms2,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2)
-		else:		
+		else:
 			rooms=1
 			query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
-		# print "getcityresponse", getcityresponse
+		print "getcityresponse", getcityresponse
 		try:
 			cityFields = ['country']
 			city = {}
@@ -530,7 +528,7 @@ def gethotellist_v2(request):
 						_hotel[k] = v
 				hotels.append(_hotel)
 			# print "hotels", hotels
-			
+
 			##################---Added by muthu---#####################
 			loc_fields=['l']
 			locations=set()
@@ -539,7 +537,7 @@ def gethotellist_v2(request):
 					if k in loc_fields:
 						locations.add(v)
 
-			
+
 			filtering=list(locations)
 			filtered_location=filter(None,filtering)
 			###########################################################
@@ -554,7 +552,7 @@ def gethotellist_v2(request):
 
 				# if 'fm' in hotels:
 				# 	hotel_fm=hotels.fm
-				
+
 			if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
@@ -568,7 +566,7 @@ def gethotellist_v2(request):
 				guest=int(adults1)+int(adults2)
 				child=int(nochildrens1)+int(nochildrens2)
 			else:
-				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
+				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)
 				guest=int(adults1)
 				child=int(nochildrens1)
 
@@ -577,14 +575,14 @@ def gethotellist_v2(request):
 			d0=datetime.strptime(checkin, fmt)
 			d1=datetime.strptime(checkout, fmt)
 			no_night=str((d1-d0).days)
-	
-			date_object_checkin= datetime.strptime(checkin, '%d/%m/%Y') 			
- 			change_datefmt_checkin=(date_object_checkin.strftime('%b %d, %Y')) 			
- 						
+
+			date_object_checkin= datetime.strptime(checkin, '%d/%m/%Y')
+ 			change_datefmt_checkin=(date_object_checkin.strftime('%b %d, %Y'))
+
 			date_object_checkout= datetime.strptime(checkout, '%d/%m/%Y')
  			change_datefmt_checkout=(date_object_checkout.strftime('%b %d, %Y'))
- 				
-		
+
+
 			response = render_to_response("v2/hotels/hotelsearch_v2.html", {'change_datefmt_checkin': change_datefmt_checkin, 'change_datefmt_checkout': change_datefmt_checkout, 'no_night':no_night, 'city':city, 'hotels':hotels, 'guest':guest, 'joindata':joindata, 'locations':filtered_location}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
 			response.set_cookie( 'checkin', checkin )
@@ -604,7 +602,7 @@ def gethotellist_v2(request):
 	except:
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
 		return HttpResponseRedirect(format_redirect_url("/v2", 'error=13'))
-	log_function(query, "success:" + str(getcityresponse['success']))	
+	log_function(query, "success:" + str(getcityresponse['success']))
 	return response
 
 # def gethoteldetails_v2(request):
@@ -613,10 +611,10 @@ def gethotellist_v2(request):
 def gethoteldetails_v2(request):
 	"""
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
-	"""		
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')			
+	"""
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	joindata = request.COOKIES.get('joindata')
-	hc = request.POST.get('hc',request.COOKIES.get('hc'))	
+	hc = request.POST.get('hc',request.COOKIES.get('hc'))
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
 	fwdp =request.POST.get('fwdp',request.COOKIES.get('fwdp'))
 
@@ -624,7 +622,7 @@ def gethoteldetails_v2(request):
 	fmt = '%d/%m/%Y'
 	d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
 	d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
-	no_night=str((d1-d0).days)	
+	no_night=str((d1-d0).days)
 
 	try:
 		query, gethoteldetailresponse = GO.getHotelDetailsByCity(joindata, hc, ibp, fwdp)
@@ -636,27 +634,27 @@ def gethoteldetails_v2(request):
 		try:
 			hoteldetails = ['prc', 'pincode','facilities', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data', 'free_cancel']
 			_hotel = {}
-			for k, v in gethoteldetailresponse['data'].iteritems():		
-				# _hotel = {'hn':hotel['hn']}		
+			for k, v in gethoteldetailresponse['data'].iteritems():
+				# _hotel = {'hn':hotel['hn']}
 				if k in hoteldetails:
 					_hotel[k] = v
 
-			# /** Hotel  Gallery Image */		
+			# /** Hotel  Gallery Image */
 			_hotel['gallery']= gethoteldetailresponse['data']['gallery']
 
-			# /** Am */		
-			for k, v in gethoteldetailresponse['data']['am'].iteritems():						
+			# /** Am */
+			for k, v in gethoteldetailresponse['data']['am'].iteritems():
 				_hotel[k] = v
 
 			hotelroominfos = []
-			for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
+			for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:
 				# print "hotelroominfo", hotelroominfo
 				_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc'], 'mp':hotelroominfo['mp'], 'ttc':hotelroominfo['ttc'], 'tp':hotelroominfo['tp'], 'tp_alltax':hotelroominfo['tp_alltax'], 'checkintime':hotelroominfo['checkintime'], 'checkouttime':hotelroominfo['checkouttime'], 'fcdt':hotelroominfo['fcdt'], 'fc':hotelroominfo['fc']}
-				hotelroominfos.append(_rhotelinfo)	
+				hotelroominfos.append(_rhotelinfo)
 			# print "hotelroominfos", hotelroominfos
 
-			# /** Hotel  Reviews Details */		
-			# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
+			# /** Hotel  Reviews Details */
+			# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']
 			# reviews = []
 			# for hotelreview in gethotelreviewresponse['data']:
 			# 	print "hotelreview", hotelreviewt
@@ -672,20 +670,20 @@ def gethoteldetails_v2(request):
 		except:
 		 	messages.add_message(request, messages.INFO,'API not responding')
 		 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=14'))
-		
+
 		# reviews = []
 		# for hotelreview in gethotelreviewresponse['data']:
 		# 	_rhotel = {'hotelName':hotelreview['hotelName'], 'totalRating':hotelreview['totalRating'], 'hotelCity':hotelreview['hotelCity'], 'reviewContent':hotelreview['reviewContent'], 'firstName':hotelreview['firstName']}
-		# 	reviews.append(_rhotel)		
-		# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
-		
+		# 	reviews.append(_rhotel)
+		# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
+
 		response = render_to_response("v2/hotels/hoteldetails_v2.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos,  'no_night': no_night}, context_instance=RequestContext(request))
 		response.set_cookie('hc',hc)
 		response.set_cookie('ibp',ibp)
 		response.set_cookie('fwdp',fwdp)
 		for hotelroominfo in hotelroominfos:
 			response.set_cookie('rtc',hotelroominfo['rtc'])
-			response.set_cookie('rpc',hotelroominfo['rpc'])		
+			response.set_cookie('rpc',hotelroominfo['rpc'])
 		response.set_cookie('hn',_hotel['hn'])
 		response.set_cookie('prc',_hotel['prc'])
 		response.set_cookie('c',_hotel['c'])
@@ -698,15 +696,15 @@ def gethoteldetails_v2(request):
 		messages.add_message(request, messages.INFO,'User entered data incorrect')
 	 	return HttpResponseRedirect(format_redirect_url("/", 'error=15'))
 	return response
-	
+
 
 def gethoteldetails(request):
 	"""
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
-	"""		
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')			
+	"""
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	joindata = request.COOKIES.get('joindata')
-	hc = request.POST.get('hc',request.COOKIES.get('hc'))	
+	hc = request.POST.get('hc',request.COOKIES.get('hc'))
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
 	fwdp =request.POST.get('fwdp',request.COOKIES.get('fwdp'))
 	# try:
@@ -719,23 +717,23 @@ def gethoteldetails(request):
 	# try:
 	hoteldetails = ['prc', 'pincode', 'room_count', 'vcid', 'hn', 'address', 'c', 'des','l','hr','gr','la','lo','rooms_data']
 	_hotel = {}
-	for k, v in gethoteldetailresponse['data'].iteritems():		
-		# _hotel = {'hn':hotel['hn']}		
+	for k, v in gethoteldetailresponse['data'].iteritems():
+		# _hotel = {'hn':hotel['hn']}
 		if k in hoteldetails:
 			_hotel[k] = v
 
-	# /** Hotel  Gallery Image */		
+	# /** Hotel  Gallery Image */
 	_hotel['gallery']= gethoteldetailresponse['data']['gallery']
 
 	hotelroominfos = []
-	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:		
+	for hotelroominfo in gethoteldetailresponse['data']['rooms_data']:
 		# print "hotelroominfo", hotelroominfo
 		_rhotelinfo = {'rtc':hotelroominfo['rtc'], 'rpc':hotelroominfo['rpc']}
-		hotelroominfos.append(_rhotelinfo)	
+		hotelroominfos.append(_rhotelinfo)
 	print "hotelroominfos", hotelroominfos
 
-	# /** Hotel  Reviews Details */		
-	# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']	
+	# /** Hotel  Reviews Details */
+	# hotelreviewsFields = ['hotelName', 'firstName', 'lastName', 'hotelCity', 'totalRating', 'reviewContent', 'createdAt', 'reviewTitle','attractions']
 	# reviews = []
 	# for hotelreview in gethotelreviewresponse['data']:
 	# 	print "hotelreview", hotelreview
@@ -747,7 +745,7 @@ def gethoteldetails(request):
 	# 				review[f] = None
 	# 	reviews.append(review)
 	# print "reviews","***************", reviews
-	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}	
+	morehoteldata = {'joindata':joindata, 'hc':hc, 'ibp':ibp, 'fwdp':fwdp}
 	# except:
 	# 	messages.add_message(request, messages.INFO,'API not responding')
 	# 	return HttpResponseRedirect(format_redirect_url("/gethotellist", 'error=54'))
@@ -757,7 +755,7 @@ def gethoteldetails(request):
 	# 	reviews.append(_rhotel)
 	# return HttpResponse(simplejson.dumps(hotelroominfos), mimetype='application/json')
 
-	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))	
+	# response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'reviews':reviews, 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
 	response = render_to_response("hotels/hoteldetails.html", {'hotels':_hotel , 'morehoteldatas':morehoteldata, 'hotelroominfos':hotelroominfos }, context_instance=RequestContext(request))
 	response.set_cookie('hc',hc)
 	response.set_cookie('ibp',ibp)
@@ -782,8 +780,8 @@ def gethoteldetails(request):
 def userdetails_v2(request):
 	"""
 	UserDetails for PayU Methods with Amount for Hotel.
-	"""	
-	try:		
+	"""
+	try:
 		print 'Inside Post'
 		srtc = request.POST.get('selectedrtc',request.COOKIES.get('srtc'))
 		srpc = request.POST.get('selectedrpc',request.COOKIES.get('srpc'))
@@ -792,14 +790,14 @@ def userdetails_v2(request):
 		sttc = request.POST.get('totaltax',request.COOKIES.get('sttc'))
 		stpcwt = request.POST.get('totalprice_wt',request.COOKIES.get('stpcwt'))
 		sroomname = request.POST.get('roomname',request.COOKIES.get('sroomname'))
-		print 'stpcwt===========>',stpcwt 
+		print 'stpcwt===========>',stpcwt
 		from datetime import datetime
 		fmt = '%d/%m/%Y'
 		d0=datetime.strptime(request.COOKIES.get('checkin'), fmt)
 		d1=datetime.strptime(request.COOKIES.get('checkout'), fmt)
 		result=str((d1-d0).days)
 		print "results============", result
-		response= render_to_response("v2/hotels/hotelpayment_v2.html",{'results':result, 'srtc':srtc, 'srpc':srpc, 'smp':smp, 'stp':stp, 'sttc':sttc, 'stpcwt': stpcwt}, context_instance=RequestContext(request))		
+		response= render_to_response("v2/hotels/hotelpayment_v2.html",{'results':result, 'srtc':srtc, 'srpc':srpc, 'smp':smp, 'stp':stp, 'sttc':sttc, 'stpcwt': stpcwt}, context_instance=RequestContext(request))
 		response.set_cookie('srtc',srtc)
 		response.set_cookie('srpc',srpc)
 		response.set_cookie('smp',smp)
@@ -812,13 +810,13 @@ def userdetails_v2(request):
 		messages.add_message(request, messages.INFO,'Some thing went to wrong')
 		print '---------', request.META.get('HTTP_REFERER','/')
 		return HttpResponseRedirect(format_redirect_url(request.META.get('HTTP_REFERER','/'), 'error=53'))
-		
-	
+
+
 @login_required(login_url='/register/')
 def userdetails(request):
 	"""
 	UserDetails for PayU Methods with Amount.
-	"""	
+	"""
 	try:
 		rtc = request.POST.get('rtc',request.COOKIES.get('rtc'))
 		rpc = request.POST.get('rpc',request.COOKIES.get('rpc'))
@@ -845,9 +843,9 @@ def setprovisionalbooking_v2(request):
 	try:
 		url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/?query=hotels-"+request.COOKIES.get('joindata')+"&hc="+request.COOKIES.get('hc')+"&ibp="+request.COOKIES.get('ibp')+"&rtc="+request.COOKIES.get('rtc')+"&rpc="+request.COOKIES.get('rpc')
 		print 'url', url
-		customer = [['firstname', request.COOKIES.get('fname')], 
-				   ['lastname', request.COOKIES.get('lname')], 
-				   ['email',request.COOKIES.get('email')], 
+		customer = [['firstname', request.COOKIES.get('fname')],
+				   ['lastname', request.COOKIES.get('lname')],
+				   ['email',request.COOKIES.get('email')],
 				   ['mobile', request.COOKIES.get('pnumber')],
 				   ['country_phone_code', '+91'],
 				   ['title',request.COOKIES.get('initial')],
@@ -859,20 +857,20 @@ def setprovisionalbooking_v2(request):
 		'content-type': "application/x-www-form-urlencoded"
 		}
 		# try:
-		response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
-		print "res", response.json()	
+		response = requests.request("POST", url, data=payload,headers=headers, auth=(settings.API_USERNAME, settings.API_PASSWORD))
+		print "res", response.json()
 		#print response
 		#return HttpResponse(response)
 		from datetime import datetime
 		fmt = '%Y/%m/%d'
 		print "respons", response
 		print "response.json", response.json()
-		response1 = render_to_response("v2/hotels/hotelprovisional_v2.html",{'response':response.json()}, context_instance=RequestContext(request))	
+		response1 = render_to_response("v2/hotels/hotelprovisional_v2.html",{'response':response.json()}, context_instance=RequestContext(request))
 		# response1.set_cookie('provisionalbooking_status',response.json()['success'])
 		#response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
 		#return HttpResponseRedirect(response1)
 		# Code for storing Order Details
-		order=Order()	
+		order=Order()
 		order.userprofile =UserProfile.objects.get(user=request.user)
 		order.hotelcode=request.COOKIES.get('hc')
 		order.hotelname=request.COOKIES.get('hn')
@@ -904,16 +902,16 @@ def setprovisionalbooking_v2(request):
 			elif i==7:
 				orderlist.room=4
 			elif i==8:
-				orderlist.room=5	
+				orderlist.room=5
 			elif i==9:
-				orderlist.room=6	
+				orderlist.room=6
 			orderlist.adults=data[0]
 			orderlist.children=data[1]
 			orderlist.child1_age=data[2]
 			orderlist.child2_age=data[3]
 			orderlist.save()
 
-		#Code for storing PayU Details	
+		#Code for storing PayU Details
 		payid, paystatus=store_payudetails(request)
 		print "payid", payid
 		print "paystatus", paystatus
@@ -922,10 +920,10 @@ def setprovisionalbooking_v2(request):
 	except:
 		messages.add_message(request, messages.INFO,'You cannot refresh again')
 		return HttpResponseRedirect(format_redirect_url("/bookhotel", 'error=17'))
-	# response1 = render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))	
+	# response1 = render_to_response("hotels/hotel-payment.html", context_instance=RequestContext(request))
 	return response1
-	# return render_to_response("v2/hotels/hotelpayment_v3.html", context_instance=RequestContext(request))	
-	
+	# return render_to_response("v2/hotels/hotelpayment_v3.html", context_instance=RequestContext(request))
+
 @csrf_exempt
 def setprovisionalbooking(request):
 	from django.utils import simplejson
@@ -943,9 +941,9 @@ def setprovisionalbooking(request):
 	joindata['hr']=request.COOKIES.get('hr')
 	print "joindata", joindata
 
-	customer = [['firstname', request.COOKIES.get('fname')], 
-			   ['lastname', request.COOKIES.get('lname')], 
-			   ['email',request.COOKIES.get('email')], 
+	customer = [['firstname', request.COOKIES.get('fname')],
+			   ['lastname', request.COOKIES.get('lname')],
+			   ['email',request.COOKIES.get('email')],
 			   ['mobile', request.COOKIES.get('pnumber')],
 			   ['country_phone_code', '+91'],
 			   ['title',request.COOKIES.get('initial')],
@@ -957,20 +955,20 @@ def setprovisionalbooking(request):
 	'content-type': "application/x-www-form-urlencoded"
 	}
 	# try:
-	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
-	print "res", response.json()	
+	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=(settings.API_USERNAME, settings.API_PASSWORD))
+	print "res", response.json()
 	#print response
 	#return HttpResponse(response)
 	from datetime import datetime
 	fmt = '%Y/%m/%d'
 	print "respons", response
 	print "response.json", response.json()['success']
-	# response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))	
+	# response1 = render_to_response("hotels/hotel-payment.html",{'response':response.json()}, context_instance=RequestContext(request))
 	# response1.set_cookie('provisionalbooking_status',response.json()['success'])
 	#response1 = reverse('confirmbooking', args=[response.json()['data']['gobookingid'], response.json()['data']['udf1'], response.json()['data']['productinfo'], response.json()['data']['email']])
 	#return HttpResponseRedirect(response1)
 	# Code for storing Order Details
-	order=Order()	
+	order=Order()
 	order.userprofile =UserProfile.objects.get(user=request.user)
 	order.hotelcode=request.COOKIES.get('hc')
 	order.hotelname=request.COOKIES.get('hn')
@@ -1002,16 +1000,16 @@ def setprovisionalbooking(request):
 		elif i==7:
 			orderlist.room=4
 		elif i==8:
-			orderlist.room=5	
+			orderlist.room=5
 		elif i==9:
-			orderlist.room=6	
+			orderlist.room=6
 		orderlist.adults=data[0]
 		orderlist.children=data[1]
 		orderlist.child1_age=data[2]
 		orderlist.child2_age=data[3]
 		orderlist.save()
 
-	#Code for storing PayU Details	
+	#Code for storing PayU Details
 	payid, paystatus=store_payudetails(request)
 	print "payid", payid
 	print "paystatus", paystatus
@@ -1028,7 +1026,7 @@ def confirmbooking_v2(request):
 	import urllib
 	import requests
 	from hashlib import md5, sha512
-	try:	
+	try:
 		guest = request.POST.get('guest')
 		firstname = request.POST.get('firstname',request.COOKIES.get('fname'))
 		amount = request.POST.get('amount')
@@ -1043,7 +1041,7 @@ def confirmbooking_v2(request):
 		headers = {
 		'content-type': "application/x-www-form-urlencoded"
 		}
-		response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+		response = requests.request("POST", url, data=payload,headers=headers, auth=(settings.API_USERNAME, settings.API_PASSWORD))
 		#Code for storing Transaction Details
 		if 'data' in response.json():
 			response_json=response.json()['data']
@@ -1093,7 +1091,7 @@ def confirmbooking(request):
 	import requests
 	from hashlib import md5, sha512
 	# try:
-	
+
 	guest = request.POST.get('guest')
 	print "guest",guest
 	firstname = request.POST.get('firstname',request.COOKIES.get('fname'))
@@ -1128,7 +1126,7 @@ def confirmbooking(request):
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}
-	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+	response = requests.request("POST", url, data=payload,headers=headers, auth=(settings.API_USERNAME, settings.API_PASSWORD))
 	print "res", response.json()
 
 	#Code for storing Transaction Details
@@ -1189,17 +1187,17 @@ def refund(request):
 
 
 def getbookingstatus(request):
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	# gobookingid='GOHTLDV22896e1439528786' // working id
 	gobookingid =request.POST.get('bookid')
 	query,bookingstatus=GO.BookingStatus(gobookingid)
 	print bookingstatus
-	log_function(query, "success:" + str(bookingstatus['success']))	
+	log_function(query, "success:" + str(bookingstatus['success']))
 	return render_to_response("hotels/bookingstatusresult.html",{'status':bookingstatus}, context_instance=RequestContext(request))
-	
+
 
 def getbookingdetails(request):
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	gobookingid=request.POST.get('bookid')
 	#GOHTLDV2ee67a1438838485 // working id
 	bookingstatus=GO.BookingDetails(gobookingid)
@@ -1233,7 +1231,7 @@ def getbookingdetails(request):
 	return render_to_response("hotels/bookingdetail.html",{'status':status},context_instance=RequestContext(request))
 
 def getrefund(request):
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	#gobookingid='GOHTLDV2ee67a1438838485'
 	gobookingid=request.POST.get('bookid')
 	getrefund=GO.RefundDetails(gobookingid)
@@ -1254,10 +1252,10 @@ def confirmcancel(request):
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}
-	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+	response = requests.request("POST", url, data=payload,headers=headers, auth=(settings.API_USERNAME, settings.API_PASSWORD))
 	print response.json()
 	#return HttpResponse(simplejson.dumps(response), mimetype='application/json')
-	
+
 	return render_to_response("hotels/conformcancel.html",{'status':response.json()},context_instance=RequestContext(request))
 
 @csrf_exempt
@@ -1273,9 +1271,9 @@ def get_results_by_price(request):
 	print 'stars',stars
 	print 'val_max',val_max
 	print 'val_min',val_min
-	
+
 	morevalue = []
-	if location== 'test': 
+	if location== 'test':
 		print "test11111111"
 		print city_response
 		for values in city_response['data']['city_hotel_info']:
@@ -1300,50 +1298,50 @@ def get_results_by_price(request):
 def test_view_v2(request):
 	print 'here'
 
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
-	
+	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
+
 	cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 	checkin = request.POST.get('start',request.COOKIES.get('checkin'))
 	checkinvalue = checkin.replace('/','')
 	checkout = request.POST.get('end',request.COOKIES.get('checkout'))
 	checkoutvalue = checkout.replace('/','')
 	rooms1 = request.POST.get('room1', '1')
-	adults1 = request.POST.get('adults1', '1')	
+	adults1 = request.POST.get('adults1', '1')
 	nochildrens1 = request.POST.get('childs1', '0')
 	childage1_1 = request.POST.get('childage1_1', '0')
 	childage2_1 = request.POST.get('childage2_1', '0')
 	rooms2 = request.POST.get('room2', '0')
-	adults2 = request.POST.get('adults2', '0')	
+	adults2 = request.POST.get('adults2', '0')
 	nochildrens2 = request.POST.get('childs2', '0')
 	childage1_2 = request.POST.get('childage1_2', '0')
 	childage2_2 = request.POST.get('childage2_2', '0')
 	rooms3 = request.POST.get('room3', '0')
 
-	adults3 = request.POST.get('adults3', '0')	
+	adults3 = request.POST.get('adults3', '0')
 	nochildrens3 = request.POST.get('childs3', '0')
 	childage1_3= request.POST.get('childage1_3', '0')
 	childage2_3 = request.POST.get('childage2_3', '0')
 	rooms4 = request.POST.get('room4', '0')
-	adults4 = request.POST.get('adults4', '0')	
+	adults4 = request.POST.get('adults4', '0')
 	nochildrens4 = request.POST.get('childs4', '0')
 	childage1_4 = request.POST.get('childage1_4', '0')
 	childage2_4 = request.POST.get('childage2_4', '0')
-	
-	
+
+
 	if rooms4=='4':
 		rooms=4
-		query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)	
+		query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms4, adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3, adults4, nochildrens1,childage1_4,childage2_4,)
 	elif rooms3=='3':
 		rooms=3
 		query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms3,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2, adults3, nochildrens3,childage1_3,childage2_3)
 	elif rooms2=='2':
 		rooms=2
 		query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms2,adults1, nochildrens1,childage1_1,childage2_1, adults2, nochildrens2,childage1_2,childage2_2)
-	else:		
+	else:
 		rooms=1
 		query, getcityresponse = GO.SearchHotelsByCity(cityid, checkinvalue, checkoutvalue,rooms1,adults1, nochildrens1,childage1_1,childage2_1)
 	# print "getcityresponse", getcityresponse
-	
+
 	cityFields = ['country']
 	city = {}
 	for k, v in getcityresponse['data']['city_meta_info'].iteritems():
@@ -1367,7 +1365,7 @@ def test_view_v2(request):
 		hotels.append(_hotel)
 	filtered_location=list(locations)
 	# print "hotels", hotels
-	
+
 	##################---Added by muthu---#####################
 	# loc_fields=['l']
 	# locations=set()
@@ -1389,7 +1387,7 @@ def test_view_v2(request):
 
 		# if 'fm' in hotels:
 		# 	hotel_fm=hotels.fm
-		
+
 	if rooms4=='4':
 		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
 		guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
@@ -1403,7 +1401,7 @@ def test_view_v2(request):
 		guest=int(adults1)+int(adults2)
 		child=int(nochildrens1)+int(nochildrens2)
 	else:
-		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)	
+		joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)
 		guest=int(adults1)
 		child=int(nochildrens1)
 
@@ -1413,16 +1411,16 @@ def test_view_v2(request):
 	d1=datetime.strptime(checkout, fmt)
 	no_night=str((d1-d0).days)
 
-	date_object_checkin= datetime.strptime(checkin, '%Y/%m/%d') 			
-	change_datefmt_checkin=(date_object_checkin.strftime('%b %d, %Y')) 			
-			
-	date_object_checkout= datetime.strptime(checkout, '%Y/%m/%d')
-	change_datefmt_checkout=(date_object_checkout.strftime('%b %d, %Y'))			
+	date_object_checkin= datetime.strptime(checkin, '%Y/%m/%d')
+	change_datefmt_checkin=(date_object_checkin.strftime('%b %d, %Y'))
 
-	response = render_to_response("v2/portal/basic.html", {'change_datefmt_checkin': change_datefmt_checkin, 'change_datefmt_checkout': change_datefmt_checkout, 'no_night':no_night, 'city':city, 'hotels':hotels, 'guest':guest, 'joindata':joindata, 'locations':filtered_location}, context_instance=RequestContext(request))	
+	date_object_checkout= datetime.strptime(checkout, '%Y/%m/%d')
+	change_datefmt_checkout=(date_object_checkout.strftime('%b %d, %Y'))
+
+	response = render_to_response("v2/portal/basic.html", {'change_datefmt_checkin': change_datefmt_checkin, 'change_datefmt_checkout': change_datefmt_checkout, 'no_night':no_night, 'city':city, 'hotels':hotels, 'guest':guest, 'joindata':joindata, 'locations':filtered_location}, context_instance=RequestContext(request))
 	return response
 
-	
+
 def terms_and_condition(request):
 	return render_to_response('v2/portal/terms_and_conditions.html',context_instance=RequestContext(request))
 

@@ -10,7 +10,7 @@ import simplejson as json
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.core.context_processors import csrf 
+from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response, render, redirect
 from django.core.urlresolvers import reverse
@@ -44,7 +44,7 @@ class goibiboAPI(object):
 	# 	logging.info(datetime.datetime.now())
 	# 	logging.info(query)
 	# 	logging.info(response)
-	# 	logging.info("******************************************************************************************************")		
+	# 	logging.info("******************************************************************************************************")
 
 	def getHotelsByCity(self):
 		import requests
@@ -52,12 +52,12 @@ class goibiboAPI(object):
 
 	def SearchHotelsByCity(self, cityid, checkin, checkout,rooms,adults1=0, nochildrens1=0,childage1_1=0,childage2_1=0, adults2=0, nochildrens2=0,childage1_2=0,childage2_2=0, adults3=0, nochildrens3=0,childage1_3=0,childage2_3=0, adults4=0, nochildrens4=0,childage1_4=0,childage2_4=0):
 		if rooms=='4':
-			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4) 
-			
+			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
+
 		elif rooms=='3':
-			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3) 
+			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)
 		elif rooms=='2':
-			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2) 
+			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)
 		else:
 			query = settings.HOTEL_BASE + "get_city_hotels" + "?query=hotels"+"-"+cityid+"-"+checkin+"-"+checkout+"-"+unicode(rooms)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)
 		return query, (requests.get(query, auth=(self.username, self.password)).json())
@@ -77,10 +77,10 @@ class goibiboAPI(object):
 		query = settings.HOTEL_BASE + "provisional_booking" + "?query=hotels"+"-"+joindata+"&hc="+hc+"&ibp="+ibp+"&rtc="+rtc+"&rpc="+rpc
 		prbook = {'fwdp':{ }, 'customer_details':{"firstname" : "abc", "lastname" : "xyz", "email" : "xyz@abc.com", "mobile": "1234567891", "country_phone_code" : "+91", "title" : "Mr"}}
 		return (requests.post(query, data=prbook, auth=(self.username, self.password)).json())
-		
+
 	def BookingStatus(self, gobookingid):
 		query = settings.HOTEL_BASE + "get_booking_status?gobookingid="+gobookingid
-		print "response",requests.get(query, auth=(self.username, self.password)).json() 
+		print "response",requests.get(query, auth=(self.username, self.password)).json()
 		return (requests.get(query, auth=(self.username, self.password)).json())
 
 	def BookingDetails(self, gobookingid):
@@ -108,7 +108,7 @@ class goibiboAPI(object):
 
 	def CancelPolicy(self,skey):
 		query=settings.BUS_BASE+"cp/?skey="+skey
-		return query,(requests.get(query, auth=(self.username, self.password)).json()) 
+		return query,(requests.get(query, auth=(self.username, self.password)).json())
 
 	def CancelTicket(self,pid):
 		query=settings.BUS_BASE+"cancel/?pid="+pid+"skey=asd"
@@ -117,12 +117,26 @@ class goibiboAPI(object):
 	def BookConform(self,secret,bookingid,clientkey):
 		query=settings.BUS_BASE+"bookticket/?bookingid="+bookingid+"&secret="+secret+"&clientkey="+clientkey
 		return query,(requests.get(query, auth=(self.username, self.password)).json())
-		
+
 	def BookStatus(self,pid):
 		query=settings.BUS_BASE+"status/?pid="+pid
 		return query,(requests.get(query, auth=(self.username, self.password)).json())
 
-			#=========================Flight API===============================#	
+		#=========================Flight API===============================#
+
+	def SearchFlights(self,trip,departure,source,destination,adult,child,infant,s_class,arrival='None'):
+		if trip == 'oneway':
+			query = settings.FLIGHT_BASE+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(departure)+"&adults="+adult+"&children="+child+"&infants="+infant+"&seatingclass="+s_class
+			print query
+		else:
+			query = settings.FLIGHT_BASE+"search/?format=json&source="+source+"&destination="+destination+"&dateofdeparture="+str(departure)+"&dateofarrival="+str(arrival)+"&adults="+adult+"&children="+child+"&infants="+infant+"&seatingclass="+s_class
+			print query
+		return query, (requests.get(query, auth=(self.username, self.password)).json())
+
+
+
+
+
 
 	# def FlightSearch(self, source, destination, dateofdeparture, dateofarrival=None, seatingclass="E", adults=1, children=0, infants=0):
 	# 	if dateofarrival:
@@ -131,9 +145,9 @@ class goibiboAPI(object):
 	# 	else:
 	# 		dateda = "&dateofdeparture=%d" % dateofdeparture
 
-	# 	# return (requests.get(self.BASE + ""search/" + "?format=json" + "&source=%s" % source + "&destination=%s" % destination + 
+	# 	# return (requests.get(self.BASE + ""search/" + "?format=json" + "&source=%s" % source + "&destination=%s" % destination +
 	# 	# 	dateda + "&seatingclass=%s" % seatingclass + "&adults=%d" % adults + "&children=%d" % children + "&infants=%d" % infants,
-	# 	# 	params=self.auth).json())	
+	# 	# 	params=self.auth).json())
 
 	# def GetHotelData(self, id_list):
 	# 	id_list = str(id_list)\
@@ -151,28 +165,28 @@ def format_redirect_url(redirect_path, query_string):
     ''' utility to format redirect url with fixido query string
     '''
     stop_popup = True if 'st=' in query_string else False
-    
+
     url_join_str = '?'
     if url_join_str in redirect_path:
         redirect_path, qs = redirect_path.split(url_join_str, 1)
         query_string = qs + '&' + query_string
-    
+
     qs = {}
     for q in query_string.split('&'):
         if '=' in q:
             k, v = q.split('=', 1)
             qs[k] = v
-    
+
     if stop_popup:
         if qs.has_key('zr'): del qs['zr']
         if qs.has_key('lr'): del qs['lr']
         if qs.has_key('ler'): del qs['ler']
         if qs.has_key('thanks'): del qs['thanks']
-    
+
     query_string = ''
     for k in qs:
         query_string += k + '=' + qs[k] + '&'
-        
+
     return redirect_path + url_join_str + query_string[:-1]
 
 def store_payudetails(request):
@@ -213,4 +227,3 @@ def fileopen(request):
 
 def fileclose(request):
 	f.close()
-
