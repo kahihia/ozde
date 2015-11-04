@@ -354,4 +354,7 @@ def tentativebooking(request):
 
 
 def flight_confirm(request):
-	pass
+	if 'field9' in request.POST:
+		url = settings.FLIGHT_BASE+'book/'
+		contactinfo = cache.get('contactinfo')
+		contactinfo['payment'] = request.POST.get('issuing_bank',request.POST.get('card_type'))

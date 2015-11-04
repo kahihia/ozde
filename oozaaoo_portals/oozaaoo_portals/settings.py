@@ -136,7 +136,7 @@ PAYU_INFO = {
              #success url for bus
              'surl1':'http://localhost:8000/v2/confirm/',
              #success url for flight
-             'surl_flight':'http://localhost:8000/v2/FlightConfirm/',
+             'surl_flight':'http://localhost:8000/FlightConfirm/',
              'furl':'http://localhost:8000/failure/',
              'curl':'http://localhost:8000/cancel/',
             }

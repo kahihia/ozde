@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="{% static "v2/css/tipsy.css" %}">
 
 <script src="{% static "v2/js/jquery-1.9.1.js" %}"></script>
+<script src="{% static "v2/js/tooltip.js" %}"></script>
 <script src="{% static "v2/js/nicescroll.js" %}"></script>
 <script src="{% static "v2/js/jquery-ui.min.js" %}"></script>
 <script src="{% static "v2/js/jquery.ui.slider.js" %}"></script>  
@@ -29,6 +30,7 @@
 <script src="{% static "v2/js/basic.js" %}"></script>
 <script src="{% static "v2/js/custom.js" %}"></script>
 <script src="{% static "v2/js/home.js" %}"></script>
+
 
 <body>
     <section class="search-section">
@@ -238,13 +240,13 @@
                 	<div class="sort-tabs">
                     	<ul class="nav nav-tabs" role="tablist">
                             <li><span class="top10">Sort By: </span></li>
-                            <li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab" id="sprice">Price</a>
+                            <li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab" id="sprice" title="Price sort by Ascending" class="custom_tooltip">Price</a>
                             </li>
-                            <li role="presentation"><a href="#stars" aria-controls="stars" role="tab" data-toggle="tab" id="sstar">Stars</a>
+                            <li role="presentation"><a href="#stars" aria-controls="stars" role="tab" data-toggle="tab" id="sstar" title="Start Rating" class="custom_tooltip">Stars</a>
                             </li>
-                            <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab" id="srecommended">Recommended</a>
+                            <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab" id="srecommended" class="custom_tooltip" title="Recommended Hotel List">Recommended</a>
                             </li>
-                            <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab" id="sratings">Ratings</a>
+                            <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab" id="sratings" class="custom_tooltip" title="Sort By UserRating">Ratings</a>
                             </li>
                         </ul>
                     </div>
@@ -306,7 +308,7 @@
         </script>
         <div class="clear"></div>    
         <script id="template" type="text/html">
-            <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails" class="sorthotellist">{% csrf_token %}                        
+            <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails" class="sorthotellist" target="_blank">{% csrf_token %}                        
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
@@ -316,8 +318,7 @@
                                 </div>
                             </div>              
                             <div class="col-md-7 nopaddingleft">
-                                <a href="#">
-                                    <span class="sort_star"><%= starcount %></span>
+                                <a href="#">                                    
                                     <h4 class="text-left nomargin sort_recommended"><%=hotelname%>&nbsp;<%= star %>
                                     </h4>
                                 </a>
@@ -339,7 +340,7 @@
                                 
                                 <div class="text-right">                                              
                                 <input type="submit" name="moredetails" value="Reserve"
-                                   class="btn btn-warning" id="more"/>          
+                                   class="btn btn-warning custom_tooltip" id="more" title="More details about the hotel" />          
                                 </div>
                             </div>
                             <div class="col-md-12 text-right"> Free Cancellation upto 24 hours

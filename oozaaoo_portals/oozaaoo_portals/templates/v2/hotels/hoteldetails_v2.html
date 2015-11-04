@@ -161,7 +161,7 @@
     	<div class="container">
         	<div class="row padding20">
             	<div class="col-md-8 justify">
-                	{{hotels.des}}
+                	<p class="hotel_descriptions">{{hotels.des|striptags}}</p>
                     <div class="well well-yellow">
                     	<div class="size30 pull-left margin020"><i class="ion ion-ios-locked light-purple"></i></div>
                         <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p></div>
@@ -341,8 +341,9 @@
                             {% csrf_token %}
                         	<div class="row">                              
 
-                                <p class="booking-item-header-price">                                
-                                    <span class="text-lg mp"></span>
+                                <p class="booking-item-header-price">
+                                                                   
+                                    <span class="text-lg mp"><sup><i class="fa fa-rupee"></i></sup></span>
                                     <small>Per Room Per Night</small>                                   
                                 </p>
 
