@@ -83,18 +83,9 @@ def registration_v2(request):
 			user.set_password(user.password)
 			user.first_name=username
 			user.save()
-<<<<<<< HEAD
 			print "save"
 			print "enterin mail"
 			print "user.email",user.email
-=======
-			userprofile.user=user
-			userprofile.phone=phone
-			userprofile.dateofbirth=dob
-			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
-			p.save()
-			message = "You have successfully completed registration."
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
 			send_templated_mail(
 					template_name='welcome',
 					from_email='testmail123sample@gmail.com',
@@ -328,11 +319,9 @@ def loadcitylist(request):
 	To load the City Name and Id in Database
 	"""
 	from collections import OrderedDict
-<<<<<<< HEAD
-	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')		
-=======
+
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
+
 	getcityresponse = GO.getHotelsByCity()
 
 	results = []
@@ -364,11 +353,9 @@ def gethotellist(request):
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-<<<<<<< HEAD
-	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
-=======
+
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
+
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
@@ -495,11 +482,9 @@ def gethotellist_v2(request):
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-<<<<<<< HEAD
-	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
-=======
+
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
+
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
@@ -648,13 +633,9 @@ def gethotellist_v2(request):
 def gethoteldetails_v2(request):
 	"""
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
-<<<<<<< HEAD
-	"""		
-	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')			
-=======
+
 	"""
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
 	joindata = request.COOKIES.get('joindata')
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
@@ -743,13 +724,10 @@ def gethoteldetails_v2(request):
 def gethoteldetails(request):
 	"""
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
-<<<<<<< HEAD
-	"""		
-	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')			
-=======
+
 	"""
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
+
 	joindata = request.COOKIES.get('joindata')
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
@@ -904,13 +882,10 @@ def setprovisionalbooking_v2(request):
 		'content-type': "application/x-www-form-urlencoded"
 		}
 		# try:
-<<<<<<< HEAD
-		response = requests.request("POST", url, data=payload,headers=headers, auth=('itsupport@oozaaoo.com','test123'))
-		print "res", response.json()	
-=======
+
 		response = requests.request("POST", url, data=payload,headers=headers, auth=(settings.API_USERNAME, settings.API_PASSWORD))
 		print "res", response.json()
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
+
 		#print response
 		#return HttpResponse(response)
 		from datetime import datetime
@@ -1007,13 +982,10 @@ def setprovisionalbooking(request):
 	'content-type': "application/x-www-form-urlencoded"
 	}
 	# try:
-<<<<<<< HEAD
-	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('itsupport@oozaaoo.com','test123'))
-	print "res", response.json()	
-=======
+
 	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=(settings.API_USERNAME, settings.API_PASSWORD))
 	print "res", response.json()
->>>>>>> 81d69f1d8303e7ff70cc27eee91a71a090377383
+
 	#print response
 	#return HttpResponse(response)
 	from datetime import datetime

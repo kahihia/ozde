@@ -61,6 +61,7 @@ def search_bus_v2(request):
 	"""
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	source= request.POST.get('source',request.COOKIES.get('source'))
+	print source
 	destination=request.POST.get('destination',request.COOKIES.get('destination'))
 	trip=request.POST.get('trip',request.COOKIES.get('trip'))
 	departure=request.POST.get('start',request.COOKIES.get('start'))
@@ -73,7 +74,7 @@ def search_bus_v2(request):
 		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, trip,dateofarrival)
 	else:
 		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture,trip)
-
+		print getbusresponse,"getbusresponse"
 	# try:
 
 	if 'data' in getbusresponse:

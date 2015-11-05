@@ -1315,40 +1315,49 @@ $('#paynow').click(function(){
     }
 });
 
-
-
-
-
-$('#payment').click(function(){
-
-        if($('.fname').val() == ''){
+$('#payment').on('click', function() {
+      // alert("enter");
+       
+       
+    if($('#fname').val() == ''){
+            // alert("please enter the last name");
             $('.errormgs').show();
-             return false;
-        if($('.lname').val() == ''){
-
-             $('.errormgs').show();
-              return false;
-        if($('.age').val() == ''){
-
-             $('.errormgs').show();
-              return false;
-         if($('.mobileno').val() == ''){
-
-             $('.errormgs').show();
-              return false;
-             if($('.email').val() == ''){
-                $('.errormgs').show();
-              return false;
-                }
-            }
-         }
-    }}
+          }
     else{
-
-      $('.payment').show();
-       return true;
+          $('.errormgs').hide();
+    }   
+   if ($('.lname').val() == '') {
+             $('.errormgs1').show(); 
     }
-});
+  else{
+        $('.errormgs1').hide();
+    } 
+  if ($('.age').val() == '') {
+             $('.errormgs2').show();
+   }
+  else{
+      $('.errormgs2').hide();
+    } 
+  if ($('.mobileno').val() == '') {
+             $('.errormgs4').show();
+      }
+  else{
+      $('.errormgs4').hide();
+    } 
+      
+  if ($('.email').val() == '') {
+             $('.errormgs3').show();
+  }
+  else{
+      $('.errormgs3').hide();
+    } 
+  $('.payment').show();
+
+
+  });
+
+
+
 $('.login').click(function(){
     if($('input[name="username"]').val() == ''){
             // alert("please enter the first name");
