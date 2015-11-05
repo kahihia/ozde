@@ -210,7 +210,7 @@
                                         <div class="checkbox"><label><input type="checkbox"  id="2" class="checkbox" value="2"> 2 Stars</label></div>
                                     </li>
                                     <li>
-                                        <div class="checkbox"><label><input type="checkbox"  id="1" class="checkbox"  value="1"> 1 Stars</label></div>
+                                        <div class="checkbox"><label><input type="checkbox"  id="1" class="checkbox"  value="1"> 1 Star</label></div>
                                     </li>
                             	</ul>
                             </div>
@@ -246,7 +246,7 @@
                             </li>
                             <li role="presentation" class="active"><a href="#recommended" aria-controls="recommended" role="tab" data-toggle="tab" id="srecommended" class="custom_tooltip" title="Recommended Hotel List">Recommended</a>
                             </li>
-                            <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab" id="sratings" class="custom_tooltip" title="Sort By UserRating">Ratings</a>
+                            <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab" id="sratings" class="custom_tooltip" title="Sort By UserRating"> Goibibo Ratings</a>
                             </li>
                         </ul>
                     </div>
@@ -318,7 +318,7 @@
                                 </div>
                             </div>              
                             <div class="col-md-7 nopaddingleft">
-                                <a href="#">                                    
+                                <a href="{% url "hotels.views.gethoteldetails_v2" %}">                                    
                                     <h4 class="text-left nomargin sort_recommended"><%=hotelname%>&nbsp;<%= star %>
                                     </h4>
                                 </a>

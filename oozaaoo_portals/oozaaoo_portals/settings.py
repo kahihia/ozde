@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     'bus',
     'payu',
     'transaction',
+    
 )
 
 MIDDLEWARE_CLASSES = (

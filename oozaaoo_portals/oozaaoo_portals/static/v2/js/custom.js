@@ -518,10 +518,10 @@ $(document).ready(
     });
 
     $('#sratings').on('click', function () {
-      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-        return $(a).find(".sort_rating").text() > $(b).find(".sort_rating").text();
+      var numericallyOrderedDivs = $divs.sort(function (a, b) {
+        return $(a).find(".text-muted").text() > $(b).find(".text-muted").text();
       });
-      $("#rating > .hotel-list-vertical").html(alphabeticallyOrderedDivs);
+      $("#rating > .hotel-list-vertical").html(numericallyOrderedDivs);
     });
 
     $('#srecommended').on('click', function () {
@@ -1393,3 +1393,33 @@ $(".map").click(function(){
     $('.for_soldout').show();
     $('.for_buynow').hide();
   }
+
+
+$(".change").click(function(){
+  alert("enter");
+  if($('input[name="password"]').val() == ''){
+            // alert("please enter the last name");
+             $('.mgs').show();
+             return false;
+         }
+    
+ });
+//*********** for rating tab in hotel listing **********//
+
+// var ascending = false;
+
+// $('.tab-content').on('click','#sratings',function(){
+
+//     var sorted = $('.results-row').sort(function(a,b){
+//         return (ascending ==
+//                (convertToNumber($(a).find('.rating').html()) < 
+//                 convertToNumber($(b).find('.rating').html()))) ? 1 : -1;
+//     });
+//     ascending = ascending ? false : true;
+
+//     $('.results').html(sorted);
+// });
+
+// var convertToNumber = function(value){
+//      return parseFloat(value.replace('$',''));
+// }

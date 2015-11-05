@@ -16,7 +16,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	# url(r'', include('social_auth.urls')),
 	url(r'^$', 'hotels.views.home_v2', name='home_v2'),
-
+    url(r'^profile_details/$', 'hotels.views.profile_details', name='profile_details'),
+    url(r'^settings/$', 'hotels.views.settings', name='settings'),
     
     # url(r'^v2/$', 'hotels.views.home_v2', name='home_v2'),
     url(r'^v2/profile$', 'hotels.views.profile_v2', name='profile_v2'),
@@ -81,6 +82,6 @@ urlpatterns = patterns('',
     url(r'^aboutus/', 'hotels.views.aboutus', name='aboutus'),
     url(r'^v2/privacy/', 'hotels.views.privacy', name='privacy'),
     url(r'^contactus/', 'hotels.views.contactus', name='contactus'),
-
+    # url(r'^password/$', 'django.contrib.auth.views.password_change', {'post_change_redirect' : '/password-changed/','template_name': 'v2/portal/profile_v2.html'},),
 
 )

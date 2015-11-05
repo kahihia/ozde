@@ -76,17 +76,16 @@ def registration_v2(request):
 			next_path=request.POST['next']    
 			user.is_active = True
 			user.username=username
+			print user.username
 			user.email=email
+			print user.email
 			user.password=password
 			user.set_password(user.password)
 			user.first_name=username
 			user.save()
-			userprofile.user=user       
-			userprofile.phone=phone
-			userprofile.dateofbirth=dob
-			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
-			p.save()
-			message = "You have successfully completed registration."
+			print "save"
+			print "enterin mail"
+			print "user.email",user.email
 			send_templated_mail(
 					template_name='welcome',
 					from_email='testmail123sample@gmail.com',
@@ -94,6 +93,23 @@ def registration_v2(request):
 					context=({
 						'username': user.username,
 						'name': user.username}))
+			print "mailsend"
+			userprofile.user=user       
+			userprofile.phone=phone
+			userprofile.dateofbirth=dob
+			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
+			p.save()
+			message = "You have successfully completed registration."
+			# print "enterin mail"
+			# print "user.email",user.email
+			# send_templated_mail(
+			# 		template_name='welcome',
+			# 		from_email='testmail123sample@gmail.com',
+			# 		recipient_list=[user.email],
+			# 		context=({
+			# 			'username': user.username,
+			# 			'name': user.username}))
+			# print "mailsend"
 			if request.POST['next']:
 				messages.add_message(request, messages.INFO,message)
 				return HttpResponseRedirect(request.POST["next"])
@@ -303,7 +319,7 @@ def loadcitylist(request):
 	To load the City Name and Id in Database 
 	"""
 	from collections import OrderedDict
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')		
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')		
 	getcityresponse = GO.getHotelsByCity()
 
 	results = []
@@ -336,7 +352,7 @@ def gethotellist(request):
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
@@ -464,7 +480,7 @@ def gethotellist_v2(request):
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
 	try:
 		cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 		checkin = request.POST.get('start',request.COOKIES.get('checkin'))
@@ -614,7 +630,7 @@ def gethoteldetails_v2(request):
 	"""
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
 	"""		
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')			
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')			
 	joindata = request.COOKIES.get('joindata')
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))	
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
@@ -704,7 +720,7 @@ def gethoteldetails(request):
 	"""
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
 	"""		
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')			
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')			
 	joindata = request.COOKIES.get('joindata')
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))	
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
@@ -843,7 +859,7 @@ def setprovisionalbooking_v2(request):
 	import urllib
 	import requests
 	try:
-		url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/?query=hotels-"+request.COOKIES.get('joindata')+"&hc="+request.COOKIES.get('hc')+"&ibp="+request.COOKIES.get('ibp')+"&rtc="+request.COOKIES.get('rtc')+"&rpc="+request.COOKIES.get('rpc')
+		url = "http://www.goibibobusiness.com/api/hotels/b2b/provisional_booking/?query=hotels-"+request.COOKIES.get('joindata')+"&hc="+request.COOKIES.get('hc')+"&ibp="+request.COOKIES.get('ibp')+"&rtc="+request.COOKIES.get('rtc')+"&rpc="+request.COOKIES.get('rpc')
 		print 'url', url
 		customer = [['firstname', request.COOKIES.get('fname')], 
 				   ['lastname', request.COOKIES.get('lname')], 
@@ -859,7 +875,7 @@ def setprovisionalbooking_v2(request):
 		'content-type': "application/x-www-form-urlencoded"
 		}
 		# try:
-		response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+		response = requests.request("POST", url, data=payload,headers=headers, auth=('itsupport@oozaaoo.com','test123'))
 		print "res", response.json()	
 		#print response
 		#return HttpResponse(response)
@@ -931,7 +947,7 @@ def setprovisionalbooking(request):
 	from django.utils import simplejson
 	import urllib
 	import requests
-	url = "http://pp.goibibobusiness.com/api/hotels/b2b/provisional_booking/"
+	url = "http://www.goibibobusiness.com/api/hotels/b2b/provisional_booking/"
 	joindata={}
 	joindata['query']= "hotels-"+request.COOKIES.get('joindata')
 	joindata['hc']=request.COOKIES.get('hc')
@@ -957,7 +973,7 @@ def setprovisionalbooking(request):
 	'content-type': "application/x-www-form-urlencoded"
 	}
 	# try:
-	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('apitesting@goibibo.com','test123'))
+	response = requests.request("POST", url, data=payload,headers=headers, params=joindata, auth=('itsupport@oozaaoo.com','test123'))
 	print "res", response.json()	
 	#print response
 	#return HttpResponse(response)
@@ -1038,12 +1054,12 @@ def confirmbooking_v2(request):
 		email = request.POST.get('email')
 		createhash = 'test123' + gobookingid + '|'+ str(amount) + '|' + productinfo.lower()+ '|' + firstname.lower() + '|' + email + '|' + udf1 + '|'  + guest + '|' +"travelibibo"
 		createhash = sha512(createhash).hexdigest()
-		url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
+		url = "http://www.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
 		payload = {'secretkey':createhash, 'gobookingid':gobookingid}
 		headers = {
 		'content-type': "application/x-www-form-urlencoded"
 		}
-		response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+		response = requests.request("POST", url, data=payload,headers=headers, auth=('itsupport@oozaaoo.com','test123'))
 		#Code for storing Transaction Details
 		if 'data' in response.json():
 			response_json=response.json()['data']
@@ -1123,12 +1139,12 @@ def confirmbooking(request):
 	createhash = sha512(createhash).hexdigest()
 	print createhash
 	print gobookingid
-	url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
+	url = "http://www.goibibobusiness.com/api/hotels/b2b/confirm_booking/"
 	payload = {'secretkey':createhash, 'gobookingid':gobookingid}
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}
-	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+	response = requests.request("POST", url, data=payload,headers=headers, auth=('itsupport@oozaaoo.com','test123'))
 	print "res", response.json()
 
 	#Code for storing Transaction Details
@@ -1189,7 +1205,7 @@ def refund(request):
 
 
 def getbookingstatus(request):
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
 	# gobookingid='GOHTLDV22896e1439528786' // working id
 	gobookingid =request.POST.get('bookid')
 	query,bookingstatus=GO.BookingStatus(gobookingid)
@@ -1199,7 +1215,7 @@ def getbookingstatus(request):
 	
 
 def getbookingdetails(request):
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
 	gobookingid=request.POST.get('bookid')
 	#GOHTLDV2ee67a1438838485 // working id
 	bookingstatus=GO.BookingDetails(gobookingid)
@@ -1233,7 +1249,7 @@ def getbookingdetails(request):
 	return render_to_response("hotels/bookingdetail.html",{'status':status},context_instance=RequestContext(request))
 
 def getrefund(request):
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
 	#gobookingid='GOHTLDV2ee67a1438838485'
 	gobookingid=request.POST.get('bookid')
 	getrefund=GO.RefundDetails(gobookingid)
@@ -1248,13 +1264,13 @@ def confirmcancel(request):
 	import urllib
 	import requests
 	boooingid=request.POST.get('bookid')
-	url = "http://pp.goibibobusiness.com/api/hotels/b2b/confirm_cancel"
+	url = "http://www.goibibobusiness.com/api/hotels/b2b/confirm_cancel"
 	payload = {'gobookingid':boooingid}
 	print payload
 	headers = {
 	'content-type': "application/x-www-form-urlencoded"
 	}
-	response = requests.request("POST", url, data=payload,headers=headers, auth=('apitesting@goibibo.com','test123'))
+	response = requests.request("POST", url, data=payload,headers=headers, auth=('itsupport@oozaaoo.com','test123'))
 	print response.json()
 	#return HttpResponse(simplejson.dumps(response), mimetype='application/json')
 	
@@ -1300,7 +1316,7 @@ def get_results_by_price(request):
 def test_view_v2(request):
 	print 'here'
 
-	GO = goibiboAPI('apitesting@goibibo.com', 'test123')
+	GO = goibiboAPI('itsupport@oozaaoo.com', 'test123')
 	
 	cityid=request.POST.get('filterkeyword',request.COOKIES.get('filterkeyword'))
 	checkin = request.POST.get('start',request.COOKIES.get('checkin'))
@@ -1434,3 +1450,29 @@ def aboutus(request):
 
 def contactus(request):
 	return render_to_response('v2/portal/contactus.html',context_instance=RequestContext(request))
+
+@csrf_exempt
+def profile_details(request):
+	user = request.user
+	print user
+	userprofile=UserProfile.objects.get(user_id=user.id)
+	if request.method=="POST":
+		userprofile.dateofbirth=request.POST.get('dob')
+        print userprofile.dateofbirth
+        userprofile.gender=request.POST.get('Gender')
+        userprofile.save()
+    	return render_to_response("v2/portal/profile_v2.html", context_instance=RequestContext(request))
+
+def settings(request):
+
+	obj=User.objects.get(id=request.user.id)
+	obj.set_password('password')
+ 	obj.save()
+	# user = request.user
+	# user=User.objects.get(id=request.user.id)
+	# print user.id
+	# if request.method=="POST":
+	# 	user.username=request.POST.get('name')
+	# 	print user.username
+	# 	user.save()
+	return render_to_response("v2/portal/profile_v2.html", context_instance=RequestContext(request))
