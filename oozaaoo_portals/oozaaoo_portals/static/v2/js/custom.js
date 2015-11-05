@@ -16,15 +16,15 @@
 $(window).scroll(function() {
   var test = jQuery(window).scrollTop();
 
- 
+
 if (test >= 504) {
   $('.hotel-details-rightside').addClass("on_scroll_pos");
 }
 else {
   $('.hotel-details-rightside').removeClass("on_scroll_pos");
 }
-   
-     
+
+
 
  });
 
@@ -58,10 +58,10 @@ $('.slide').click(function(){
 
         },
         //contentType: "application/json",
-       
+
         });
     });
-// code by priya ***move to intro js*** 
+// code by priya ***move to intro js***
 
 // $('.return_date').hide();
 
@@ -104,8 +104,8 @@ function getCookie(name) {
 //           type: 'GET',
 //           data: {"skey":skey},
 //           dataType: 'json',
-//           success: function(data) { 
-//             $('.seat_map',par).html(data);   
+//           success: function(data) {
+//             $('.seat_map',par).html(data);
 //             alert(JSON.stringify(data.data)); },
 //           error: function() { alert('boo!'); },
 //           contentType: "application/json",
@@ -116,11 +116,11 @@ function getCookie(name) {
 //         xhr.setRequestHeader('authorization', 'Basic YXBpdGVzdGluZ0Bnb2liaWJvLmNvbTp0ZXN0MTIz');
 //       }
 
-$(function() {    
+$(function() {
     $("#filterkeywordtxt,#filter_bus,#filter_bus_des" ).autocomplete({
     source: function (request, response) {
-        $.getJSON("/getcity?term=" + request.term, function (data) {             
-            response($.map(data, function (value, key) {                            
+        $.getJSON("/getcity?term=" + request.term, function (data) {
+            response($.map(data, function (value, key) {
                 return {
                     label: value.label,
                     value: value.value,
@@ -131,7 +131,49 @@ $(function() {
     },
     select : function(event, ui) {
             // $('#filterkeywordtxt').val(ui.item.label);
-            $('#filterkeyword').val(ui.item.extra);                
+            $('#filterkeyword').val(ui.item.extra);
+    },
+    minLength: 2,
+    delay: 100
+    });
+});
+
+$(function() {
+    $("#f_source" ).autocomplete({
+    source: function (request, response) {
+        $.getJSON("/iata_code?code=" + request.term, function (data) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.label,
+                    value: value.value,
+                    extra: value.citycode
+                };
+            }));
+        });
+    },
+    select : function(event, ui) {
+            $('#iata_code_source').val(ui.item.extra);
+    },
+    minLength: 2,
+    delay: 100
+    });
+});
+
+$(function() {
+    $("#f_destination" ).autocomplete({
+    source: function (request, response) {
+        $.getJSON("/iata_code?code=" + request.term, function (data) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.label,
+                    value: value.value,
+                    extra: value.citycode
+                };
+            }));
+        });
+    },
+    select : function(event, ui) {
+            $('#iata_code_destination').val(ui.item.extra);
     },
     minLength: 2,
     delay: 100
@@ -194,7 +236,7 @@ $('.form-group').each(function() {
 //             url: '/getcity/',
 //             chache: false,
 //             success: function(data) {
-//                 var result = [];                 
+//                 var result = [];
 //                 $.each(data, function(index, val) {
 //                     result.push({
 //                         value: cityname
@@ -299,24 +341,24 @@ $(document).ready(
         $('.featured_list_find').html("<h2>Sorry , No Result Found</h2>")
       }
   //   var mapCanvas = document.getElementById('map_canvas');
-     
+
   //   var mapOptions = {
   //     center: new google.maps.LatLng(11.9421943409,79.8288596119 ),
   //     zoom: 8,
   //     mapTypeId: google.maps.MapTypeId.ROADMAP
   //   }
-      
+
   //   // var map = new google.maps.Map(map_canvas, map_options);
   //   function initialize() {
 
   //   var mapCanvas = document.getElementById('map_canvas');
-     
+
   //   var mapOptions = {
   //     center: new google.maps.LatLng(11.9421943409, 79.8288596119 ),
   //     zoom: 8,
   //     mapTypeId: google.maps.MapTypeId.ROADMAP
   //   }
-     
+
   //   var map = new google.maps.Map(map_canvas, map_options);
   // }
 
@@ -326,19 +368,24 @@ $(document).ready(
     $('#mp').val($(this).find(':selected').data('mp'));
     $('#totalprice').val($(this).find(':selected').data('tp'));
     $('#totaltax').val($(this).find(':selected').data('ttc'));
-    $('#totalprice_wt').val($(this).find(':selected').data('tp_alltax'));  
+    $('#totalprice_wt').val($(this).find(':selected').data('tp_alltax'));
+
+
+    // $('.mp').html($('#mp').val());
+    // $('.subtotal').html($('#totalprice').val());
 
     $('.mp').append($('#mp').val());
-    $('.subtotal').html($('#totalprice').val()); 
+    $('.subtotal').html($('#totalprice').val());
+
     $('#roomname').val($(this).find(':selected').text());
     // $("#yourdropdownid option:selected").text();
 
 
-    
-  
+
+
 
     // OnChange the Value assigned //
-    $('.selectroomtypes').change(function(){      
+    $('.selectroomtypes').change(function(){
       $('#selectedrpc').val($(this).find(':selected').data('rpc'));
       $('#selectedrtc').val($(this).find(':selected').data('rtc'));
       $('#mp').val($(this).find(':selected').data('mp'));
@@ -346,12 +393,15 @@ $(document).ready(
       $('#totaltax').val($(this).find(':selected').data('ttc'));
       $('#totalprice_wt').val($(this).find(':selected').data('tp_alltax'));
 
-      $('.mp').text($('#mp').val());      
+
+    //   $('.mp').html($('#mp').val());
+
+      $('.mp').text($('#mp').val());
       $('.subtotal').html($('#totalprice').val());
-      $('#roomname').val($(this).find(':selected').text()); 
+      $('#roomname').val($(this).find(':selected').text());
     })
 
-   
+
     $(".cl_glry_hver_act> span").click(function(){
         $(this).siblings('div:visible').hide();
         $(this).next().fadeIn('fast');
@@ -371,63 +421,63 @@ $(document).ready(
         $('.view_glry_act> div').hide();
         $(this).addClass('color_tab_hover');
         $(this).siblings().removeClass('color_tab_hover');
-        
+
     });
-    
-    
-    $(".view_glry_act> span").hover(function(){ 
-        $('.cl_glry_hver_act> div').hide(); 
+
+
+    $(".view_glry_act> span").hover(function(){
+        $('.cl_glry_hver_act> div').hide();
         $(this).addClass('view_glallery_opacity');
         $(this).siblings().removeClass('view_glallery_opacity');
     });
-    
+
     $(".view_glry_act> span").hover(function(){
         $(this).siblings('div:visible').hide();
-    
+
         $(this).next().fadeIn('fast');
         return false
         }, function(){
     });
-    
+
     $(".cl_glry_hver_act span").click(function () {
     //     $("li.cl_info_bg_act").effect("highlight", {color: 'grey'}, 3000);
     $("li.cl_info_bg_act").stop().css("background-color", "#ccc")
 .animate({ backgroundColor: "#fff"}, 1000);
-    });        
-   
-  
+    });
+
+
         // jQuery.support.cors = true;
          var username = 'apitesting@goibibo.com';
-         var password = 'test123';   
+         var password = 'test123';
 
         function make_base_auth(user, password) {
             var tok = user + ':' + password;
             var hash = btoa(tok);
             alert('her');
             return "Basic " + hash;
-        }        
+        }
 
          // $.ajax({
          //     type: "GET",
          //     url: "/getcity/",
          //     dataType: 'json',
-         //     contentType: "application/json",            
-         //     beforeSend: function (xhr){ 
+         //     contentType: "application/json",
+         //     beforeSend: function (xhr){
          //         xhr.setRequestHeader('Access-Control-Allow-Origin','*');
-         //         // xhr.setRequestHeader('Authorization', make_base_auth(username, password)); 
+         //         // xhr.setRequestHeader('Authorization', make_base_auth(username, password));
          //     },
          //    success: function(json) {
          //         console.log(json);
          //     },
          //    error: function(e) {
          //        console.log(e.message);
-         //     },           
-         //    complete: function(response) {                   
+         //     },
+         //    complete: function(response) {
          //         console.log( "JSON Data: " + JSON.stringify(response.data));
          //    }
-            
-         // });        
-     
+
+         // });
+
 
 
 
@@ -456,13 +506,13 @@ $(document).ready(
    //  var docHeight = $(window).height();
    // var footerHeight = $('#main-footer').height();
    // var footerTop = $('#main-footer').position().top + footerHeight;
-   
+
    // if (footerTop < docHeight) {
    //  $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
    // }
 
-  
-   // $(document).on('change', '.child_age_act', function() {     
+
+   // $(document).on('change', '.child_age_act', function() {
    //        if($(this).val() == 0 ) {
    //             $(this).parent().siblings(".child-1-act").hide();
    //             $(this).parent().parent().siblings(".child-2-act").hide();
@@ -484,27 +534,27 @@ $(document).ready(
 
     // var count = 0;
     // $(document).on('click', '.add_room_act', function() {
-    //     // count++; 
-    //     // $(".clone_add_room_act").clone().appendTo(".add_room_holder"); 
+    //     // count++;
+    //     // $(".clone_add_room_act").clone().appendTo(".add_room_holder");
     //     // $(".clone_add_room_act").filter('[class]').each(function() { // For each new item with an ID
     //     //     this.class = this.class + '_' + count; // Append the counter to the ID
-    //     // }); 
+    //     // });
 
     //     // $(".clone_add_room_act").clone().attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) ).appendTo('.add_room_holder')
     //     var html_1 = $(".clone_add_room_act").attr('id', 'test' + (parseInt(/test(\d+)/.exec($(this).parent().parent().parent().find(".child-1-act").attr('id'))[1], 10)+1) )
     //     $(".add_room_holder").append(html_1)
     // });
 
-    // $(document).on('click', '.remove_room_act', function() {        
+    // $(document).on('click', '.remove_room_act', function() {
     //     $(this).closest(".clone_add_room_act").remove();
-    //     e.preventDefault();   
+    //     e.preventDefault();
     // });
 
 
     /************************ Hotel Sort ********************/
-    var $divs = $("form.sorthotellist");    
+    var $divs = $("form.sorthotellist");
     $('#sprice').on('click', function () {
-      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {            
+      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
         return $(a).find(".sort_price").text() > $(b).find(".sort_price").text();
       });
       $("#price > .hotel-list-vertical").html(alphabeticallyOrderedDivs);
@@ -531,14 +581,13 @@ $(document).ready(
       $("#recommended > .hotel-list-vertical").html(numericallyOrderedDivs);
     });
 
-    // Custom Tooltip for Hotelsearch list Page     
-    $('.custom_tooltip').tipsy({gravity: 'n'});     
-      $('.custom_tooltip').click(function(){    
+    // Custom Tooltip for Hotelsearch list Page
+    $('.custom_tooltip').tipsy({gravity: 'n'});
+      $('.custom_tooltip').click(function(){
         $('.custom_tooltip').addClass("menu_active")
     });
-   
 
-}); 
+});
 // end of document ready
 
 
@@ -583,7 +632,7 @@ $(document).ready(
 //             jQuery.each(res, function(i,val) {
 //                 // alert(i+"--"+JSON.stringify(val.hotelname));
 //                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
-                
+
 //         // if (val.ibp){
 //                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
 //                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
@@ -609,7 +658,7 @@ $(document).ready(
 //                     else if (val.hotelrating == 2){
 //                         elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
 //                                     <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
-//                          // alert("elements4" +elements); 
+//                          // alert("elements4" +elements);
 //                     }
 //                     else if (val.hotelrating == 3){
 //                         elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
@@ -647,9 +696,9 @@ $(document).ready(
 //                                     </div>\
 //                                 </div>\
 //                             </a>\
-//                         </form>";        
-//                         // alert("elements8" +elements);                                                                     
-//                // }     
+//                         </form>";
+//                         // alert("elements8" +elements);
+//                // }
 //             });
 //             elements += "</li>";
 //             // alert("elements9" +elements);
@@ -676,7 +725,7 @@ $(document).ready(
 //             jQuery.each(res, function(i,val) {
 //                 // alert(i+"--"+JSON.stringify(val.hotelname));
 //                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
-                
+
 //             if (val.ibp){
 //                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
 //                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
@@ -702,7 +751,7 @@ $(document).ready(
 //                     else if (val.hotelrating == 2){
 //                         elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
 //                                     <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
-//                          // alert("elements4" +elements); 
+//                          // alert("elements4" +elements);
 //                     }
 //                     else if (val.hotelrating == 3){
 //                         elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
@@ -740,9 +789,9 @@ $(document).ready(
 //                                     </div>\
 //                                 </div>\
 //                             </a>\
-//                         </form>";        
-//                         // alert("elements8" +elements);                                                                     
-//              }     
+//                         </form>";
+//                         // alert("elements8" +elements);
+//              }
 //             });
 //             elements += "</li>";
 //             // alert("elements9" +elements);
@@ -775,7 +824,7 @@ $(document).ready(
 //             jQuery.each(res, function(i,val) {
 //                 // alert(i+"--"+JSON.stringify(val.hotelname));
 //                 // $("#description").append("<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"><td>"+val+"</td></tr>");
-                
+
 //             if (val.ibp){
 //                     elements += "<form id='hoteldetails' method='POST' action ='/gethoteldetails/' name='hoteldetails'>\
 //                     <input type='hidden' value=" + getCookie('csrftoken') + " " + "name='csrfmiddlewaretoken'>\
@@ -801,7 +850,7 @@ $(document).ready(
 //                     else if (val.hotelrating == 2){
 //                         elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
 //                                     <i class='fa fa-star icon-group booking-item-rating-stars'></i>";
-//                          // alert("elements4" +elements); 
+//                          // alert("elements4" +elements);
 //                     }
 //                     else if (val.hotelrating == 3){
 //                         elements+= "<i class='fa fa-star icon-group booking-item-rating-stars'></i>\
@@ -839,9 +888,9 @@ $(document).ready(
 //                                     </div>\
 //                                 </div>\
 //                             </a>\
-//                         </form>";        
-//                         // alert("elements8" +elements);                                                                     
-//                 }     
+//                         </form>";
+//                         // alert("elements8" +elements);
+//                 }
 //             });
 //             elements += "</li>";
 //             // alert("elements9" +elements);
@@ -1083,11 +1132,11 @@ function abortTimer() { // to be called when you want to stop the timer
 //         +"<div class='w50percent'>"
 //           +"<div class='wh90percent textleft'>"
 //             +"<span class='opensans size13'><b>ROOM "+i+"</b></span><br/>"
-//             +"<input class='form-control hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' /> " 
+//             +"<input class='form-control hidden_input' name='room"+i+"' type='hidden' value='"+i+"' readonly='readonly' /> "
 //           +"</div>"
 //         +"</div>"
 
-//         +"<div class='w50percentlast'>"  
+//         +"<div class='w50percentlast'>"
 //           +"<div class='wh90percent textleft right'>"
 //            +"<div class='w50percent'>"
 //              +" <div class='wh90percent textleft left'>"
@@ -1099,7 +1148,7 @@ function abortTimer() { // to be called when you want to stop the timer
 //                   +"<option>4</option>"
 //                 +"</select>"
 //               +"</div>"
-//             +"</div>"              
+//             +"</div>"
 //             +"<div class='w50percentlast'>"
 //               +"<div class='wh90percent textleft right'>"
 //               +"<span class='opensans size13'><b>Child</b></span>"
@@ -1127,10 +1176,10 @@ function abortTimer() { // to be called when you want to stop the timer
 //                   +"<option>9</option>"
 //                  +" <option>10</option>"
 //                   +"<option>11</option>"
-//                  +" <option>12</option>  "                            
+//                  +" <option>12</option>  "
 //                +" </select>"
 //               +"</div>"
-//             +"</div>   "           
+//             +"</div>   "
 //             +"<div class='w50percentlast child2 none'>"
 //               +"<div class='wh90percent textleft right'>"
 //               +"<span class='opensans size13'><b>Child 2</b></span>"
@@ -1152,13 +1201,13 @@ function abortTimer() { // to be called when you want to stop the timer
 //             +"</div>"
 //           +" </div>"
 //         +" </div>"
-//           +"<span class='orange remove_field'>Delete</span><div class='clearfix'></div><br/>   "   
+//           +"<span class='orange remove_field'>Delete</span><div class='clearfix'></div><br/>   "
 //        +"</div>");
 // }
 //     });
 // $(add_room).on("click",".remove_field", function(e){ //user click on remove text
 //         e.preventDefault(); $(this).parents('.rooms').remove(); i--;
-//     }); 
+//     });
 //  var max_fields= 4;
 //     var i = 1;
 //     var add_room = $('.add_room_holder');
@@ -1194,7 +1243,7 @@ function abortTimer() { // to be called when you want to stop the timer
 //         +"</div>"
 //         +"<div class='col-md-2 child-2-act dn'>"
 //         +"<div class='form-group form-group-lg form-group-select-plus'>"
-//         +"<label>Child-2 age</label>"     
+//         +"<label>Child-2 age</label>"
 //         +"<select class='form-control child2_"+i+"' name='childage2_"+i+"'>"
 //         +"<option selected='selected' value='0' >0</option>"
 //         +"<option value='1' >1</option>"
@@ -1221,7 +1270,7 @@ function abortTimer() { // to be called when you want to stop the timer
 
 // code by priya move to into.js
 // hotels //
-// $('#searchBtn').click(function(){ 
+// $('#searchBtn').click(function(){
 //     if($('.typeahead').val() == '') {
 //         // alert("enter the destination");
 //         $('.error_mgs').show();
@@ -1262,7 +1311,7 @@ $('#paynow').click(function(){
          }
     }
     else{
-       return true; 
+       return true;
     }
 });
 
@@ -1271,20 +1320,20 @@ $('#paynow').click(function(){
 
 
 $('#payment').click(function(){
-    
+
         if($('.fname').val() == ''){
             $('.errormgs').show();
              return false;
         if($('.lname').val() == ''){
-           
+
              $('.errormgs').show();
               return false;
         if($('.age').val() == ''){
-           
+
              $('.errormgs').show();
               return false;
          if($('.mobileno').val() == ''){
-            
+
              $('.errormgs').show();
               return false;
              if($('.email').val() == ''){
@@ -1295,9 +1344,9 @@ $('#payment').click(function(){
          }
     }}
     else{
-            
+
       $('.payment').show();
-       return true; 
+       return true;
     }
 });
 $('.login').click(function(){
@@ -1312,25 +1361,25 @@ $('.login').click(function(){
          }
     }
     else{
-       return true; 
+       return true;
     }
 });
 //  var CheckinDate=new Date();
-//  var CheckoutDate=new Date(); 
+//  var CheckoutDate=new Date();
 //  var diff=new Date();
 //  $('#checkin').datepicker({
 //        todayHighlight: true,
-//        format: 'yyyy/mm/dd', 
+//        format: 'yyyy/mm/dd',
 //        onSelect: function(dateText, inst) {
-//        CheckinDate=datetext;       
+//        CheckinDate=datetext;
 //     }
 //     });
 
 // $('#checkout').datepicker({
 //    todayHighlight: true,
-//    format: 'yyyy/mm/dd',  
+//    format: 'yyyy/mm/dd',
 //    onSelect: function(dateText, inst) {
-//    CheckoutDate=datetext;   
+//    CheckoutDate=datetext;
 //    diff=(CheckoutDate.getTime() - CheckinDate.getTime())/(1000*60*60*24);
 // }
 // });
@@ -1347,7 +1396,7 @@ $('.onward_book').click(function(){
 //********* popup for cancel policy,refund,booking status,refund status hotel and bus**********//
 
 $('.toggleModal').on('click', function (e) {
-  
+
   $('.modal').show();
   $('.bus-payment ').hide();
 });
@@ -1357,12 +1406,12 @@ $('.close').click(function(){
   $('.bus-payment ').show();
 })
 $('.refund').click(function(){
-  
+
   $('.modal_refund').show();
   $('.bus-payment ').hide();
 });
 $('.close_btn').click(function(){
-  
+
   $('.modal_refund').hide();
   $('.bus-payment ').show();
 });
@@ -1372,7 +1421,7 @@ $('.close_btn').click(function(){
 
 
 $('#refund_hotel').click(function(){
-  
+
   $('.modal_refundstatus').show();
   $('.bus-payment ').hide();
   $('.modal_refund').hide();
@@ -1381,7 +1430,7 @@ $('#refund_hotel').click(function(){
 //******************end of popup******************//
 //map for hotels//
 $("#map_canvas").hide();
-$(".map").click(function(){  
+$(".map").click(function(){
   initialize();
   addMarker();
   $("#map_canvas").toggle();
@@ -1389,7 +1438,7 @@ $(".map").click(function(){
 // end map
 
   if($('.selectroomtypes option').length==0){
-   
+
     $('.for_soldout').show();
     $('.for_buynow').hide();
   }
@@ -1423,3 +1472,21 @@ $(".change").click(function(){
 // var convertToNumber = function(value){
 //      return parseFloat(value.replace('$',''));
 // }
+
+//*******************Flights.........................//
+//this is round trip form POST
+$('.round_flight_act').click(function(){
+    $('#round_trip_flight_form').submit();
+});
+//this is round trip form POST
+$('.oneway_flight_act').click(function(){
+    $('#oneway_flight_form').submit();
+});
+var nowDate = new Date();
+var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0)
+$( "#datepicker9" ).datepicker({
+    format: 'dd/mm/yyyy',
+    orientation: "bottom auto",
+    autoclose: true,
+});
+

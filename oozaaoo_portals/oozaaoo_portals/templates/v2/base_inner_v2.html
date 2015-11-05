@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"> 	
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Search Result</title>
 <meta name="keywords" content="Pondicherry Hotels" />
 <meta name="description" content="The Search results for pondicherry hotels." />
@@ -15,16 +15,16 @@
 <link rel="stylesheet" href="{% static "v2/css/style.css" %}">
 <link rel="stylesheet" href="{% static "v2/css/bootstrap-slider.css" %}">
 <link rel="stylesheet" href="{% static "v2/css/seat.css" %}">
-
+<link rel="stylesheet" href="{% static "v2/css/bootstrap-datepicker.css.css" %}">
 <link rel="stylesheet" href="{% static "v2/css/ionicons.min.css" %}">
 <link rel="stylesheet" href="{% static "v2/css/materialdesignicons.css" %}">
 
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">        
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="{% static "v2/js/jquery-1.9.1.js" %}"></script>
 <script src="{% static "v2/js/nicescroll.js" %}"></script>
 <script src="{% static "v2/js/jquery-ui.min.js" %}"></script>
-<script src="{% static "v2/js/jquery.ui.slider.js" %}"></script>  
+<script src="{% static "v2/js/jquery.ui.slider.js" %}"></script>
 <script src="{% static "v2/js/bootstrap-datepicker.js" %}"></script>
 <script src="{% static "v2/js/bootstrap-timepicker.js" %}"></script>
 <script src="{% static "v2/js/filter.js" %}"></script>
@@ -33,9 +33,9 @@
 <body>
 
     {% block content %} {% endblock %}
-     <div class="container">   
+     <div class="container">
           <div class="row">
-            	<div id="menu" class="col-md-12">     
+            	<div id="menu" class="col-md-12">
                   <ul class="fl">
                       <li><a href="/v2/terms_and_condition/"><p class="text-muted">Terms and Conditions</p></a></li>
                       <li><a href="/v2/privacy/"><p class="text-muted">Privacy Policy</p></a></li>
@@ -51,22 +51,22 @@
                       <li class="text-right"><h2><a href="https://twitter.com/oozaaoo_leisure"><i class="fa fa-twitter text-muted"></i></a></h2></li>
                       <li class="text-right"><h2><a href="https://plus.google.com/u/0/b/103154497955824583810/103154497955824583810/about"><i class="fa fa-google-plus text-muted"></i></a></h2></li>
                   </ul>
-                  
+
               </div><div class="clear_both"></div>
               <div id="menu1" class="col-md-12">
                   <ul>
                       <li><a href="#"><p class="text-muted">&#169; 2015 oozaaoo.com, All rights reserved</p></a></li>
                   </ul>
               </div>
-            
+
           </div>
-      </div> 
-         
+      </div>
+
     </section>
- 
+
   <script type="text/javascript" src="{% static "v2/js/bootstrap.min.js" %}"></script>
   <script type="text/javascript" src="{% static "v2/js/bootstrap-slider.js" %}"></script>
- 
+
   <script src="{% static "v2/js/custom.js" %}"></script>
 </body>
 </html>

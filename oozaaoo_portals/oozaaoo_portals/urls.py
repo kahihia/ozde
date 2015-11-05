@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'hotels.views.home_v2', name='home_v2'),
     url(r'^profile_details/$', 'hotels.views.profile_details', name='profile_details'),
     url(r'^settings/$', 'hotels.views.settings', name='settings'),
-    
+
     # url(r'^v2/$', 'hotels.views.home_v2', name='home_v2'),
     url(r'^v2/profile$', 'hotels.views.profile_v2', name='profile_v2'),
     url(r'^getcity/', 'hotels.views.getcitylist', name='getcitylist'),
@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     url(r'^v2/bookhotel/', 'hotels.views.userdetails_v2', name='userdetails_v2'),
     url(r'^bookhotel/', 'hotels.views.userdetails', name='userdetails'),
     url(r'^get_results_by_price/', 'hotels.views.get_results_by_price', name='get_results_by_price'),
-        
+
     #=============================BUS URL=========================#
     url(r'^searchbus/', 'bus.views.search_bus', name='search_bus'),
     url(r'^v2/searchbus/', 'bus.views.search_bus_v2', name='search_bus_v2'),
@@ -67,21 +67,29 @@ urlpatterns = patterns('',
       'template_name':'registration/password_reset_form.html',
       'email_template_name':'registration/password_reset_email.html'
     }, name="password_reset"),
-    url(r'^(?i)user/password/reset/$', 
-        'django.contrib.auth.views.password_reset', 
+    url(r'^(?i)user/password/reset/$',
+        'django.contrib.auth.views.password_reset',
         {'post_reset_redirect' : '/user/password/reset/done/'}),
     url(r'^(?i)user/password/reset/done/$',
         'django.contrib.auth.views.password_reset_done'),
-    url(r'^(?i)user/password/reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', 
-        'django.contrib.auth.views.password_reset_confirm', 
+    url(r'^(?i)user/password/reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        'django.contrib.auth.views.password_reset_confirm',
         {'post_reset_redirect' : '/user/password/done/'}),
-    url(r'^(?i)user/password/done/$', 
-        'django.contrib.auth.views.password_reset_complete'),	
+    url(r'^(?i)user/password/done/$',
+        'django.contrib.auth.views.password_reset_complete'),
     #==============================other links============================#
     url(r'^v2/terms_and_condition/', 'hotels.views.terms_and_condition', name='terms_and_condition'),
     url(r'^aboutus/', 'hotels.views.aboutus', name='aboutus'),
     url(r'^v2/privacy/', 'hotels.views.privacy', name='privacy'),
     url(r'^contactus/', 'hotels.views.contactus', name='contactus'),
-    # url(r'^password/$', 'django.contrib.auth.views.password_change', {'post_change_redirect' : '/password-changed/','template_name': 'v2/portal/profile_v2.html'},),
+
+
+	#==============================Flight_search==========================#
+	url(r'^iata_code/', 'flight.views.iata_code', name='iata_code'),
+	url(r'^SearchFlight/', 'flight.views.search_flights', name='search_flights'),
+	url(r'^Reprice/', 'flight.views.reprice', name='reprice'),
+	url(r'^FlightBooking/', 'flight.views.flight_details', name='flight_details'),
+	url(r'^TantativeBooking/', 'flight.views.tentativebooking', name='tentativebooking'),
+	url(r'^FlightConfirm/', 'flight.views.flight_confirm', name='flight_confirm'),
 
 )

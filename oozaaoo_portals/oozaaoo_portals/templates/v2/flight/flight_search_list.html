@@ -1,0 +1,396 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{# {% load app_filters %}#}
+{% block content %}
+<div class="bg-lightgrey">
+	<header>
+		<div class="container">
+			<div class="row">
+		    	<div class="col-md-4">
+		        	<h2 class="bold">Flight Booking<br/><span class="logo-span-txt">Made easy!</span></h2>
+		        </div>
+		    </div>
+		</div>
+	</header>
+	<div class="middle-bar">
+		<div class="container">
+			{% if trip == 'oneway' %}
+	    		<p>{{ source }} to {{ destination }}:{{ dateofdeparture }} ({{ trip|capfirst }} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
+			{% else %}
+				<p>{{ source }} to {{ destination }}:{{ dateofdeparture }} <i class="fa fa-exchange"></i> {{ dateofarrival }} ({{ trip|capfirst }} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
+			{% endif %}
+		</div>
+	</div>
+	{{response}}
+	<div class="sorting-bar">
+		<div class="container">
+	    	<div class="row">
+	        	<div class="col-md-2">
+	            	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="fa fa-plane"></i> Airlines <span class="mdi mdi-chevron-down pull-right"></span></a>
+	        	    <ul class="dropdown-menu" aria-labelledby="themes">
+	                  	<li><a href="#">Kingfisher</a></li>
+		              	<li><a href="#">Spice jet</a></li>
+		            </ul>
+	            </div>
+	            <div class="col-md-2">
+	            	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="fa fa-circle"></i> Stops <span class="mdi mdi-chevron-down pull-right"></span></a>
+	        	    <ul class="dropdown-menu" aria-labelledby="themes">
+	                  	<li><a href="#">Delhi</a></li>
+		              	<li><a href="#">Dubai</a></li>
+		            </ul>
+	            </div>
+	            <div class="col-md-2">
+	            	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="fa fa-plane"></i> Timers <span class="mdi mdi-chevron-down pull-right"></span></a>
+	        	    <ul class="dropdown-menu" aria-labelledby="themes">
+	                  	<li><a href="#">17:55</a></li>
+		              	<li><a href="#">09:30</a></li>
+		            </ul>
+	            </div>
+	            <div class="col-md-2">
+	            	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><i class="fa fa-inr"></i> Price <span class="mdi mdi-chevron-down pull-right"></span></a>
+	        	    <ul class="dropdown-menu" aria-labelledby="themes">
+	                  	<li><a href="#"><i class="fa fa-inr"></i> 13,000</a></li>
+		              	<li><a href="#"><i class="fa fa-inr"></i> 18,000</a></li>
+		            </ul>
+	            </div>
+	            <div class="col-md-2 pull-right">
+	            	<a href="#" ><i class="fa fa-check-square"></i> Refundable fare</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="flight-result-div">
+		<div class="container">
+		    <div class="panel panel-default margintop15">
+		    	<div class="panel-body">
+		        	<div class="row">
+		            	<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-5">
+			                		<label>Sort by:</label> <a href="#">Depature</a> <a class="marginleft20px" href="#">Arrival</a>
+			                	</div>
+				                <div class="col-md-3">
+				                	<a href="#">Duration</a>
+				                </div>
+							</div>
+		                </div>
+		                <div class="col-md-1 pull-right">
+		                	<a href="#">Price</a>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+			{% if 'round' in trip %}
+				{% for onwardflights,returnflights in flight %}
+			    	<div class="flight-search-results">
+			        	<div class="flight-search-result-box">
+							<div class="panel panel-default">
+								<div class="panel-body">
+			            			<div class="row pos-rel">
+										<form action="{% url "flight.views.flight_details" %}" method="POST" name="round_trip_flight_form" id="round_trip_flight_form">{% csrf_token %}
+				                			<div class="col-md-8">
+				                				<div class="row">
+													<!--############################################ onwardflights for round trip showing content#############################################################-->
+				    								<div class="col-md-5">
+				                    					<h3 class="nomargin">{{ onwardflights.deptime }} <i class="ion ion-arrow-right-c paddingleftright30"></i>{% if onwardflights.stops == '0' %} {{ onwardflights.arrtime }}{% elif onwardflights.stops == '1' %}{{ onwardflights.onwardflights.0.arrtime }}{% elif onwardflights.stops == '2' %}{{ onwardflights.onwardflights.1.arrtime }}{% endif %} </h3>
+				                					</div>
+				                					<div class="col-md-4">
+				                						<span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i>{{ onwardflights.duration }} | {% if onwardflights.stops == '0' %}Non Stop{% else %}{{onwardflights.stops}} Stop{% endif %}</span><br>
+				                						<p class="light-purple">{{ iata_code_onward }} <i class="fa fa-long-arrow-right"></i>{{ iata_code_return }}</p>
+				                					</div>
+				                					<div class="col-md-3">
+				                						<span class="size12 text-muted top-6"> {{ onwardflights.airline }} {{ onwardflights.seatsavailable }}
+				     									</span>
+														<input type="hidden" name="onward_row_id" value="{{onwardflights.rowid}}">
+				                					</div>
+													<!--############################################# End of onwardflights for round trip showint content -######################################################-->
+				                				</div>
+				                				<div class="row">
+													<!--############################################# retundflights for round trip showing content #############################################################-->
+				                					<div class="col-md-5">
+				                    					<h3 class="nomargin">{{ returnflights.deptime }} <i class="ion ion-arrow-right-c paddingleftright30"></i>{% if returnflights.stops == '0' %} {{ returnflights.arrtime }} {% elif returnflights.stops == '1' %}{{returnflights.onwardflights.0.arrtime}}{% elif returnflights.stops == '2' %}{{returnflights.onwardflights.1.arrtime}}{% endif %}</h3>
+				                					</div>
+				                					<div class="col-md-4">
+				                						<span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i>{{ returnflights.duration }} | {% if returnflights.duration.stops == '0' %}Non Stop{% else %}{{returnflights.stops}} Stop{% endif %}</span><br>
+				                						<p class="light-purple">{{ iata_code_return }} <i class="fa fa-long-arrow-right"></i>  {{ iata_code_onward }}</p>
+				                					</div>
+				                					<div class="col-md-3">
+				                						<span class="size12 text-muted top-6"> {{ returnflights.airline }} {{ returnflights.seatsavailable }} </span>
+														<input type="hidden" name="return_row_id" value="{{returnflights.rowid}}">
+				                					</div>
+													<!--############################################# End of returnflights for round trip showint content ######################################################-->
+				                				</div>
+				                			</div>
+				                			<div class="col-md-4 flight-price">
+				                				<h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i>{{ onwardflights.fare.totalfare|add:returnflights.fare.totalfare }}</h2>
+												<input type="hidden" value="{{onwardflights.fare.totalfare}}" name="onward_total_fare">
+												<input type="hidden" value="{{returnflights.fare.totalfare}}" name="return_total_fare">
+												<input type = "hidden" value="{{onwardflights.searchKey}}" name="onward_search_key">
+												<input type="hidden" value="{{returnflights.searchKey}}" name="return_search_key">
+												<div class="pull-right flight-features">
+													<a><i class="fa fa-dollar"></i></a><a> <i class="fa fa-suitcase"></i></a>
+													<a><i class="fa fa-headphones"></i></a> <a class="flight-details-collapse">Flight details</a>
+													<a role="button" class="btn btn-primary padding515 round_flight_act"> Book now </a>
+												</div>
+				                   			</div>
+										</form>
+			                   		</div>
+			              		</div>
+			             	</div>
+							<!--############################################ round trip collapse content#############################################################-->
+			        		<div id="collapse-busseat-layout1" class="panel-collapse collapse" role="tabpanel">
+			                	<div class="panel panel-default bg-lightgrey">
+			                   		<div class="panel-body">
+										<!---########################################## onwardflights for round trip collapse content ###############################################-->
+										<div class="onward_flight_collapse">
+											<div class="row">
+												<h4 class="paddingtop">
+													<span class="paddingleft"><i class="fa fa-plane padding5"></i> <strong>{{source}}</strong><i class="ion ion-arrow-right-c padding5"></i> <strong>{{destination}}</strong></span><span class="size14 text-muted padding5">{{dateofdeparture}}</span>
+													<label class="label label-success pull-right padding515">{{onwardflights.warnings}}</label>
+												</h4>
+											</div>
+											<div class="row">
+												<div class="col-md-4 paddingleft20">
+													<div class="pull-left"> <h4 class="bold">{{onwardflights.airline}}</h4>
+														<p>{{onwardflights.carriers}}<br>{{onwardflights.CabinClass}}</p>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{onwardflights.origin}} {{onwardflights.deptime}}</h4>
+													<p>{{onwardflights.depdate|slice:"0:10"}}</p><br>
+													{# <span class="size12 text-muted top-6">{{onwardflights.origin|airport}} </span>#}
+												</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{onwardflights.arrtime}} {% if onwardflights.stops == '0'%}{{iata_code_return}}{%else%}{{onwardflights.onwardflights.0.origin}}{% endif %}</h4>
+													<p>{{onwardflights.arrdate|slice:"0:10"}}</p><br>
+													{# <span class="size12 text-muted top-6">{% if onwardflights.stops == '0'%}{{iata_code_return|airport}}{%else%}{{onwardflights.onwardflights.0.origin|airport}} {% endif %}</span>#}
+												</div>
+												{% if onwardflights.stops == '1' %}
+													<div class="col-md-4">
+														<h4 class="bold">{{onwardflights.onwardflights.0.origin}} {{onwardflights.onwardflights.0.deptime}}</h4>
+														<p>{{onwardflights.onwardflights.0.depdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{onwardflights.onwardflights.0.origin|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{onwardflights.onwardflights.0.arrtime}} {{onwardflights.onwardflights.0.destination}}</h4>
+														<p>{{onwardflights.onwardflights.0.arrdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{onwardflights.onwardflights.0.destination|airport}} </span>#}
+													</div>
+												{% elif onwardflights.stops == '2' %}
+													<div class="col-md-4">
+														<h4 class="bold">{{onwardflights.onwardflights.0.origin}} {{onwardflights.onwardflights.0.deptime}}</h4>
+														<p>{{onwardflights.onwardflights.0.depdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{onwardflights.onwardflights.0.origin|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{onwardflights.onwardflights.0.arrtime}} {{onwardflights.onwardflights.0.destination}}</h4>
+														<p>{{onwardflights.onwardflights.0.arrdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{onwardflights.onwardflights.0.destination|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+		  											</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{onwardflights.onwardflights.1.origin}} {{onwardflights.onwardflights.1.deptime}}</h4>
+														<p>{{onwardflights.onwardflights.1.depdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{onwardflights.onwardflights.1.origin|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{onwardflights.onwardflights.1.arrtime}} {{onwardflights.onwardflights.1.destination}}</h4>
+														<p>{{onwardflights.onwardflights.1.arrdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{onwardflights.onwardflights.1.destination|airport}} </span>#}
+													</div>
+												{% endif %}
+											</div>
+										</div><!-- end onward_flight_collapse-->
+										<!---########################################## End of onwardflights for round trip collapse content ###############################################-->
+										<!---########################################## returnflights for round trip collapse content ###############################################-->
+										<div class="return_flight_collapse">
+											<div class="row">
+												<h4 class="paddingtop">
+													<span class="paddingleft"><i class="fa fa-plane padding5"></i> <strong>{{destination}}</strong><i class="ion ion-arrow-right-c padding5"></i> <strong>{{source}}</strong></span><span class="size14 text-muted padding5">{{dateofarrival}}</span>
+													<label class="label label-success pull-right padding515">{{returnflights.warnings}}</label>
+												</h4>
+											</div>
+											<div class="row">
+												<div class="col-md-4 paddingleft20">
+													<div class="pull-left"> <h4 class="bold">{{returnflights.airline}}</h4>
+														<p>{{returnflights.carriers}}<br>{{returnflights.CabinClass}}</p>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{returnflights.origin}} {{returnflights.deptime}}</h4>
+													<p>{{returnflights.depdate|slice:"0:10"}}</p><br>
+													{# <span class="size12 text-muted top-6">{{returnflights.origin|airport}} </span>#}
+												</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{returnflights.arrtime}} {% if returnflights.stops == '0'%}{{iata_code_onward}}{%else%}{{returnflights.onwardflights.0.origin}}{% endif %}</h4>
+													<p>{{returnflights.arrdate|slice:"0:10"}}</p><br>
+													{# <span class="size12 text-muted top-6">{% if returnflights.stops == '0'%}{{iata_code_onward|airport}}{%else%}{{returnflights.onwardflights.0.origin|airport}} {% endif %}</span>#}
+												</div>
+												{% if returnflights.stops == '1' %}
+													<div class="col-md-4">
+														<h4 class="bold">{{returnflights.onwardflights.0.origin}} {{returnflights.onwardflights.0.deptime}}</h4>
+														<p>{{returnflights.onwardflights.0.depdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{returnflights.onwardflights.0.origin|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{returnflights.onwardflights.0.arrtime}} {{returnflights.onwardflights.0.destination}}</h4>
+														<p>{{returnflights.onwardflights.0.arrdate|slice:"0:10"}}</p><br>.
+														{# <span class="size12 text-muted top-6">{{returnflights.onwardflights.0.destination|airport}} </span>#}
+													</div>
+												{% elif returnflights.stops == '2' %}
+													<div class="col-md-4">
+														<h4 class="bold">{{returnflights.onwardflights.0.origin}} {{returnflights.onwardflights.0.deptime}}</h4>
+														<p>{{returnflights.onwardflights.0.depdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{returnflights.onwardflights.0.origin|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{returnflights.onwardflights.0.arrtime}} {{returnflights.onwardflights.0.destination}}</h4>
+														<p>{{returnflights.onwardflights.0.arrdate|slice:"0:10"}}</p><br>.
+														{# <span class="size12 text-muted top-6">{{returnflights.onwardflights.0.destination|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+		  											</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{returnflights.onwardflights.1.origin}} {{returnflights.onwardflights.1.deptime}}</h4>
+														<p>{{returnflights.onwardflights.1.depdate|slice:"0:10"}}</p><br>
+														{# <span class="size12 text-muted top-6">{{returnflights.onwardflights.1.origin|airport}} </span>#}
+													</div>
+													<div class="col-md-4">
+														<h4 class="bold">{{returnflights.onwardflights.1.arrtime}} {{returnflights.onwardflights.1.destination}}</h4>
+														<p>{{returnflights.onwardflights.1.arrdate|slice:"0:10"}}</p><br>.
+														{# <span class="size12 text-muted top-6">{{returnflights.onwardflights.1.destination|airport}} </span>#}
+													</div>
+												{% else %}
+												{% endif %}
+											</div>
+										</div><!-- end return_flight_collapse-->
+										<!---########################################## End of returnflights for round trip collapse content ###############################################-->
+			                    	</div>
+								</div>
+			        		</div>
+							<!---#################################################### Eno of round trip collapse content##################################################-->
+						</div>
+			    	</div>
+				{% endfor %}
+			{% else %}
+				<!--######################################################## oneway trip content ###########################################################-->
+				{% for flights in flight %}
+					<input type="hidden" value="{{flights}}">
+					<div class="flight-search-results">
+						<div class="flight-search-result-box">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="row pos-rel">
+										<form action="{% url "flight.views.flight_details" %}" method="POST" name="oneway_flight_form" id="oneway_flight_form">{% csrf_token %}
+											<div class="col-md-8">
+												<div class="row">
+													<div class="col-md-5">
+														<h3 class="nomargin">{{flights.deptime}} <i class="ion ion-arrow-right-c paddingleftright30"></i>{% if flights.stops == '0' %}{{flights.arrtime}}{% elif flights.stops == '1' %}{{flights.onwardflights.0.arrtime}}{% elif flights.stops == '2' %}{{flights.onwardflights.1.arrtime}}{% endif %} </h3>
+													</div>
+													<div class="col-md-4">
+														<span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> {{flights.duration}} | {% if flights.stops == '0' %}Non Stop{% else %}{{flights.stops}} Stops{% endif %}</span><br>
+														<p class="light-purple">{{iata_code_onward}} <i class="fa fa-long-arrow-right"></i> {{iata_code_return}}</p>
+													</div>
+													<div class="col-md-3">
+														<span class="size12 text-muted top-6"> {{flights.airline}}  {{ flights.seatsavailable }}</span>
+														<input type="hidden" name="onward_row_id" value="{{flights.rowid}}">
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<input type="hidden" value="{{flights.fare.totalfare}}" name="onward_total_fare">
+												<input type = "hidden" value="{{flights.searchKey}}" name="onward_search_key">
+												<h2 class="text-right marginbottom10"><i class="fa fa-rupee"></i> {{flights.fare.totalfare}}</h2>
+												<div class="pull-right flight-features"> <a> <i class="fa fa-dollar"></i></a><a> <i class="fa fa-suitcase"></i></a> <a> <i class="fa fa-headphones"></i></a> <a class="flight-details-collapse">Flight details</a>
+													<a role="button" class="btn btn-primary padding515 oneway_flight_act">Book now</a>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div id="collapse-busseat-layout1" class="panel-collapse collapse" role="tabpanel">
+								<div class="panel panel-default bg-lightgrey">
+									<div class="panel-body">
+										<div class="row">
+											<h4 class="paddingtop">
+												<span class="paddingleft"><i class="fa fa-plane padding5"></i> <strong>{{source}}</strong><i class="ion ion-arrow-right-c padding5"></i> <strong>{{destination}}</strong></span><span class="size14 text-muted padding5">{{dateofdeparture}}</span>
+												<label class="label label-success pull-right padding515">{{flights.warnings}}</label>
+											</h4>
+										</div>
+										<div class="row">
+											<div class="col-md-4 paddingleft20">
+												<div class="pull-left"> <h4 class="bold">{{flights.airline}}</h4>
+													<p>{{flights.carriers}}<br>{{flights.CabinClass}}</p>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<h4 class="bold">{{flights.origin}} {{flights.deptime}}</h4>
+												<p>{{flights.depdate|slice:"0:10"}}</p><br>.
+												{# <span class="size12 text-muted top-6">{{flights.origin|airport}} </span>#}
+											</div>
+											<div class="col-md-4">
+												<h4 class="bold">{{flights.arrtime}} {% if flights.stops == '0'%}{{iata_code_return}}{%else%}{{flights.onwardflights.0.origin}}{% endif %}</h4>
+												<p>{{flights.arrdate|slice:"0:10"}}</p><br>.
+												{# <span class="size12 text-muted top-6">{% if flights.stops == '0'%}{{iata_code_return|airport}}{%else%}{{flights.onwardflights.0.origin|airport}}{% endif %}</span>#}
+											</div>
+											{% if flights.stops == '1' %}
+												<div class="col-md-4">
+													<h4 class="bold">{{flights.onwardflights.0.origin}} {{flights.onwardflights.0.deptime}}</h4>
+													<p>{{flights.onwardflights.0.depdate|slice:"0:10"}}</p><br>.
+													{# <span class="size12 text-muted top-6">{{flights.onwardflights.0.origin|airport}} </span>#}
+												</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{flights.onwardflights.0.arrtime}} {{flights.onwardflights.0.destination}}</h4>
+													<p>{{flights.onwardflights.0.arrdate|slice:"0:10"}}</p><br>.
+													{# <span class="size12 text-muted top-6">{{flights.onwardflights.0.destination|airport}} </span>#}
+												</div>
+											{% elif flights.stops == '2' %}
+												<div class="col-md-4">
+													<h4 class="bold">{{flights.onwardflights.0.origin}} {{flights.onwardflights.0.deptime}}</h4>
+													<p>{{flights.onwardflights.0.depdate|slice:"0:10"}}</p><br>.
+													{# <span class="size12 text-muted top-6">{{flights.onwardflights.0.origin|airport}} </span>#}
+												</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{flights.onwardflights.0.arrtime}} {{flights.onwardflights.0.destination}}</h4>
+													<p>{{flights.onwardflights.0.arrdate|slice:"0:10"}}</p><br>.
+													{# <span class="size12 text-muted top-6">{{flights.onwardflights.0.destination|airport}} </span>#}
+												</div>
+												<div class="col-md-4">
+	  											</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{flights.onwardflights.1.origin}} {{flights.onwardflights.1.deptime}}</h4>
+													<p>{{flights.onwardflights.1.depdate|slice:"0:10"}}</p><br>.
+													{# <span class="size12 text-muted top-6">{{flights.onwardflights.1.origin|airport}} </span>#}
+												</div>
+												<div class="col-md-4">
+													<h4 class="bold">{{flights.onwardflights.1.arrtime}} {{flights.onwardflights.1.destination}}</h4>
+													<p>{{flights.onwardflights.1.arrdate|slice:"0:10"}}</p><br>.
+													{# <span class="size12 text-muted top-6">{{flights.onwardflights.1.destination|airport}} </span>#}
+												</div>
+											{% else %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+
+</div>
+<script>
+$(document).ready(function(e) {
+    $(".flight-details-collapse").click(function(e) {
+
+		$(".flight-search-result-box").find(".collapse").collapse('hide');
+		$(this).parents(".flight-search-result-box").find(".collapse").collapse('toggle');
+    });
+});
+</script>
+{% endblock %}

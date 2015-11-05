@@ -6,239 +6,348 @@
 $(document).ready(function() {
     $('.hotel_tab_act').tipsy({gravity: 's'});
     $('.bus_tab_act').tipsy({gravity: 's'});
+    $('.flight_tab_act').tipsy({gravity: 's'});
 });
 </script>
 <link rel="stylesheet" href="{% static "v2/css/jquery-ui.css" %}">
+{% if request.REQUEST.error %}
+    {%for message in messages%}
+        <h4 class="text-center text-danger">{{message}}</h4>
+    {%endfor%}
+{%endif%}
 <div class="bus-payment">
-<div class="container sign-in">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10 marginbottom10">
-                    <a class="logo_home"></a>                   <div class="row">
-                        <div class="col-md-2 hidden-xs"><img src="{{ STATIC_URL }}v2/img/login-left.png" class="left-img" /></div>
+    <div class="container sign-in">
+        <div class="row">
+            <div class="menu">
+                <div class="menus">
+                    <span><a href="/v2/login">Login</a></span>
+                    <span><a href="/v2/register">SignUp</a></span>
+                    <span><a href="#">24/7 Support</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 marginbottom10">
+                <a class="logo_home"></a>
+                <div class="row">
+                        <div class="col-md-2 hidden-xs">
+                            <img src="{{ STATIC_URL }}v2/img/login-left.png" class="left-img" />
+                        </div>
                         <div class="col-md-8 z-index1 padding5-40">
-                           
                             <div class="panel panel-without_bg">
                                 <div class="panel-heading nopadding noborder">
-                                  <ul class="breadcrumb1">
-                                    <li><a class="hotel_tab_act transparent_bg menu_active" title="Hotel Search"><i class="fa fa-bed"></i>  Hotel</a></li>
-                                    <li><a class="bus_tab_act transparent_bg" title="Bus search"><i class="fa fa-bus"> Bus</i></a></li>
-
- 
-                                  </ul>
-                                  
+                                    <ul class="breadcrumb1">
+                                        <li><a class="hotel_tab_act transparent_bg menu_active" title="Hotel Search"><i class="fa fa-bed"></i>  Hotel</a></li>
+                                        <li><a class="bus_tab_act transparent_bg" title="Bus search"><i class="fa fa-bus"> Bus</i></a></li>
+                                        <li><a class="flight_tab_act transparent_bg" title="Flight search"><i class="fa fa-plane"> Flight</i></a></li>
+                                    </ul>
                                     <div class="clear_both"> </div>
                                 </div>
                                 <div class="panel-body padding-r_l60 panel-white">
                                     <div class="tab-content sign-in-form search_form_home">
-                                    <div class="tab-pane fade in active" id="tab-1">
-                                        <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" id="myform">
-                                        <div class="hotel_search">
-                                            {% csrf_token %}
-                                            <div class="form-group form-group-md form-group-icon-left">
-                                                <label>Stay at</label>
-                                                <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
-                                                <div class="error_mgs_city" style="display:none; color:red;">Enter the Destination</div>
-                                                <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filterkeyword" value="" name="filterkeyword" />
-                                            </div>
-                                            <div class="input-daterange" data-date-format="M d, D">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-md form-group-icon-left input-group">
-                                                            <label>Check-in</label>
-                                                            <input class="form-control startdate" id="datepicker7" name="start" type="text" placeholder="DD/MM/YYYY" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                            <div class="error_mgs_start_date" style="display:none; color:red;">Enter the Check in date</div>
-                                                        </div>
+                                        <div class="tab-pane fade in active" id="tab-1">
+                                            <form action="{% url "hotels.views.gethotellist_v2" %}" method="post" name="home_search" id="myform">
+                                                <div class="hotel_search">
+                                                    {% csrf_token %}
+                                                    <div class="form-group form-group-md form-group-icon-left">
+                                                        <label>Stay at</label>
+                                                        <input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
+                                                        <div class="error_mgs_city" style="display:none; color:red;">Enter the Destination</div>
+                                                        <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filterkeyword" value="" name="filterkeyword" />
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-md form-group-icon-left input-group">
-                                                            <label>Check-out</label>
-                                                            <input class="form-control enddate " id="datepicker8" name="end" type="text" placeholder="DD/MM/YYYY" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                            <div class="error_mgs_end_date" style="display:none; color:red;">Enter the Check out date</div>
-                                                            <div class="error_mgs_date" style="display:none; color:red;">Date format wrong</div>
-                                                        </div>
-                                                    </div>
-                                                  </div><!-- row -->
-                                                  <div class="add_room_holder">
-                                                      <div class="clonedInput" id="clonedInput0">
-                                                      <label>Rooms 1</label>
-                                                          <input class="form-control hidden_input" name="room1" type="hidden" value="1" readonly="readonly" />
-                                                        
-                                                            <div class="fl add_room_fields add_room_fields_87 adults">
-                                                                <div class="form-group form-group-md form-group-select-plus">
-                                                                    <label>Adults</label>                                       
-                                                                    <select class="form-control adults" name="adults1">  
-                                                                        <option value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        <option value="3" >3</option>
-                                                                        <option value="4" >4</option>
-                                                                    </select>
-                                                                    <div class="error_mgs_adult" style="display:none; color:red;">Enter the no of adults</div>
-                                                                </div>
+                                                    <div class="input-daterange" data-date-format="M d, D">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group form-group-md form-group-icon-left input-group">
+                                                                            <label>Check-in</label>
+                                                                            <input class="form-control startdate" id="datepicker7" name="start" type="text" placeholder="DD/MM/YYYY" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            <div class="error_mgs_start_date" style="display:none; color:red;">Enter the Check in date</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group form-group-md form-group-icon-left input-group">
+                                                                            <label>Check-out</label>
+                                                                            <input class="form-control enddate " id="datepicker8" name="end" type="text" placeholder="DD/MM/YYYY" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            <div class="error_mgs_end_date" style="display:none; color:red;">Enter the Check out date</div>
+                                                                            <div class="error_mgs_date" style="display:none; color:red;">Date format wrong</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div><!-- row -->
                                                             </div>
-                                                            <!--- Childs -->
-                                                            <div class="fl add_room_fields add_room_fields_87 childs">
-                                                                <div class="form-group form-group-md form-group-select-plus">
-                                                                    <label>Children</label>                                     
-                                                                    <select class="form-control child_age_act child" name="childs1"> 
-                                                                        <option value="0" >0</option>
-                                                                        <option value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        
-                                                                    </select>
-                                                                    <div class="error_mgs_child" style="display:none; color:red;">Enter the child age</div>
-                                                                    
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="fl add_room_fields child-1-act dn" id="test1">
-                                                                <div class="form-group form-group-md form-group-select-plus">
-                                                                    <label>Child-1 age</label>                              
-                                                                    <select class="form-control child_age child_age_1" name="childage1_1">   
-                                                                
-                                                                        <option selected="selected" value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        <option value="3" >3</option>
-                                                                        <option value="4" >4</option>
-                                                                        <option value="5" >5</option>
-                                                                        <option value="6" >6</option>
-                                                                        <option value="7" >7</option>
-                                                                        <option value="8" >8</option>
-                                                                        <option value="9" >9</option>
-                                                                        <option value="10" >10</option>
-                                                                        <option value="11" >11</option>
-                                                                        <option value="12" >12</option>
-                                                                    </select>
-                                                                    <div class="error_mgs_child_age1" style="display:none; color:red;">Enter the child 1 age</div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="fl add_room_fields child-2-act dn">
-                                                                <div class="form-group form-group-md form-group-select-plus">
-                                                                    <label>Child-2 age</label>                                     
-                                                                    <select class="form-control child_age child_age_2" name="childage2_1 "> 
-                                                                        
-                                                                        <option selected="selected" value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        <option value="3" >3</option>
-                                                                        <option value="4" >4</option>
-                                                                        <option value="5" >5</option>
-                                                                        <option value="6" >6</option>
-                                                                        <option value="7" >7</option>
-                                                                        <option value="8" >8</option>
-                                                                        <option value="9" >9</option>
-                                                                        <option value="10" >10</option>
-                                                                        <option value="11" >11</option>
-                                                                        <option value="12" >12</option>
-                                                                        
-                                                                    </select>
-                                                                    <div class="error_mgs_child_age2" style="display:none; color:red;">Enter the child age</div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="fl add_room_fields remove_room_fields" style="display:none;"> </div><!-- remove_room_fields -->
-
-                                                            <div class="clear_both"> </div>
-
-                                                            <!--div class="col-md-1">
-                                                               
-                                                                    <span class="add add_room_act">Add</span>
-                                                                    <span class="remove remove_room_act">Remove</span>
-                                                                
-                                                            </div-->
-                                                            <div class="clear_both"> </div>
-                                                       
-                                                    </div><!-- clone_add_room_act -->
-                                                </div><!-- add_room_holder -->
-                                            </div>
-                                            
-                                             
-                                        </div><!-- hotel_search -->
-                                        <button id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act fl" >ADD ROOMS</button>   
-                                             <button id="searchBtn"  class="btn btn-primary btn-sm hotel fl" >Search for Hotels</button>
-                                             <div class="clear_both"> </div>   
-                                        </form>
-                                    </div>
-                                  
-                                    <div class="tab-pane fade" id="tab-3">
-                                            <form action="{% url "bus.views.search_bus_v2" %}" method="post" name="search_bus" >
-                                            <div class="bus_search">
-                                            {% csrf_token %}
-                                            <div>
-                                                <div class="row home_form_bus">
-                                                    <div class="col-md-6">
-                                                        <input id="oneway" type="radio" name="trip" value="oneway" checked="checked" class="radio pull-left"/><label class="pull-left">One way</label>
-                                                        <div class="clear_both"></div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input id="round" type="radio" name="trip" value="round" class="radio pull-left" /><label class="pull-left">Round</label>
-                                                        <div class="clear_both"></div>
-                                                    </div>
+                                                    <div class="add_room_holder">
+                                                        <div class="clonedInput" id="clonedInput0">
+                                                                    <label>Rooms 1</label>
+                                                                    <input class="form-control hidden_input" name="room1" type="hidden" value="1" readonly="readonly" />
+                                                                    <div class="fl add_room_fields add_room_fields_87 adults">
+                                                                        <div class="form-group form-group-md form-group-select-plus">
+                                                                            <label>Adults</label>
+                                                                            <select class="form-control adults" name="adults1">
+                                                                                <option value="1" >1</option>
+                                                                                <option value="2" >2</option>
+                                                                                <option value="3" >3</option>
+                                                                                <option value="4" >4</option>
+                                                                            </select>
+                                                                            <div class="error_mgs_adult" style="display:none; color:red;">Enter the no of adults</div>
+                                                                        </div>
+                                                                    </div><!--- Childs -->
+                                                                    <div class="fl add_room_fields add_room_fields_87 childs">
+                                                                        <div class="form-group form-group-md form-group-select-plus">
+                                                                            <label>Children</label>
+                                                                            <select class="form-control child_age_act child" name="childs1">
+                                                                                <option value="0" >0</option>
+                                                                                <option value="1" >1</option>
+                                                                                <option value="2" >2</option>
+                                                                            </select>
+                                                                            <div class="error_mgs_child" style="display:none; color:red;">Enter the child age</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="fl add_room_fields child-1-act dn" id="test1">
+                                                                        <div class="form-group form-group-md form-group-select-plus">
+                                                                            <label>Child-1 age</label>
+                                                                            <select class="form-control child_age child_age_1" name="childage1_1">
+                                                                                <option selected="selected" value="1" >1</option>
+                                                                                <option value="2" >2</option>
+                                                                                <option value="3" >3</option>
+                                                                                <option value="4" >4</option>
+                                                                                <option value="5" >5</option>
+                                                                                <option value="6" >6</option>
+                                                                                <option value="7" >7</option>
+                                                                                <option value="8" >8</option>
+                                                                                <option value="9" >9</option>
+                                                                                <option value="10" >10</option>
+                                                                                <option value="11" >11</option>
+                                                                                <option value="12" >12</option>
+                                                                            </select>
+                                                                            <div class="error_mgs_child_age1" style="display:none; color:red;">Enter the child 1 age</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="fl add_room_fields child-2-act dn">
+                                                                        <div class="form-group form-group-md form-group-select-plus">
+                                                                            <label>Child-2 age</label>
+                                                                            <select class="form-control child_age child_age_2" name="childage2_1 ">
+                                                                                <option selected="selected" value="1" >1</option>
+                                                                                <option value="2" >2</option>
+                                                                                <option value="3" >3</option>
+                                                                                <option value="4" >4</option>
+                                                                                <option value="5" >5</option>
+                                                                                <option value="6" >6</option>
+                                                                                <option value="7" >7</option>
+                                                                                <option value="8" >8</option>
+                                                                                <option value="9" >9</option>
+                                                                                <option value="10" >10</option>
+                                                                                <option value="11" >11</option>
+                                                                                <option value="12" >12</option>
+                                                                            </select>
+                                                                            <div class="error_mgs_child_age2" style="display:none; color:red;">Enter the child age</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="fl add_room_fields remove_room_fields" style="display:none;"> </div><!-- remove_room_fields -->
+                                                                    <div class="clear_both"> </div>
+                                                                    <div class="clear_both"> </div>
+                                                                </div><!-- clone_add_room_act -->
+                                                    </div><!-- add_room_holder -->
+                                                    <button id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act fl" >ADD ROOMS</button>
+                                                    <button id="searchBtn"  class="btn btn-primary btn-sm hotel fl" >Search for Hotels</button>
+                                                    <div class="clear_both"> </div>
                                                 </div>
-                                            </div>
-                                            <div class="row return_div">
-                                            <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left">
-                                            <label>Source</label>
-                                            <input class="typeahead source_return form-control source" placeholder="Bangalore" type="text" id="filter_bus" name="source"/>
-                                            <span class="error_source" style="display:none; color:red;">please enter the source</span>
-                                            <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus" value="" name="filter_bus" />
-                                            </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left">
-                                            <label>Destination</label>
-                                            <input class="typeahead destination form-control" placeholder="Chennai" type="text" id="filter_bus_des" name="destination" />
-                                            <span class="error_destination" style="display:none; color:red;">please enter the destination</span>
-                                            <input class="typeahead form-control" placeholder="Chennai" type="hidden" id="filter_bus_des" value="" name="filter_bus_des" />
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="input-daterange return_div" data-date-format="M d, D">
-                                            <div class="row">
-                                            <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left input-group">
-                                            <label> Depart  </label>
-                                            <input class="form-control depart start_date" id="datepicker3" name="start" type="text" placeholder="DD/MM/YYYY" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <span class="error_start" style="display:none; color:red;">please enter the depart date</span>
-                                            </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                            <div class="form-group form-group-md form-group-icon-left return_date input-group">
-                                            <label>Return</label>
-                                            <input class="form-control return end_date" id="datepicker4" name="end" type="text" placeholder="DD/MM/YYYY" disabled/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <span class="error_end" style="display:none; color:red;">please enter the return date</span>
-                                            <span class="error_date" style="display:none; color:red;">please enter the correct format</span>
-                                            </div>
-                                            </div>
-
-                                            </div>
-                                            </div><!-- search_bus -->
-                                            <button class="btn btn-primary btn-sm return_div" type="submit" id="searchbus_return">Search for Bus</button>
                                             </form>
-                                    </div>
-                                   
-                                    </div>
+                                        </div>
+                                        <div class="tab-pane fade in" id="tab-3">
+                                            <form action="{% url "bus.views.search_bus_v2" %}" method="post" name="search_bus" >
+                                                <div class="bus_search">
+                                                {% csrf_token %}
+
+                                                    <div class="row home_form_bus">
+                                                        <div class="col-md-6">
+                                                            <input id="oneway" type="radio" name="trip" value="oneway" checked="checked" class="radio pull-left"/><label class="pull-left">One way</label>
+                                                            <div class="clear_both"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input id="round" type="radio" name="trip" value="round" class="radio pull-left" /><label class="pull-left">Round</label>
+                                                            <div class="clear_both"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row return_div">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group form-group-md form-group-icon-left">
+                                                                <label>Source</label>
+                                                                <input class="typeahead source_return form-control source" placeholder="Bangalore" type="text" id="filter_bus" name="source"/>
+                                                                <span class="error_source" style="display:none; color:red;">please enter the source</span>
+                                                                <input class="typeahead form-control" placeholder="City, Airport, Point of Interest or U.S. Zip Code" type="hidden" id="filter_bus" value="" name="filter_bus" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group form-group-md form-group-icon-left">
+                                                                <label>Destination</label>
+                                                                <input class="typeahead destination form-control" placeholder="Chennai" type="text" id="filter_bus_des" name="destination" />
+                                                                <span class="error_destination" style="display:none; color:red;">please enter the destination</span>
+                                                                <input class="typeahead form-control" placeholder="Chennai" type="hidden" id="filter_bus_des" value="" name="filter_bus_des" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-daterange return_div" data-date-format="M d, D">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-md form-group-icon-left input-group">
+                                                                    <label> Depart  </label>
+                                                                    <input class="form-control depart start_date" id="datepicker3" name="start" type="text" placeholder="DD/MM/YYYY" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    <span class="error_start" style="display:none; color:red;">please enter the depart date</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-md form-group-icon-left return_date input-group">
+                                                                    <label>Return</label>
+                                                                    <input class="form-control return end_date" id="datepicker4" name="end" type="text" placeholder="DD/MM/YYYY" disabled/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    <span class="error_end" style="display:none; color:red;">please enter the return date</span>
+                                                                    <span class="error_date" style="display:none; color:red;">please enter the correct format</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div><!-- search_bus -->
+                                                    <button class="btn btn-primary btn-sm return_div" type="submit" id="searchbus_return">Search for Bus</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade in" id="tab-4">
+                                            <form action="{% url "flight.views.search_flights" %}" method="post" name="search_flight" >{% csrf_token %}
+                                                <div class="flight_search">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <input id="oneway" type="radio" name="trip" value="oneway" checked="checked" class="radio pull-left"/><label class="pull-left">One way</label>
+                                                            <div class="clear_both"></div>
+                                                        </div><!--End of col-md-4-->
+                                                        <div class="col-md-6">
+                                                            <input id="round" type="radio" name="trip" value="round" class="radio pull-left" /><label class="pull-left">Round trip</label>
+                                                            <div class="clear_both"></div>
+                                                        </div><!--End of col-md-6-->
+                                                    </div><!--End of row-->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group form-group-md form-group-icon-left">
+                                                                <label>Source</label>
+                                                                <input class="typeahead form-control f_source" placeholder="Bangalore" type="text" name="flight_source" id="f_source"/>
+                                                                <span class="f_error_source" style="display:none; color:red;">please enter the source</span>
+                                                                <input class="typeahead form-control" type="hidden" value="" name="iata_code_source" id="iata_code_source"/>
+                                                            </div><!--End of form group-->
+                                                        </div><!--End of col-md-6-->
+                                                        <div class="col-md-6">
+                                                            <div class="form-group form-group-md form-group-icon-left">
+                                                                <label>Destination</label>
+                                                                <input class="typeahead destination form-control f_destination" placeholder="Chennai" type="text" id="f_destination" name="flight_destination" />
+                                                                <span class="f_error_destination" style="display:none; color:red;">please enter the destination</span>
+                                                                <input class="typeahead form-control" placeholder="Chennai" type="hidden" id="iata_code_destination" value="" name="iata_code_destination" />
+                                                            </div><!--End of form-group-->
+                                                        </div><!--End of col-md-6-->
+                                                    </div><!--End of row-->
+                                                    <div class="input-daterange return_div" data-date-format="M d, D">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-md form-group-icon-left input-group">
+                                                                    <label> Depart  </label>
+                                                                    <input class="form-control depart f_start_date" id="datepicker1" name="start" type="text" placeholder="DD/MM/YYYY" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    <span class="f_error_start" style="display:none; color:red;">please enter the depart date</span>
+                                                                </div><!--End of from-group-->
+                                                            </div><!--End of col-md-6-->
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-md form-group-icon-left return_date input-group">
+                                                                    <label>Return</label>
+                                                                    <input class="form-control return f_end_date" id="datepicker2" name="end" type="text" placeholder="DD/MM/YYYY" disabled/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    <span class="f_error_end" style="display:none; color:red;">please enter the return date</span>
+                                                                    <span class="f_error_date" style="display:none; color:red;">please enter the correct format</span>
+                                                                </div><!--End of form-group-->
+                                                            </div><!--End of col-md-6-->
+                                                        </div><!--End of row-->
+                                                    </div><!-- End of input range -->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label>Travellers</label>
+                                                        </div><!--End of col-md-12-->
+                                                        <div class="col-md-4">
+                                                            <div class="form-group form-group-md form-group-select-plus">
+                                                                <label>Adults</label>
+                                                                <select class="form-control" name="f_adults" id="flight_adults">
+                                                                    <option selected="selected" value="1" >1</option>
+                                                                    <option value="2" >2</option>
+                                                                    <option value="3" >3</option>
+                                                                    <option value="4" >4</option>
+                                                                    <option value="5" >5</option>
+                                                                    <option value="6" >6</option>
+                                                                    <option value="7" >7</option>
+                                                                    <option value="8" >8</option>
+                                                                    <option value="9" >9</option>
+                                                                </select>
+                                                            </div><!--End of from-group-->
+                                                        </div><!--End of col-md-4-->
+                                                        <div class="col-md-4">
+                                                            <div class="form-group form-group-md form-group-select-plus">
+                                                                <label>Childs</label>
+                                                                <select class="form-control" name="f_childs" id="flight_childs">
+                                                                    <option selected="selected" value="0" >0</option>
+                                                                    <option value="1" >1</option>
+                                                                    <option value="2" >2</option>
+                                                                    <option value="3" >3</option>
+                                                                    <option value="4" >4</option>
+                                                                    <option value="5" >5</option>
+                                                                    <option value="6" >6</option>
+                                                                    <option value="7" >7</option>
+                                                                    <option value="8" >8</option>
+                                                                    <option value="9" >9</option>
+                                                                </select>
+                                                            </div><!--End of from-group-->
+                                                        </div><!--End of col-md-4-->
+                                                        <div class="col-md-4">
+                                                            <div class="form-group form-group-md form-group-select-plus">
+                                                                <label>Infants</label>
+                                                                <select class="form-control" name="f_infants" id="flight_infants">
+                                                                    <option selected="selected" value="0" >0</option>
+                                                                    <option value="1" >1</option>
+                                                                    <option value="2" >2</option>
+                                                                    <option value="3" >3</option>
+                                                                    <option value="4" >4</option>
+                                                                    <option value="5" >5</option>
+                                                                    <option value="6" >6</option>
+                                                                    <option value="7" >7</option>
+                                                                    <option value="8" >8</option>
+                                                                    <option value="9" >9</option>
+                                                                </select>
+                                                            </div><!--End of from-group-->
+                                                        </div><!--End of col-md-4-->
+                                                        <span class="f_traveller" style="display:none; color:red;">Maximum of 9 travellers allowed</span>
+                                                        <span class="f_traveller_max" style="display:none; color:red;">No of Infants exceed No of Adults</span>
+                                                    </div><!--End of row-->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group form-group-md form-group-select-plus">
+                                                                <label>Seating class</label>
+                                                                <select class="form-control" name="f_class">
+                                                                    <option value="E" >Economy</option>
+                                                                    <option value="B" >Business</option>
+                                                                    <option value="F" >FirstClass</option>
+                                                                    <option value="W" >Premium Economy</option>
+                                                                </select>
+                                                            </div><!--End of from-group-->
+                                                        </div><!--End of col-md-12-->
+                                                    </div><!--End of row-->
+                                                    <button class="btn btn-primary btn-sm" type="submit" id="flight_search_act">Search flight</button>
+                                                </div><!--End of flight-search-->
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2 hidden-xs">
-                          <img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" />
-                          <img src="{{ STATIC_URL }}v2/img/login-right2.png" class="right-img2" />
+                            <img src="{{ STATIC_URL }}v2/img/login-right.png" class="right-img" />
+                            <img src="{{ STATIC_URL }}v2/img/login-right2.png" class="right-img2" />
                         </div>
                     </div>
-                </div>
-                <div class="col-md-1">
-                    <!-- <img src="{% static "v2/img/247.png" %}" height="75" width="75">
-                    <img src="{% static "v2/img/login.png" %}" height="75" width="75">
-                    <img src="{% static "v2/img/sign_up.png" %}" height="75" width="75"> -->
-                    <!-- <span>Login</span>
-                    <span>Signup</span>
-                    <span>24/7 support</span> -->
-                </div>
             </div>
+            <div class="col-md-1"> </div>
         </div>
+    </div>
 </div><!-- bg-lightgrey bus-payment -->
  {% endblock %}

@@ -9,15 +9,15 @@
 	}
 </style>
 <div class="panel panel-default seatLayoutHolder">
-<p>	
+<p>
 <span></span>
 <span><i class="available-seat"></i> Available Seat</span>
 <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
 <span><i class="selected-seat"></i> Selected Seat</span>
 </p>
 	<div class="panel-body">
-	 
-        
+
+
 	{% if trip == 'oneway'%}
 	<form action="{% url "bus.views.tentativebooking_v2" %}" method="POST">{% csrf_token %}
 		<div class="row">
@@ -32,17 +32,17 @@
         <div id="seats_layout" style="margin:20px auto;padding:10px;position:relative;">
         	<div class="upperDeck padding10 deck410">
             	<div class="deckLabel">
-            	
-                	<div class="steeringWheel"></div>	
-                </div>    
+
+                	<div class="steeringWheel"></div>
+                </div>
                 <div class="seats">
                 </div>
             </div>
             <div class="lowerDeck padding10 deck410">
             	<div class="deckLabel">
             	<div class="bus-stearing nomargin"></div>
-                
-                    
+
+
                 </div>
                 <div class="seats">
                 </div>
@@ -56,7 +56,7 @@
 	<div class="col-md-12">
 	{%endif%}
 
-        
+
         <h5 class="bold"><span class="num-circle">2</span> Choose Boarding Point</h5>
 
         <select style="width:300px;" required name="boarding_point_list" id="boarding_point_list">
@@ -86,7 +86,7 @@
     {%else%}
     <button class="btn btn-primary onward_book">Confirm</button>
     {%endif%}
-</div>    
+</div>
 		<script>
 $(document).ready(function(e) {
 	$('.onward_book').click(function(){
@@ -158,7 +158,7 @@ $(document).ready(function(e) {
 			//alert(total_amount);
 			$('.total_amount').html(total_amount);
 			$('input[name=total_amount]').val(total_amount);
-			$('input[name=seat_count_round]').val(seat_count);    
+			$('input[name=seat_count_round]').val(seat_count);
 		}
 		else if ($('input[name=seat_count_round]').val()== seat_count){
 			if (route_type == 'onward'){
@@ -212,13 +212,13 @@ $(document).ready(function(e) {
 			//alert(total_amount);
 			$('.total_amount').html(total_amount);
 			$('input[name=total_amount]').val(total_amount);
-			$('input[name=seat_count_round]').val(seat_count);    
+			$('input[name=seat_count_round]').val(seat_count);
 
 		}
 		else{
 			alert("You Should Slelect"+$('input[name=seat_count_round]').val()+" seats same");
 		}
-	
+
 	$('.temp').show();
 });
 	  var max_no_of_seat;
@@ -236,7 +236,7 @@ function getJson(url) {
                  contentType: "application/json",
              }).responseText);
             }
- 
+
 var bus_seat = getJson();
 var bus=[{"seatlayout":bus_seat.data.onwardSeats,"onwardflightsMaxC":bus_seat.data.onwardflightsMaxC,"onwardflightsMaxR":bus_seat.data.onwardflightsMaxR}];
 var max_no_of_seat;
@@ -287,7 +287,7 @@ function seat_status(status)
 		{
 			return 'booked_sleeper';
 		}
-	}	
+	}
 $.each(bus,function(index,v)
 {
 	rows=v.onwardflightsMaxR;
@@ -297,7 +297,7 @@ $.each(bus,function(index,v)
 	{
 		if(v_seatlayout.SeatType=='Seater')
 		{
-			u_cols=1;	
+			u_cols=1;
 		}
 		else if(v_seatlayout.SeatType=='Sleeper')
 		{
@@ -309,11 +309,11 @@ $.each(bus,function(index,v)
 		}
 		else if(v_seatlayout.Deck==2)
 		{
-			deck2 = v_seatlayout.Deck;	
+			deck2 = v_seatlayout.Deck;
 		}
 	});
 	//console.log(deck1+" "+deck2);
-	
+
 	if(u_cols==1&&u_cols1==0)
 	{
 		$(".upperDeck").show();
@@ -324,16 +324,16 @@ $.each(bus,function(index,v)
 		rowcol[rc]=v_seatno.SeatName;
 		rc++;
 	});
-	
+
 	var maxrowcol=Math.max.apply(Math,rowcol);
 	var u_rows=maxrowcol;
-	
+
 	var k=0,aa='';
 		aa+='<table class="lower">';
-		for(var i=0;i<cols;i++)
+		for(var i=0;i<rows;i++)
 		{
 			aa += '<tr>';
-			for(var j=0;j<rows;j++)
+			for(var j=0;j<cols;j++)
 			{
 				aa+='<td></td>';
 			}
@@ -355,7 +355,7 @@ $.each(bus,function(index,v)
 		aa+='</table>';
 	$("#seats_layout .upperDeck .seats").append(aa);
 	}
-	
+
 	$.each(bus,function(index,value)
 	{
 		$.each(value.seatlayout, function(i_seatlayout,v_seatlayout)
@@ -372,12 +372,12 @@ $.each(bus,function(index,v)
 				}
 				else
 				{
-					$("#seats_layout .upperDeck .seats").find("tr:nth-child("+(parseInt(v_seatlayout.RowNo)+1)+")").children("td:nth-child("+(parseInt(v_seatlayout.ColumnNo)+1)+")").append('<div class="sleeper sleeper_available '+seat_status(v_seatlayout.seat_status)+'" title="Seat No.:'+v_seatlayout.SeatName+' | Fare: '+v_seatlayout.SeatFare+'" data-seatno="'+v_seatlayout.SeatName+'" data-seattype="'+v_seatlayout.SeatType+'" data-seattypeid="'+v_seatlayout.SeatStatus+'" data-seatfare="'+v_seatlayout.SeatFare+'"></div>');	
+					$("#seats_layout .upperDeck .seats").find("tr:nth-child("+(parseInt(v_seatlayout.RowNo)+1)+")").children("td:nth-child("+(parseInt(v_seatlayout.ColumnNo)+1)+")").append('<div class="sleeper sleeper_available '+seat_status(v_seatlayout.seat_status)+'" title="Seat No.:'+v_seatlayout.SeatName+' | Fare: '+v_seatlayout.SeatFare+'" data-seatno="'+v_seatlayout.SeatName+'" data-seattype="'+v_seatlayout.SeatType+'" data-seattypeid="'+v_seatlayout.SeatStatus+'" data-seatfare="'+v_seatlayout.SeatFare+'"></div>');
 				}
 			}
 		});
 	});
-	
+
 	{% if trip == 'oneway' %}
 	max_no_of_seat='6';//total_seats;//v.seatlayout.maxNumberOfSeats;
 	{% else %}
@@ -392,7 +392,7 @@ $.each(bus,function(index,v)
     var clicked=[],totalfare=[],fare=0,seattypeid_list=[],seattype_list=[];
 	{
 	$(".seats td").click(function(e) {
-		
+
 		if($(this).children("div").hasClass("seat_selected"))
 		{
         	$(this).children(".seat").removeClass("seat_selected");
@@ -400,7 +400,7 @@ $.each(bus,function(index,v)
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
 			var seattype=$(this).children(".seat").data("seattype");
-		
+
 			//clicked.pop(seatno+',');
 			var index=clicked.indexOf(seatno);
 			if(index!=-1)
@@ -411,13 +411,13 @@ $.each(bus,function(index,v)
 			if(index1!=-1)
 			{
 			totalfare.splice(index1,1);
-			
+
 			}
 			fare=0;
 			for(var i=0;i<totalfare.length;i++){
-				fare+=totalfare[i];	
+				fare+=totalfare[i];
 			}
-			
+
 			if(seattypeid_list.indexOf(seattypeid)!=-1)
 			{
 			seattypeid_list.splice(seattypeid,1);
@@ -428,7 +428,7 @@ $.each(bus,function(index,v)
 			seattype_list.splice(seattype,1);
 			}
 
-			
+
 			$(".seats_no_selected").text(clicked);
 			$(".total_fare").text(fare);
 			$("input[name=totalfare]").val(fare);
@@ -437,23 +437,23 @@ $.each(bus,function(index,v)
 			seat_fare_list=seat_fare_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatfare",seat_fare_list);
 			$("input[name=seatFare]").val(seat_fare_list);
-			
+
 			$(".seat_type_id_list").text(seattypeid_list);
 			var seat_type_id_list=$(".seat_type_id_list").text();
 			seat_type_id_list=seat_type_id_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattypeid",seat_type_id_list);
 			$("input[name=seatTypeIdsList]").val(seat_type_id_list);
-			
+
 			$(".seattype_list").text(seattype_list);
 			var seat_type_list=$(".seattype_list").text();
 			seat_type_list=seat_type_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattype",seat_type_list);
 			$("input[name=seatTypesList]").val(seat_type_list);
-			
-			
+
+
 			var a=$(".seats_no_selected").text();
 			var seats_csv=a.replace(/,/g,",");
-			
+
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
@@ -465,12 +465,12 @@ $.each(bus,function(index,v)
 		else if(!$(this).children("div").hasClass("seat")){
 			e.preventDefault();
 		}
-		
+
 		else
 		{
 		if(clicked.length<max_no_of_seat){
-			
-			$(this).children(".seat").addClass("seat_selected");	
+
+			$(this).children(".seat").addClass("seat_selected");
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
@@ -481,7 +481,7 @@ $.each(bus,function(index,v)
 			clicked.push(seatno);
 			fare=0;
 			for(var i=0;i<totalfare.length;i++){
-				fare+=totalfare[i];	
+				fare+=totalfare[i];
 				//alert(totalfare[i]);
 			}
 			//alert(fare);
@@ -493,32 +493,32 @@ $.each(bus,function(index,v)
 			seat_fare_list=seat_fare_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatfare",seat_fare_list);
 			$("input[name=seatFare]").val(seat_fare_list);
-			
+
 			$(".seat_type_id_list").text(seattypeid_list);
 			var seat_type_id_list=$(".seat_type_id_list").text();
 			seat_type_id_list=seat_type_id_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattypeid",seat_type_id_list);
 			$("input[name=seatTypeIdsList]").val(seat_type_id_list);
-			
+
 			$(".seattype_list").text(seattype_list);
 			var seat_type_list=$(".seattype_list").text();
 			seat_type_list=seat_type_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattype",seat_type_list);
 			$("input[name=seatTypesList]").val(seat_type_list);
-			
-			
+
+
 			var a=$(".seats_no_selected").text();
 			var seats_csv=a.replace(/,/g,",");
-			
+
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
 		else{
 			{% if trip == 'oneway' %}
-			alert("Max. of 6 seats .");	
+			alert("Max. of 6 seats .");
 			{%else%}
 			if ($('input[name=seat_count_round]').val()==0){
-				alert("Max. of 6 seats .");	
+				alert("Max. of 6 seats .");
 			}
 			else{
 				alert("You should select "+$('input[name=seat_count_round]').val()+" seats same.");
@@ -527,15 +527,15 @@ $.each(bus,function(index,v)
 			{% endif %}
 		}
 		}
-		
+
 		$("input[name=seatcount]").val(clicked.length);
     });
 	}
-	
-	
+
+
 	{
 	$(".seats td").click(function(e) {
-	
+
 		if($(this).children("div").hasClass("sleeper_selected"))
 		{
         	$(this).children(".sleeper").removeClass("sleeper_selected");
@@ -543,7 +543,7 @@ $.each(bus,function(index,v)
 			var seatfare=$(this).children(".sleeper").data("seatfare");
 			var seattypeid=$(this).children(".sleeper").data("seattypeid");
 			var seattype=$(this).children(".sleeper").data("seattype");
-		
+
 			//clicked.pop(seatno+',');
 			var index=clicked.indexOf(seatno);
 			if(index!=-1)
@@ -557,9 +557,9 @@ $.each(bus,function(index,v)
 			}
 			fare=0;
 			for(var i=0;i<totalfare.length;i++){
-				fare+=totalfare[i];	
+				fare+=totalfare[i];
 			}
-			
+
 			if(seattypeid_list.indexOf(seattypeid)!=-1)
 			{
 			seattypeid_list.splice(seattypeid,1);
@@ -570,7 +570,7 @@ $.each(bus,function(index,v)
 			seattype_list.splice(seattype,1);
 			}
 
-			
+
 			$(".seats_no_selected").text(clicked);
 			$(".total_fare").text(fare);
 			$(".seat_fare_list").text(totalfare);
@@ -578,23 +578,23 @@ $.each(bus,function(index,v)
 			seat_fare_list=seat_fare_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatfare",seat_fare_list);
 			$("input[name=seatFare]").val(seat_fare_list);
-			
+
 			$(".seat_type_id_list").text(seattypeid_list);
 			var seat_type_id_list=$(".seat_type_id_list").text();
 			seat_type_id_list=seat_type_id_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattypeid",seat_type_id_list);
 			$("input[name=seatTypeIdsList]").val(seat_type_id_list);
-			
+
 			$(".seattype_list").text(seattype_list);
 			var seat_type_list=$(".seattype_list").text();
 			seat_type_list=seat_type_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattype",seat_type_list);
 			$("input[name=seatTypesList]").val(seat_type_list);
-			
-			
+
+
 			var a=$(".seats_no_selected").text();
 			var seats_csv=a.replace(/,/g,",");
-			
+
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
@@ -605,7 +605,7 @@ $.each(bus,function(index,v)
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
 			var seattype=$(this).children(".seat").data("seattype");
-		
+
 			//clicked.pop(seatno+',');
 			var index=clicked.indexOf(seatno);
 			if(index!=-1)
@@ -619,9 +619,9 @@ $.each(bus,function(index,v)
 			}
 			fare=0;
 			for(var i=0;i<totalfare.length;i++){
-				fare+=totalfare[i];	
+				fare+=totalfare[i];
 			}
-			
+
 			if(seattypeid_list.indexOf(seattypeid)!=-1)
 			{
 			seattypeid_list.splice(seattypeid,1);
@@ -632,7 +632,7 @@ $.each(bus,function(index,v)
 			seattype_list.splice(seattype,1);
 			}
 
-			
+
 
 			$(".seats_no_selected").text(clicked);
 			$(".total_fare").text(fare);
@@ -641,23 +641,23 @@ $.each(bus,function(index,v)
 			seat_fare_list=seat_fare_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatfare",seat_fare_list);
 			$("input[name=seatFare]").val(seat_fare_list);
-			
+
 			$(".seat_type_id_list").text(seattypeid_list);
 			var seat_type_id_list=$(".seat_type_id_list").text();
 			seat_type_id_list=seat_type_id_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattypeid",seat_type_id_list);
 			$("input[name=seatTypeIdsList]").val(seat_type_id_list);
-			
+
 			$(".seattype_list").text(seattype_list);
 			var seat_type_list=$(".seattype_list").text();
 			seat_type_list=seat_type_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattype",seat_type_list);
 			$("input[name=seatTypesList]").val(seat_type_list);
-			
-			
+
+
 			var a=$(".seats_no_selected").text();
 			var seats_csv=a.replace(/,/g,",");
-			
+
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
@@ -672,7 +672,7 @@ $.each(bus,function(index,v)
 		else if($(this).children("div").hasClass("seat_available")||$(this).children("div").hasClass("seat_ladies"))
 		{
 			if(clicked.length<max_no_of_seat){
-			$(this).children(".seat").addClass("seat_selected");	
+			$(this).children(".seat").addClass("seat_selected");
 			var seatno=$(this).children(".seat").data("seatno");
 			var seatfare=$(this).children(".seat").data("seatfare");
 			var seattypeid=$(this).children(".seat").data("seattypeid");
@@ -683,7 +683,7 @@ $.each(bus,function(index,v)
 			clicked.push(seatno);
 			fare=0;
 			for(var i=0;i<totalfare.length;i++){
-				fare+=totalfare[i];	
+				fare+=totalfare[i];
 				//alert(totalfare[i]);
 			}
 			//alert(fare);
@@ -695,33 +695,33 @@ $.each(bus,function(index,v)
 			seat_fare_list=seat_fare_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatfare",seat_fare_list);
 			$("input[name=seatFare]").val(seat_fare_list);
-			
+
 			$(".seat_type_id_list").text(seattypeid_list);
 			var seat_type_id_list=$(".seat_type_id_list").text();
 			seat_type_id_list=seat_type_id_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattypeid",seat_type_id_list);
 			$("input[name=seatTypeIdsList]").val(seat_type_id_list);
-			
+
 			$(".seattype_list").text(seattype_list);
 			var seat_type_list=$(".seattype_list").text();
 			seat_type_list=seat_type_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattype",seat_type_list);
 			$("input[name=seatTypesList]").val(seat_type_list);
-			
-			
+
+
 			var a=$(".seats_no_selected").text();
 			var seats_csv=a.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
 		else{
-			alert("Max. of 6 seats .");	
+			alert("Max. of 6 seats .");
 		}
 		}
 		else
 		{
 		if(clicked.length<max_no_of_seat){
-			$(this).children(".sleeper").addClass("sleeper_selected");	
+			$(this).children(".sleeper").addClass("sleeper_selected");
 			var seatno=$(this).children(".sleeper").data("seatno");
 			var seatfare=$(this).children(".sleeper").data("seatfare");
 			var seattypeid=$(this).children(".sleeper").data("seattypeid");
@@ -732,7 +732,7 @@ $.each(bus,function(index,v)
 			clicked.push(seatno);
 			fare=0;
 			for(var i=0;i<totalfare.length;i++){
-				fare+=totalfare[i];	
+				fare+=totalfare[i];
 				//alert(totalfare[i]);
 			}
 			//alert(fare);
@@ -744,38 +744,38 @@ $.each(bus,function(index,v)
 			seat_fare_list=seat_fare_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatfare",seat_fare_list);
 			$("input[name=seatFare]").val(seat_fare_list);
-			
+
 			$(".seat_type_id_list").text(seattypeid_list);
 			var seat_type_id_list=$(".seat_type_id_list").text();
 			seat_type_id_list=seat_type_id_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattypeid",seat_type_id_list);
 			$("input[name=seatTypeIdsList]").val(seat_type_id_list);
-			
+
 			$(".seattype_list").text(seattype_list);
 			var seat_type_list=$(".seattype_list").text();
 			seat_type_list=seat_type_list.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seattype",seat_type_list);
 			$("input[name=seatTypesList]").val(seat_type_list);
-			
-			
+
+
 			var a=$(".seats_no_selected").text();
 			var seats_csv=a.replace(/,/g,",");
 			$(".seats_no_selected").attr("data-seatscsv",seats_csv);
 			$("input[name=seatNumbersList]").val(seats_csv);
 		}
 		else{
-			alert("Max. of 6 seats .");	
+			alert("Max. of 6 seats .");
 		}
 		}
-		
-		
+
+
     });
 	}
 	$(".seat_booked").click(function(e) {
       //  alert("The seat is already booked..");
 		e.preventDefault();
     });
-	
+
 });
 </script>
 <script>
@@ -795,22 +795,22 @@ $(document).ready(function(e) {
 	  //$("#address_boarding_points").html("<p style='text-align:center;padding:5px 20px;background:#ccc;width:auto;color:#fff;'><span class='glyphicons google_maps'></span>"+address+"</p>");
 		   }
 		   else{
-			  // $("#address_boarding_points").html("<p></p>");   
+			  // $("#address_boarding_points").html("<p></p>");
 		   }
 	   }
 	   $("input[name=boardingPointID]").val($(this).val());
 	   $("input[name=boardingPointName]").val($(this).find("option:selected").text());
-	  
+
     });
 });
 </script>
 <script>
 $(document).ready(function(e) {
     $(".continue").click(function(e){
-		
+
 		if($(".seats_no_selected").text()==""){
 				alert("Select Min. one seat.");
-				e.preventDefault();	
+				e.preventDefault();
 		}
 	});
 });
