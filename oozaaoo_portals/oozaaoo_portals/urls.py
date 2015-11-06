@@ -16,7 +16,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	# url(r'', include('social_auth.urls')),
 	url(r'^$', 'hotels.views.home_v2', name='home_v2'),
-
+    url(r'^profile_details/$', 'hotels.views.profile_details', name='profile_details'),
+    url(r'^settings/$', 'hotels.views.settings', name='settings'),
 
     # url(r'^v2/$', 'hotels.views.home_v2', name='home_v2'),
     url(r'^v2/profile$', 'hotels.views.profile_v2', name='profile_v2'),
@@ -82,6 +83,7 @@ urlpatterns = patterns('',
     url(r'^v2/privacy/', 'hotels.views.privacy', name='privacy'),
     url(r'^contactus/', 'hotels.views.contactus', name='contactus'),
 
+
 	#==============================Flight_search==========================#
 	url(r'^iata_code/', 'flight.views.iata_code', name='iata_code'),
 	url(r'^SearchFlight/', 'flight.views.search_flights', name='search_flights'),
@@ -89,6 +91,9 @@ urlpatterns = patterns('',
 	url(r'^FlightBooking/', 'flight.views.flight_details', name='flight_details'),
 	url(r'^TantativeBooking/', 'flight.views.tentativebooking', name='tentativebooking'),
 	url(r'^FlightConfirm/', 'flight.views.flight_confirm', name='flight_confirm'),
+<<<<<<< HEAD
 	url(r'^Wait/', 'flight.views.success_confirm', name='success_confirm'),
+=======
+>>>>>>> af52a5cdbfc0c8071358ef1bcb929dbe5d631dd7
 
 )

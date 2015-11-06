@@ -16,6 +16,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     # name=models.CharField(max_length=50, null=True, blank=True)
     phone=models.CharField(max_length=50, null=True, blank=True)
-    dateofbirth=models.DateTimeField()
+    dateofbirth=models.DateTimeField(null=True, blank=True)
     def __unicode__(self):
         return self.user.username      

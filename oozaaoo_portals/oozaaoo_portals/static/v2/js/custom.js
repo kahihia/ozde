@@ -568,10 +568,10 @@ $(document).ready(
     });
 
     $('#sratings').on('click', function () {
-      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-        return $(a).find(".sort_rating").text() > $(b).find(".sort_rating").text();
+      var numericallyOrderedDivs = $divs.sort(function (a, b) {
+        return $(a).find(".text-muted").text() > $(b).find(".text-muted").text();
       });
-      $("#rating > .hotel-list-vertical").html(alphabeticallyOrderedDivs);
+      $("#rating > .hotel-list-vertical").html(numericallyOrderedDivs);
     });
 
     $('#srecommended').on('click', function () {
@@ -1315,40 +1315,49 @@ $('#paynow').click(function(){
     }
 });
 
-
-
-
-
-$('#payment').click(function(){
-
-        if($('.fname').val() == ''){
+$('#payment').on('click', function() {
+      // alert("enter");
+       
+       
+    if($('#fname').val() == ''){
+            // alert("please enter the last name");
             $('.errormgs').show();
-             return false;
-        if($('.lname').val() == ''){
-
-             $('.errormgs').show();
-              return false;
-        if($('.age').val() == ''){
-
-             $('.errormgs').show();
-              return false;
-         if($('.mobileno').val() == ''){
-
-             $('.errormgs').show();
-              return false;
-             if($('.email').val() == ''){
-                $('.errormgs').show();
-              return false;
-                }
-            }
-         }
-    }}
+          }
     else{
-
-      $('.payment').show();
-       return true;
+          $('.errormgs').hide();
+    }   
+   if ($('.lname').val() == '') {
+             $('.errormgs1').show(); 
     }
-});
+  else{
+        $('.errormgs1').hide();
+    } 
+  if ($('.age').val() == '') {
+             $('.errormgs2').show();
+   }
+  else{
+      $('.errormgs2').hide();
+    } 
+  if ($('.mobileno').val() == '') {
+             $('.errormgs4').show();
+      }
+  else{
+      $('.errormgs4').hide();
+    } 
+      
+  if ($('.email').val() == '') {
+             $('.errormgs3').show();
+  }
+  else{
+      $('.errormgs3').hide();
+    } 
+  $('.payment').show();
+
+
+  });
+
+
+
 $('.login').click(function(){
     if($('input[name="username"]').val() == ''){
             // alert("please enter the first name");
@@ -1443,6 +1452,36 @@ $(".map").click(function(){
     $('.for_buynow').hide();
   }
 
+
+$(".change").click(function(){
+  alert("enter");
+  if($('input[name="password"]').val() == ''){
+            // alert("please enter the last name");
+             $('.mgs').show();
+             return false;
+         }
+    
+ });
+//*********** for rating tab in hotel listing **********//
+
+// var ascending = false;
+
+// $('.tab-content').on('click','#sratings',function(){
+
+//     var sorted = $('.results-row').sort(function(a,b){
+//         return (ascending ==
+//                (convertToNumber($(a).find('.rating').html()) < 
+//                 convertToNumber($(b).find('.rating').html()))) ? 1 : -1;
+//     });
+//     ascending = ascending ? false : true;
+
+//     $('.results').html(sorted);
+// });
+
+// var convertToNumber = function(value){
+//      return parseFloat(value.replace('$',''));
+// }
+
 //*******************Flights.........................//
 //this is round trip form POST
 $('.round_flight_act').click(function(){
@@ -1459,3 +1498,4 @@ $( "#datepicker9" ).datepicker({
     orientation: "bottom auto",
     autoclose: true,
 });
+

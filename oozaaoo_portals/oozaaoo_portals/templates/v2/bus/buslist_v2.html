@@ -138,11 +138,11 @@
 <section class="middle-bar">
     {% if trip == "oneway"%}
         <div class="container">
-            <p>{{ source }} to {{ destination }}, Depart:{{ dateofdeparture }} ({{trip|capfirst}} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
+            <p>{{ source }} to {{ destination }}, Depart:{{ dateofdeparture }} ({{trip|capfirst}} Trip) <a href="{% url "hotels.views.home_v2" %}"><i class="fa fa-search"></i> Modify search</a></p>
         </div>
     {% else %}
         <div class="container">
-                <p>{{ source }} to {{ destination }}, Depart:{{ dateofdeparture }}  - Return: {{ dateofarrival }}({{trip|capfirst}} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
+                <p>{{ source }} to {{ destination }}, Depart:{{ dateofdeparture }}  - Return: {{ dateofarrival }}({{trip|capfirst}} Trip) <a href="{% url "hotels.views.home_v2" %}"><i class="fa fa-search"></i> Modify search</a></p>
             </div>
     {% endif %}
 </section>

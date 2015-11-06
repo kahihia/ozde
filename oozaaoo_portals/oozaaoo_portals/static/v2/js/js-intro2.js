@@ -665,63 +665,34 @@ $(document).ready(function($){
 
 	
 /////////////////////////for payment validation////////////////////////
-	$('#paynow').click(function(){
-	    if($('.fname').val() == ''){
-	            // alert("please enter the first name");
-	            $('.errormgs').show();
-	        if($('.lname').val() == ''){
-	            // alert("please enter the last name");
-	             $('.errormgs').show();
-	         if($('.mobileno').val() == ''){
-	            // alert("please enter the mobile number");
-	             $('.errormgs').show();
-	             if($('.email').val() == ''){
-	            // alert("please enter the email");
-	             $('.errormgs').show();
-	            return false;
-	                }
-	            }
-	         }
-	    }
-	    else{
-	       return true; 
-	    }
-	});
+	// $('#paynow').click(function(){
+	//     if($('.fname').val() == ''){
+	//             // alert("please enter the first name");
+	//             $('.errormgs').show();
+	//         if($('.lname').val() == ''){
+	//             // alert("please enter the last name");
+	//              $('.errormgs').show();
+	//          if($('.mobileno').val() == ''){
+	//             // alert("please enter the mobile number");
+	//              $('.errormgs').show();
+	//              if($('.email').val() == ''){
+	//             // alert("please enter the email");
+	//              $('.errormgs').show();
+	//             return false;
+	//                 }
+	//             }
+	//          }
+	//     }
+	//     else{
+	//        return true; 
+	//     }
+	// });
 
 
 
 
 
-	$('#payment').click(function(){
-	    
-	        if($('.fname').val() == ''){
-	            $('.errormgs').show();
-	             return false;
-	        if($('.lname').val() == ''){
-	           
-	             $('.errormgs').show();
-	              return false;
-	        if($('.age').val() == ''){
-	           
-	             $('.errormgs').show();
-	              return false;
-	         if($('.mobileno').val() == ''){
-	            
-	             $('.errormgs').show();
-	              return false;
-	             if($('.email').val() == ''){
-	                $('.errormgs').show();
-	              return false;
-	                }
-	            }
-	         }
-	    }}
-	    else{
-	            
-	      $('.payment').show();
-	       return true; 
-	    }
-	});
+	
 ////////////////////////login validation////////////////
 	$('.login').click(function(){
 	    if($('input[name="username"]').val() == ''){
