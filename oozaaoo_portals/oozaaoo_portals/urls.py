@@ -89,4 +89,6 @@ urlpatterns = patterns('',
 	url(r'^FlightBooking/', 'flight.views.flight_details', name='flight_details'),
 	url(r'^TantativeBooking/', 'flight.views.tentativebooking', name='tentativebooking'),
 	url(r'^FlightConfirm/', 'flight.views.flight_confirm', name='flight_confirm'),
+	url(r'^Wait/', 'flight.views.success_confirm', name='success_confirm'),
+
 )
