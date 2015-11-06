@@ -87,13 +87,8 @@ urlpatterns = patterns('',
 	#==============================Flight_search==========================#
 	url(r'^iata_code/', 'flight.views.iata_code', name='iata_code'),
 	url(r'^SearchFlight/', 'flight.views.search_flights', name='search_flights'),
-	url(r'^Reprice/', 'flight.views.reprice', name='reprice'),
 	url(r'^FlightBooking/', 'flight.views.flight_details', name='flight_details'),
 	url(r'^TantativeBooking/', 'flight.views.tentativebooking', name='tentativebooking'),
 	url(r'^FlightConfirm/', 'flight.views.flight_confirm', name='flight_confirm'),
-<<<<<<< HEAD
-	url(r'^Wait/', 'flight.views.success_confirm', name='success_confirm'),
-=======
->>>>>>> af52a5cdbfc0c8071358ef1bcb929dbe5d631dd7
 
 )

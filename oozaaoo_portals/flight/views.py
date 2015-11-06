@@ -139,6 +139,7 @@ def search_flights(request):
 	else:
 		response = render_to_response('v2/flight/flight_search_list.html', {'flight':zipped,'source':request.POST.get('flight_source',''),'destination':request.POST.get('flight_destination',''),'dateofarrival':enddate,'dateofdeparture':startdate,'trip':trip,'iata_code_return':destination,'iata_code_onward':source}, context_instance=RequestContext(request))
 		response.set_cookie('end',enddate)
+
 	response.set_cookie( 'trip', trip)
 	response.set_cookie( 'start', startdate)
 	response.set_cookie( 's_code', source)
@@ -216,15 +217,16 @@ def flight_details(request):
 		except:
 			messages.add_message(request, messages.INFO,'Check Your Internet Connection')
 			return HttpResponseRedirect(format_redirect_url("/SearchFlight", 'error=106'))
-		if response['data']['onwardflights']:
+
 			reprice_response = response.json()
+		if not reprice_response['data'].has_key('Error'):
 			#return HttpResponse(simplejson.dumps(reprice_response),mimetype='application/json')
 			return render_to_response('v2/flight/flight_book.html',{'reprice':reprice_response,'onward':booking_data_onward,'return':booking_data_return,}, context_instance=RequestContext(request))
 		else:
 			messages.add_message(request, messages.INFO,'Flight Fare amount is changed')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=107'))
 	elif 'oneway' in trip:
-		try
+		try:
 			booking_data = cache.get(onward_row_id)
 			booking_data_onward = [cache.get(onward_row_id)]
 			book_data_json = json.dumps(booking_data_onward)
@@ -252,13 +254,13 @@ def flight_details(request):
 			messages.add_message(request, messages.INFO,'Check Your Internet Connection')
 			return HttpResponseRedirect(format_redirect_url("/SearchFlight", 'error=109'))
 
-		if response['data']['onwardflights']:
-			reprice_response = response.json()
+		reprice_response = response.json()
+		if not reprice_response['data'].has_key('Error'):
 			response = render_to_response('v2/flight/flight_book.html',{'reprice':reprice_response,'onward':booking_data}, context_instance=RequestContext(request))
 			response.set_cookie('total_fare',total_fare)
 			return response
 		else:
-			messages.add_message(request, messages.INFO,'Flight Fare amount is changed')
+			messages.add_message(request, messages.INFO,'Flight Fare amount is changed or Seats not available')
 			return HttpResponseRedirect(format_redirect_url("/", 'error=110'))
 
 def tentativebooking(request):
@@ -366,6 +368,7 @@ def flight_confirm(request):
 		confirmation_payload = {'BookingId':booking_response['data']['customReference'],'secret': hash_key }
 		confirmation_response = requests.request("POST", confirm_url, data=confirmation_payload,headers=headers, auth=(settings.API_USERNAME, settings.API_PASSWORD))
 		confirm_booking_response = confirmation_response.json()
-		return HttpResponse(json.dumps(confirm_booking_response),mimetype='application/json')
-
-		return render_to_response('v2/flight/flightconfirm.html',{'confirm':booking_response }, context_instance=RequestContext(request))
+		return render_to_response('v2/flight/flight_confirm.html',{'response':confirm_booking_response['data']}, context_instance=RequestContext(request))
+	else:
+		messages.add_message(request, messages.INFO,'You cannot directly move to this page')
+		return HttpResponseRedirect(format_redirect_url("/", 'error=112'))

@@ -1,0 +1,83 @@
+{% extends 'v2/base_inner_v2.html' %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block content %}
+<div class="bg-lightgrey bus-payment">
+<div class="bg-white">
+        <div class="container">
+            <div class="row position_r">
+            <div class="col-md-3">
+                <a class="logo" href="/" title="="oozaaoo></a>
+                <div class="clear_both"></div>
+            </div>
+             <div class="col-md-5">
+            </div>
+            <div class="col-md-4 bottom10 right0">
+            {% if request.user.is_authenticated %}
+                        <div class="top-user-area clearfix">
+                            <a href="/">{{request.user.first_name}}</a>
+                            <a href="/v2/logout/">Logout</a>
+                            <a href="/v2/profile">Myprofile</a>
+                            <!-- <a href="/mybooking/">MyBooking</a> -->
+                        </div>
+                    {% else %}
+                        <div class="top-user-area clearfix">
+                            <a href="/v2/login">Signin /</a>
+                            <a href="/v2/register"> Signup</a>
+                            <!-- <a href="/mybooking/">MyBooking</a> -->
+
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+ <header class="navbar bg-lightgrey1">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="light-purple text-center">Great, your payment went through successfully</h2>
+            </div>
+        </div>
+        <div class="padding10"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-lightpurple">
+                    <div class="panel-heading">
+                        <span class="panel-title text-center">Confirmation</span>
+                    </div>
+                    <div class="panel-body">
+                    <h1 class="text-center"><i class="fa fa-check-circle light-purple"></i></h1>
+                    {% if response.status == "ToDeliver" %}
+                    <h2 class="text-center">Thank you, {{request.user}} {{response.data.message}}</h2>
+                    <h5 class="text-center mb30">And Your booking id is {{response.data.bookingid}} .If you want more details about ur confirmation, please check ur mail id {{response.data.email}}</h5>
+                    {% elif response.status == "pending" %}
+                       Dear {{request.user}},
+                <span>Sorry, Your booking is {{response.status}}</span>
+
+                    {%endif%}
+                    <h4 class="text-center">Have a Happy Journy</h4>
+                    </div>
+                </div>
+                <div class="padding10"></div>
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+    </div>
+</div><!-- bg-lightgrey bus-payment -->
+ {% endblock %}
