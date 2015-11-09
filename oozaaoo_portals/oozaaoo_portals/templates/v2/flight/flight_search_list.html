@@ -13,12 +13,17 @@
 		    </div>
 		</div>
 	</header>
+	{% if request.REQUEST.error %}
+		{%for message in messages%}
+			<h4 class="text-center text-danger">{{message}}</h4>
+		{%endfor%}
+	{%endif%}
 	<div class="middle-bar">
 		<div class="container">
 			{% if trip == 'oneway' %}
-	    		<p>{{ source }} to {{ destination }}:{{ dateofdeparture }} ({{ trip|capfirst }} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
+	    		<p>{% if request.COOKIES.s_city %}{{request.COOKIES.s_city}}{% else %}{{ source }}{% endif %} to{% if request.COOKIES.d_city %}{{request.COOKIES.d_city}}{% else %}{{ destination }}{% endif %}:{{ dateofdeparture }} ({{ trip|capfirst }} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
 			{% else %}
-				<p>{{ source }} to {{ destination }}:{{ dateofdeparture }} <i class="fa fa-exchange"></i> {{ dateofarrival }} ({{ trip|capfirst }} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
+				<p>{% if request.COOKIES.s_city %}{{request.COOKIES.s_city}}{% else %}{{ source }}{% endif %}to {% if request.COOKIES.d_city %}{{request.COOKIES.d_city}}{% else %}{{ destination }}{% endif %}:{{ dateofdeparture }} <i class="fa fa-exchange"></i> {{ dateofarrival }} ({{ trip|capfirst }} Trip) <a href="#"><i class="fa fa-search"></i> Modify search</a></p>
 			{% endif %}
 		</div>
 	</div>

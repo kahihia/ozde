@@ -25,11 +25,11 @@
                         </div>
                         <div class="col-md-7">
                              <div class="input-group">
-                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" />
                             </div>
                         </div>
                     </div>-->
-            </div> 
+            </div>
             <div class="col-md-4 bottom10 right0">
             {% if request.user.is_authenticated %}
                         <div class="top-user-area clearfix">
@@ -49,7 +49,7 @@
             </div>
         </div>
         </div>
-    </div>    
+    </div>
  <header class="navbar bg-lightgrey1">
   <div class="container">
     <div class="navbar-header">
@@ -136,7 +136,7 @@
                         <div class="row">
                             <div class="col-md-4 pull-right">
                                 <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amt}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -165,20 +165,20 @@
                         <div class="row">
                             <div class="col-md-4 pull-right">
                                 <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amount}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
-                                
+
                             </div>
                         </div>
                     </div>
                     {%endif%}
                 </div>
                 <div class="padding10"></div>
-            {% if not user.is_authenticated %} 
+            {% if not user.is_authenticated %}
                 <div class="panel panel-lightpurple">
                     <div class="panel-heading">
                         <h4 class="panel-title"> 2. Travellers details</h4>
                     </div>
                     <div class="panel-body">
-                        
+
                         <div class="row">
                             <div class="col-md-12">
                                 <h5>Log in to speed up your booking</h5>
@@ -199,10 +199,10 @@
                                             <button type="submit" class="btn btn-primary">Login</button>
                                         </div>
                                         <div class="col-md-8">
-                                            <h5 class="text-right">Not Registered? <a href="#"> Create New Account</a></h5>
+                                            <h5 class="text-right">Not Registered? <a href="/v2/register"> Create New Account</a></h5>
                                         </div>
                                      </div>
-                                </form>   
+                                </form>
                                 <hr />
                             </div>
                         </div>
@@ -249,13 +249,13 @@
                                     </div>
                                 {%endfor%}
                                     <br>
-                                    
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Email<span class="red">*</span></label>
                                             <input type="text" class="form-control email" name="email" />
                                             <span class="errormgs3" style="display:none; color:red;">please enter the email</span>
-                                            
+
                                         </div>
                                         <div class="col-md-6">
                                             <label>Mobile<span class="red">*</span></label>
@@ -264,17 +264,17 @@
                                               <input type="text" class="form-control mobileno" aria-describedby="india-code" name="mobile">
                                               <span class="errormgs4" style="display:none; color:red;">please enter the mobile number</span>
                                             </div>                                         </div>
-                                       
+
                                     </div>
                                      <div class="help-block">Ticket will be sent to this email only</div>
-                                     <label class="btn btn-primary" id="payment" >Go to payment</label>   
-                               
-                                
+                                     <label class="btn btn-primary" id="payment" >Go to payment</label>
+
+
                             </div>
                             <div class="col-md-6">
-                            
+
                             </div>
-                        </div>        
+                        </div>
                         <div class="panel panel-lightpurple dn payment">
                             <div class="panel-heading">
                                 <h4 class="panel-title"> 3. Payment</h4>
@@ -335,13 +335,13 @@
                                     </div>
                                     {%endfor%}
                                     <br>
-                                    
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Email<span class="red">*</span></label>
                                             <input type="text" class="form-control email" name="email" />
                                             <span class="errormgs" style="display:none; color:red;">please enter the email</span>
-                                            
+
                                         </div>
                                         <div class="col-md-6">
                                             <label>Mobile<span class="red">*</span></label>
@@ -350,17 +350,17 @@
                                               <input type="text" class="form-control mobileno" aria-describedby="india-code" name="mobile">
                                               <span class="errormgs" style="display:none; color:red;">please enter the mobile number</span>
                                             </div>                                         </div>
-                                       
+
                                     </div>
                                      <div class="help-block">Ticket will be sent to this email only</div>
                                      <label class="btn btn-primary" id="payment">Go to payment</label>
-                               
-                                
+
+
                             </div>
                             <div class="col-md-6">
-                            
+
                             </div>
-                        </div>        
+                        </div>
                         <div class="panel panel-lightpurple dn payment">
                             <div class="panel-heading">
                                 <h4 class="panel-title"> 3. Payment</h4>
@@ -379,14 +379,13 @@
                                 </div>
                             </div>
                         </div>
-                    {%endif%}   
-                 </form> 
+                    {%endif%}
+                 </form>
             {%endif%}
             </div>
             <div class="col-md-1"></div>
-            
+
         </div>
     </div>
 </div><!-- bg-lightgrey bus-payment -->
- {% endblock %}        
-         
+ {% endblock %}

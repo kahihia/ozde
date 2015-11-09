@@ -94,7 +94,7 @@ def registration_v2(request):
 						'username': user.username,
 						'name': user.username}))
 			print "mailsend"
-			userprofile.user=user       
+			userprofile.user=user
 			userprofile.phone=phone
 			userprofile.dateofbirth=dob
 			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
@@ -1501,4 +1501,3 @@ def settings(request):
 	# 	print user.username
 	# 	user.save()
 	return render_to_response("v2/portal/profile_v2.html", context_instance=RequestContext(request))
-

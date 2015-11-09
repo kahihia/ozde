@@ -56,14 +56,14 @@ $(document).ready(function(){
         <nav id="bs-navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
-                <li>
+                {# <li>
                     <a href="#">Print/SMS Ticket</a>
                 </li>
                 <li>
                     <a href="#">Easy Cancel/Refund new</a>
-                </li>
+                </li>#}
             </ul><!-- End of nav -->
         </nav><!-- End of bs-navbar -->
     </div><!-- End of container -->
@@ -224,8 +224,8 @@ $(document).ready(function(){
                     {%endif%}
                 </div>
                 <div class="padding10"></div>
-            {# {% if not user.is_authenticated %} #}
-                {# <div class="panel panel-lightpurple">
+            {% if not user.is_authenticated %}
+                <div class="panel panel-lightpurple">
                     <div class="panel-heading">
                         <h4 class="panel-title"> 2. Travellers details</h4>
                     </div>
@@ -259,8 +259,8 @@ $(document).ready(function(){
                             </div>
                         </div>
                     </div>
-                </div>#}
-            {#{%else%}#}
+                </div>
+            {%else%}
                 <form action="{% url "flight.views.tentativebooking" %}" method="post" class="form-horizontal">{% csrf_token %}
                     <div class="panel panel-lightpurple">
                         <div class="panel-heading">
@@ -420,7 +420,7 @@ $(document).ready(function(){
                                 <div class="col-md-8">
                                     <h5><strong>PayU Money</strong></h5>
                                     <h5>Amount Payable : <i class="fa fa-rupee"></i> {% if 'round' in request.COOKIES.trip %}{{reprice.data.onwardflights.0.fare.totalfare|add:reprice.data.returnflights.0.fare.totalfare}}{% else%}{{reprice.data.onwardflights.0.fare.totalfare}}{% endif %}{{total_amount}}</h5>
-                                    <button class="btn btn-success margintop15" type="submit">Make payment</button>
+                                    {# <button class="btn btn-success margintop15" type="submit">Make payment</button>#}
                                     <p class="margintop5">By Clicking on Make payment, you agree to all the <a href="#">Terms and Conditions</a></p>
                                 </div>
                                 <div class="col-md-4 text-right">
@@ -430,7 +430,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </form>
-            {# {%endif%}#}
+            {%endif%}
             </div>
             <div class="col-md-1"></div>
 
