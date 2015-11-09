@@ -187,21 +187,22 @@
                                 <hr/>
                                 <form action="/profile_details/" method="POST" name="profile_details">
                                 {% csrf_token %}
-                                <h5 class="fl">Profile Name<span style="color:red">*</span></h5>
-                                <input type="text" name="name" value="{{request.user}}" class="fl" ><div class="clearfix"></div>
-                                <h5 class="fl">DOB<span style="color:red">*</span></h5>
-                                <input class="form-control dob text-center" id="datepicker5" name="dob" type="text" placeholder="Date of Birth" value="" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h5 class="fl">Gender<span style="color:red">*</span></h5>
-                                <select name="Gender" class="fl" >
+                                <h5 >Profile Name<span style="color:red">*</span></h5>
+                                <input type="text" name="name" value="{{request.user}}"  ><div class="clearfix"></div>
+                                <h5 >DOB<span style="color:red">*</span></h5>
+                                <!-- <input  id="mySelectCalendar2" name="dob" type="text" placeholder="Date of Birth" value="" /> -->
+                                <input class="datepicker" data-date-format="yyyy/mm/dd" name="dob" type="text" placeholder="Date of Birth" value="" />
+                                <h5 >Gender<span style="color:red">*</span></h5>
+                                <select name="Gender"  >
                                   <option value="male">Male</option>
                                   <option value="female">Female</option>
                                 </select>  
                                 <div class="clearfix"></div>
-                                <h5 class="fl">Email<span style="color:red">*</span></h5>
-                                <input type="text" name="email" value="{{request.user.email}}"  class="fl" >
+                                <h5>Email<span style="color:red">*</span></h5>
+                                <input type="text" name="email" value="{{request.user.email}}"  >
                                 <div class="clearfix"></div>
-                                <h5 class="fl">Mobile No<span style="color:red">*</span></h5>
-                                <input type="text" name="mobile"  class="fl"><br/>
+                                <h5 >Mobile No<span style="color:red">*</span></h5>
+                                <input type="text" name="mobile" ><br/>
                                 <div class="clearfix"></div>
                                 <input type="submit" value="Update" class="btn btn-primary">
                                 </form>
