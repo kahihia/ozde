@@ -482,7 +482,7 @@ def gethotellist_v2(request):
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-
+	from django.conf import settings
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 
 	try:
@@ -635,6 +635,7 @@ def gethoteldetails_v2(request):
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
 
 	"""
+	from django.conf import settings
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	joindata = request.COOKIES.get('joindata')
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))
