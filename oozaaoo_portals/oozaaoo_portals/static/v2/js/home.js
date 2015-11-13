@@ -346,6 +346,7 @@
 		    }
 		    if($('.startdate').val() == ''){
 		        $('.error_mgs_start_date').show();
+		        $('.error_mgs_city').hide();
 		        return false;
 		    }
 		    else{
@@ -353,6 +354,7 @@
 		    }
 		    if($('.enddate').val() == ''){
 		        $('.error_mgs_end_date').show();
+		        $('.error_mgs_start_date').hide();
 		        return false;
 		    }
 		    else{
@@ -419,15 +421,18 @@
 	        return false;
 	    }
 	    else if($('.destination').val() == ''){
+	    	$('.error_source').hide();
 	        $('.error_destination').show();
 	        return false;
 	    }
 	    else if($('.source').val() == $('.destination').val()){
 	        $('.error_same').show();
+	        $('.error_destination').hide();
 	        return false;
 	    }
 	    else if($('.start_date').val() == ''){
 	        $('.error_start').show();
+	         $('.error_same').hide();
 	        return false;
 	    }
 	    else if($('#round').is(':checked')) {
@@ -480,13 +485,16 @@
 	    if($('.f_source').val() == '') {
 	        $('.f_error_source').show();
 	        return false;
+
 	    }
 	    else if($('.f_destination').val() == ''){
+	    	$('.f_error_source').hide();
 	        $('.f_error_destination').show();
 	        return false;
 	    }
 	    else if($('.f_source').val() == $('.f_destination').val()){
 	        $('.error_same').show();
+	        
 	        return false;
 	    }
 	    else if($('.f_start_date').val() == ''){

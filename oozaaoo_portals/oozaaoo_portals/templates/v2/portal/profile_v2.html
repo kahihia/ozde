@@ -197,15 +197,18 @@
                                 <input class="datepicker dob" data-date-format="yyyy/mm/dd" name="dob" type="text" placeholder="Date of Birth" value="" />
                                 <h5>Gender<span style="color:red">*</span></h5>
                                 <select name="Gender" class="fl" >
+
                                   <option value="male">Male</option>
                                   <option value="female">Female</option>
                                 </select>  
                                 <div class="clearfix"></div>
                                 <h5>Email<span style="color:red">*</span></h5>
+
                                 <input type="text" name="email" value="{{request.user.email}}"  class="fl" >
                                 <div class="clearfix"></div>
                                 <h5>Mobile No<span style="color:red">*</span></h5>
                                 <input type="text" name="mobile"  class="fl"><br/>
+
                                 <div class="clearfix"></div>
                                 <input type="submit" value="Update" class="btn btn-primary">
                                 </form>
