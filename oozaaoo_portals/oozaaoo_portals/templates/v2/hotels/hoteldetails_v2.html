@@ -260,22 +260,22 @@
                         <form name="probook" id="probook123" class="form-horizontal"
                         action="{% url "hotels.views.userdetails_v2" %}" method="post">
                             {% csrf_token %}
-                        	<div class="row">
+                        	<div>
 
                                 <p class="booking-item-header-price">
 
                                     <span class="text-lg mp"><sup><i class="fa fa-rupee"></i></sup></span>
                                     <small>Per Room Per Night</small>
                                 </p>
-                                <div class="input-daterange" data-date-format="M d, D">
+                                <div class="input-daterange hotel-daterange" data-date-format="M d, D">
                                 	<div class="col-md-12">
-                                        <div class="form-group form-group-md form-group-icon-left input-group">
+                                        <div class="form-group form-group-md form-group-icon-left input-group col-md-6">
                                             <input class="form-control startdate" id="datepicker9" name="start" type="text" placeholder="DD/MM/YYYY" value="{{request.COOKIES.checkin}}" />
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group form-group-md form-group-icon-left input-group">
+                                    <div class="col-md-12 hotel_todate">
+                                        <div class="form-group form-group-md form-group-icon-left input-group col-md-6">
                                             <input class="form-control enddate" id="datepicker10" name="end" type="text" placeholder="DD/MM/YYYY" value="{{ request.COOKIES.checkout}}" />
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
@@ -287,17 +287,17 @@
                                     </label>
                                 </div>
                                 <div class="col-md-12">
-                                    <select class="selectroomtypes">
+                                    <select class="selectroomtypes col-md-12">
                                         {% for room in hotels.rooms_data %}
                                             {% if room.rtc and room.rpc %}
                                                 <option data-rpc="{{room.rpc}}" data-rtc="{{room.rtc}}" data-mp="{{room.mp}}" data-tp="{{room.tp}}" data-ttc="{{room.ttc}}" data-tp_alltax="{{room.tp_alltax}}">{{room.room_info.type_name}}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
-                                    <h4 style="display:none" class="soldout">We are sold out</h4>
+                                    
                                 </div>
                                 <input type="hidden" name="joindata" value="{{request.COOKIES.joindata}}" id="joindata">
-                                <div class="col-md-12">
+                                <div class="col-md-12 detail_add_room">
                                     <div class="add_room_holder_modify">
                                                       <div class="clonedInput" id="clonedInput0">
                                                       <label>Rooms 1</label>
@@ -386,16 +386,18 @@
 
                                                     </div><!-- clone_add_room_act -->
                                                 </div>
+                                
+                                <div class="col-md-6">
+                                    <button type="button" id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act_modify fl detail_addroom add_hotelbtn" >ADD ROOMS</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act_modify fl" >ADD ROOMS</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="button" id="done"  class="btn btn-primary fl" >Done</button>
+                                    <button type="button" id="done"  class="btn btn-primary fl done_hotelbtn" >Done</button>
                                 </div>
 
-                            </div>
+                            </div> </div>
                         <span class="text-lg subtotal"></span>
+                        <span class="hotel_subtotal fl">subtotal</span>
+
                         <span class="text-lg totalprice"></span>
 
                         <input type="hidden" name="selectedrpc" id="selectedrpc" value="" />
@@ -415,8 +417,8 @@
                             <div class="col-md-12">
                                 <!--button type="submit" class="btn btn-primary">Book Now</button-->
 
-                                        <input type="submit" class="btn btn-primary for_buynow" value="Book Now"/>
-                                        <label class="btn btn-info for_soldout" style="display:none" />We are Sold out</label>
+                                        <input type="submit" class="btn btn-primary for_buynow hotel_booknow" value="Book Now"/>
+                                        <label class="btn btn-info for_soldout" style="display:none" />Rooms not available</label>
 
                             </div>
                         </div>

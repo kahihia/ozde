@@ -1513,3 +1513,17 @@ $('.datepicker').datepicker({
 $(".login").click(function(){
     $(".login_circle1_hover").show();
 });
+
+
+$(document).ready(function(){
+ $(".detail_add_room").hide();
+$(".details_rooms").click(function(){
+  $(".detail_add_room").toggle();
+  $(".done_hotelbtn").click(function(){
+  $(".detail_add_room").hide();
+});
+});
+});
+
+
+

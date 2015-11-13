@@ -558,8 +558,8 @@
 					else{
 						$('.selectroomtypes').hide();
 						$('.soldout').show();
-						$('.mp').html('We are sold out');
-						$('.subtotal').html('We are sold out');
+						$('.mp').html('Rooms not available');
+						$('.subtotal').html('Rooms not available');
 					}
 
 
