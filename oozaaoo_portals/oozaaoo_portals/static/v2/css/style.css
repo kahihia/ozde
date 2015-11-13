@@ -585,12 +585,14 @@
   right:0px;
   width: 354px;
   z-index: 2000;
+  height: 365px;
 }
 .on_scroll_pos {
     position: fixed;
     right: 177px;
     top: 92px;
-    width: 354px;
+    width: 360px;
+    height: 365px;
 }
 .add_room_holder_modify {
     max-height: 200px;
@@ -1352,6 +1354,8 @@ td.today.disabled:hover{
 .details_rooms{
   border: 1px solid #b7b7d0;
   padding: 10px;
+  position: relative;
+    top: -80px;
 }
 .aboutus p{
   padding: 10px 10px 0px 10px;
@@ -1583,7 +1587,60 @@ td.today.disabled:hover{
     margin: -426px 0 0;
     position: relative;
     width: 100%;
+
 }
 #datepicker5{
     width:335px !important;
+}
+}
+.detail_add_room {
+    background-color: white;
+    position: absolute;
+    top: 214px;
+    z-index: 9999;
+    width:100%;
+    left: 0;
+}
+.hotel-daterange {
+    left: 16px;
+    position: relative;
+}
+.text-lg {
+  font-size: 20px !important;
+}
+.hotel_todate {
+    left: 165px;
+    position: relative;
+    top: -68px;
+}
+.selectroomtypes {
+    height: 45px;
+    position: relative;
+    top: -80px;
+}
+.detail_addroom {
+    padding: 10px;
+}
+sup{
+  top:0px !important;
+}
+.subtotal {
+    position: relative;
+    top: -66px;
+  }
+  .hotel_booknow {
+    float: right;
+    position: relative;
+    top: -80px;
+     right: 18px;
+}
+.add_hotelbtn,.done_hotelbtn {
+    margin: 18px 0 0;
+}
+.hotel_subtotal{
+   position: relative;
+    top: -66px;
+}
+.table-condensed {
+    width: 305px;
 }
