@@ -1498,3 +1498,15 @@ $( "#datepicker9" ).datepicker({
     orientation: "bottom auto",
     autoclose: true,
 });
+
+$('.datepicker').datepicker({
+    format: 'yyyy/mm/dd',
+    startDate: '-3d'
+});
+
+
+ $(".login_circle1_hover, .login_circle2_hover, .login_circle3_hover").hide();
+
+$(".login").click(function(){
+    $(".login_circle1_hover").show();
+});

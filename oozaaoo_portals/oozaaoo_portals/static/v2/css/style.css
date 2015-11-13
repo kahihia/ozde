@@ -515,10 +515,10 @@
 {
   color:#DC0101 !important;
 }
-.room-details
+/*.room-details
 {
   float:left;
-}
+}*/
 .room-details p.room-price
 {
   background:#E9E9E9;
@@ -536,11 +536,15 @@
 }
 .room-price-bg
 {
-  float:right;
+  margin-left:15px;
+  position: relative;
+  text-align: left;
+  top: 9px;
+  min-height: 310px;
 }
 .min-height120
 {
-  min-height:120px !important;
+   min-height:342px !important;
 }
 .padding515
 {
@@ -549,6 +553,7 @@
 .panel-lightpurple
 {
   border-color:#ddd !important;
+  margin-top: -60px;
 }
 .panel-lightpurple>.panel-heading
 {
@@ -575,35 +580,38 @@
 }
 .hotel-details-rightside
 {
-
   position:relative;
-  top:-67px;
+  top:0px;
   right:0px;
+  width: 354px;
   z-index: 2000;
 }
 .on_scroll_pos {
-  position: fixed;
-  right: 202px;
-  top: 20px;
-   width: 375px;
+    position: fixed;
+    right: 177px;
+    top: 92px;
+    width: 354px;
 }
-
+.add_room_holder_modify {
+    max-height: 200px;
+    overflow-x: hidden;
+}
 .hotel-details-rightside button
 {
   width:100%;
 }
 .hotel-details-rightside .col-md-5,.hotel-details-rightside .col-md-2,.hotel-details-rightside .col-md-12
 {
-  padding:10px 7px !important;
+  padding:5px 4px !important;
 }
 .rooms-list .panel
 {
   max-height:120px !important;
 }
-.room-price-bg
+/*.room-price-bg
 {
   margin-left:15px;
-}
+}*/
 .bg-white
 {
   background:#ffffff;
@@ -838,6 +846,7 @@ textarea.form-control
 {
   margin:3px !important;
   padding:15px 20px !important;
+  float: right;
 }
 .noborder
 {
@@ -1195,7 +1204,7 @@ textarea.form-control
   margin:10px 0px 0px 0px;
 }
 .add_room_holder { margin:0px 0px 10px 0px; }
-.add_btn { margin:0px 10px 0px 0px; }
+.add_btn { margin:0px 10px 0px 0px;}
 #searchbus_return { margin:10px 0px 0px 0px; }
 .bus_search select.form-control, .hotel_search select.form-control,.flight_search select.form-control { padding:0px !important; height:auto !important;}
 
@@ -1311,7 +1320,7 @@ td.today.disabled:hover{
   top:0px !important;
 }
 .dob{
-  width: 100%;
+ padding: 0px !important;
 }
 /*************************** Tool Tip ***********************************/
 .tooltip {
@@ -1352,21 +1361,51 @@ td.today.disabled:hover{
     padding: 15px;
 }
 
-.menus{
-    background: #1a7298 none repeat scroll 0 0;
-    border-radius: 24px;
+.menus {
+    display: inline-flex;
     float: right;
     position: relative;
-    top: 75px;
+    top: 60px;
     z-index: 9999;
 }
 .menus span{
   color: #fff !important;
   padding: 5px;
 }
-.menus span a{
-  text-decoration: none;
-  color: #fff !important;
+.menus span a {
+    color: #fff !important;
+    padding: 11px 2px 10px 20px;
+    position: relative;
+    text-decoration: none;
+}
+.login_circle {
+    background-color: white;
+    border-radius: 15px;
+    position: absolute;
+    top: 10px;
+}
+.menus a:hover {
+    color: #093040 !important;
+}
+.menus > span:hover {
+    background-color: white;
+    border-radius: 20px;
+}
+.login_circle1_hover {
+    background-color: #065e84;
+    left: 10px;
+    position: absolute;
+}
+.login_circle2_hover{
+   background-color: #065e84;
+    left: 80px;
+    position: absolute;
+}
+.login_circle3_hover{
+   background-color: #065e84;
+    left: 165px;
+    position: absolute;
+
 }
 /* flight styles*/
 .traveller  select{
@@ -1526,5 +1565,21 @@ td.today.disabled:hover{
 }
 .hotel-details-rightside .booking-item-header-price small {
   font-size: 13px;
-  display:block;
+  /*display:block;*/
+}
+#wait{
+  text-align: center;
+}
+.affix {
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+#settings {
+    float: left;
+    margin: -426px 0 0;
+    position: relative;
+    width: 100%;
 }
