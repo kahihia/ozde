@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+ {% load static from staticfiles %}
 {% load i18n %}
 <!doctype html>
 <html>
@@ -72,7 +72,7 @@
                                 <p><i class="fa fa-check"></i> {{no_night}} nights<br/><span class="left10">({{change_datefmt_checkin}} - {{change_datefmt_checkout}})</span></p>
                                 <a href="{% url "hotels.views.home_v2" %}"><button class="btn btn-primary borderradious3">Change Search</button></a>
                             </div>
-                            <h5> Search</h5>
+                            <h5 class="bold"> Search</h5>
                             <input type="text" id="search_box" class="searchbox" placeholder="Taj hotel" />
                             <hr/>
                             <a role="button" data-toggle="collapse" href="#collapse-price-range" aria-expanded="true" aria-controls="collapseOne">

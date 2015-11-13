@@ -43,24 +43,7 @@
                 <div class="clear_both"></div>
             </div>
              <div class="col-md-5">
-                <!--    <div class="row">
-                        <div class="col-md-3 marginbottom10">
-                              <ul class="nav navbar-nav pull-right">
-                                <li class="dropdown">
-                                    <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
-                                    <ul class="dropdown-menu" aria-labelledby="themes">
-                                      <li><a href="#">Flights</a></li>
-                                      <li><a href="#">Cars</a></li>
-                                     </ul>
-                                </li>
-                              </ul>
-                        </div>
-                        <div class="col-md-7">
-                             <div class="input-group">
-                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" />
-                            </div>
-                        </div>
-                    </div>-->
+
             </div>
             <div class="col-md-4 bottom10 right0">
            {% if request.user.is_authenticated %}
@@ -97,12 +80,11 @@
                     </p>
                     <br>
                    	<p>
-                    <!-- <span class="wifi_white"></span>
-
-                    <span class="cutlury_white"></span> -->
 
 
-                    <!-- {{hotels.facilities}} -->
+
+
+                    <!-- hotels.facilities -->
                     {% for fm1 in hotels.facilities %}
                     {% if fm1 == 'Free Internet' %}
                     <span class="wifi_white"></span>
@@ -149,10 +131,7 @@
                         {% endif %}
 
                 </div>
-                 <!--div class="reviews">
-                	<a href="#"><i class="ion ion-ios-heart-outline"></i> Shortlist</a>
-                    <a href="#"><i class="ion ion-ios-paper-outline"></i> Reviews</a>
-                </div-->
+
             </div>
 
         </div>
@@ -179,10 +158,7 @@
                                             <h4 class="nomargin">
                                             <a href="#">{{room.room_info.type_name}}
                                             </a>
-                                            <!--span class="text-muted size12 red bold">1 Rooms left</span-->
                                             </h4>
-                                            <!--p class="room-price">                                                <i class="fa fa-rupee"></i> {{room.op}} per room per night
-                                            </p-->
 
 
                                             <p class="light-purple nomargin">
@@ -270,61 +246,6 @@
                         </tr>
 
                     </table>
-                    <!-- <h4>Reviews and Rating</h4>
-                    <table class="table bg-white">
-                    	<tr>
-                        	<td>
-                            	By Amul.r<br/>
-                                on 10 July,2015<br/>
-                             	<i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>
-                            </td>
-                            <td>
-                            	Except frequent power cut it was good. They had restrictions in swimming pool for dress and timings. Overall it was very good best to enjoy with couples. Food was good. Complementary cake was provided. Located before Pondicherry. Must try enjoy thanks to MakeMytrip.
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td>
-                            	By Saravanan <br/> on 10 July,2015<br/>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>
-                                <i class="fa fa-star grey"></i>
-                                <i class="fa fa-star grey"></i>
-                                <i class="fa fa-star grey"></i>
-                            </td>
-                            <td>Service very bad, rooms not clean, basic requirements not fulfilled. A/C not working properly, food quality not nice veg & non veg dishes together. Other guest use the same hand they eat to take further food Termite treatment not done please avoid.
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td>
-                            	By Alan<br> on 10 July,2015<br/>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>
-                            </td>
-                            <td>Had travelled with family and friends. Awesome place. Wonderfully maintained swimming pool. AC not good at activity centre. Food was not much option for a simple vegetarian dinner. Had to go for buffet. Very cordial and friendly staff. Unfortunately nightclub was below our room. So was disturbing till it ended.
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td>By Hadley<br/>on 10 July,2015<br/>
-                            <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>
-                            </td>
-                            <td>Well located, about 10 KMs from Pondicherry. Large property with good features to keep everyone busy. Close proximity to the beach, though no direct access to it. The property is well maintained and rooms are spacious and provide enough privacy. However, service was all throughout poor right from the reception, </td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                            <td class="text-right"><a href="#">Show more</a></td>
-                        </tr>
-                    </table> -->
 
                     </div>
                 <div class="col-md-4">
@@ -494,8 +415,7 @@
                             <div class="col-md-12">
                                 <!--button type="submit" class="btn btn-primary">Book Now</button-->
 
-                                        <input type="submit" class="btn btn-primary for_buynow" value="Buynow"/>
-
+                                        <input type="submit" class="btn btn-primary for_buynow" value="Book Now"/>
                                         <label class="btn btn-info for_soldout" style="display:none" />We are Sold out</label>
 
                             </div>

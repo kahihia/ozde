@@ -17,7 +17,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'social_auth',
+	# 'social_auth',
 	'hotels',
     'bus',
     'payu',
@@ -77,10 +77,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    'social_auth.context_processors.social_auth_by_name_backends',
-    'social_auth.context_processors.social_auth_backends',
-    'social_auth.context_processors.social_auth_by_type_backends',
-    'social_auth.context_processors.social_auth_login_redirect',
+    # 'social_auth.context_processors.social_auth_by_name_backends',
+    # 'social_auth.context_processors.social_auth_backends',
+    # 'social_auth.context_processors.social_auth_by_type_backends',
+    # 'social_auth.context_processors.social_auth_login_redirect',
 )
 
 AUTHENTICATION_BACKENDS = (
