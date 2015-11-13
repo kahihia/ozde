@@ -20,6 +20,8 @@
 			    orientation: "top left",
 			    autoclose: true,
 			    endDate: "+60d"
+			}).on('changeDate', function(ev){
+    			$('#datepicker1').datepicker('hide');
 			});
 			$( "#datepicker2" ).datepicker(
 				{
@@ -29,6 +31,8 @@
 			    orientation: "top left",
 			    autoclose: true,
 			    endDate: "+60d"
+			}).on('changeDate', function(ev){
+    			$('#datepicker2').datepicker('hide');
 			});
 			$( "#datepicker3" ).datepicker(
 				{
@@ -38,6 +42,8 @@
 			    orientation: "bottom auto",
 			    autoclose: true,
 			    endDate: "+60d"
+			}).on('changeDate', function(ev){
+    			$('#datepicker3').datepicker('hide');
 			});
 			$( "#datepicker4" ).datepicker(
 				{
@@ -47,32 +53,17 @@
 			    orientation: "bottom auto",
 			    autoclose: true,
 			    endDate: "+60d"
+			}).on('changeDate', function(ev){
+    			$('#datepicker4').datepicker('hide');
 			});
 			$( "#datepicker5" ).datepicker(
 				{
 				todayHighlight: true,
-			    format: 'yyyy-mm-dd',
+			    format: 'dd-mm-yyyy',
 			    orientation: "bottom auto",
 			    autoclose: true,
 			});
-			// $( "#datepicker7" ).datepicker({
-			// 	todayHighlight: true,
-			// 	startDate: today,
-			//     format: 'dd/mm/yyyy',
-			//     orientation: "bottom auto",
-			//     autoclose: true,
-			//     endDate: "+60d"
-			// });
-			// $( "#datepicker8" ).datepicker({
-			// 	todayHighlight: true,
-			// 	startDate: today,
-			//     format: 'dd/mm/yyyy',
-			//     orientation: "bottom auto",
-			//     autoclose: true,
-			//     endDate: "+60d"
-			// });
 
-			// EndDate should change to oneday greater than Selected Startdate
 			var checkin = $('#datepicker7').datepicker({
 				format: 'dd/mm/yyyy',
 				orientation: "bottom auto",
@@ -587,7 +578,7 @@
 	    }
 	    else if($('.f_source').val() == $('.f_destination').val()){
 	        $('.error_same').show();
-	        
+
 	        return false;
 	    }
 	    else if($('.f_start_date').val() == ''){

@@ -1584,3 +1584,6 @@ td.today.disabled:hover{
     position: relative;
     width: 100%;
 }
+#datepicker5{
+    width:335px !important;
+}

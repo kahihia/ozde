@@ -37,7 +37,6 @@ from transaction.models import *
 from django.contrib import messages
 import datetime
 import logging
-# logger = logging.getLogger(__name__)
 from django.core.cache import cache
 
 
@@ -57,7 +56,6 @@ def registration_v2(request):
 	"""
 	User Registration
 	"""
-
 	try:
 		logout(request)
 		message = None
@@ -72,20 +70,15 @@ def registration_v2(request):
 			email=request.POST['email']
 			password=request.POST['password']
 			phone=request.POST['phone']
-			dob=request.POST['dob']
+			dob = request.POST['dob']
 			next_path=request.POST['next']
 			user.is_active = True
 			user.username=username
-			print user.username
 			user.email=email
-			print user.email
 			user.password=password
 			user.set_password(user.password)
 			user.first_name=username
 			user.save()
-			print "save"
-			print "enterin mail"
-			print "user.email",user.email
 			send_templated_mail(
 					template_name='welcome',
 					from_email='testmail123sample@gmail.com',
@@ -93,23 +86,12 @@ def registration_v2(request):
 					context=({
 						'username': user.username,
 						'name': user.username}))
-			print "mailsend"
 			userprofile.user=user
 			userprofile.phone=phone
 			userprofile.dateofbirth=dob
 			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
 			p.save()
 			message = "You have successfully completed registration."
-			# print "enterin mail"
-			# print "user.email",user.email
-			# send_templated_mail(
-			# 		template_name='welcome',
-			# 		from_email='testmail123sample@gmail.com',
-			# 		recipient_list=[user.email],
-			# 		context=({
-			# 			'username': user.username,
-			# 			'name': user.username}))
-			# print "mailsend"
 			if request.POST['next']:
 				messages.add_message(request, messages.INFO,message)
 				return HttpResponseRedirect(request.POST["next"])
@@ -120,59 +102,6 @@ def registration_v2(request):
 
 	except:
 		return render_to_response('v2/portal/signup_v2.html',
-								  context_instance=RequestContext(request))
-	# return render_to_response("v2/portal/signup_v2.html", context_instance=RequestContext(request))
-
-def registration(request):
-	"""
-	User Registration
-	"""
-
-	try:
-		logout(request)
-		message = None
-		user=User()
-		userprofile=UserProfile()
-		email=request.POST['email']
-		if User.objects.filter(email=email).exists():
-			messages.add_message(request, messages.INFO,'Email already exists')
-			return HttpResponseRedirect(format_redirect_url("/register", 'error=57'))
-		elif request.method == 'POST':
-
-			username=request.POST['username']
-			print 'username', username
-			email=request.POST['email']
-			print email
-			password=request.POST['password']
-			phone=request.POST['phone']
-			dob=request.POST['dob']
-			user.is_active = True
-			user.username=username
-			user.email=email
-
-			user.password=password
-			user.set_password(user.password)
-			user.first_name=username
-			user.save()
-			userprofile.user=user
-			userprofile.phone=phone
-			userprofile.dateofbirth=dob
-			p = UserProfile(user=user, phone=userprofile.phone, dateofbirth=userprofile.dateofbirth)
-			p.save()
-			message = "You have successfully completed registration."
-			send_templated_mail(
-					template_name='welcome',
-					from_email='testmail123sample@gmail.com',
-					recipient_list=user.email,
-					context={
-						'username': user.email,
-						'name': user.first_name,})
-
-
-		return render_to_response('login-register.html', {'message': "You have successfully completed registration."},
-							  context_instance=RequestContext(request))
-	except:
-		return render_to_response('login-register.html',
 								  context_instance=RequestContext(request))
 
 from django.contrib.auth import authenticate, login, logout
@@ -246,16 +175,14 @@ def logout_view_v2(request):
 
 def myprofile(request):
 	user = request.user
-	print user
+
 	userprofile=UserProfile.objects.get(user_id=user.id)
-	print userprofile
+
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
 def mybooking(request):
 	user = request.user
-	print user.id
 	userprofile=UserProfile.objects.get(user_id=user.id)
-	print userprofile.id,"userprofile"
 	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
 
 	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))

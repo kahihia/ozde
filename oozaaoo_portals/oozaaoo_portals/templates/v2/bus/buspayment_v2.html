@@ -11,24 +11,6 @@
                 <div class="clear_both"></div>
             </div>
              <div class="col-md-5">
-                <!--    <div class="row">
-                        <div class="col-md-3 marginbottom10">
-                              <ul class="nav navbar-nav pull-right">
-                                <li class="dropdown">
-                                    <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
-                                    <ul class="dropdown-menu" aria-labelledby="themes">
-                                      <li><a href="#">Flights</a></li>
-                                      <li><a href="#">Cars</a></li>
-                                     </ul>
-                                </li>
-                              </ul>
-                        </div>
-                        <div class="col-md-7">
-                             <div class="input-group">
-                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" />
-                            </div>
-                        </div>
-                    </div>-->
             </div>
             <div class="col-md-4 bottom10 right0">
             {% if request.user.is_authenticated %}
@@ -135,7 +117,7 @@
                         <hr/>
                         <div class="row">
                             <div class="col-md-4 pull-right">
-                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amt}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amt}}</span></h4>
 
                             </div>
                         </div>
@@ -164,7 +146,7 @@
                         <hr/>
                         <div class="row">
                             <div class="col-md-4 pull-right">
-                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amount}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{total_amount}}</span></h4>
 
                             </div>
                         </div>
