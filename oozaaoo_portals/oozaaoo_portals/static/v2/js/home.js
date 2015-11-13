@@ -98,8 +98,40 @@
 				}).on('changeDate', function(ev) {
 					checkout.hide();
 				}).data('datepicker');
-	});
 
+
+
+	});
+	jQuery(function($) {
+		"use strict";
+		var nowDate = new Date();
+		var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0)
+		var checkin = $('#datepicker9').datepicker({
+			format: 'dd/mm/yyyy',
+			orientation: "bottom auto",
+			onRender: function(date) {
+				return date.valueOf() < today.valueOf() ? 'disabled' : '';
+			}
+			}).on('changeDate', function(ev) {
+				if (ev.date.valueOf() > checkout.date.valueOf() || ev.date.valueOf() < checkout.date.valueOf()) {
+					var newDate = new Date(ev.date)
+					newDate.setDate(newDate.getDate() + 1);
+					checkout.setValue(newDate);
+				}
+				checkin.hide();
+				$('#datepicker10')[0].focus();
+			}).data('datepicker');
+
+		var checkout = $('#datepicker10').datepicker({
+			format: 'dd/mm/yyyy',
+			orientation: "bottom auto",
+			onRender: function(date) {
+				return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+			}
+			}).on('changeDate', function(ev) {
+				checkout.hide();
+			}).data('datepicker');
+	});
  	$(document).on('change', '.child_age_act', function() {
           if($(this).val() == 0 ) {
                $(this).parent().parent().siblings(".child-1-act").hide();
@@ -466,9 +498,70 @@
 		var childage2_3=$('#childage2_3').val()==null?0:$('#childage2_3').val();
 		var childage1_4=$('#childage1_4').val()==null?0:$('#childage1_4').val();
 		var childage2_4=$('#childage2_4').val()==null?0:$('#childage2_4').val();
+		var modified_s_date = $('#datepicker9').val();
+		split_s_date = modified_s_date.split('/');
+		var modified_e_date = $('#datepicker10').val();
+		split_e_date = modified_e_date.split('/');
+		var joindata = $('#joindata').val();
+		var spilt = joindata.split('-');
 		var no_of_rooms=parseInt(room1)+parseInt(room2)+parseInt(room3)+parseInt(room4);
+		if(no_of_rooms == '1'){
+			var modified_joindata = spilt[0]+'-'+split_s_date[2]+split_s_date[1]+split_s_date[0]+'-'+split_e_date[2]+split_e_date[1]+split_e_date[0]+'-'+no_of_rooms+'-'+adults1+'_'+childs1+'_'+childage1_1+'_'+childage2_1;
+		}
+		else if(no_of_rooms == '2'){
+			var modified_joindata = spilt[0]+'-'+split_s_date[2]+split_s_date[1]+split_s_date[0]+'-'+split_e_date[2]+split_e_date[1]+split_e_date[0]+'-'+no_of_rooms+'-'+adults1+'_'+childs1+'_'+childage1_1+'_'+childage2_1+'-'+adults2+'_'+childs2+'_'+childage1_2+'_'+childage2_2;
+		}
+		else if(no_of_rooms == '3') {
+			var modified_joindata = spilt[0]+'-'+split_s_date[2]+split_s_date[1]+split_s_date[0]+'-'+split_e_date[2]+split_e_date[1]+split_e_date[0]+'-'+no_of_rooms+'-'+adults1+'_'+childs1+'_'+childage1_1+'_'+childage2_1+'-'+adults2+'_'+childs2+'_'+childage1_2+'_'+childage2_2+'-'+adults3+'_'+childs3+'_'+childage1_3+'_'+childage2_3;
+		}
+		else {
+			var modified_joindata = spilt[0]+'-'+split_s_date[2]+split_s_date[1]+split_s_date[0]+'-'+split_e_date[2]+split_e_date[1]+split_e_date[0]+'-'+no_of_rooms+'-'+adults1+'_'+childs1+'_'+childage1_1+'_'+childage2_1+'-'+adults2+'_'+childs2+'_'+childage1_2+'_'+childage2_2+'-'+adults3+'_'+childs3+'_'+childage1_3+'_'+childage2_3+'-'+adults4+'_'+childs4+'_'+childage1_4+'_'+childage2_4;
+		}
 		var guest=parseInt(adults1)+parseInt(childs1)+parseInt(adults2)+parseInt(childs2)+parseInt(adults3)+parseInt(childs3)+parseInt(adults4)+parseInt(childs4);
 		$('.details_rooms').text(no_of_rooms+'Rooms/'+guest+'Guest');
+		alert(modified_joindata);
+		$.ajax({
+			  url: '/v2/gethoteldetails/',
+			  type: 'post',
+			  dataType: 'json',
+			  data: {"joindata":modified_joindata},
+			  success: function (data) {
+				 alert(JSON.stringify(data.rooms_data));
+				 alert(JSON.stringify('roomscount'+data.rooms_data.length));
+				  if(data.rooms_data.length > 0 ){
+					  alert('yes');
+					  $('.selectroomtypes').show();
+					  $('.soldout').hide();
+					  $('.selectroomtypes').empty();
+					  for(var i=0;i<data.rooms_data.length;i++){
+						  if(data.rooms_data[i].room_info.type_name){
+						  //alert(data.rooms_data[i].mp);
+						  $('.selectroomtypes').append('<option data-rpc='+data.rooms_data[i].rpc+' data-rtc='+data.rooms_data[i].rtc+' data-mp='+data.rooms_data[i].mp+' data-tp='+data.rooms_data[i].tp+' data-ttc='+data.rooms_data[i].ttc+' data-tp_alltax='+data.rooms_data[i].tp_alltax+'>'+data.rooms_data[i].room_info.type_name+'</option>');
+					  		}
+				  		}
+						$('#joindata').val(modified_joindata);
+						$('#selectedrpc').val(data.rooms_data[0].rpc);
+						$('#selectedrtc').val(data.rooms_data[0].rtc);
+						$('#mp').val(data.rooms_data[0].mp);
+						$('#totalprice').val(data.rooms_data[0].tp);
+						$('#totaltax').val(data.rooms_data[0].ttc);
+						$('#totalprice_wt').val(data.rooms_data[0].tp_alltax);
+						$('#roomname').val(data.rooms_data[0].room_info.type_name);
+						$('.mp').html(data.rooms_data[0].mp);
+					    $('.subtotal').html(data.rooms_data[0].tp);
+			  		}
+					else{
+						$('.selectroomtypes').hide();
+						$('.soldout').show();
+						$('.mp').html('We are sold out');
+						$('.subtotal').html('We are sold out');
+					}
+
+
+			  },
+
+		});
+
 
 	});
 	// ============== For flight home page validation ============== //

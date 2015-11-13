@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Search Result</title>
 <meta name="keywords" content="Pondicherry Hotels" />
 <meta name="description" content="The Search results for pondicherry hotels." />
@@ -16,14 +16,14 @@
 <link rel="stylesheet" href="{% static "v2/css/ionicons.min.css" %}">
 <link rel="stylesheet" href="{% static "v2/css/jquery-ui.css" %}">
 <link rel="stylesheet" href="{% static "v2/css/bootstrap-datepicker.css" %}">
-<link rel="stylesheet" href="{% static "v2/css/materialdesignicons.css" %}"> 
+<link rel="stylesheet" href="{% static "v2/css/materialdesignicons.css" %}">
 <link rel="stylesheet" href="{% static "v2/css/tipsy.css" %}">
 
 <script src="{% static "v2/js/jquery-1.9.1.js" %}"></script>
 <script src="{% static "v2/js/tooltip.js" %}"></script>
 <script src="{% static "v2/js/nicescroll.js" %}"></script>
 <script src="{% static "v2/js/jquery-ui.min.js" %}"></script>
-<script src="{% static "v2/js/jquery.ui.slider.js" %}"></script>  
+<script src="{% static "v2/js/jquery.ui.slider.js" %}"></script>
 <script src="{% static "v2/js/bootstrap-datepicker.js" %}"></script>
 <script src="{% static "v2/js/bootstrap-timepicker.js" %}"></script>
 <script src="{% static "v2/js/filter.js" %}"></script>
@@ -40,14 +40,14 @@
                     <a class="logo" href="/" title="="oozaaoo></a>
                     <div class="clear_both"></div>
                 </div>
-                <div class="col-md-5"> </div> 
+                <div class="col-md-5"> </div>
                 <div class="col-md-4 bottom10 right0">
                     {% if request.user.is_authenticated %}
                         <div class="top-user-area clearfix">
                             <a href="/">{{request.user.first_name}}</a>
                             <a href="/v2/logout/">Logout</a>
                             <a href="/v2/profile">Myprofile</a>
-                            
+
                         </div>
                     {% else %}
                         <div class="top-user-area clearfix">
@@ -59,104 +59,6 @@
             </div>
         </div>
     </section>
-<!--     <section>
-    	<div class="panel panel-default borderleftright0">
-        	<div class="panel-body">
-            	<div class="col-md-2">
-                	<input class="typeahead form-control" placeholder="select your city" type="text" id="filterkeywordtxt" value=""  />
-                    <div class="error_mgs_city" style="display:none; color:red;">Enter the Destination</div>
-                    <input class="typeahead form-control" type="hidden" id="filterkeyword" value="" name="filterkeyword" />
-                </div>
-                <div class="input-daterange" data-date-format="M d, D">
-                    <div class="col-md-2">
-                    	<input class="form-control startdate" id="datepicker1" name="start" type="text" placeholder="DD/MM/YYYY" value="" />
-                        <div class="error_mgs_start_date" style="display:none; color:red;">Enter the Check in date</div>
-                    </div>
-                    <div class="col-md-2">
-                    	<input class="form-control enddate " id="datepicker2" name="end" type="text" placeholder="DD/MM/YYYY" value="" />
-                        <div class="error_mgs_end_date" style="display:none; color:red;">Enter the Check out date</div>
-                        <div class="error_mgs_date" style="display:none; color:red;">Date format wrong</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="add_room_holder_search">
-                        <div class="clonedInput" id="clonedInput0">
-                            <input class="form-control hidden_input" name="room1" type="hidden" value="1" readonly="readonly" />
-                            <div class="fl add_room_fields add_room_fields_87 adults">
-                                <div class="form-group form-group-md form-group-select-plus">
-                                    <select class="form-control adults" name="adults1">  
-                                        <option value="1" >1 adult</option>
-                                        <option value="2" >2 adult</option>
-                                        <option value="3" >3 adult</option>
-                                        <option value="4" >4 adult</option>
-                                    </select>
-                                    <div class="error_mgs_adult" style="display:none; color:red;">Enter the no of adults</div>
-                                </div>
-                            </div><!--- Childs ->
-                            <div class="fl add_room_fields add_room_fields_87 childs">
-                                <div class="form-group form-group-md form-group-select-plus">
-                                    <select class="form-control child_age_act child" name="childs1"> 
-                                        <option value="0" >0</option>
-                                        <option value="1" >1</option>
-                                        <option value="2" >2</option>
-                                        
-                                    </select>
-                                    <div class="error_mgs_child" style="display:none; color:red;">Enter the child age</div>   
-                                </div>
-                            </div>
-                            <div class="fl add_room_fields child-1-act dn" id="test1">
-                                <div class="form-group form-group-md form-group-select-plus">
-                                    <select class="form-control child_age child_age_1" name="childage1_1">   
-                                        <option value="0" >0</option>
-                                        <option value="1" >1</option>
-                                        <option value="2" >2</option>
-                                        <option value="3" >3</option>
-                                        <option value="4" >4</option>
-                                        <option value="5" >5</option>
-                                        <option value="6" >6</option>
-                                        <option value="7" >7</option>
-                                        <option value="8" >8</option>
-                                        <option value="9" >9</option>
-                                        <option value="10" >10</option>
-                                        <option value="11" >11</option>
-                                        <option value="12" >12</option>
-                                    </select>
-                                    <div class="error_mgs_child_age1" style="display:none; color:red;">Enter the child 1 age</div>
-                                </div>
-                            </div>
-                            <div class="fl add_room_fields child-2-act dn">
-                                <div class="form-group form-group-md form-group-select-plus">                                  
-                                    <select class="form-control child_age child_age_2" name="childage2_1 "> 
-                                        <option value="0" >0</option>
-                                        <option value="1" >1</option>
-                                        <option value="2" >2</option>
-                                        <option value="3" >3</option>
-                                        <option value="4" >4</option>
-                                        <option value="5" >5</option>
-                                        <option value="6" >6</option>
-                                        <option value="7" >7</option>
-                                        <option value="8" >8</option>
-                                        <option value="9" >9</option>
-                                        <option value="10" >10</option>
-                                        <option value="11" >11</option>
-                                        <option value="12" >12</option>         
-                                    </select>
-                                    <div class="error_mgs_child_age2" style="display:none; color:red;">Enter the child age</div>
-                                </div>
-                            </div>
-                            <div class="fl add_room_fields remove_room_fields" style="display:none;"> </div><!- remove_room_fields ->
-                            <div class="clear_both"> </div>
-                            <div class="clear_both"> </div>
-                        </div><!- clone_add_room_act ->
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act_search fl" >ADD ROOMS</button> 
-                	<button class="btn btn-primary btn-sm" type="submit" id="searchbus_return">Search Hotel</button>
-                </div>
-            </div>
-        </div>	
-    </section> -->
     <section class="search-result-section">
     	<div class="container">
         	<div class="row">
@@ -180,8 +82,8 @@
                             <div id="collapse-price-range" class="panel-collapse collapse in" role="tabpanel">
                             	<label class="pull-left price_range_label_min">Rs. 1000</label>
                                 <label class="pull-right price_range_label_max">Rs. 9999</label>
-                                <div class="clearfix"></div>              
-                                <p>                                 
+                                <div class="clearfix"></div>
+                                <p>
                                   <input type="hidden" id="amount" style="border:0; color:#f6931f; font-weight:bold;background:none;" />
                                   <input type="hidden" id="amount_min" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="500" name="amount_min" />
                                   <input type="hidden" id="amount_max" style="border:0; color:#f6931f; font-weight:bold;background:none;" value="10000" name="amount_max" />
@@ -190,7 +92,7 @@
                                 <div id="price_slider" style="width:220px"></div>
                                 <input type="hidden" id="price_filter" value="1000-9999" />
                             </div>
-                            <hr />	
+                            <hr />
                             <a role="button" data-toggle="collapse" href="#collapse-star-rating" aria-expanded="true" aria-controls="collapseOne">
                                 <h5 class="bold"> Star rating <i class="fa fa-caret-down pull-left"></i></h5>
                                 <div class="clearfix"></div>
@@ -214,11 +116,11 @@
                                     </li>
                             	</ul>
                             </div>
-                            <hr />	
+                            <hr />
                             <a role="button" data-toggle="collapse" href="#location_collapse" aria-expanded="true" aria-controls="collapseOne">
                                 <h5 class="bold"><i class="fa fa-caret-down pull-left"></i> Location</h5>
                                 <div class="clearfix"></div>
-                            </a>                            
+                            </a>
                             <div id="location_collapse" class="panel-collapse collapse in" role="tabpanel">
                                 <ul id="location" >
                                     {% for location in locations %}
@@ -231,7 +133,7 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-                            </div>                       
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,11 +154,11 @@
                     </div>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade" id="price">
-                        	<div class="hotel-list-vertical"> 
+                        	<div class="hotel-list-vertical">
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="stars">
-                        	<div class="hotel-list-vertical">     
+                        	<div class="hotel-list-vertical">
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade in active" id="recommended">
@@ -276,24 +178,25 @@
         <script>
             var services = [
             {% for hotel in hotels%}
-                {%if hotel.ibp%} 
-                    {
+            {% if hotel.ibp %}
+
+                {
                     "image":"{{hotel.t}}",
                     "hotelname": "{{hotel.hn}}",
                     "starcount":"{{hotel.hr}}",
                     {% if hotel.hr == 1 %}
-                     "star":"<i class='fa fa-star star-yellow'></i>",
+                     "stars":"<i class='fa fa-star star-yellow'></i>",
                     {% elif hotel.hr == 2 %}
-                     "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
                     {% elif hotel.hr == 3 %}
-                     "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
                     {% elif hotel.hr == 4 %}
-                     "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
                     {% elif hotel.hr == 5 %}
-                     "star":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
                     {% endif %}
                     "title": "{{hotel.hn}}",
-                    "amount": "{{hotel.mp}}",                                            
+                    "amount": "{{hotel.mp}}",
                     "facility":"{% for fm1 in hotel.fm %}{% if fm1 == 'Free Internet' %}<i class='wifi'></i>{% elif fm1 == 'Laundry Service' %}<i class='room-serve'></i>{% elif fm1 == 'Room Service' %}<i class='room-serve'></i>{% elif fm1 == 'Swimming Pool' %}<i class='swimming'></i>{% elif fm1 == 'Restaurant/Coffee Shop' %}<i class='rest-chair'></i>{% endif %}{% endfor %}",
                     "location": "{{hotel.l}}",
                     "goibiborating":"{{hotel.gr}}",
@@ -302,24 +205,24 @@
                     "ibp":"{{hotel.ibp}}",
                     "fwdp":"{{hotel.fwdp}}"
                 },
-                {%endif%}
+            {% endif %}
             {% endfor %}
-            ];        
+            ];
         </script>
-        <div class="clear"></div>    
+        <div class="clear"></div>
         <script id="template" type="text/html">
-            <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails" class="sorthotellist" target="_blank">{% csrf_token %}                        
+            <form name="hoteldetails" action ="{% url "hotels.views.gethoteldetails_v2" %}" method="POST" id="hoteldetails" class="sorthotellist" target="_blank">{% csrf_token %}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-3">    
+                            <div class="col-md-3">
                                 <div class="list_hotel_img_holder">
                                     <img src="<%= image %>" alt="Image Alternative text" title="<%= hotelname %>" />
                                 </div>
-                            </div>              
+                            </div>
                             <div class="col-md-7 nopaddingleft">
-                                <a href="{% url "hotels.views.gethoteldetails_v2" %}">                                    
-                                    <h4 class="text-left nomargin sort_recommended"><%=hotelname%>&nbsp;<%= star %>
+                                <a href="{% url "hotels.views.gethoteldetails_v2" %}">
+                                    <h4 class="text-left nomargin sort_recommended"><%=hotelname%>&nbsp;<%= stars %>
                                     </h4>
                                 </a>
                                 <p class="text-muted"><%= location %></p>
@@ -337,13 +240,11 @@
                                 </h3>
                                 <span class="pull-right text-muted span12"> avg/night</span>
                                 <div class="clearfix"></div><br>
-                                
-                                <div class="text-right">                                              
+
+                                <div class="text-right">
                                 <input type="submit" name="moredetails" value="Reserve"
-                                   class="btn btn-warning custom_tooltip" id="more" title="More details about the hotel" />          
+                                   class="btn custom_tooltip" id="more" title="More details about the hotel" style="background:#ff7518" />
                                 </div>
-                            </div>
-                            <div class="col-md-12 text-right"> Free Cancellation upto 24 hours
                             </div>
 
                                         </div>
@@ -355,9 +256,9 @@
                                     <input type="hidden" name="fwdp" id="fwdp" value="<%= fwdp %>" />
                                     </form>
         </script>
-        <div class="container">   
+        <div class="container">
           <div class="row">
-                <div id="menu" class="col-md-12">     
+                <div id="menu" class="col-md-12">
                   <ul class="fl">
                       <li><a href="/v2/terms_and_condition/"><p class="text-muted">Terms and Conditions</p></a></li>
                       <li><a href="/v2/privacy/"><p class="text-muted">Customer Service</p></a></li>
@@ -370,7 +271,7 @@
                       <li class="text-right"><h2><a href="https://twitter.com/oozaaoo_leisure"><i class="fa fa-twitter text-muted"></i></a></h2></li>
                       <li class="text-right"><h2><a href="https://plus.google.com/u/0/b/103154497955824583810/103154497955824583810/about"><i class="fa fa-google-plus text-muted"></i></a></h2></li>
                   </ul>
-                  
+
               </div><div class="clear_both"></div>
               <div id="menu1" class="col-md-12">
                   <ul>
@@ -378,7 +279,7 @@
                   </ul>
               </div>
             </div>
-        </div>    
+        </div>
     </section>
     <script type="text/javascript" src="{% static "v2/js/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="{% static "v2/js/bootstrap-slider.js" %}"></script>

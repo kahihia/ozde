@@ -478,11 +478,10 @@ def gethotellist(request):
 
 
 def gethotellist_v2(request):
-	print "gethotellist_v2"
 	"""
 	Get the hotel list based on checkin and checkout values.
 	"""
-
+	from django.conf import settings
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 
 	try:
@@ -629,14 +628,17 @@ def gethotellist_v2(request):
 
 # def gethoteldetails_v2(request):
 #     return render_to_response("v2/hotels/hoteldetails_v2.html", context_instance=RequestContext(request))
-
+@csrf_exempt
 def gethoteldetails_v2(request):
 	"""
 	Get the hotel Details based on list IBP(v3, v6) and FWDP.
 
 	"""
+	from django.conf import settings
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 	joindata = request.COOKIES.get('joindata')
+	if request.is_ajax():
+		joindata = request.POST.get('joindata')
 	hc = request.POST.get('hc',request.COOKIES.get('hc'))
 	ibp = request.POST.get('ibp',request.COOKIES.get('ibp'))
 	fwdp =request.POST.get('fwdp',request.COOKIES.get('fwdp'))
@@ -662,6 +664,8 @@ def gethoteldetails_v2(request):
 				if k in hoteldetails:
 					_hotel[k] = v
 
+			if request.is_ajax():
+				return HttpResponse(simplejson.dumps(_hotel),mimetype='application/json')
 			# /** Hotel  Gallery Image */
 			_hotel['gallery']= gethoteldetailresponse['data']['gallery']
 

@@ -1288,6 +1288,7 @@ td.today.disabled:hover{
 
 .datepicker {
   padding: 10px !important;
+  z-index : 9999 !important;
 }
 .datepicker table tr td.today {
   background: #fff !important;

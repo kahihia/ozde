@@ -30,21 +30,9 @@ from payu.models import *
 
 class goibiboAPI(object):
 
-	# ''' Goibibo Py Client'''
-	# BASE = "http://pp.goibibobusiness.com/api/hotels/b2b/"
-	# BASE_BUS = "http://pp.goibibobusiness.com/api/bus/"
-
 	def __init__(self, username, password):
 		self.username = username
 		self.password = password
-
-	# def log_function(query, response):
-	# 	logging.basicConfig(filename='mysite.log', level=logging.INFO)
-	# 	logging.info("******************************************************************************************************")
-	# 	logging.info(datetime.datetime.now())
-	# 	logging.info(query)
-	# 	logging.info(response)
-	# 	logging.info("******************************************************************************************************")
 
 	def getHotelsByCity(self):
 		import requests

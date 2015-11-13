@@ -141,11 +141,11 @@ PAYU_INFO = {
              'curl':'http://localhost:8000/cancel/',
             }
 
-BUS_BASE="http://pp.goibibobusiness.com/api/bus/"
+BUS_BASE="https://www.goibibobusiness.com/api/bus/"
 
-HOTEL_BASE="http://pp.goibibobusiness.com/api/hotels/b2b/"
+HOTEL_BASE="https://www.goibibobusiness.com/api/hotels/b2b/"
 
-FLIGHT_BASE="http://pp.goibibobusiness.com/api/"
+FLIGHT_BASE="https://www.goibibobusiness.com/api/"
 
 API_USERNAME="itsupport@oozaaoo.com"
 

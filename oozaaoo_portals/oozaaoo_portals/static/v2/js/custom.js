@@ -396,7 +396,7 @@ $(document).ready(
 
     //   $('.mp').html($('#mp').val());
 
-      $('.mp').text($('#mp').val());
+      $('.mp').html('<sup><i class="fa fa-rupee"></i></sup>'+$('#mp').val());
       $('.subtotal').html($('#totalprice').val());
       $('#roomname').val($(this).find(':selected').text());
     })
@@ -1315,46 +1315,46 @@ $('#paynow').click(function(){
     }
 });
 
-// $('#payment').on('click', function() {
-//       // alert("enter");
-//
-//
-//     if($('#fname').val() == ''){
-//             // alert("please enter the last name");
-//             $('.errormgs').show();
-//           }
-//     else{
-//           $('.errormgs').hide();
-//     }
-//    if ($('.lname').val() == '') {
-//              $('.errormgs1').show();
-//     }
-//   else{
-//         $('.errormgs1').hide();
-//     }
-//   if ($('.age').val() == '') {
-//              $('.errormgs2').show();
-//    }
-//   else{
-//       $('.errormgs2').hide();
-//     }
-//   if ($('.mobileno').val() == '') {
-//              $('.errormgs4').show();
-//       }
-//   else{
-//       $('.errormgs4').hide();
-//     }
-//
-//   if ($('.email').val() == '') {
-//              $('.errormgs3').show();
-//   }
-//   else{
-//       $('.errormgs3').hide();
-//     }
-//   $('.payment').show();
-//
-//
-//   });
+$('#payment').on('click', function() {
+      // alert("enter");
+
+
+    if($('#fname').val() == ''){
+            // alert("please enter the last name");
+            $('.errormgs').show();
+          }
+    else{
+          $('.errormgs').hide();
+    }
+   if ($('.lname').val() == '') {
+             $('.errormgs1').show();
+    }
+  else{
+        $('.errormgs1').hide();
+    }
+  if ($('.age').val() == '') {
+             $('.errormgs2').show();
+   }
+  else{
+      $('.errormgs2').hide();
+    }
+  if ($('.mobileno').val() == '') {
+             $('.errormgs4').show();
+      }
+  else{
+      $('.errormgs4').hide();
+    }
+
+  if ($('.email').val() == '') {
+             $('.errormgs3').show();
+  }
+  else{
+      $('.errormgs3').hide();
+    }
+  $('.payment').show();
+
+
+  });
 
 
 
