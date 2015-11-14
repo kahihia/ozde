@@ -218,7 +218,7 @@ def flight_details(request):
 			messages.add_message(request, messages.INFO,'Check Your Internet Connection')
 			return HttpResponseRedirect(format_redirect_url("/SearchFlight", 'error=106'))
 
-			reprice_response = response.json()
+		reprice_response = response.json()
 		if not reprice_response['data'].has_key('Error'):
 			#return HttpResponse(simplejson.dumps(reprice_response),mimetype='application/json')
 			return render_to_response('v2/flight/flight_book.html',{'reprice':reprice_response,'onward':booking_data_onward,'return':booking_data_return,}, context_instance=RequestContext(request))

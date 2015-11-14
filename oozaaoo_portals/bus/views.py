@@ -73,7 +73,6 @@ def search_bus_v2(request):
 		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture, trip,dateofarrival)
 	else:
 		query,getbusresponse=GO.Searchbus(source, destination, dateofdeparture,trip)
-		print getbusresponse,"getbusresponse"
 	# try:
 
 	if 'data' in getbusresponse:
@@ -338,7 +337,6 @@ def seat_map(request):
 @csrf_exempt
 def seat_v2(request):
 	route_type=request.POST.get('route_type')
-	print 'route_type',route_type
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
 	arri_time_oneway=request.POST.get('arri_time',request.COOKIES.get('arri_time_oneway'))
 	dept_time_oneway=request.POST.get('dept_time',request.COOKIES.get('dept_time_oneway'))
@@ -363,34 +361,24 @@ def seat_v2(request):
 		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
 			results.append(i)
 	if 'sleeper' in name and 'semi'in name and number=='(2+2)':
-		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name and number=='(2+2)':
-		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'airbus' in name and number=='(2+2)':
-		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'semisleeper' in name and number=='(2+2)':
-		print 'seater(2+2)'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'sleeper' in name and number=='(2+1)':
-		print 'sleeper(2+1)'
 		response= render_to_response('v2/bus/sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'sleeper' in name and number=='(1+1)':
-		print 'sleeper(1+1)'
 		response= render_to_response('v2/bus/sleeper(1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater/sleeper' in name and number=='(2+1)' or 'seater' in name and'sleeper' in name and number=='(2+1)':
-		print 'seater_sleeper(2+1)'
 		response= render_to_response('v2/bus/seater_sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
-		print 'seater(1+1+1)'
 		response= render_to_response('v2/bus/seater(1+1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name and number=='(2+3)':
-		print 'seater(2+3)'
 		response= render_to_response('v2/bus/seater(2+3).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	else:
-		print 'default seat'
 		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 
 	response.set_cookie('skey',skey)
@@ -408,7 +396,6 @@ def seat_v2(request):
 @csrf_exempt
 def seat(request):
 	route_type=request.POST.get('route_type')
-	print 'route_type',route_type
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
 	bus_type=request.POST.get('bus_type',request.COOKIES.get('bus_type'))
 
@@ -430,34 +417,10 @@ def seat(request):
 		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
 			results.append(i)
 	if 'sleeper' in name :
-		print 'seater(2+2)'
 		response= render_to_response('bus/seater.html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	elif 'seater' in name :
-		print 'sleepre(2+2)'
 		response= render_to_response('bus/sleeper.html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	# elif 'airbus' in name and number=='(2+2)':
-	# 	print 'seater(2+2)'
-	# 	response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	# elif 'semisleeper' in name and number=='(2+2)':
-	# 	print 'seater(2+2)'
-	# 	response= render_to_response('bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	# elif 'sleeper' in name and number=='(2+1)':
-	# 	print 'sleeper(2+1)'
-	# 	response= render_to_response('bus/sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	# elif 'sleeper' in name and number=='(1+1)':
-	# 	print 'sleeper(1+1)'
-	# 	response= render_to_response('bus/sleeper(1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	# elif 'seater/sleeper' in name and number=='(2+1)' or 'seater' in name and'sleeper' in name and number=='(2+1)':
-	# 	print 'seater_sleeper(2+1)'
-	# 	response= render_to_response('bus/seater_sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	# elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
-	# 	print 'seater(1+1+1)'
-	# 	response= render_to_response('bus/seater(1+1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	# elif 'seater' in name and number=='(2+3)':
-	# 	print 'seater(2+3)'
-	# 	response= render_to_response('bus/seater(2+3).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	else:
-		print 'else seater'
 		response= render_to_response('bus/seater.html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 
 	response.set_cookie('skey',skey)
@@ -505,37 +468,21 @@ def bus_booking(request):
 
 		else:
 			totalfare=request.POST.get('total_amount')
-			print 'totalfare',totalfare
 			count_of_seat=request.POST.get('seat_count_round')
-			print 'count_of_seat',count_of_seat
 			selected_seats_fare_onward=request.POST.get('seatFareOnward')
-			print 'selected_seats_fare_onward',selected_seats_fare_onward
 			selected_seats_fare_split_onward=selected_seats_fare_onward.split(",")
-			print 'selected_seats_fare_split_onward',selected_seats_fare_split_onward
 			selected_seats_fare_return=request.POST.get('seatFareReturn')
-			print 'selected_seats_fare_return',selected_seats_fare_return
 			selected_seats_fare_split_return=selected_seats_fare_return.split(",")
-			print 'selected_seats_fare_split_return',selected_seats_fare_split_return
 			selected_seats_onward=request.POST.get('seats_onward')
-			print 'selected_seats_onward',selected_seats_onward
 			selected_seats_split_onward=selected_seats_onward.split(",")
-			print 'selected_seats_split_onward',selected_seats_split_onward
 			selected_seats_return=request.POST.get('seats_return')
-			print 'selected_seats_return',selected_seats_return
 			selected_seats_split_return=selected_seats_return.split(",")
-			print 'selected_seats_split_return',selected_seats_split_return
 			bpoint_onward=request.POST.get('OnwardBoardingPoint')
 			bpoint_id_onward,bpoint_name_onward= bpoint_onward.split("-")
-			print 'bpoint_id' ,bpoint_id_onward
-			print 'bpoint_name' ,bpoint_name_onward
 			bpoint_return=request.POST.get('ReturnBoardingPoint')
 			bpoint_id_return,bpoint_name_return= bpoint_return.split("-")
-			print 'bpoint_id' ,bpoint_id_return
-			print 'bpoint_name' ,bpoint_name_return
 			# seat_and_fare_onward=zip(selected_seats_split_onward,selected_seats_fare_split_onward)
-			# print 'seat_and_fare_onward',seat_and_fare_onward
 			# seat_and_fare_return=zip(selected_seats_split_return,selected_seats_fare_split_return)
-			# print 'seat_and_fare_return',seat_and_fare_return
 			seat_details=zip(selected_seats_split_onward,selected_seats_fare_split_onward,selected_seats_split_return,selected_seats_fare_split_return)
 			response= render_to_response('bus/bus_booking.html',{'total_amt':totalfare,'seat':seat_details,'count':count_of_seat}, context_instance=RequestContext(request))
 		# seatdetails=request.POST.get('seat',request.COOKIES.get('seatdetails'))
@@ -583,39 +530,25 @@ def tentativebooking_v2(request):
 
 	else:
 		total_amount=request.POST.get('total_amount',request.COOKIES.get('total_amount'))
-		print 'total_amount',total_amount
 		seat_count_round=request.POST.get('seat_count_round',request.COOKIES.get('seat_count_round'))
-		print 'seat_count_round',seat_count_round
 		selected_seats_fare_onward=request.POST.get('seatFareOnward',cache.get('selected_seats_fare_onward'))
 		cache.set('selected_seats_fare_onward', selected_seats_fare_onward)
-		print 'selected_seats_fare_onward',selected_seats_fare_onward
 		selected_seats_fare_split_onward=selected_seats_fare_onward.split(",")
-		print 'selected_seats_fare_split_onward',selected_seats_fare_split_onward
 		selected_seats_fare_return=request.POST.get('seatFareReturn',cache.get('selected_seats_fare_return'))
 		cache.set('selected_seats_fare_return', selected_seats_fare_return)
-		print 'selected_seats_fare_return',selected_seats_fare_return
 		selected_seats_fare_split_return=selected_seats_fare_return.split(",")
-		print 'selected_seats_fare_split_return',selected_seats_fare_split_return
 		selected_seats_onward=request.POST.get('seats_onward',cache.get('selected_seats_onward'))
 		cache.set('selected_seats_onward', selected_seats_onward)
-		print 'selected_seats_onward',selected_seats_onward
 		selected_seats_split_onward=selected_seats_onward.split(",")
-		print 'selected_seats_split_onward',selected_seats_split_onward
 		selected_seats_return=request.POST.get('seats_return',cache.get('selected_seats_return'))
 		cache.set('selected_seats_return', selected_seats_return)
-		print 'selected_seats_return',selected_seats_return
 		selected_seats_split_return=selected_seats_return.split(",")
-		print 'selected_seats_split_return',selected_seats_split_return
 		OnwardBoardingPoint=request.POST.get('OnwardBoardingPoint',cache.get('OnwardBoardingPoint'))
 		cache.set('OnwardBoardingPoint', OnwardBoardingPoint)
 		bpoint_id_onward,bpoint_name_onward= OnwardBoardingPoint.split("-")
-		print 'bpoint_id' ,bpoint_id_onward
-		print 'bpoint_name' ,bpoint_name_onward
 		ReturnBoardingPoint=request.POST.get('ReturnBoardingPoint',cache.get('ReturnBoardingPoint'))
 		cache.set('ReturnBoardingPoint', ReturnBoardingPoint)
 		bpoint_id_return,bpoint_name_return= ReturnBoardingPoint.split("-")
-		print 'bpoint_id' ,bpoint_id_return
-		print 'bpoint_name' ,bpoint_name_return
 		arri_time_onward=request.POST.get('arri_time_onward',request.COOKIES.get('arri_time_onward'))
 		arri_time_return=request.POST.get('arri_time_return',request.COOKIES.get('arri_time_return'))
 		bpoint_onward=request.POST.get('bpoint_onward',request.COOKIES.get('bpoint_onward'))
@@ -681,18 +614,12 @@ def tentativebooking(request):
 	skey=request.POST.get('skey',request.COOKIES.get('skey'))
 	skey_onward=request.COOKIES.get('skey_onward')
 	skey_return=request.COOKIES.get('skey_return')
-	print 'skey',skey
 	bpoint_id=request.COOKIES.get('bpoint_id')
-	print 'bpoint_id',bpoint_id
 	bpoint_name=request.COOKIES.get('bpoint_name')
-	print 'bpoint_name',bpoint_name
 	totalfare=request.COOKIES.get('totalfare')
-	print 'totalfare',totalfare
 
 	total_seat=request.COOKIES.get('total_seats')
-	print 'total_seat',total_seat
 	title=request.POST.get('title_1',request.COOKIES.get('title'))
-	print 'title', title
 	fname=request.POST.get('fname_1',request.COOKIES.get('fname'))
 	lname=request.POST.get('lname_1',request.COOKIES.get('lname'))
 
@@ -805,7 +732,6 @@ def tentativebooking(request):
 			customer_details=[mydict(customer1),mydict(customer2),mydict(customer3)]
 
 		elif total_seat == '2':
-			print '2'
 			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_name1+"_"+fname1+"_"+lname1+"_"+age1
 			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
 			customer2 = [['title', 'Mr'],['firstName', fname1],['lastName',lname1],['age',age1],['eMail',email],['mobile',mobile],['seatName', seat_name1],['seatFare',seat_fare1]]
@@ -814,9 +740,6 @@ def tentativebooking(request):
 			bus_join_data="1_"+seat_name+"_"+fname+"_"+lname+"_"+age
 			customer1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
 			customer_details=[mydict(customer1)]
-		print bus_join_data
-		#customer = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		print 'customer_details',customer_details
 		bus=[['skey',request.COOKIES.get('skey')],
 			['bp',request.COOKIES.get('bpoint_id')],
 			['seats',customer_details]]
@@ -824,7 +747,6 @@ def tentativebooking(request):
 		onw=[['onw',bus_info]]
 		onw_info=mydict(onw)
 		payload={'holddata':'%s'%onw_info}
-		print payload
 	else:
 		if total_seat == '6':
 			bus_join_data_onward="1_"+seat_onward_name+"_"+fname+"_"+lname+"_"+age+"-2_"+seat_onward_name1+"_"+fname1+"_"+lname1+"_"+age1+"-3_"+seat_onward_name2+"_"+fname2+"_"+lname2+"_"+age2+"-4_"+seat_onward_name3+"_"+fname3+"_"+lname3+"_"+age3+"-5_"+seat_onward_name4+"_"+fname4+"_"+lname4+"_"+age4+"-6_"+seat_onward_name5+"_"+fname5+"_"+lname5+"_"+age5
@@ -902,9 +824,6 @@ def tentativebooking(request):
 			customer_return_1 = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_return_name],['seatFare',seat_return_fare]]
 			customer_onward_details=[mydict(customer_onward_1)]
 			customer_return_details=[mydict(customer_return_1)]
-		#print bus_join_data
-		#customer = [['title', 'Mr'],['firstName', fname],['lastName',lname],['age',age],['eMail',email],['mobile',mobile],['seatName', seat_name],['seatFare',seat_fare]]
-		#print 'customer_details',customer_details
 		bus_onward=[['skey',request.COOKIES.get('skey_onward')],
 			['bp',request.COOKIES.get('bpoint_id_onward')],
 			['seats',customer_onward_details]]
@@ -916,7 +835,6 @@ def tentativebooking(request):
 		onw=[['onw',bus_info_onw],['ret',bus_info_ret]]
 		onw_info=mydict(onw)
 		payload={'holddata':'%s'%onw_info}
-		print payload
 
 
 	#payload={'holddata':'{"onw":{"skey":"zJ5yLDs6ptU20KB7EtLDKv4V6NMMmZNKNqDi0J5O-msWyzc9Eww-7nLdgbubveJxLR_t0-R8Lg==","bp":"66677","seats":[{"title":"Mr","firstName":"test","lastName":"test","age":"34","eMail":"goibibobusinesstest@gmail.com","mobile":"9888888888","seatName":"36","seatFare":"122"}]}}'}
@@ -955,7 +873,6 @@ def tentativebooking(request):
 	order.trip=request.COOKIES.get('trip')
 	order.source=request.COOKIES.get('source')
 	order.destination=request.COOKIES.get('destination')
-	print 'start date',request.COOKIES.get('start')
 	order.start_date=datetime.strptime(request.COOKIES.get('start'), fmt)
 
 	if not order.trip == "oneway":
@@ -972,9 +889,7 @@ def tentativebooking(request):
 	#Code for storing OrderList Details
 	if trip=='oneway':
 		bus_join_data_split=bus_join_data.split('-')
-		print "bus_join_data_split", bus_join_data_split
 		for i in range(0,len(bus_join_data_split)):
-			print "bus_join_data_split", bus_join_data_split[i]
 			data = bus_join_data_split[i].split('_')
 			orderlist=OrderList()
 			orderlist.order=order
@@ -985,9 +900,7 @@ def tentativebooking(request):
 			orderlist.save()
 	else:
 		bus_join_data_split_onward=bus_join_data_onward.split('-')
-		print "bus_join_data_split", bus_join_data_split_onward
 		for i in range(0,len(bus_join_data_split_onward)):
-			print "bus_join_data_split", bus_join_data_split_onward[i]
 			data = bus_join_data_split_onward[i].split('_')
 			orderlist=OrderList()
 			orderlist.order=order
@@ -997,9 +910,7 @@ def tentativebooking(request):
 			orderlist.age=data[4]
 			orderlist.save()
 		bus_join_data_split_return=bus_join_data_return.split('-')
-		print "bus_join_data_split", bus_join_data_split_return
 		for i in range(0,len(bus_join_data_split_return)):
-			print "bus_join_data_split", bus_join_data_split_return[i]
 			data = bus_join_data_split_return[i].split('_')
 			orderlist=OrderList()
 			orderlist.order=order
@@ -1020,15 +931,11 @@ def confirmbook(request):
 	secret = sha512(md5str).hexdigest()
 	clientkey='test123'
 	bookingid=request.COOKIES.get('bookid')
-	print secret
-	print clientkey
-	print bookingid
 	try:
 		query,getbookconform=GO.BookConform(secret,bookingid,clientkey)
 	except:
 		messages.add_message(request, messages.INFO,'Something wrong from API')
 		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
-	print getbookconform
 	if 'status' in getbookconform:
 		log_function(query, "success:"+str(getbookconform['status']))
 	else:
@@ -1037,8 +944,6 @@ def confirmbook(request):
 
 	#Code for storing PayU Details
 	payid, paystatus=store_payudetails(request)
-	print "payid", payid
-	print "paystatus", paystatus
 	response.set_cookie('payudetails',payid)
 	response.set_cookie('payustatus',paystatus)
 
@@ -1048,7 +953,6 @@ def confirmbook(request):
 	transaction.payu_details=PayuDetails.objects.get(id=payid)
 	transaction.payu_status=request.COOKIES.get('payustatus')
 	transaction.tentativebooking_id=bookingid
-	print transaction.tentativebooking_id
 	transaction.tentativebooking_status="processing"
 	transaction.save()
 	busbookingstatus(request)
@@ -1100,7 +1004,6 @@ def busbookingstatus(request):
 					status['BPLandmark']=j['BPDetails']['BPLandmark']
 					status['BPLocation']=j['BPDetails']['BPLocation']
 					status['BPAddress']=j['BPDetails']['BPAddress']
-			print "getbookingstatus_new", getbookingstatus
 		except:
 			messages.add_message(request, messages.INFO,'Your booking till queued')
 			return HttpResponseRedirect(format_redirect_url("/v2/busbookstatus", 'error=9'))
@@ -1149,7 +1052,6 @@ def confirm_v2(request):
 	except:
 		messages.add_message(request, messages.INFO,'Something wrong from API')
 		return HttpResponseRedirect(format_redirect_url("bus/bus_booking.html", 'error=6'))
-	print getbookconform
 	if 'status' in getbookconform:
 		log_function(query, "success:"+str(getbookconform['status']))
 	else:
@@ -1158,8 +1060,6 @@ def confirm_v2(request):
 
 	#Code for storing PayU Details
 	payid, paystatus=store_payudetails(request)
-	print "payid", payid
-	print "paystatus", paystatus
 	response.set_cookie('payudetails',payid)
 	response.set_cookie('payustatus',paystatus)
 
@@ -1169,7 +1069,6 @@ def confirm_v2(request):
 	transaction.payu_details=PayuDetails.objects.get(id=payid)
 	transaction.payu_status=request.COOKIES.get('payustatus')
 	transaction.tentativebooking_id=bookingid
-	print transaction.tentativebooking_id
 	transaction.tentativebooking_status="processing"
 	transaction.save()
 	busbookingstatus(request)

@@ -20,9 +20,14 @@ $(document).ready(function() {
         <div class="row">
             <div class="menu">
                 <div class="menus">
-                    <span class="login"><a href="/v2/login">Login</a></span><span class="login_circle login_circle1_hover"></span>
-                    <span><a href="/v2/register">SignUp</a></span><span class="login_circle login_circle2_hover"></span>
-                    <span><a href="#">24/7 Support</a></span><span class="login_circle login_circle3_hover"></span>
+                    {% if not request.user.is_authenticated %}
+                        <span class="login"><a href="/v2/login">Login</a></span><span class="login_circle login_circle1_hover"></span>
+                        <span><a href="/v2/register">SignUp</a></span><span class="login_circle login_circle2_hover"></span>
+                        <span><a href="#">24/7 Support</a></span><span class="login_circle login_circle3_hover"></span>
+                    {% else %}
+                        <span class="login"><a href="/v2/profile">Myprofile</a></span><span class="login_circle login_circle1_hover"></span>
+                        <span class="login"><a href="/v2/logout">Logout</a></span><span class="login_circle login_circle4_hover"></span>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -64,7 +69,7 @@ $(document).ready(function() {
                                                                             <input class="form-control startdate" id="datepicker7" name="start" type="text" placeholder="DD/MM/YYYY" value="" />
                                                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                                             <div class="error_mgs_start_date" style="display:none; color:red;">Enter the Check in date</div>
-                                                                            
+
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">

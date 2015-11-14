@@ -59,7 +59,7 @@
 			$( "#datepicker5" ).datepicker(
 				{
 				todayHighlight: true,
-			    format: 'dd-mm-yyyy',
+			    format: 'yyyy-mm-dd',
 			    orientation: "bottom auto",
 			    autoclose: true,
 			});
@@ -99,7 +99,7 @@
 		var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0)
 		var checkin = $('#datepicker9').datepicker({
 			format: 'dd/mm/yyyy',
-			orientation: "bottom auto",
+			orientation: "bottom left",
 			onRender: function(date) {
 				return date.valueOf() < today.valueOf() ? 'disabled' : '';
 			}
@@ -115,7 +115,7 @@
 
 		var checkout = $('#datepicker10').datepicker({
 			format: 'dd/mm/yyyy',
-			orientation: "bottom auto",
+			orientation: "bottom right",
 			onRender: function(date) {
 				return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
 			}
@@ -333,6 +333,12 @@
         	e.preventDefault(); $(this).parents('.clonedInput').remove(); i--;
     	});
 
+		$('.details_rooms').click(function(){
+			$('.add_room_right_side_holder').show();
+			$('.add_room_right_side_holder').addClass('hotel_details_add_room');
+
+		});
+
     	$('#oneway').click(function(){
 	    	$('#oneway').attr('checked',true);
 	    	$('#round').removeAttr('checked');
@@ -474,6 +480,9 @@
 	});
 
 	$('#done').click(function(){
+		$('.add_room_right_side_holder').hide();
+		$('.add_room_right_side_holder').removeClass('hotel_details_add_room');
+		$('.hotel_booknow').hide();
 		var room1=$('input[name="room1"]').val();
 		var room2=$('input[name="room2"]').val()==null?0:1;
 		var room3=$('input[name="room3"]').val()==null?0:1;
@@ -515,17 +524,14 @@
 		}
 		var guest=parseInt(adults1)+parseInt(childs1)+parseInt(adults2)+parseInt(childs2)+parseInt(adults3)+parseInt(childs3)+parseInt(adults4)+parseInt(childs4);
 		$('.details_rooms').text(no_of_rooms+'Rooms/'+guest+'Guest');
-		alert(modified_joindata);
 		$.ajax({
 			  url: '/v2/gethoteldetails/',
 			  type: 'post',
 			  dataType: 'json',
 			  data: {"joindata":modified_joindata},
 			  success: function (data) {
-				 alert(JSON.stringify(data.rooms_data));
-				 alert(JSON.stringify('roomscount'+data.rooms_data.length));
+				  $('.hotel_booknow').show();
 				  if(data.rooms_data.length > 0 ){
-					  alert('yes');
 					  $('.selectroomtypes').show();
 					  $('.soldout').hide();
 					  $('.selectroomtypes').empty();

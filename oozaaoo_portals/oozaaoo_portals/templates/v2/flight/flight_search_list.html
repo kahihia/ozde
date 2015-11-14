@@ -8,7 +8,7 @@
 		<div class="container">
 			<div class="row">
 		    	<div class="col-md-4">
-		        	<h2 class="bold">Flight Booking<br/><span class="logo-span-txt">Made easy!</span></h2>
+		        	<a class="logo" href="/"></a>
 		        </div>
 		    </div>
 		</div>
@@ -27,8 +27,7 @@
 			{% endif %}
 		</div>
 	</div>
-	{{response}}
-	<div class="sorting-bar">
+	<!--div class="sorting-bar">
 		<div class="container">
 	    	<div class="row">
 	        	<div class="col-md-2">
@@ -64,7 +63,7 @@
 	            </div>
 	        </div>
 	    </div>
-	</div>
+	</div-->
 	<div class="flight-result-div">
 		<div class="container">
 		    <div class="panel panel-default margintop15">
@@ -73,15 +72,18 @@
 		            	<div class="col-md-8">
 							<div class="row">
 								<div class="col-md-5">
-			                		<label>Sort by:</label> <a href="#">Depature</a> <a class="marginleft20px" href="#">Arrival</a>
+			                		<span>Depature</span> <span class="marginleft20px">Arrival</span>
 			                	</div>
 				                <div class="col-md-3">
-				                	<a href="#">Duration</a>
+				                	<span>Duration</span>
+				                </div>
+								<div class="col-md-4">
+				                	<span class"pull-right">Airlines/Seats</span>
 				                </div>
 							</div>
 		                </div>
 		                <div class="col-md-1 pull-right">
-		                	<a href="#">Price</a>
+		                	<span>Price</span>
 		                </div>
 		            </div>
 		        </div>
