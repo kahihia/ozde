@@ -554,6 +554,7 @@
             },
 
             overlayOn = function () {
+                alert("overlayOn");
                 $('<div id="imagelightbox-overlay"></div>').appendTo('body');
             },
             overlayOff = function () {
@@ -617,6 +618,7 @@
                 $('#imagelightbox-nav').remove();
             },
             arrowsOn = function( instance, selector ) {
+                alert("enter");
                 var $arrows = $( '<button type="button" class="imagelightbox-arrow imagelightbox-arrow-left"></button>' +
                                  '<button type="button" class="imagelightbox-arrow imagelightbox-arrow-right"></button>' );
                 $arrows.appendTo( 'body' );
