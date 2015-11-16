@@ -58,12 +58,12 @@ $(document).ready(function(){
                 <li class="active">
                     <a href="/">Home</a>
                 </li>
-                {# <li>
+                <!--<li>
                     <a href="#">Print/SMS Ticket</a>
                 </li>
                 <li>
                     <a href="#">Easy Cancel/Refund new</a>
-                </li>#}
+                </li>-->
             </ul><!-- End of nav -->
         </nav><!-- End of bs-navbar -->
     </div><!-- End of container -->
@@ -76,6 +76,7 @@ $(document).ready(function(){
             </div>
         </div>
         <div class="padding10"></div>
+        <div class=clear_both></div>
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
@@ -176,7 +177,7 @@ $(document).ready(function(){
                         <hr/>
                         <div class="row">
                             <div class="col-md-4 pull-right">
-                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{reprice.data.onwardflights.0.fare.totalfare|add:reprice.data.returnflights.0.fare.totalfare}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{reprice.data.onwardflights.0.fare.totalfare|add:reprice.data.returnflights.0.fare.totalfare}}</span></h4>
                             </div>
                         </div>
                     </div>
@@ -216,7 +217,7 @@ $(document).ready(function(){
                         <hr/>
                         <div class="row">
                             <div class="col-md-4 pull-right">
-                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{reprice.data.onwardflights.0.fare.totalfare}}</span><br/><a href="#" class="text-muted size14 underline">Fare break up</a></h4>
+                                <h4> <strong>To be paid:</strong> <span class="light-purple size30"><i class="fa fa-rupee"></i> {{reprice.data.onwardflights.0.fare.totalfare}}</span></h4>
 
                             </div>
                         </div>

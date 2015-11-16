@@ -30,10 +30,10 @@
            CentralPark = new google.maps.LatLng({{request.COOKIES.la}},{{request.COOKIES.lo}});
            addMarker(CentralPark);
     }
-        
+
     </script>
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
- 
+
 
 <section class="search-section">
     <div class="container">
@@ -43,25 +43,8 @@
                 <div class="clear_both"></div>
             </div>
              <div class="col-md-5">
-                <!--    <div class="row">
-                        <div class="col-md-3 marginbottom10">
-                              <ul class="nav navbar-nav pull-right">
-                                <li class="dropdown">
-                                    <span class="dropdown-toggle bold cursor-pointer top10" data-toggle="dropdown">Hotel <span class="caret"></span></span>
-                                    <ul class="dropdown-menu" aria-labelledby="themes">
-                                      <li><a href="#">Flights</a></li>
-                                      <li><a href="#">Cars</a></li>
-                                     </ul>
-                                </li>
-                              </ul>
-                        </div>
-                        <div class="col-md-7">
-                             <div class="input-group">
-                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
-                            </div>
-                        </div>
-                    </div>-->
-            </div> 
+
+            </div>
             <div class="col-md-4 bottom10 right0">
            {% if request.user.is_authenticated %}
                         <div class="top-user-area clearfix">
@@ -97,12 +80,11 @@
                     </p>
                     <br>
                    	<p>
-                    <!-- <span class="wifi_white"></span>
-                    
-                    <span class="cutlury_white"></span> -->
-                    
-                    
-                    <!-- {{hotels.facilities}} -->
+
+
+
+
+                    <!-- hotels.facilities -->
                     {% for fm1 in hotels.facilities %}
                     {% if fm1 == 'Free Internet' %}
                     <span class="wifi_white"></span>
@@ -124,8 +106,8 @@
 
                     {% for image in hotels.gallery %}
                     <a class="view_act btn btn-transpurple dn" data-imagelightbox="h" href="{{image.2}}">View Images</a>
-                    {%endfor%} 
-                 
+                    {%endfor%}
+
                         {% if hotels.hr == 1 %}
                             <i class="fa fa-star star-yellow"></i>
                         {% elif hotels.hr == 2 %}
@@ -147,14 +129,11 @@
                             <i class="fa fa-star star-yellow"></i>
                             <i class="fa fa-star star-yellow"></i>
                         {% endif %}
-                    
-                </div> 
-                 <!--div class="reviews">
-                	<a href="#"><i class="ion ion-ios-heart-outline"></i> Shortlist</a>
-                    <a href="#"><i class="ion ion-ios-paper-outline"></i> Reviews</a>
-                </div-->               
+
+                </div>
+
             </div>
-           
+
         </div>
     </section>
     <section class="hotel-content">
@@ -166,8 +145,8 @@
                     	<div class="size30 pull-left margin020"><i class="ion ion-ios-locked light-purple"></i></div>
                         <p class="size17 nomargin">Lock in a great price for your upcoming stay<br> Prices might go up, so secure your reservation today.</p></div>
                     <h4>Select your room</h4>
-                    <div class="rooms-list">                       
-                        {% for room in hotels.rooms_data %}                        
+                    <div class="rooms-list">
+                        {% for room in hotels.rooms_data %}
                     	<div class="row nomargin">
                         	<div class="col-md-9 nomargin nopadding">
                                 <div class="panel panel-default min-height120">
@@ -177,34 +156,31 @@
                                         </div>
                                         <div class="room-details">
                                             <h4 class="nomargin">
-                                            <a href="#">{{room.room_info.type_name}} 
+                                            <a href="#">{{room.room_info.type_name}}
                                             </a>
-                                            <!--span class="text-muted size12 red bold">1 Rooms left</span-->
                                             </h4>
-                                            <!--p class="room-price">                                                <i class="fa fa-rupee"></i> {{room.op}} per room per night
-                                            </p-->
-                                             
+
 
                                             <p class="light-purple nomargin">
-                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <i class="ion ion-ios-snowy size30 bold"></i>
                                                 <span class="top-6 marginright20">{{room.room_info.facilities.0}}</span>
 
-                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <i class="ion ion-ios-snowy size30 bold"></i>
                                                 <span class="top-6 marginright20">{{room.room_info.facilities.1}}</span>
 
-                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <i class="ion ion-ios-snowy size30 bold"></i>
                                                 <span class="top-6 marginright20">{{room.room_info.facilities.2}}</span>
 
-                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <i class="ion ion-ios-snowy size30 bold"></i>
                                                 <span class="top-6 marginright20">{{room.room_info.facilities.3}}</span>
 
-                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <i class="ion ion-ios-snowy size30 bold"></i>
                                                 <span class="top-6 marginright20">{{room.room_info.facilities.4}}</span>
 
-                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <i class="ion ion-ios-snowy size30 bold"></i>
                                                 <span class="top-6 marginright20">{{room.room_info.facilities.5}}</span>
 
-                                                <i class="ion ion-ios-snowy size30 bold"></i> 
+                                                <i class="ion ion-ios-snowy size30 bold"></i>
                                                 <span class="top-6 marginright20">{{room.room_info.facilities.6}}</span>
 
                                             </p>
@@ -212,9 +188,9 @@
 
                                         </div>
                                     </div>
-                                </div>   
+                                </div>
                             </div>
-                            <div class="col-md-3 nomargin nopadding">     
+                            <div class="col-md-3 nomargin nopadding">
                                 <div class="panel panel-default pull-left min-height120">
                                     <div class="panel-body">
                                         <div class="room-price-bg">
@@ -228,12 +204,12 @@
 
                                         </div>
                                      </div>
-                                </div> 
-                            </div>         
+                                </div>
+                            </div>
                    		</div>
-                        {% endfor %}                  
+                        {% endfor %}
                 	</div>
-                    <h4>Things to know</h4>                                       
+                    <h4>Things to know</h4>
                     <table class="table bg-white">
                     	<tr>
                         	<td>Rooms</td>
@@ -242,7 +218,7 @@
                                     {{am}}
                                 {% endfor %}
                             </td>
-                        </tr>                        
+                        </tr>
                         <tr>
                             <td>Services</td>
                             <td>
@@ -259,7 +235,6 @@
                                 {% endfor %}
                             </td>
                         </tr>
-
                         <tr>
                             <td>General</td>
                             <td>
@@ -268,66 +243,9 @@
                                 {% endfor %}
                             </td>
                         </tr>
-
                     </table>
-                    <!-- <h4>Reviews and Rating</h4>
-                    <table class="table bg-white">
-                    	<tr>
-                        	<td>
-                            	By Amul.r<br/>
-                                on 10 July,2015<br/>
-                             	<i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>	   
-                            </td>
-                            <td>
-                            	Except frequent power cut it was good. They had restrictions in swimming pool for dress and timings. Overall it was very good best to enjoy with couples. Food was good. Complementary cake was provided. Located before Pondicherry. Must try enjoy thanks to MakeMytrip.
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td>
-                            	By Saravanan <br/> on 10 July,2015<br/>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>
-                                <i class="fa fa-star grey"></i>
-                                <i class="fa fa-star grey"></i>
-                                <i class="fa fa-star grey"></i>
-                            </td>
-                            <td>Service very bad, rooms not clean, basic requirements not fulfilled. A/C not working properly, food quality not nice veg & non veg dishes together. Other guest use the same hand they eat to take further food Termite treatment not done please avoid.
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td>
-                            	By Alan<br> on 10 July,2015<br/>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>
-                            </td>
-                            <td>Had travelled with family and friends. Awesome place. Wonderfully maintained swimming pool. AC not good at activity centre. Food was not much option for a simple vegetarian dinner. Had to go for buffet. Very cordial and friendly staff. Unfortunately nightclub was below our room. So was disturbing till it ended.
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td>By Hadley<br/>on 10 July,2015<br/>
-                            <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star star-yellow"></i>
-                                <i class="fa fa-star grey"></i>
-                            </td>
-                            <td>Well located, about 10 KMs from Pondicherry. Large property with good features to keep everyone busy. Close proximity to the beach, though no direct access to it. The property is well maintained and rooms are spacious and provide enough privacy. However, service was all throughout poor right from the reception, </td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                            <td class="text-right"><a href="#">Show more</a></td>
-                        </tr>
-                    </table> -->
-                    
                     </div>
-                <div class="col-md-4">
+                <div class="col-md-4 price_right_side">
                 	<div class="panel panel-lightpurple hotel-details-rightside">
                     	<div class="panel-heading">
                         	<h5 class="panel-title">
@@ -335,211 +253,157 @@
                             </h5>
                         </div>
                         <div class="panel-body">
-                            
-                        <form name="probook" id="probook123" class="form-horizontal" 
-                        action="{% url "hotels.views.userdetails_v2" %}" method="post">
-                            {% csrf_token %}
-                        	<div class="row">                              
-
-                                <p class="booking-item-header-price">
-                                                                   
-                                    <span class="text-lg mp"><sup><i class="fa fa-rupee"></i></sup></span>
-                                    <small>Per Room Per Night</small>                                   
-                                </p>
-
-                            	<div class="col-md-12">
-                                    <input class="form-control startdate" id="datepicker1" name="start" type="text" placeholder="DD/MM/YYYY" value="{{request.COOKIES.checkin}}" />
-                                    
-                                </div>
-                                <div class="col-md-12">
-                                    <input class="form-control startdate" id="datepicker2" name="start" type="text" placeholder="DD/MM/YYYY" value="{{ request.COOKIES.checkout}}" />
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="details_rooms">
-                                        {{request.COOKIES.rooms}}Room/{{ request.COOKIES.guest}}Guest
-                                    </label>
-                                </div>
-                                <div class="col-md-12">
-                                    <select class="selectroomtypes">
-                                        {% for room in hotels.rooms_data %}
-                                            {% if room.rtc and room.rpc %}
-                                                <option data-rpc="{{room.rpc}}" data-rtc="{{room.rtc}}" data-mp="{{room.mp}}" data-tp="{{room.tp}}" data-ttc="{{room.ttc}}" data-tp_alltax="{{room.tp_alltax}}">{{room.room_info.type_name}}</option>
-                                            {% endif %}
-                                        {% endfor %}                            
-                                    </select>   
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="add_room_holder_modify">
-                                                      <div class="clonedInput" id="clonedInput0">
-                                                      <label>Rooms 1</label>
-                                                          <input class="hidden_input" name="room1" type="hidden" value="1" readonly="readonly" />
-                                                        
-                                                            <div class="fl adults">
-                                                                <div>
-                                                                    <label>Adults</label>                                       
-                                                                    <select id="adults1" class="adults" name="adults1">  
-                                                                        <option value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        <option value="3" >3</option>
-                                                                        <option value="4" >4</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <!--- Childs -->
-                                                            <div class="fl childs">
-                                                                <div>
-                                                                    <label>Children</label>                                     
-                                                                    <select id="childs1" class="child_age_act child" name="childs1"> 
-                                                                        <option value="0" >0</option>
-                                                                        <option value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        
-                                                                    </select>
-                        
-                                                                    
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="fl add_room_fields child-1-act dn" id="test1">
-                                                                <div>
-                                                                    <label>Child-1 age</label>                              
-                                                                    <select id="childage1_1" class="child_age child_age_1" name="childage1_1">   
-                                                                
-                                                                        <option selected="selected" value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        <option value="3" >3</option>
-                                                                        <option value="4" >4</option>
-                                                                        <option value="5" >5</option>
-                                                                        <option value="6" >6</option>
-                                                                        <option value="7" >7</option>
-                                                                        <option value="8" >8</option>
-                                                                        <option value="9" >9</option>
-                                                                        <option value="10" >10</option>
-                                                                        <option value="11" >11</option>
-                                                                        <option value="12" >12</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="fl add_room_fields child-2-act dn">
-                                                                <div>
-                                                                    <label>Child-2 age</label>                                     
-                                                                    <select id="childage2_1" class="child_age child_age_2" name="childage2_1 "> 
-                                                                        
-                                                                        <option selected="selected" value="1" >1</option>
-                                                                        <option value="2" >2</option>
-                                                                        <option value="3" >3</option>
-                                                                        <option value="4" >4</option>
-                                                                        <option value="5" >5</option>
-                                                                        <option value="6" >6</option>
-                                                                        <option value="7" >7</option>
-                                                                        <option value="8" >8</option>
-                                                                        <option value="9" >9</option>
-                                                                        <option value="10" >10</option>
-                                                                        <option value="11" >11</option>
-                                                                        <option value="12" >12</option>
-                                                                        
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="fl add_room_fields remove_room_fields" style="display:none;"> </div><!-- remove_room_fields -->
-
-                                                            <div class="clear_both"> </div>
-
-                                                            <!--div class="col-md-1">
-                                                               
-                                                                    <span class="add add_room_act">Add</span>
-                                                                    <span class="remove remove_room_act">Remove</span>
-                                                                
-                                                            </div-->
-                                                            <div class="clear_both"> </div>
-                                                       
-                                                    </div><!-- clone_add_room_act -->
+                            <form name="probook" id="probook123" class="form-horizontal"
+                            action="{% url "hotels.views.userdetails_v2" %}" method="post">
+                                {% csrf_token %}
+                            	<div class="position_r">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="booking-item-header-price">
+                                                <span class="text-lg mp"><sup><i class="fa fa-rupee"></i></sup></span>
+                                                <small>Per Room Per Night</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-daterange" data-date-format="M d, D">
+                                        	<div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input class="form-control startdate" id="datepicker9" name="start" type="text" placeholder="DD/MM/YYYY" value="{{request.COOKIES.checkin}}" />
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="button" id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act_modify fl" >ADD ROOMS</button> 
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="button" id="done"  class="btn btn-primary fl" >Done</button> 
-                                </div>
-                                <div class="col-md-2">
-                                	<label>Nights</label>
-                                    <input type="text" class="form-control text-center" value="{{no_night}}" readonly />
-                                </div>
-                            </div>
-                            <div class="row">
-                            	<div class="col-md-2">
-                                	<label>Rooms</label>
-                                    <input type="text" class="form-control text-center" 
-                                    value="{{request.COOKIES.rooms}}" readonly />
-                                </div>
-                                <div class="col-md-5">
-                                	<label>Guests</label>
-                                    <input type="text" class="form-control" value="{{ request.COOKIES.guest}}" readonly />
-                                </div>
-                                <div class="clear"></div>
-                                <div class="col-md-5">
-                                        <p>
-                                            <span class="text-lg">Sub Total</span>
-                                            <span class="text-lg"></span>
-                                            <span class="text-lg">Excludes Taxes</span>
-                                        </p>
-                                    
-                                </div>
-                                <!--div class="col-md-5">
-                                	<label>Nights</label>
-                                    <input type="text" class="form-control" value="1 Children" />
-                                </div-->
-                            </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input class="form-control enddate" id="datepicker10" name="end" type="text" placeholder="DD/MM/YYYY" value="{{ request.COOKIES.checkout}}" />
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="details_rooms">
+                                                {{request.COOKIES.rooms}}Room/{{ request.COOKIES.guest}}Guest
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <select class="selectroomtypes col-md-12">
+                                                {% for room in hotels.rooms_data %}
+                                                    {% if room.rtc and room.rpc %}
+                                                        <option data-rpc="{{room.rpc}}" data-rtc="{{room.rtc}}" data-mp="{{room.mp}}" data-tp="{{room.tp}}" data-ttc="{{room.ttc}}" data-tp_alltax="{{room.tp_alltax}}">{{room.room_info.type_name}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="joindata" value="{{request.COOKIES.joindata}}" id="joindata">
+                                    <div class="row add_room_right_side_holder">
+                                        <div class="col-md-12 ">
+                                            <div class="add_room_holder_modify">
+                                                <div class="clonedInput" id="clonedInput0">
+                                                    <label>Rooms 1</label>
+                                                    <input class="hidden_input" name="room1" type="hidden" value="1" readonly="readonly" />
+                                                    <div class="fl adults">
+                                                        <div>
+                                                            <label>Adults</label>
+                                                            <select id="adults1" class="adults" name="adults1">
+                                                                <option value="1" >1</option>
+                                                                <option value="2" >2</option>
+                                                                <option value="3" >3</option>
+                                                                <option value="4" >4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!--- Childs -->
+                                                    <div class="fl childs">
+                                                        <div>
+                                                            <label>Children</label>
+                                                            <select id="childs1" class="child_age_act child" name="childs1">
+                                                                <option value="0" >0</option>
+                                                                <option value="1" >1</option>
+                                                                <option value="2" >2</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fl add_room_fields child-1-act dn" id="test1">
+                                                        <div>
+                                                            <label>Child-1 age</label>
+                                                            <select id="childage1_1" class="child_age child_age_1" name="childage1_1">
 
-                        <!-- {% if hotelroominfos|length == 1 %}
-                            {% for hotelroominfo in hotelroominfos %}
-                            <input type="hidden" name="rtc" value="{{hotelroominfo.rtc}}" class="btn btn-primary" />
-                            <input type="hidden" name="rpc" value="{{hotelroominfo.rpc}}" class="btn btn-primary" />
-                                {% if hotelroominfo.rtc and hotelroominfo.rpc %}
-                                    <a href="{% url "hotels.views.userdetails" %}">Book Now</a>
-                                {% else %}
-                                    <a href="#">Booking Not Available</a>
-                                {% endif %}
-                            {% endfor %}     
-                        {% else %}  
-                             <a href="#">Booking Not Available</a>
-                        {% endif %}  -->
-
-                           
-                        
-
-                        <span class="text-lg subtotal"></span>                        
-                        <span class="text-lg totalprice"></span>
-
-                        <input type="hidden" name="selectedrpc" id="selectedrpc" value="" />
-                        <input type="hidden" name="selectedrtc" id="selectedrtc" value="" />
-                        <input type="hidden" name="mp" id="mp" value="" />
-                        <input type="hidden" name="totalprice" id="totalprice" value="" />
-                        <input type="hidden" name="totaltax" id="totaltax" value="" />
-                        <input type="hidden" name="totalprice_wt" id="totalprice_wt" value="" />
-                        <input type="hidden" name="roomname" id="roomname" value="" />
-
-                        <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
-                        <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
-                        <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
-                        <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!--button type="submit" class="btn btn-primary">Book Now</button-->
-    
-                                        <input type="submit" class="btn btn-primary for_buynow" value="Buynow"/>
-                                  
-                                        <label class="btn btn-info for_soldout" style="display:none" />We are Sold out</label>
-                                    
-                            </div>    
+                                                                <option selected="selected" value="1" >1</option>
+                                                                <option value="2" >2</option>
+                                                                <option value="3" >3</option>
+                                                                <option value="4" >4</option>
+                                                                <option value="5" >5</option>
+                                                                <option value="6" >6</option>
+                                                                <option value="7" >7</option>
+                                                                <option value="8" >8</option>
+                                                                <option value="9" >9</option>
+                                                                <option value="10" >10</option>
+                                                                <option value="11" >11</option>
+                                                                <option value="12" >12</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fl add_room_fields child-2-act dn">
+                                                        <div>
+                                                            <label>Child-2 age</label>
+                                                            <select id="childage2_1" class="child_age child_age_2" name="childage2_1 ">
+                                                                <option selected="selected" value="1" >1</option>
+                                                                <option value="2" >2</option>
+                                                                <option value="3" >3</option>
+                                                                <option value="4" >4</option>
+                                                                <option value="5" >5</option>
+                                                                <option value="6" >6</option>
+                                                                <option value="7" >7</option>
+                                                                <option value="8" >8</option>
+                                                                <option value="9" >9</option>
+                                                                <option value="10" >10</option>
+                                                                <option value="11" >11</option>
+                                                                <option value="12" >12</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fl add_room_fields remove_room_fields" style="display:none;"> </div><!-- remove_room_fields -->
+                                                    <div class="clear_both"> </div>
+                                                    <div class="clear_both"> </div>
+                                                </div><!-- clone_add_room_act -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act_modify fl detail_addroom add_hotelbtn" >ADD ROOMS</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="done"  class="btn btn-primary fl done_hotelbtn" >Done</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="selectedrpc" id="selectedrpc" value="" />
+                                <input type="hidden" name="selectedrtc" id="selectedrtc" value="" />
+                                <input type="hidden" name="mp" id="mp" value="" />
+                                <input type="hidden" name="totalprice" id="totalprice" value="" />
+                                <input type="hidden" name="totaltax" id="totaltax" value="" />
+                                <input type="hidden" name="totalprice_wt" id="totalprice_wt" value="" />
+                                <input type="hidden" name="roomname" id="roomname" value="" />
+                                <input type="hidden" name="joindata" value="{{morehoteldatas.joindata}}" class="btn btn-primary" />
+                                <input type="hidden" name="hc" value="{{morehoteldatas.hc}}" class="btn btn-primary" />
+                                <input type="hidden" name="ibp" value="{{morehoteldatas.ibp}}" class="btn btn-primary" />
+                                <input type="hidden" name="fwdp" value="{{morehoteldatas.fwdp}}" class="btn btn-primary" />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class="text-lg subtotal"></span>
+                                        <span class="hotel_subtotal fl">subtotal</span>
+                                        <span class="text-lg totalprice"></span>
+                                        <input type="submit" class="btn btn-primary for_buynow hotel_booknow" value="Book Now"/>
+                                        <label class="btn btn-info for_soldout" style="display:none" />Rooms not available</label>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        </form>
-                        </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <script type="text/javascript" src="{% static "v2/js/imagelightbox.min.js" %}"></script>
@@ -780,7 +644,7 @@
                 onLoadStart:    function(){ activityIndicatorOn(); },
                 onLoadEnd:      function(){ $( '.imagelightbox-arrow' ).css( 'display', 'block' ); activityIndicatorOff(); }
             });
-        
+
         var selectorI = 'a[data-imagelightbox="i"]';
         var instanceI = $( selectorI ).imageLightbox(
         {
@@ -800,7 +664,7 @@
                 }
         });
 
-      
+
 
     });
 </script>
@@ -817,6 +681,5 @@
  //    alert('welcome');
  // });
  //            </script-->
-            
- {% endblock %}        
-         
+
+ {% endblock %}

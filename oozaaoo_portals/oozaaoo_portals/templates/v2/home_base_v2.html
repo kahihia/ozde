@@ -36,8 +36,16 @@
 {% if request.path == "/" %}
 <body class="home_bg">
 {% else %}
-<body class="home_bg">
+<body>
 {% endif %}
+    {% if request.REQUEST.error %}
+        {%for message in messages%}
+            <h4 class="text-center text-danger">{{message}}</h4>
+        {%endfor%}
+    {%endif%}
+    {% if message %}
+    <h4 class="text-center text-danger">{{message}}</h4>
+    {% endif %}
     {% block content %} {% endblock %}
     {% if request.path == "/" %}
      <div class="container">
