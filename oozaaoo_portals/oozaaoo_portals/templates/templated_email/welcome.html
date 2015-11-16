@@ -1,16 +1,46 @@
 {% load i18n %}
-{% block subject %}
-Welcome to Travel Portal {{username}}
-{% endblock %}
+
 {% block html %}
-	<img src="{{ STATIC_URL }}img/.png"
+<div style="width:600px;height:640px; border:1px solid;">
+<tbody><tr>
+          <td style="padding: 0;vertical-align: top;mso-line-height-rule: at-least;font-size: 24px;padding-top: 2px;padding-bottom: 27px;" class="logo emb-logo-padding-box">
+            <div align="center" id="emb-email-header" style="font-family: Merriweather,Georgia,serif;color: #202020;font-weight: bold;text-align: center;font-size: 0px !important;line-height: 0 !important;" class="logo-center"><img width="164" height="95" alt="" src="https://i1.createsend1.com/ei/i/3D/0D3/3C0/182652/csfinal/images.jpeg" style="border: 0;-ms-interpolation-mode: bicubic;display: block;Margin-left: auto;Margin-right: auto;max-width: 164px;"></div>
+          </td>
+        </tr>
+      </tbody>
 
-<h3>Dear {{name}},</h3>
+      <table style="border-collapse: collapse;border-spacing: 0;table-layout: fixed;width: 100%;" class="contents">
+                    <tbody><tr>
+                      <td style="padding: 0;vertical-align: top;padding-left: 20px;padding-right: 20px;word-break: break-word;word-wrap: break-word;" class="padded">
+                        
+            <div align="center" style="font-size: 12px;mso-line-height-rule: at-least;font-style: normal;font-weight: 400;Margin-bottom: 27px;Margin-top: 0;font-family: &quot;PT Serif&quot;,Georgia,serif;color: #353638;" class="image">
+              <img width="560" height="194" alt="" src="https://i1.createsend1.com/ei/i/3D/0D3/3C0/182652/csfinal/logo.png" style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 900px;">
+            </div>
+          
+                      </td>
+                    </tr>
+                  </tbody></table>
 
-<p>Thank you for creating an account with Travel Portal</p>
-<p>You can login using {{username}} and the password you entered when setting up your account.</p>
-        
+                  <table style="border-collapse: collapse;border-spacing: 0;table-layout: fixed;width: 100%;" class="contents">
+                    <tbody><tr>
+                      <td style="padding: 0;vertical-align: top;padding-left: 20px;padding-right: 20px;word-break: break-word;word-wrap: break-word;" class="padded">
+                        
+            <h2 style="font-style: normal;font-weight: 700;font-family: bitter,georgia,serif;Margin-bottom: 16px;Margin-top: 0;font-size: 24px;line-height: 32px;color: #2ecc9e;text-align: center;" class="font-bitter size-24">Warm Greeting to Oozaaoo</h2>
+          
+                      </td>
+                    </tr>
+                  </tbody></table>
 
-  <p>Best regards,</p>
-  Travel Portal Team
+                  <table style="border-collapse: collapse;border-spacing: 0;table-layout: fixed;width: 100%;" class="contents">
+                    <tbody><tr>
+                      <td style="padding: 0;vertical-align: top;padding-left: 20px;padding-right: 20px;word-break: break-word;word-wrap: break-word;" class="padded">
+                        
+            <p style="font-style: normal;font-weight: 400;Margin-bottom: 0;Margin-top: 0;font-size: 17px;line-height: 25px;font-family: &quot;PT Serif&quot;,Georgia,serif;color: #353638;">Dear <span style="color:#bface8">{{name}}</span>,</p><p style="font-style: normal;font-weight: 400;Margin-bottom: 0;Margin-top: 27px;font-size: 17px;line-height: 25px;font-family: &quot;PT Serif&quot;,Georgia,serif;color: #353638;text-align: center;">Thank you for creating an account with us.</p><p style="font-style: normal;font-weight: 400;Margin-bottom: 0;Margin-top: 27px;font-size: 17px;line-height: 25px;font-family: &quot;PT Serif&quot;,Georgia,serif;color: #353638;text-align: center;"><span style="color:#b8a1f5">You can go anywhere by using Oozaaoo. We are providing packages to you please check and enjoy our service... 
+</span></p><p style="font-style: normal;font-weight: 400;Margin-bottom: 27px;Margin-top: 27px;font-size: 17px;line-height: 25px;font-family: &quot;PT Serif&quot;,Georgia,serif;color: #353638;text-align: center;">You can login using your {{name}} and password correctly.</p>
+          
+                      </td>
+                    </tr>
+                  </tbody></table>
+
+</div>
 {% endblock %}

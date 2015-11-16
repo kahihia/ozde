@@ -241,7 +241,7 @@ def loadcitylist(request):
 	To load the City Name and Id in Database
 	"""
 	from collections import OrderedDict
-
+	from django.conf import settings
 	GO = goibiboAPI(settings.API_USERNAME, settings.API_PASSWORD)
 
 	getcityresponse = GO.getHotelsByCity()
@@ -1333,7 +1333,8 @@ def profile_details(request):
 def settings(request):
 
 	obj=User.objects.get(id=request.user.id)
-	obj.set_password('password')
+	obj.password=request.POST.get('password')
+	obj.set_password('obj.password')
  	obj.save()
 	# user = request.user
 	# user=User.objects.get(id=request.user.id)
