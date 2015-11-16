@@ -143,6 +143,115 @@
          }
     });
     $(document).ready(function() {
+		function validateEmail(email)
+			{
+			 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+			 if (reg.test(email)){
+			 	return true; }
+			 else{
+			 	return false;
+			 }
+			}
+		$('#reg_password').keyup(function(){
+	        $('#reg_result').html(checkStrength($('#password').val()));
+	    });
+		function checkStrength(password){
+		    //initial strength
+		    var strength = 0
+		    //if the password length is less than 6, return message.
+		    if (password.length < 6) {
+		        $('#result').removeClass()
+		        $('#result').addClass('short')
+		        return 'Too short'
+		    }
+		    //length is ok, lets continue.
+		    //if length is 8 characters or more, increase strength value
+		    if (password.length > 7) strength += 1
+		    //if password contains both lower and uppercase characters, increase strength value
+		    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/))  strength += 1
+		    //if it has numbers and characters, increase strength value
+		    if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/))  strength += 1
+		    //if it has one special character, increase strength value
+		    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/))  strength += 1
+		    //if it has two special characters, increase strength value
+		    if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,",%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+		    //now we have calculated strength value, we can return messages
+		    //if value is less than 2
+		    if (strength < 2 ) {
+		        $('#reg_result').removeClass()
+		        $('#reg_result').addClass('weak')
+		        return 'Weak'
+		    } else if (strength == 2 ) {
+		        $('#reg_result').removeClass()
+		        $('#reg_result').addClass('good')
+		        return 'Good'
+		    } else {
+		        $('#reg_result').removeClass()
+		        $('#reg_result').addClass('strong')
+		        return 'Strong'
+		    }
+		}
+
+		$('#reg_mobile').keyup(function(){
+			var mobile = document.getElementById('reg_mobile');
+			var message = document.getElementById('reg_mobile_check');
+			var goodColor = "#0C6";
+			var badColor = "#FF9B37";
+			if(mobile.value.length!=10){
+			mobile.style.backgroundColor = badColor;
+			message.style.color = badColor;
+			message.innerHTML = "required 10 digits, match requested format!"
+			}
+		});
+
+		$('#reg_submit').click(function(){
+			if($('#reg_name').val()== ''){
+				$('.reg_name_error').show();
+				return false;
+			}
+			else{
+				$('.reg_name_error').hide();
+			}
+			if($('#reg_email').val()== ''){
+				$('.reg_email_error').show();
+				return false;
+			}
+			else{
+				$('.reg_email_error').hide();
+			}
+			if(validateEmail($('#reg_email').val())){
+				$('.reg_email_error').hide();
+			}
+			else{
+				$('.reg_email_error').show();
+				return false;
+			}
+			if($('#reg_password').val()== ''){
+				$('.reg_password_error').show();
+				return false;
+			}
+			else{
+				$('.reg_password_error').hide();
+			}
+			if($('#reg_mobile').val()== ''){
+				$('.reg_mobile_error').show();
+				return false;
+			}
+			else{
+				$('.reg_mobile_error').hide();
+			}
+			if($('#reg_dob').val()== ''){
+				$('.reg_dob_error').show();
+				return false;
+			}
+			else{
+				$('.reg_dob_error').hide();
+				return true;
+			}
+
+		});
+
+
     	$('.hotel_tab_act').click(function(){
     		$('#tab-3').hide();
     		$('#tab-4').hide();
