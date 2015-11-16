@@ -1,11 +1,11 @@
 
 .num-circle
 {
-	padding:2px 8px;background:#DBD4D4;border-radius:50%;	
+	padding:2px 8px;background:#DBD4D4;border-radius:50%;
 }
 .bold
 {
-	font-weight:bold;		
+	font-weight:bold;
 }
 li
 {
@@ -415,5 +415,5 @@ li
 }
 
 .deck370 {  min-width:370px !important;}
-.deck430 { min-width:430px !important; }
+.deck430 { min-width:553px !important; }
 .deck410 { min-width:410px !important; min-height:105px !important;}

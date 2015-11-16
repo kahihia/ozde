@@ -11,7 +11,7 @@
     <meta name="description" content="Traveler - Premium template for travel companies">
     <meta name="author" content="Tsoy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
 
     <!-- GOOGLE FONTS -->
     <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
@@ -41,7 +41,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
-                            <a class="logo" href="{%url "hotels.views.home" %}">
+                            <a class="logo" href="/">
                                 <img src="{{ STATIC_URL }}img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
                             </a>
                         </div>
@@ -71,37 +71,7 @@
                 </div>
             </div>
             <div class="container">
-                <div class="nav">
-                    <ul class="slimmenu" id="slimmenu">
-                        <li class="active"><a href="{%url "hotels.views.home" %}">Home</a>
-                        </li>
-                        <li><a href="{%url "hotels.views.home" %}">Hotels</a>
-                            <ul>
-                                <li><a href="/bookingstatus/">Booking status</a>
-                                </li>
-                                <li><a href="/cancelhotel/">Cancel Booking</a>
-                                
-                                </li>
-                                <li><a href="/bookinginfo/">Booking details</a>
-                                    
-                                </li>
-                                <li><a href="/refund/">Refund status</a>  
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="{%url "hotels.views.home" %}">Bus</a>
-                            <ul>
-                                <li><a href="/busbookstatus/">Booking status</a>
-                                    
-                                </li>
-                                <li><a href="/buscancelticket/">Cancel Ticket</a>
-                        
-                                </li>
-                
-                            </ul>
-                        </li> 
-                    </ul>
-                </div>
+
             </div>
         </header>
         {% if request.REQUEST.error %}
@@ -110,7 +80,7 @@
             {%endfor%}
         {%endif%}
         {% block content %}
-        
+
         {% endblock %}
         <footer id="main-footer">
             <div class="container">
@@ -180,8 +150,8 @@
             </div>
         </footer>
 
-                
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">        
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
         <script src="{% static "js/bootstrap.js" %}"></script>
@@ -204,8 +174,7 @@
         <script src="{% static "js/countdown.js" %}"></script>
         <script src="{% static "js/gridrotator.js" %}"></script>
         <script src="{% static "js/custom.js" %}"></script>
-        
+
     </div>
 </body>
 </html>
-

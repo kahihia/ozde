@@ -68,7 +68,7 @@
                             <div class="well borderradious5">
                             	<h5 class="nomargin marginbottom10 bold">Your Search</h5>
                                 <p><i class="fa fa-check"></i> {{hotels.0.c}} </p>
-                                <p><i class="fa fa-check"></i> {{no_night}} Guest</p>
+                                <p><i class="fa fa-check"></i> {{guest}} Guest</p>
                                 <p><i class="fa fa-check"></i> {{no_night}} nights<br/><span class="left10">({{change_datefmt_checkin}} - {{change_datefmt_checkout}})</span></p>
                                 <a href="{% url "hotels.views.home_v2" %}"><button class="btn btn-primary borderradious3">Change Search</button></a>
                             </div>
@@ -246,15 +246,14 @@
                                    class="btn custom_tooltip" id="more" title="More details about the hotel" style="background:#ff7518" />
                                 </div>
                             </div>
-
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <input type="hidden" name="joindata" id="joindata" value="<%= joindata %>     " />
-                                    <input type="hidden" name="hc" id="hc" value="<%= hotelcode %>" />
-                                    <input type="hidden" name="ibp" id="ibp" value="<%= ibp %>" />
-                                    <input type="hidden" name="fwdp" id="fwdp" value="<%= fwdp %>" />
-                                    </form>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="joindata" id="joindata" value="<%= joindata %>     " />
+                <input type="hidden" name="hc" id="hc" value="<%= hotelcode %>" />
+                <input type="hidden" name="ibp" id="ibp" value="<%= ibp %>" />
+                <input type="hidden" name="fwdp" id="fwdp" value="<%= fwdp %>" />
+            </form>
         </script>
         <div class="container">
           <div class="row">

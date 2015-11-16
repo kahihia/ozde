@@ -16,6 +16,9 @@
 				{
 				todayHighlight: true,
 				startDate: today,
+				onRender: function(date) {
+					return date.valueOf() < today.valueOf() ? 'disabled' : '';
+				},
 			    format: 'dd/mm/yyyy',
 			    orientation: "top left",
 			    autoclose: true,
@@ -27,6 +30,9 @@
 				{
 				todayHighlight: true,
 				startDate: today,
+				onRender: function(date) {
+					return date.valueOf() < today.valueOf() ? 'disabled' : '';
+				},
 			    format: 'dd/mm/yyyy',
 			    orientation: "top left",
 			    autoclose: true,
@@ -38,6 +44,9 @@
 				{
 				todayHighlight: true,
 				startDate: today,
+				onRender: function(date) {
+					return date.valueOf() < today.valueOf() ? 'disabled' : '';
+				},
 			    format: 'dd/mm/yyyy',
 			    orientation: "bottom auto",
 			    autoclose: true,
@@ -49,6 +58,9 @@
 				{
 				todayHighlight: true,
 				startDate: today,
+				onRender: function(date) {
+					return date.valueOf() < today.valueOf() ? 'disabled' : '';
+				},
 			    format: 'dd/mm/yyyy',
 			    orientation: "bottom auto",
 			    autoclose: true,
@@ -62,7 +74,9 @@
 			    format: 'yyyy-mm-dd',
 			    orientation: "bottom auto",
 			    autoclose: true,
-			});
+			}).on('changeDate', function(e) {
+			$('#datepicker5').datepicker('hide');
+        	});
 
 			var checkin = $('#datepicker7').datepicker({
 				format: 'dd/mm/yyyy',
@@ -143,25 +157,25 @@
          }
     });
     $(document).ready(function() {
-		function validateEmail(email)
-			{
-			 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-			 if (reg.test(email)){
-			 	return true; }
-			 else{
-			 	return false;
-			 }
-			}
+
 		$('#reg_password').keyup(function(){
-	        $('#reg_result').html(checkStrength($('#password').val()));
+	        $('#reg_result').html(checkStrength($('#reg_password').val()));
 	    });
+		$("#reg_mobile").keypress(function (e) {
+     		//if the letter is not digit then display error and don't type anything
+		     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        	//display error message
+        	$("#digit_only").html("Digits Only").show().fadeOut("slow");
+            return false;
+    		}
+   		});
 		function checkStrength(password){
 		    //initial strength
 		    var strength = 0
 		    //if the password length is less than 6, return message.
 		    if (password.length < 6) {
-		        $('#result').removeClass()
-		        $('#result').addClass('short')
+		        $('#reg_result').removeClass();
+		        $('#reg_result').addClass('short');
 		        return 'Too short'
 		    }
 		    //length is ok, lets continue.
@@ -178,16 +192,16 @@
 		    //now we have calculated strength value, we can return messages
 		    //if value is less than 2
 		    if (strength < 2 ) {
-		        $('#reg_result').removeClass()
-		        $('#reg_result').addClass('weak')
+		        $('#reg_result').removeClass();
+		        $('#reg_result').addClass('weak');
 		        return 'Weak'
 		    } else if (strength == 2 ) {
-		        $('#reg_result').removeClass()
-		        $('#reg_result').addClass('good')
+		        $('#reg_result').removeClass();
+		        $('#reg_result').addClass('good');
 		        return 'Good'
 		    } else {
-		        $('#reg_result').removeClass()
-		        $('#reg_result').addClass('strong')
+		        $('#reg_result').removeClass();
+		        $('#reg_result').addClass('strong');
 		        return 'Strong'
 		    }
 		}
@@ -196,13 +210,19 @@
 			var mobile = document.getElementById('reg_mobile');
 			var message = document.getElementById('reg_mobile_check');
 			var goodColor = "#0C6";
-			var badColor = "#FF9B37";
+			var badColor = "#a490da";
 			if(mobile.value.length!=10){
 			mobile.style.backgroundColor = badColor;
 			message.style.color = badColor;
-			message.innerHTML = "required 10 digits, match requested format!"
+			message.innerHTML = "required 10 digits, match requested format!";
+			}
+			else {
+				mobile.style.backgroundColor = goodColor;
+				message.style.color = goodColor;
+				message.innerHTML = "";
 			}
 		});
+
 
 		$('#reg_submit').click(function(){
 			if($('#reg_name').val()== ''){
@@ -212,21 +232,22 @@
 			else{
 				$('.reg_name_error').hide();
 			}
+
+			var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+
 			if($('#reg_email').val()== ''){
 				$('.reg_email_error').show();
 				return false;
 			}
+			else if (reg.test($('#reg_email').val())){
+			  $('.reg_email_error').hide();
+			  $('.reg_email_valid_error').hide();
+		  }
 			else{
-				$('.reg_email_error').hide();
+				$('.reg_email_valid_error').show();
+			   	return false;
 			}
-			if(validateEmail($('#reg_email').val())){
-				$('.reg_email_error').hide();
-			}
-			else{
-				$('.reg_email_error').show();
-				return false;
-			}
-			if($('#reg_password').val()== ''){
+			if($('#reg_password').val().trim()== ''){
 				$('.reg_password_error').show();
 				return false;
 			}
@@ -240,13 +261,13 @@
 			else{
 				$('.reg_mobile_error').hide();
 			}
-			if($('#reg_dob').val()== ''){
-				$('.reg_dob_error').show();
-				return false;
-			}
-			else{
+			if($('#datepicker5').val()){
 				$('.reg_dob_error').hide();
 				return true;
+			}
+			else{
+				$('.reg_dob_error').show();
+				return false;
 			}
 
 		});
@@ -686,21 +707,31 @@
 	        return false;
 
 	    }
-	    else if($('.f_destination').val() == ''){
-	    	$('.f_error_source').hide();
+		else{
+			$('.f_error_source').hide();
+		}
+	    if($('.f_destination').val() == ''){
 	        $('.f_error_destination').show();
 	        return false;
 	    }
-	    else if($('.f_source').val() == $('.f_destination').val()){
+		else{
+			$('.f_error_destination').hide();
+		}
+	    if($('.f_source').val() == $('.f_destination').val()){
 	        $('.error_same').show();
-
 	        return false;
 	    }
-	    else if($('.f_start_date').val() == ''){
+		else{
+			$('.error_same').hide();
+		}
+	    if($('.f_start_date').val() == ''){
 	        $('.f_error_start').show();
 	        return false;
 	    }
-	    else if($('#round').is(':checked')) {
+		else{
+			$('.f_error_start').hide();
+		}
+	    if($('#round').is(':checked')) {
 	    	if($('.f_end_date').val() == ''){
 	        	$('.f_error_end').show();
 	        return false;
@@ -711,11 +742,13 @@
 	     	}
 	    }
 		else if (parseInt($('#flight_adults').val())+parseInt($('#flight_childs').val())+parseInt($('#flight_infants').val()) > 9) {
-			alert(parseInt($('#flight_adults').val())+parseInt($('#flight_childs').val())+parseInt($('#flight_infants').val()));
 			$('.f_traveller').show();
 			return false;
 		}
-		else if (parseInt($('#flight_adults').val())>parseInt($('#flight_infants').val())) {
+		else{
+			$('.f_traveller').hide();
+		}
+		if (parseInt($('#flight_adults').val())>parseInt($('#flight_infants').val())) {
 			return true;
 		}
 	    else{

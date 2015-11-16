@@ -1040,7 +1040,7 @@ textarea.form-control
   margin:10px 0px 10px 0px !important;
 
 }
-.home_form_bus label{
+.home_form_bus label,.home_form_flight label{
   margin:0px 0px 0px 10px !important;
 }
 /*end of popup*/

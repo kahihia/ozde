@@ -26,7 +26,7 @@
                                         {% if msg %}<h5>{{msg}}</h5>{% endif %}
                                         <form action="{% url "hotels.views.login_user_v2" %}" method="post">
                                         {% csrf_token %}
-                                            <input type="text" class="form-control marginbottom10" name="username" placeholder="Email*" />
+                                            <input type="text" class="form-control marginbottom10" name="username" placeholder="Username*" />
                                             <input type="password" class="form-control" name="password" placeholder="Password*" />
                                             <label class="control-label"><input type="checkbox" /> Keep me logged in</label>
                                             <br>

@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block content %} 
+{% block content %}
 
 <div class="container">
 <h2>HOTELS</h2>
+{% if trans_details_hotel %}
 {% for details in trans_details_hotel %}
 	Name:{{details.userprofile.user.username}}<br/>
  	Hotel Name:{{details.hotelname}}<br/>
@@ -14,7 +15,11 @@
  	No. of Rooms:{{details.rooms}}<br/>
  	Amount:{{details.amount}}<br/><br/><br/>
 {% endfor %}
+{% else %}
+	<h3>You have not any Booking</h3>
+{% endif %}
 <h2>BUS</h2>
+{% if trans_details_bus %}
 {% for details in trans_details_bus %}
 	Name:{{details.userprofile.user.username}}<br/>
  	Trip:{{details.trip}}<br/>
@@ -26,5 +31,8 @@
  	{% endif %}
  	Total Seats:{{details.totalseats}}<br/><br/><br/>
 {% endfor %}
+{% else %}
+	<h3>You have not any Booking</h3>
+{% endif %}
 </div>
-{% endblock %}  
+{% endblock %}

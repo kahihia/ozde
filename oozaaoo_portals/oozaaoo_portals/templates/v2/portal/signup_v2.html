@@ -29,25 +29,27 @@
                                         <form action="{% url "hotels.views.registration_v2" %}" method="post" id="register">
                                             {% csrf_token %}
                                         <div class="marginbottom10">
-                                            <input type="text" class="form-control" name="username" placeholder="Name*" id="reg_name"/>
+                                            <input type="text" class="form-control" name="username" placeholder="Name*" id="reg_name" autocomplete="off"/>
                                             <span class="reg_name_error" style="color:red;display:none">Please Enter Your Name</span>
                                         </div>
                                          <div class="marginbottom10">
-                                            <input type="email" class="form-control" name="email" placeholder="Email*" id="reg_email" />
+                                            <input type="email" class="form-control" name="email" placeholder="Email*" id="reg_email" autocomplete="off"/>
                                             <span class="reg_email_error" style="color:red;display:none">Please Enter Your Email</span>
+                                            <span class="reg_email_valid_error" style="color:red;display:none">Please Enter valid Email</span>
                                         </div>
                                         <div class="marginbottom10">
-                                            <input type="password" class="form-control" name="password" placeholder="Create Password*" id="reg_password"/>
+                                            <input type="password" class="form-control" name="password" placeholder="Create Password*" id="reg_password" autocomplete="off"/>
                                             <span id="reg_result"></span>
                                             <span class="reg_password_error" style="color:red;display:none">Please Enter Valid password</span>
                                         </div>
                                          <div class="marginbottom10">
-                                            <input class="form-control" placeholder="Mobile no" type="text" name="phone" id="reg_mobile"/>
+                                            <input class="form-control" placeholder="Mobile no" type="text" name="phone" id="reg_mobile" autocomplete="off"/>
                                             <span class="reg_mobile_error" style="color:red;display:none">Please Enter Valid Mobile Number</span>
                                             <span id="reg_mobile_check"></span>
+                                            <span id="digit_only"></span>
                                         </div>
                                         <div class="input-group dob marginbottom10">
-                                            <input class="form-control dob text-center" id="datepicker5" name="dob" type="text" placeholder="Date of Birth" value="" id="reg_dob"/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input class="form-control dob text-center" id="datepicker5" name="dob" type="text" placeholder="Date of Birth" value="" autocomplete="off"/><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             <span class="reg_dob_error" style="color:red;display:none">Please Select Your Date of Birth</span>
                                         </div>
 
