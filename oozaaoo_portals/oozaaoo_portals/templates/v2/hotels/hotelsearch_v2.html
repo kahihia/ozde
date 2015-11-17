@@ -178,34 +178,33 @@
         <script>
             var services = [
             {% for hotel in hotels%}
-            {% if hotel.ibp %}
-
-                {
-                    "image":"{{hotel.t}}",
-                    "hotelname": "{{hotel.hn}}",
-                    "starcount":"{{hotel.hr}}",
-                    {% if hotel.hr == 1 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 2 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 3 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 4 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 5 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% endif %}
-                    "title": "{{hotel.hn}}",
-                    "amount": "{{hotel.mp}}",
-                    "facility":"{% for fm1 in hotel.fm %}{% if fm1 == 'Free Internet' %}<i class='wifi'></i>{% elif fm1 == 'Laundry Service' %}<i class='room-serve'></i>{% elif fm1 == 'Room Service' %}<i class='room-serve'></i>{% elif fm1 == 'Swimming Pool' %}<i class='swimming'></i>{% elif fm1 == 'Restaurant/Coffee Shop' %}<i class='rest-chair'></i>{% endif %}{% endfor %}",
-                    "location": "{{hotel.l}}",
-                    "goibiborating":"{{hotel.gr}}",
-                    "joindata":"{{joindata}}",
-                    "hotelcode":"{{hotel.hc}}",
-                    "ibp":"{{hotel.ibp}}",
-                    "fwdp":"{{hotel.fwdp}}"
-                },
-            {% endif %}
+                {% if hotel.ibp %}
+                    {
+                        "image":"{{hotel.t}}",
+                        "hotelname": "{{hotel.hn}}",
+                        "starcount":"{{hotel.hr}}",
+                        {% if hotel.hr == 1 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 2 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 3 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 4 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 5 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% endif %}
+                        "title": "{{hotel.hn}}",
+                        "amount": "{{hotel.mp}}",
+                        "facility":"{% for fm1 in hotel.fm %}{% if fm1 == 'Free Internet' %}<i class='wifi'></i>{% elif fm1 == 'Laundry Service' %}<i class='room-serve'></i>{% elif fm1 == 'Room Service' %}<i class='room-serve'></i>{% elif fm1 == 'Swimming Pool' %}<i class='swimming'></i>{% elif fm1 == 'Restaurant/Coffee Shop' %}<i class='rest-chair'></i>{% endif %}{% endfor %}",
+                        "location": "{{hotel.l}}",
+                        "goibiborating":"{{hotel.gr}}",
+                        "joindata":"{{joindata}}",
+                        "hotelcode":"{{hotel.hc}}",
+                        "ibp":"{{hotel.ibp}}",
+                        "fwdp":"{{hotel.fwdp}}"
+                    },
+                {% endif %}
             {% endfor %}
             ];
         </script>
