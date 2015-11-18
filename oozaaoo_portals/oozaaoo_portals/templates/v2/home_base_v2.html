@@ -36,7 +36,7 @@
 {% if request.path == "/" %}
 <body class="home_bg">
 {% else %}
-<body>
+<body class="home_bg">
 {% endif %}
     {% if request.REQUEST.error %}
         {%for message in messages%}

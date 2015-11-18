@@ -93,7 +93,8 @@ def registration_v2(request):
 			p.save()
 			message = "You have successfully completed registration."
 			if request.POST['next']:
-				messages.add_message(request, messages.INFO,message)
+				print 'yest'
+				messages.add_message(request, messages.INFO,"You have successfully completed registration.")
 				return HttpResponseRedirect(request.POST["next"])
 
 			return render_to_response('v2/portal/signup_v2.html', {'message':message},context_instance=RequestContext(request))
@@ -110,10 +111,11 @@ def login_user_v2(request):
 	"""
 	Login User
 	"""
+	print request.environ['HTTP_HOST']
 	logout(request)
 	username = password = ''
 	if request.method == "POST" :
-		if request.POST["next"] != "http://localhost:8000/v2/register/" :
+		if request.POST["next"] != request.environ['HTTP_HOST']+"/v2/register/" :
 			username = request.POST['username']
 			password = request.POST['password']
 			user = authenticate(username=username, password=password)
@@ -176,12 +178,13 @@ def myprofile(request):
 	return render_to_response('myprofile.html',{'user':user,'userprofile':userprofile}, context_instance=RequestContext(request))
 
 def mybooking(request):
-	user = request.user
-	userprofile=UserProfile.objects.get(user_id=user.id)
-	trans_details=Order.objects.filter(userprofile_id=userprofile.id)
-
-	return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
-
+	try:
+		user = request.user
+		userprofile=UserProfile.objects.get(user_id=user.id)
+		trans_details=Order.objects.filter(userprofile_id=userprofile.id)
+		return render_to_response('mybooking.html',{'trans_details':trans_details}, context_instance=RequestContext(request))
+	except:
+		return render_to_response('mybooking.html', context_instance=RequestContext(request))
 def home(request):
 	"""
 	Home Page for Travel Portal
@@ -488,19 +491,19 @@ def gethotellist_v2(request):
 
 			if rooms4=='4':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)+"-"+unicode(adults4)+"_"+unicode(nochildrens4)+"_"+unicode(childage1_4)+"_"+unicode(childage2_4)
-				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)
+				guest=int(adults1)+int(adults2)+int(adults3)+int(adults4)+int(nochildrens1)+int(nochildrens2)+int(nochildrens3)+int(nochildrens4)
 				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)+int(nochildrens4)
 			elif rooms3=='3':
 				joindata= unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms3)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)+"-"+unicode(adults3)+"_"+unicode(nochildrens3)+"_"+unicode(childage1_3)+"_"+unicode(childage2_3)
-				guest=int(adults1)+int(adults2)+int(adults3)
+				guest=int(adults1)+int(adults2)+int(adults3)+nt(nochildrens1)+int(nochildrens2)+int(nochildrens3)
 				child=int(nochildrens1)+int(nochildrens2)+int(nochildrens3)
 			elif rooms2=='2':
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms2)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)+"-"+unicode(adults2)+"_"+unicode(nochildrens2)+"_"+unicode(childage1_2)+"_"+unicode(childage2_2)
-				guest=int(adults1)+int(adults2)
+				guest=int(adults1)+int(adults2)+int(nochildrens1)+int(nochildrens2)
 				child=int(nochildrens1)+int(nochildrens2)
 			else:
 				joindata = unicode(cityid)+"-"+unicode(checkinvalue)+"-"+unicode(checkoutvalue)+"-"+unicode(rooms1)+"-"+unicode(adults1)+"_"+unicode(nochildrens1)+"_"+unicode(childage1_1)+"_"+unicode(childage2_1)
-				guest=int(adults1)
+				guest=int(adults1)+int(nochildrens1)
 				child=int(nochildrens1)
 
 			from datetime import datetime
@@ -516,7 +519,7 @@ def gethotellist_v2(request):
  			change_datefmt_checkout=(date_object_checkout.strftime('%b %d, %Y'))
 
 
-			response = render_to_response("v2/hotels/hotelsearch_v2.html", {'change_datefmt_checkin': change_datefmt_checkin, 'change_datefmt_checkout': change_datefmt_checkout, 'no_night':no_night, 'city':city, 'hotels':hotels, 'guest':guest, 'joindata':joindata, 'locations':filtered_location}, context_instance=RequestContext(request))
+			response = render_to_response("v2/hotels/hotelsearch_v2.html", {'change_datefmt_checkin': change_datefmt_checkin, 'change_datefmt_checkout': change_datefmt_checkout, 'no_night':no_night, 'city':city, 'hotels':hotels, 'guest':unicode(guest), 'joindata':joindata, 'locations':filtered_location}, context_instance=RequestContext(request))
 			response.set_cookie( 'joindata', joindata )
 			response.set_cookie( 'checkin', checkin )
 			response.set_cookie( 'checkinvalue', checkinvalue )

@@ -154,7 +154,7 @@ $(document).ready(function() {
                                                                     <div class="clear_both"> </div>
                                                                 </div><!-- clone_add_room_act -->
                                                     </div><!-- add_room_holder -->
-                                                    <button id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act fl" >ADD ROOMS</button>
+                                                    <button id="addroom"  class="add_btn btn btn-primary btn-sm hotel add_room_act fl" >Add Rooms</button>
                                                     <button id="searchBtn"  class="btn btn-primary btn-sm hotel fl" >Search for Hotels</button>
                                                     <div class="clear_both"> </div>
                                                 </div>
@@ -222,7 +222,7 @@ $(document).ready(function() {
                                         <div class="tab-pane fade in" id="tab-4">
                                             <form action="{% url "flight.views.search_flights" %}" method="post" name="search_flight" >{% csrf_token %}
                                                 <div class="flight_search">
-                                                    <div class="row">
+                                                    <div class="row home_form_flight">
                                                         <div class="col-md-6">
                                                             <input id="oneway" type="radio" name="trip" value="oneway" checked="checked" class="radio pull-left"/><label class="pull-left">One way</label>
                                                             <div class="clear_both"></div>

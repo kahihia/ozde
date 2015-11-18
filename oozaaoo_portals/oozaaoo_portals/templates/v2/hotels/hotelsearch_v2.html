@@ -68,7 +68,7 @@
                             <div class="well borderradious5">
                             	<h5 class="nomargin marginbottom10 bold">Your Search</h5>
                                 <p><i class="fa fa-check"></i> {{hotels.0.c}} </p>
-                                <p><i class="fa fa-check"></i> {{no_night}} Guest</p>
+                                <p><i class="fa fa-check"></i> {{guest}} Guest</p>
                                 <p><i class="fa fa-check"></i> {{no_night}} nights<br/><span class="left10">({{change_datefmt_checkin}} - {{change_datefmt_checkout}})</span></p>
                                 <a href="{% url "hotels.views.home_v2" %}"><button class="btn btn-primary borderradious3">Change Search</button></a>
                             </div>
@@ -178,34 +178,33 @@
         <script>
             var services = [
             {% for hotel in hotels%}
-            {% if hotel.ibp %}
-
-                {
-                    "image":"{{hotel.t}}",
-                    "hotelname": "{{hotel.hn}}",
-                    "starcount":"{{hotel.hr}}",
-                    {% if hotel.hr == 1 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 2 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 3 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 4 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% elif hotel.hr == 5 %}
-                     "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
-                    {% endif %}
-                    "title": "{{hotel.hn}}",
-                    "amount": "{{hotel.mp}}",
-                    "facility":"{% for fm1 in hotel.fm %}{% if fm1 == 'Free Internet' %}<i class='wifi'></i>{% elif fm1 == 'Laundry Service' %}<i class='room-serve'></i>{% elif fm1 == 'Room Service' %}<i class='room-serve'></i>{% elif fm1 == 'Swimming Pool' %}<i class='swimming'></i>{% elif fm1 == 'Restaurant/Coffee Shop' %}<i class='rest-chair'></i>{% endif %}{% endfor %}",
-                    "location": "{{hotel.l}}",
-                    "goibiborating":"{{hotel.gr}}",
-                    "joindata":"{{joindata}}",
-                    "hotelcode":"{{hotel.hc}}",
-                    "ibp":"{{hotel.ibp}}",
-                    "fwdp":"{{hotel.fwdp}}"
-                },
-            {% endif %}
+                {% if hotel.ibp %}
+                    {
+                        "image":"{{hotel.t}}",
+                        "hotelname": "{{hotel.hn}}",
+                        "starcount":"{{hotel.hr}}",
+                        {% if hotel.hr == 1 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 2 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 3 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 4 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% elif hotel.hr == 5 %}
+                         "stars":"<i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i><i class='fa fa-star star-yellow'></i>",
+                        {% endif %}
+                        "title": "{{hotel.hn}}",
+                        "amount": "{{hotel.mp}}",
+                        "facility":"{% for fm1 in hotel.fm %}{% if fm1 == 'Free Internet' %}<i class='wifi'></i>{% elif fm1 == 'Laundry Service' %}<i class='room-serve'></i>{% elif fm1 == 'Room Service' %}<i class='room-serve'></i>{% elif fm1 == 'Swimming Pool' %}<i class='swimming'></i>{% elif fm1 == 'Restaurant/Coffee Shop' %}<i class='rest-chair'></i>{% endif %}{% endfor %}",
+                        "location": "{{hotel.l}}",
+                        "goibiborating":"{{hotel.gr}}",
+                        "joindata":"{{joindata}}",
+                        "hotelcode":"{{hotel.hc}}",
+                        "ibp":"{{hotel.ibp}}",
+                        "fwdp":"{{hotel.fwdp}}"
+                    },
+                {% endif %}
             {% endfor %}
             ];
         </script>
@@ -246,15 +245,14 @@
                                    class="btn custom_tooltip" id="more" title="More details about the hotel" style="background:#ff7518" />
                                 </div>
                             </div>
-
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <input type="hidden" name="joindata" id="joindata" value="<%= joindata %>     " />
-                                    <input type="hidden" name="hc" id="hc" value="<%= hotelcode %>" />
-                                    <input type="hidden" name="ibp" id="ibp" value="<%= ibp %>" />
-                                    <input type="hidden" name="fwdp" id="fwdp" value="<%= fwdp %>" />
-                                    </form>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="joindata" id="joindata" value="<%= joindata %>     " />
+                <input type="hidden" name="hc" id="hc" value="<%= hotelcode %>" />
+                <input type="hidden" name="ibp" id="ibp" value="<%= ibp %>" />
+                <input type="hidden" name="fwdp" id="fwdp" value="<%= fwdp %>" />
+            </form>
         </script>
         <div class="container">
           <div class="row">

@@ -24,24 +24,24 @@
                         </div>
                         <div class="col-md-7">
                              <div class="input-group">
-                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" />
                             </div>
                         </div>
                     </div>-->
-            </div> 
+            </div>
             <div class="col-md-4 bottom10 right0">
             {% if request.user.is_authenticated %}
                         <div class="top-user-area clearfix">
                             <a href="/">{{request.user.first_name}}</a>
                             <a href="/v2/logout/">Logout</a>
                             <a href="/v2/profile">Myprofile</a>
-                            <a href="/mybooking/">MyBooking</a>
+                            
                         </div>
                     {% else %}
                         <div class="top-user-area clearfix">
                             <a href="/v2/login">Signin /</a>
                             <a href="/v2/register"> Signup</a>
-                            <a href="/mybooking/">MyBooking</a>
+
 
                         </div>
                     {% endif %}

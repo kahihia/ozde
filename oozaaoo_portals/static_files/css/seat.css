@@ -1,0 +1,477 @@
+
+.num-circle
+{
+	padding:2px 8px;background:#DBD4D4;border-radius:50%;	
+}
+.bold
+{
+	font-weight:bold;		
+}
+li
+{
+	list-style:none;
+}
+.seatlayoutContainer {
+    width: 700px;
+    margin: 15px auto
+}
+.seatLayoutBox {
+    width: 960px;
+    margin: 0 auto;
+    position: relative
+}
+.seatLayoutBox .lowRatingMessage {
+    overflow: auto;
+    border-bottom: 1px solid #ccc
+}
+.seatLayoutBox .seatLayoutClose,
+.seatLayoutBox .seatLayoutClose:active,
+.seatLayoutBox .seatLayoutClose:hover {
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+    padding: 0;
+    margin: 10px 20px
+}
+.seatLayoutBox .lowRatingMessage .summary {
+    border-bottom: 1px dotted #7F7F7F;
+    padding: 0 10px
+}
+.seatLayoutBox .lowRatingMessage .summary a {
+    display: none
+}
+.seatLayoutBox .lowRatingMessage .numRating {
+    text-decoration: underline;
+    font-weight: 700
+}
+.seatLayoutBox .lowRatingMessage ul {
+    margin: 10px auto;
+    line-height: 22px;
+    overflow: auto;
+    width: 800px
+}
+.seatLayoutBox .lowRatingMessage ul li {
+    display: none;
+    float: left;
+    width: 33%
+}
+.seatLayoutBox .ratingType {
+    width: 120px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #000;
+    text-align: center
+}
+.seatLayoutBox .ratingType span {
+    cursor: pointer;
+    border-bottom: 1px dashed #aaa
+}
+.seatLayoutBox .ratingStars {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    height: 12px;
+    width: 70px
+}
+.seatLayoutBox .ratingValue {
+    margin: 0 auto;
+    width: 60px;
+    font-size: 11px;
+    color: #000;
+    text-align: center
+}
+.seatLayoutBox .ratingMessage {
+    margin: 0 auto;
+    width: 195px;
+    font-size: 11px;
+    color: #666
+}
+.seatLayoutBox .icon-alert {
+    display: block;
+    float: left;
+    margin: 5px
+}
+.seatLayoutMain {
+    margin: 20px 0 10px;
+    background-color: #eee
+}
+.seatLayoutMain .multipleLayoutsMessage {
+    color: #999;
+    display: block;
+    text-align: center;
+    font-size: 12px
+}
+.lowRatingAlertPopup {
+    margin: 30px 10px
+}
+.lowRatingAlertPopup h4 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #d02025;
+    display: inline-block
+}
+.lowRatingAlertPopup .icon-alert_big {
+    display: block;
+    float: left;
+    margin: 4px 10px
+}
+.lowRatingAlertPopup .ratingContent {
+    margin: 5px 50px;
+    border: 1px dashed #aaa;
+    border-left: 0;
+    border-right: 0;
+    padding: 10px
+}
+.lowRatingAlertPopup .summary {
+    color: #7f7f7f;
+    margin: 12px 0;
+    font-size: 12px
+}
+.lowRatingAlertPopup .summary a {
+    display: none
+}
+.lowRatingAlertPopup h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #d02025
+}
+.lowRatingAlertPopup ul {
+    margin: 15px 0;
+    font-size: 11px
+}
+.lowRatingAlertPopup ul li {
+    margin: 10px 0
+}
+.lowRatingAlertPopup ul li .ratingType {
+    width: 81px;
+    display: inline-block
+}
+.lowRatingAlertPopup ul li .ratingValue {
+    margin: 0 10px
+}
+.lowRatingAlertPopup ul li .ratingStars {
+    display: inline-block;
+    margin: 0 10px
+}
+.lowRatingAlertPopup .continueQuestion {
+    text-align: right;
+    margin: 10px 50px 10px 0
+}
+.lowRatingAlertPopup .answerContainer {
+    margin: 10px 50px
+}
+.lowRatingAlertPopup .tip {
+    font-size: 11px;
+    float: left;
+    line-height: 27px
+}
+.lowRatingAlertPopup .tip a {
+    font-size: 11px
+}
+.lowRatingAlertPopup .answers {
+    float: right
+}
+.lowRatingAlertPopup .answers .no {
+    margin-right: 20px
+}
+.routeNote {
+    background-color: #eee;
+    padding: 10px 75px;
+    line-height: 20px;
+    border-top: 1px solid #aaa
+}
+.routeNote .icon-routeNote {
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin: 0 5px
+}
+.seatLayoutHolder {
+    margin: 15px 0
+}
+.lowerDeck,
+.upperDeck {
+    border: 1px solid #ccc;
+    float: left;
+    clear: both;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #fff;
+	min-width:350px;
+	min-height:150px;
+}
+.lowerDeck:after,
+.upperDeck:after {
+    content: "";
+    display: table;
+    clear: both
+}
+.tip {
+    font-size: 10px;
+    color: #989898;
+    display: none;
+    text-align: center
+}
+.deckLabel {
+    float: left;
+    margin: 10px;
+    margin-right: 25px
+}
+.deckLabel .label,
+.deckLabel .steeringWheel {
+    background-image: url(../img/seatlayout.png);
+    background-repeat: no-repeat
+}
+.deckLabel .steeringWheel {
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin-bottom: 10px;
+    background-position: -24px -106px
+}
+.deckLabel .label {
+    display: block;
+    width: 20px;
+    height: 50px;
+    background-position: -24px -132px
+}
+.upperDeck .deckLabel .label {
+    margin-top: 18px;
+    background-position: -52px -132px
+}
+.leftContent {
+    float: left
+}
+.rightContent {
+    float: right;
+    width: 220px;
+    padding: 5px 10px 0;
+    margin: 15px 10px 5px;
+    min-height: 175px
+}
+ {
+    color: #333;
+    font-size: 12px;
+    border-bottom: 1px solid #eee
+}
+ label {
+    line-height: 25px;
+    display: block;
+    margin: 6px 0
+}
+.seat {
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/seatlayout.png);
+    background-repeat: no-repeat;
+    margin-right: 10px
+}
+ .seat.available {
+    background-position: 0 0
+}
+ .seat.booked {
+    background-position: 0 -40px
+}
+ .seat.ladiesbooked {
+    background-position: 0 -80px
+}
+ .seat.ladies {
+    background-position: 0 -20px
+}
+ .seat.selected {
+    background-position: 0 -60px
+}
+.sleeper .seat {
+    width: 40px
+}
+.sleeper {
+    display: block;
+    float: left;
+    width: 40px;
+    height: 20px;
+    background-image: url(../img/seatlayout.png);
+    background-repeat: no-repeat;
+    margin-right: 10px
+}
+.sleeper.available {
+    background-position: -40px 0;
+}
+.sleeper.booked {
+    background-position: -40px -40px
+}
+.sleeper.ladiesbooked {
+    background-position: -40px -80px
+}
+.sleeper.ladies {
+    background-position: -40px -20px
+}
+.sleeper.selected {
+    background-position: -40px -60px
+}
+.fare {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #333;
+    line-height: 20px;
+    font-weight: 600
+}
+.fare .amount,
+.fare .seatsSelected {
+    margin: 5px 0
+}
+.fare label {
+    display: block;
+    float: left;
+    width: 95px
+}
+.fare span {
+    font-size: 11px;
+    color: #e24648;
+    display: block;
+    float: left;
+    width: 125px
+}
+.fare .fareval {
+    text-align: left
+}
+.seatLayoutHolder ul.deck {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    float: left;
+    margin: 10px
+}
+.seatLayoutHolder ul.deck li {
+    padding: 0;
+    margin: 0;
+    position: absolute
+}
+.seatLayoutHolder ul.deck li a {
+    padding: 0;
+    margin: 0;
+    background-image: url(../img/seatlayout.png);
+    background-repeat: no-repeat;
+    display: block;
+    text-decoration: none
+}
+.seatLayoutHolder ul.deck li a.seat.available {
+    background-position: 0 0
+}
+.seatLayoutHolder ul.deck li a.seat.booked {
+    background-position: 0 -40px
+}
+.seatLayoutHolder ul.deck li a.seat.ladiesbooked {
+    background-position: 0 -80px
+}
+.seatLayoutHolder ul.deck li a.seat.available.ladies {
+    background-position: 0 -20px
+}
+.seatLayoutHolder ul.deck li a.seat.available.selected {
+    background-position: 0 -60px
+}
+.seatLayoutHolder ul.deck li a.seat.available.ladies.selected {
+    background-position: -20px -60px
+}
+.seatLayoutHolder ul.deck li a.sleeperV.available {
+    background-position: -124px -0px
+}
+.seatLayoutHolder ul.deck li a.sleeperV.booked {
+    background-position: -166px -0px
+}
+.seatLayoutHolder ul.deck li a.sleeperV.ladiesbooked {
+    background-position: -207px 0
+}
+.seatLayoutHolder ul.deck li a.sleeperV.available.ladies {
+    background-position: -124px -40px
+}
+.seatLayoutHolder ul.deck li a.sleeperV.available.selected {
+    background-position: -187px 0
+}
+.seatLayoutHolder ul.deck li a.sleeperV.available.ladies.selected {
+    background-position: -187px -40px
+}
+.seatLayoutHolder ul.deck li a.sleeper.available {
+    background-position: -40px 0
+}
+.seatLayoutHolder ul.deck li a.sleeper.booked {
+    background-position: -40px -40px
+}
+.seatLayoutHolder ul.deck li a.sleeper.ladiesbooked {
+    background-position: -40px -80px
+}
+.seatLayoutHolder ul.deck li a.sleeper.available.ladies {
+    background-position: -40px -20px
+}
+.seatLayoutHolder ul.deck li a.sleeper.available.selected {
+    background-position: -40px -60px
+}
+.seatLayoutHolder ul.deck li a.sleeper.available.ladies.selected {
+    background-position: -80px -60px
+}
+.seat{
+	display:block;float:left;width:20px;height:20px;background-image:url(../img/Seatlayout.png);background-repeat:no-repeat;margin:3px;
+}
+.sleeper{
+	display:block;float:left;width:40px;height:20px;background-image:url(../img/Seatlayout.png);background-repeat:no-repeat;margin:3px;	
+}
+
+	.seat_available{
+	background-position:0 0px
+}
+	.seat_booked{
+	background-position:0 -39px
+}
+	.seat_ladies{
+	background-position:1px -18px
+}
+	.seat_selected{
+	background-position:0 -60px
+}
+	.sleeper_available{
+	background-position:-40px 0
+}
+	.sleeper_booked{
+	background-position:-40px -40px
+}
+	.sleeper_ladies{
+	background-position:-40px -20px
+}
+	.sleeper_selected{
+	background-position:-40px -60px
+}
+.sleeper_ladies_booked {
+    background-position: -40px -80px
+}
+.seat_ladies_booked {
+    background-position: -1px -79px
+}
+.seats
+{
+	float:left;
+	margin-top:10px;	
+}
+.seats td
+{
+	
+}
+.margin-left10
+{
+	margin-left:10px;	
+}
+.padding-left25
+{
+	padding-left:25px;	
+}
+.widthauto
+{
+	width:auto !important;	
+}
+.margin-right20
+{
+	margin-right:10px !important;	
+}
+.seats tr
+{
+	
+}

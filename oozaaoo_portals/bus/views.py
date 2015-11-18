@@ -360,26 +360,12 @@ def seat_v2(request):
 		results.append(v['onwardSeats'])
 		for s,i in v['onwardBPs']['GetBoardingPointsResult'].iteritems():
 			results.append(i)
-	if 'sleeper' in name and 'semi'in name and number=='(2+2)':
-		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'seater' in name and number=='(2+2)':
-		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'airbus' in name and number=='(2+2)':
-		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'semisleeper' in name and number=='(2+2)':
-		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'sleeper' in name and number=='(2+1)':
-		response= render_to_response('v2/bus/sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'sleeper' in name and number=='(1+1)':
-		response= render_to_response('v2/bus/sleeper(1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'seater/sleeper' in name and number=='(2+1)' or 'seater' in name and'sleeper' in name and number=='(2+1)':
-		response= render_to_response('v2/bus/seater_sleeper(2+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'seater' in name or 'sleeper' in name and number=='(1+1+1)':
-		response= render_to_response('v2/bus/seater(1+1+1).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
-	elif 'seater' in name and number=='(2+3)':
-		response= render_to_response('v2/bus/seater(2+3).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
+	if 'sleeper' in name :
+		response= render_to_response('v2/bus/seater.html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
+	elif 'seater' in name :
+		response= render_to_response('v2/bus/sleeper.html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 	else:
-		response= render_to_response('v2/bus/seater(2+2).html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
+		response= render_to_response('v2/bus/seater.html', {'skey':skey,'result':results,'trip':trip}, context_instance=RequestContext(request))
 
 	response.set_cookie('skey',skey)
 	if route_type == 'return':

@@ -34,11 +34,11 @@
                         </div>
                         <div class="col-md-7">
                              <div class="input-group">
-                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" /> 
+                                 <input type="text" class="form-control paddingleftright10" value="Pondicherry, Puducherry" placeholder="Search here" />
                             </div>
                         </div>
                     </div>-->
-            </div> 
+            </div>
             <div class="col-md-4 bottom10 right0">
            {% if request.user.is_authenticated %}
                         <div class="top-user-area clearfix">
@@ -59,7 +59,7 @@
 <div class="booking_details_append temp" data-spy="affix" style="display:none;">
 <form action="{% url "bus.views.tentativebooking_v2" %}" method="POST" id="booking_round">{% csrf_token %}
             <div class="container">
-                
+
                 <div class="col-md-5 temp_onward">
                     <div class="col-md-8">
                         <h4 class="nomargin"><span class="source_onward"></span> to <span class="destination_onward"></span></h4>
@@ -209,7 +209,7 @@
                 <ul class="dropdown-menu" aria-labelledby="themes">
                 {%for travels in filtered_travels %}
                 <li class="travele"><a>{{travels}}</a></li>
-                  
+
                 {%endfor%}
                  </ul>
             </div>
@@ -251,11 +251,11 @@
         <div class="row">
             {%if trip == "round" %}
             <div class="col-md-6">
-                <p class="nomargin padding10">{{source}} to {{destination}} (Going)</p> 
+                <p class="nomargin padding10">{{source}} to {{destination}} (Going)</p>
                 <div class="row">
                     {% for values in reviews %}
                         <div class="col-md-12 need_round">
-                            
+
                                 <div class="panel panel-default nomargin">
                                     <div class="panel-body">
                                         <div class="row">
@@ -270,11 +270,11 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h3 class="nomargin marginleft10">{{values.businfos.ArrivalTime}} <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: {{values.businfos.duration}}</span></h3>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <p class="light-purple">{{values.businfos.TravelsName}} <br/> <span class="size12 text-muted">{{values.businfos.BusType}}</span>
-                                        <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        <!--p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p-->
                                             </div>
                                             <div class="col-md-4">
                                                 <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> {{values.businfos.fare}}</h2>
@@ -294,8 +294,8 @@
                                                 <span class="clearfix"></span>
                                                 <p class="text-right green margintop5">{{values.seatinfo.SeatsAvailable}} Seats left</p>
                                             </div>
-                                        </div>   
-                                            
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div id="wait" style="display:none; position: relative; margin-left: 0%;"><img src='{% static 'v2/img/loading_seat.gif' %}' width="64" height="64" /><br>Loading..</div>
@@ -304,7 +304,7 @@
                                 </div>
                                 <!-- <div id="collapse-busseat-layout{{forloop.counter}}" class="panel-collapse collapse" role="tabpanel">
                                    <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
-                                        <p> 
+                                        <p>
                                         <span></span>
                                             <span><i class="available-seat"></i> Available Seat</span>
                                             <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
@@ -395,10 +395,10 @@
                                             </div>
                                             <div class="col-md-4 text-right">
                                              <br>
-                                            <button class="btn btn-primary">Confirm</button> 
+                                            <button class="btn btn-primary">Confirm</button>
                                             </div>
                                         </div>
-                                   </div>       
+                                   </div>
                                 </div> -->
                         </div>
                     {%empty%}
@@ -425,11 +425,11 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h3 class="nomargin marginleft10">{{values_return.businfos.ArrivalTime}} <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: {{values_return.businfos.duration}}</span></h3>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <p class="light-purple">{{values_return.businfos.TravelsName}}<br/> <span class="size12 text-muted">{{values_return.businfos.BusType}}</span></p>
-                                                <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                                <!--p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p-->
                                             </div>
                                             <div class="col-md-4">
                                                 <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> {{values_return.businfos.fare}}</h2>
@@ -446,20 +446,20 @@
                                                 <input type="hidden" name='skey_return'value="{{values_return.businfos.skey}}" >
                                                 <input type="hidden" value="return" name="route_type">
                                                  <a role="button" class="btn btn-primary pull-right slide" id="slide" >Choose seat</a>
-                                                
+
                                                 <span class="clearfix"></span>
                                                 <p class="text-right green margintop5">{{values_return.seatinfo.SeatsAvailable}} Seats left</p>
                                             </div>
-                                        </div>   
-                                            
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div id="wait" style="display:none; position: relative; margin-left: 50%;"><img src='{% static 'v2/img/loading_seat.gif' %}' width="64" height="64" /><br>Loading..</div>
-                                <div class="seat_map">  
+                                <div class="seat_map">
                                 </div>
                                 <!-- <div id="collapse-busseat-layout_right{{forloop.counter}}" class="panel-collapse collapse" role="tabpanel">
                                    <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
-                                        <p> 
+                                        <p>
                                         <span></span>
                                             <span><i class="available-seat"></i> Available Seat</span>
                                             <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
@@ -550,10 +550,10 @@
                                             </div>
                                             <div class="col-md-4 text-right">
                                              <br>
-                                            <button class="btn btn-primary">Confirm</button> 
+                                            <button class="btn btn-primary">Confirm</button>
                                             </div>
                                         </div>
-                                   </div>       
+                                   </div>
                                 </div> -->
                         </div>
                     {%empty%}
@@ -563,7 +563,7 @@
             </div>
             {%else%}
                 <div class="col-md-12">
-                <p class="nomargin padding10">{{source}} to {{destination}} (Going)</p> 
+                <p class="nomargin padding10">{{source}} to {{destination}} (Going)</p>
                 <div class="row">
                     {% for values in reviews %}
                         <div class="col-md-12 need_round">
@@ -581,11 +581,11 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h3 class="nomargin marginleft10">{{values.businfos.ArrivalTime}} <span class="size12 text-muted top-6"><i class="fa fa-clock-o"></i> Duration: {{values.businfos.duration}}</span></h3>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <p class="light-purple">{{values.businfos.TravelsName}} <br/> <span class="size12 text-muted">{{values.businfos.BusType}}</span>
-                                        <p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p>
+                                        <!--p><strong>Good! 3.8/5</strong> (13 reviews) <span class="size24 blue"><i class="mdi mdi-library-books"></i> <i class="mdi mdi-panorama"></i> <i class="mdi mdi-cellphone"></i></span></p-->
                                             </div>
                                             <div class="col-md-4">
                                                 <h2 class="nomargin text-right marginbottom10"><i class="fa fa-rupee"></i> {{values.businfos.fare}}</h2>
@@ -605,17 +605,17 @@
                                                 <span class="clearfix"></span>
                                                 <p class="text-right green margintop5">{{values.seatinfo.SeatsAvailable}} Seats left</p>
                                             </div>
-                                        </div>   
-                                            
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div id="wait" style="display:none"><img src='{% static 'v2/img/loading_seat.gif' %}' width="64" height="64" /><br>Loading..</div>
-                                
-                                <div class="seat_map">  
+
+                                <div class="seat_map">
                                 </div>
                                 <!-- <div id="collapse-busseat-layout{{forloop.counter}}" class="panel-collapse collapse" role="tabpanel">
                                    <div class="panel panel-default bg-lightgrey padding20 busseat-layout">
-                                        <p> 
+                                        <p>
                                         <span></span>
                                             <span><i class="available-seat"></i> Available Seat</span>
                                             <span><i class="ladies-reserved-seat"></i> Reserved for Ladies</span>
@@ -706,10 +706,10 @@
                                             </div>
                                             <div class="col-md-4 text-right">
                                              <br>
-                                            <button class="btn btn-primary">Confirm</button> 
+                                            <button class="btn btn-primary">Confirm</button>
                                             </div>
                                         </div>
-                                   </div>       
+                                   </div>
                                 </div> -->
                         </div>
                     {%empty%}
@@ -721,5 +721,4 @@
         </div>
      </div>
 </section>
- {% endblock %}        
-         
+ {% endblock %}
